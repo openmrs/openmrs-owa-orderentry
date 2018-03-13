@@ -1,0 +1,8 @@
+node_modules
+bower_components
+dist
+config.json
+webpack.config.js
+*.zip
+.nyc_output
+coverage
