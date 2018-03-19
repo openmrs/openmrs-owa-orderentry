@@ -1,16 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import OrderEntryPage from './orderEntry/OrderEntryPage';
 
-export default class App extends React.Component {
-  constructor(props){
-    super(props);
+const App = () => (
+  <Router>
+    <div id="wrap">
+      <Switch>
+        <Route
+          path="/"
+          component={OrderEntryPage}
+        />
+      </Switch>
+    </div>
+  </Router>
+);
 
-  }
-  render() {
-    return (
-      <div>
-        <h1>Hello, world!
-        </h1>
-      </div>
-    );
-  }
-}
+export default App

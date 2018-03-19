@@ -25,8 +25,8 @@ global.event = {
     target: {
     name: 'name',
     value: 'value',
-    }, 
-    preventDefault: () => sinon.stub() 
+    },
+    preventDefault: () => sinon.stub()
 };
 
 process.env.NODE_ENV = 'test';

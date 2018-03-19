@@ -1,0 +1,2603 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Patient's Information should render component 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PatientDashboard />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="row"
+        >
+          <section
+            className="col-lg-12 col-md-12 col-sm-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <h3
+                  style={
+                    Object {
+                      "marginBottom": "0",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <u>
+                     Jane 
+                  </u>
+                   
+                </h3>
+                <p
+                  className="help-block"
+                  style={
+                    Object {
+                      "fontSize": "10px",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <em>
+                     Given 
+                  </em>
+                   
+                </p>
+              </div>
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <h3
+                  style={
+                    Object {
+                      "marginBottom": "0",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <u>
+                     Doe 
+                  </u>
+                   
+                </h3>
+                <p
+                  className="help-block"
+                  style={
+                    Object {
+                      "fontSize": "10px",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <em>
+                     Family Name 
+                  </em>
+                   
+                </p>
+              </div>
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "fontSize": "14px",
+                    "marginTop": "10px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <p>
+                   Female 
+                </p>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2"
+                style={
+                  Object {
+                    "fontSize": "14px",
+                    "marginTop": "10px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <p>
+                   25 year(s) (16.Mar.1992) 
+                </p>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2"
+                style={
+                  Object {
+                    "fontSize": "12px",
+                    "marginTop": "14px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "paddingRight": "4px",
+                    }
+                  }
+                >
+                   Edit 
+                </a>
+                <a>
+                   Show Contact Info 
+                </a>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                style={
+                  Object {
+                    "fontSize": "13px",
+                    "marginTop": "12px",
+                    "padding": "0",
+                  }
+                }
+              >
+                <p>
+                   
+                  <u>
+                     
+                    <em>
+                       Patient ID 
+                    </em>
+                     
+                  </u>
+                   
+                  <span
+                    className="badge"
+                  >
+                    0957402
+                  </span>
+                   
+                </p>
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+              >
+                <a
+                  href="#"
+                >
+                  <i
+                    className="fas fa-sticky-note"
+                  />
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>,
+        <br />,
+      ],
+      "style": Object {
+        "backgroundColor": "#F9F9F9",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <section
+            className="col-lg-12 col-md-12 col-sm-12"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <h3
+                  style={
+                    Object {
+                      "marginBottom": "0",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <u>
+                     Jane 
+                  </u>
+                   
+                </h3>
+                <p
+                  className="help-block"
+                  style={
+                    Object {
+                      "fontSize": "10px",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <em>
+                     Given 
+                  </em>
+                   
+                </p>
+              </div>
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <h3
+                  style={
+                    Object {
+                      "marginBottom": "0",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <u>
+                     Doe 
+                  </u>
+                   
+                </h3>
+                <p
+                  className="help-block"
+                  style={
+                    Object {
+                      "fontSize": "10px",
+                      "marginTop": "0",
+                    }
+                  }
+                >
+                   
+                  <em>
+                     Family Name 
+                  </em>
+                   
+                </p>
+              </div>
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+                style={
+                  Object {
+                    "fontSize": "14px",
+                    "marginTop": "10px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <p>
+                   Female 
+                </p>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2"
+                style={
+                  Object {
+                    "fontSize": "14px",
+                    "marginTop": "10px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <p>
+                   25 year(s) (16.Mar.1992) 
+                </p>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2"
+                style={
+                  Object {
+                    "fontSize": "12px",
+                    "marginTop": "14px",
+                    "paddingLeft": "0",
+                    "paddingRight": "0",
+                  }
+                }
+              >
+                <a
+                  style={
+                    Object {
+                      "paddingRight": "4px",
+                    }
+                  }
+                >
+                   Edit 
+                </a>
+                <a>
+                   Show Contact Info 
+                </a>
+              </div>
+              <div
+                className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                style={
+                  Object {
+                    "fontSize": "13px",
+                    "marginTop": "12px",
+                    "padding": "0",
+                  }
+                }
+              >
+                <p>
+                   
+                  <u>
+                     
+                    <em>
+                       Patient ID 
+                    </em>
+                     
+                  </u>
+                   
+                  <span
+                    className="badge"
+                  >
+                    0957402
+                  </span>
+                   
+                </p>
+              </div>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-lg-1 col-md-1 col-sm-1"
+              >
+                <a
+                  href="#"
+                >
+                  <i
+                    className="fas fa-sticky-note"
+                  />
+                </a>
+              </div>
+            </div>
+          </section>,
+          "className": "row",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Jane 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Given 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Doe 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Family Name 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     Female 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     25 year(s) (16.Mar.1992) 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "12px",
+                      "marginTop": "14px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <a
+                    style={
+                      Object {
+                        "paddingRight": "4px",
+                      }
+                    }
+                  >
+                     Edit 
+                  </a>
+                  <a>
+                     Show Contact Info 
+                  </a>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                  style={
+                    Object {
+                      "fontSize": "13px",
+                      "marginTop": "12px",
+                      "padding": "0",
+                    }
+                  }
+                >
+                  <p>
+                     
+                    <u>
+                       
+                      <em>
+                         Patient ID 
+                      </em>
+                       
+                    </u>
+                     
+                    <span
+                      className="badge"
+                    >
+                      0957402
+                    </span>
+                     
+                  </p>
+                </div>
+              </div>,
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                >
+                  <a
+                    href="#"
+                  >
+                    <i
+                      className="fas fa-sticky-note"
+                    />
+                  </a>
+                </div>
+              </div>,
+            ],
+            "className": "col-lg-12 col-md-12 col-sm-12",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <h3
+                      style={
+                        Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <u>
+                         Jane 
+                      </u>
+                       
+                    </h3>
+                    <p
+                      className="help-block"
+                      style={
+                        Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <em>
+                         Given 
+                      </em>
+                       
+                    </p>
+                  </div>,
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <h3
+                      style={
+                        Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <u>
+                         Doe 
+                      </u>
+                       
+                    </h3>
+                    <p
+                      className="help-block"
+                      style={
+                        Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <em>
+                         Family Name 
+                      </em>
+                       
+                    </p>
+                  </div>,
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       Female 
+                    </p>
+                  </div>,
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2"
+                    style={
+                      Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       25 year(s) (16.Mar.1992) 
+                    </p>
+                  </div>,
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2"
+                    style={
+                      Object {
+                        "fontSize": "12px",
+                        "marginTop": "14px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <a
+                      style={
+                        Object {
+                          "paddingRight": "4px",
+                        }
+                      }
+                    >
+                       Edit 
+                    </a>
+                    <a>
+                       Show Contact Info 
+                    </a>
+                  </div>,
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                    style={
+                      Object {
+                        "fontSize": "13px",
+                        "marginTop": "12px",
+                        "padding": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       
+                      <u>
+                         
+                        <em>
+                           Patient ID 
+                        </em>
+                         
+                      </u>
+                       
+                      <span
+                        className="badge"
+                      >
+                        0957402
+                      </span>
+                       
+                    </p>
+                  </div>,
+                ],
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <h3
+                        style={
+                          Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <u>
+                           Jane 
+                        </u>
+                         
+                      </h3>,
+                      <p
+                        className="help-block"
+                        style={
+                          Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <em>
+                           Given 
+                        </em>
+                         
+                      </p>,
+                    ],
+                    "className": "col-lg-1 col-md-1 col-sm-1",
+                    "style": Object {
+                      "paddingRight": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " ",
+                          <u>
+                             Jane 
+                          </u>,
+                          " ",
+                        ],
+                        "style": Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": " Jane ",
+                          },
+                          "ref": null,
+                          "rendered": " Jane ",
+                          "type": "u",
+                        },
+                        " ",
+                      ],
+                      "type": "h3",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " ",
+                          <em>
+                             Given 
+                          </em>,
+                          " ",
+                        ],
+                        "className": "help-block",
+                        "style": Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": " Given ",
+                          },
+                          "ref": null,
+                          "rendered": " Given ",
+                          "type": "em",
+                        },
+                        " ",
+                      ],
+                      "type": "p",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <h3
+                        style={
+                          Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <u>
+                           Doe 
+                        </u>
+                         
+                      </h3>,
+                      <p
+                        className="help-block"
+                        style={
+                          Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <em>
+                           Family Name 
+                        </em>
+                         
+                      </p>,
+                    ],
+                    "className": "col-lg-1 col-md-1 col-sm-1",
+                    "style": Object {
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " ",
+                          <u>
+                             Doe 
+                          </u>,
+                          " ",
+                        ],
+                        "style": Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": " Doe ",
+                          },
+                          "ref": null,
+                          "rendered": " Doe ",
+                          "type": "u",
+                        },
+                        " ",
+                      ],
+                      "type": "h3",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " ",
+                          <em>
+                             Family Name 
+                          </em>,
+                          " ",
+                        ],
+                        "className": "help-block",
+                        "style": Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": " Family Name ",
+                          },
+                          "ref": null,
+                          "rendered": " Family Name ",
+                          "type": "em",
+                        },
+                        " ",
+                      ],
+                      "type": "p",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <p>
+                       Female 
+                    </p>,
+                    "className": "col-lg-1 col-md-1 col-sm-1",
+                    "style": Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": " Female ",
+                    },
+                    "ref": null,
+                    "rendered": " Female ",
+                    "type": "p",
+                  },
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <p>
+                       25 year(s) (16.Mar.1992) 
+                    </p>,
+                    "className": "col-lg-2 col-md-2 col-sm-2",
+                    "style": Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": " 25 year(s) (16.Mar.1992) ",
+                    },
+                    "ref": null,
+                    "rendered": " 25 year(s) (16.Mar.1992) ",
+                    "type": "p",
+                  },
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <a
+                        style={
+                          Object {
+                            "paddingRight": "4px",
+                          }
+                        }
+                      >
+                         Edit 
+                      </a>,
+                      <a>
+                         Show Contact Info 
+                      </a>,
+                    ],
+                    "className": "col-lg-2 col-md-2 col-sm-2",
+                    "style": Object {
+                      "fontSize": "12px",
+                      "marginTop": "14px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": " Edit ",
+                        "style": Object {
+                          "paddingRight": "4px",
+                        },
+                      },
+                      "ref": null,
+                      "rendered": " Edit ",
+                      "type": "a",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": " Show Contact Info ",
+                      },
+                      "ref": null,
+                      "rendered": " Show Contact Info ",
+                      "type": "a",
+                    },
+                  ],
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <p>
+                       
+                      <u>
+                         
+                        <em>
+                           Patient ID 
+                        </em>
+                         
+                      </u>
+                       
+                      <span
+                        className="badge"
+                      >
+                        0957402
+                      </span>
+                       
+                    </p>,
+                    "className": "col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right",
+                    "style": Object {
+                      "fontSize": "13px",
+                      "marginTop": "12px",
+                      "padding": "0",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        " ",
+                        <u>
+                           
+                          <em>
+                             Patient ID 
+                          </em>
+                           
+                        </u>,
+                        " ",
+                        <span
+                          className="badge"
+                        >
+                          0957402
+                        </span>,
+                        " ",
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      " ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            " ",
+                            <em>
+                               Patient ID 
+                            </em>,
+                            " ",
+                          ],
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": " Patient ID ",
+                            },
+                            "ref": null,
+                            "rendered": " Patient ID ",
+                            "type": "em",
+                          },
+                          " ",
+                        ],
+                        "type": "u",
+                      },
+                      " ",
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "0957402",
+                          "className": "badge",
+                        },
+                        "ref": null,
+                        "rendered": "0957402",
+                        "type": "span",
+                      },
+                      " ",
+                    ],
+                    "type": "p",
+                  },
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                >
+                  <a
+                    href="#"
+                  >
+                    <i
+                      className="fas fa-sticky-note"
+                    />
+                  </a>
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <a
+                    href="#"
+                  >
+                    <i
+                      className="fas fa-sticky-note"
+                    />
+                  </a>,
+                  "className": "col-lg-1 col-md-1 col-sm-1",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <i
+                      className="fas fa-sticky-note"
+                    />,
+                    "href": "#",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "className": "fas fa-sticky-note",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": "i",
+                  },
+                  "type": "a",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "section",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": "br",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="row"
+          >
+            <section
+              className="col-lg-12 col-md-12 col-sm-12"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Jane 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Given 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Doe 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Family Name 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     Female 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     25 year(s) (16.Mar.1992) 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "12px",
+                      "marginTop": "14px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <a
+                    style={
+                      Object {
+                        "paddingRight": "4px",
+                      }
+                    }
+                  >
+                     Edit 
+                  </a>
+                  <a>
+                     Show Contact Info 
+                  </a>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                  style={
+                    Object {
+                      "fontSize": "13px",
+                      "marginTop": "12px",
+                      "padding": "0",
+                    }
+                  }
+                >
+                  <p>
+                     
+                    <u>
+                       
+                      <em>
+                         Patient ID 
+                      </em>
+                       
+                    </u>
+                     
+                    <span
+                      className="badge"
+                    >
+                      0957402
+                    </span>
+                     
+                  </p>
+                </div>
+              </div>
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                >
+                  <a
+                    href="#"
+                  >
+                    <i
+                      className="fas fa-sticky-note"
+                    />
+                  </a>
+                </div>
+              </div>
+            </section>
+          </div>,
+          <br />,
+        ],
+        "style": Object {
+          "backgroundColor": "#F9F9F9",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <section
+              className="col-lg-12 col-md-12 col-sm-12"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Jane 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Given 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <h3
+                    style={
+                      Object {
+                        "marginBottom": "0",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <u>
+                       Doe 
+                    </u>
+                     
+                  </h3>
+                  <p
+                    className="help-block"
+                    style={
+                      Object {
+                        "fontSize": "10px",
+                        "marginTop": "0",
+                      }
+                    }
+                  >
+                     
+                    <em>
+                       Family Name 
+                    </em>
+                     
+                  </p>
+                </div>
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     Female 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "14px",
+                      "marginTop": "10px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <p>
+                     25 year(s) (16.Mar.1992) 
+                  </p>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2"
+                  style={
+                    Object {
+                      "fontSize": "12px",
+                      "marginTop": "14px",
+                      "paddingLeft": "0",
+                      "paddingRight": "0",
+                    }
+                  }
+                >
+                  <a
+                    style={
+                      Object {
+                        "paddingRight": "4px",
+                      }
+                    }
+                  >
+                     Edit 
+                  </a>
+                  <a>
+                     Show Contact Info 
+                  </a>
+                </div>
+                <div
+                  className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                  style={
+                    Object {
+                      "fontSize": "13px",
+                      "marginTop": "12px",
+                      "padding": "0",
+                    }
+                  }
+                >
+                  <p>
+                     
+                    <u>
+                       
+                      <em>
+                         Patient ID 
+                      </em>
+                       
+                    </u>
+                     
+                    <span
+                      className="badge"
+                    >
+                      0957402
+                    </span>
+                     
+                  </p>
+                </div>
+              </div>
+              <div
+                className="row"
+              >
+                <div
+                  className="col-lg-1 col-md-1 col-sm-1"
+                >
+                  <a
+                    href="#"
+                  >
+                    <i
+                      className="fas fa-sticky-note"
+                    />
+                  </a>
+                </div>
+              </div>
+            </section>,
+            "className": "row",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <h3
+                      style={
+                        Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <u>
+                         Jane 
+                      </u>
+                       
+                    </h3>
+                    <p
+                      className="help-block"
+                      style={
+                        Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <em>
+                         Given 
+                      </em>
+                       
+                    </p>
+                  </div>
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <h3
+                      style={
+                        Object {
+                          "marginBottom": "0",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <u>
+                         Doe 
+                      </u>
+                       
+                    </h3>
+                    <p
+                      className="help-block"
+                      style={
+                        Object {
+                          "fontSize": "10px",
+                          "marginTop": "0",
+                        }
+                      }
+                    >
+                       
+                      <em>
+                         Family Name 
+                      </em>
+                       
+                    </p>
+                  </div>
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                    style={
+                      Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       Female 
+                    </p>
+                  </div>
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2"
+                    style={
+                      Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       25 year(s) (16.Mar.1992) 
+                    </p>
+                  </div>
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2"
+                    style={
+                      Object {
+                        "fontSize": "12px",
+                        "marginTop": "14px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      }
+                    }
+                  >
+                    <a
+                      style={
+                        Object {
+                          "paddingRight": "4px",
+                        }
+                      }
+                    >
+                       Edit 
+                    </a>
+                    <a>
+                       Show Contact Info 
+                    </a>
+                  </div>
+                  <div
+                    className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                    style={
+                      Object {
+                        "fontSize": "13px",
+                        "marginTop": "12px",
+                        "padding": "0",
+                      }
+                    }
+                  >
+                    <p>
+                       
+                      <u>
+                         
+                        <em>
+                           Patient ID 
+                        </em>
+                         
+                      </u>
+                       
+                      <span
+                        className="badge"
+                      >
+                        0957402
+                      </span>
+                       
+                    </p>
+                  </div>
+                </div>,
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                  >
+                    <a
+                      href="#"
+                    >
+                      <i
+                        className="fas fa-sticky-note"
+                      />
+                    </a>
+                  </div>
+                </div>,
+              ],
+              "className": "col-lg-12 col-md-12 col-sm-12",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <div
+                      className="col-lg-1 col-md-1 col-sm-1"
+                      style={
+                        Object {
+                          "paddingRight": "0",
+                        }
+                      }
+                    >
+                      <h3
+                        style={
+                          Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <u>
+                           Jane 
+                        </u>
+                         
+                      </h3>
+                      <p
+                        className="help-block"
+                        style={
+                          Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <em>
+                           Given 
+                        </em>
+                         
+                      </p>
+                    </div>,
+                    <div
+                      className="col-lg-1 col-md-1 col-sm-1"
+                      style={
+                        Object {
+                          "paddingLeft": "0",
+                          "paddingRight": "0",
+                        }
+                      }
+                    >
+                      <h3
+                        style={
+                          Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <u>
+                           Doe 
+                        </u>
+                         
+                      </h3>
+                      <p
+                        className="help-block"
+                        style={
+                          Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          }
+                        }
+                      >
+                         
+                        <em>
+                           Family Name 
+                        </em>
+                         
+                      </p>
+                    </div>,
+                    <div
+                      className="col-lg-1 col-md-1 col-sm-1"
+                      style={
+                        Object {
+                          "fontSize": "14px",
+                          "marginTop": "10px",
+                          "paddingLeft": "0",
+                          "paddingRight": "0",
+                        }
+                      }
+                    >
+                      <p>
+                         Female 
+                      </p>
+                    </div>,
+                    <div
+                      className="col-lg-2 col-md-2 col-sm-2"
+                      style={
+                        Object {
+                          "fontSize": "14px",
+                          "marginTop": "10px",
+                          "paddingLeft": "0",
+                          "paddingRight": "0",
+                        }
+                      }
+                    >
+                      <p>
+                         25 year(s) (16.Mar.1992) 
+                      </p>
+                    </div>,
+                    <div
+                      className="col-lg-2 col-md-2 col-sm-2"
+                      style={
+                        Object {
+                          "fontSize": "12px",
+                          "marginTop": "14px",
+                          "paddingLeft": "0",
+                          "paddingRight": "0",
+                        }
+                      }
+                    >
+                      <a
+                        style={
+                          Object {
+                            "paddingRight": "4px",
+                          }
+                        }
+                      >
+                         Edit 
+                      </a>
+                      <a>
+                         Show Contact Info 
+                      </a>
+                    </div>,
+                    <div
+                      className="col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right"
+                      style={
+                        Object {
+                          "fontSize": "13px",
+                          "marginTop": "12px",
+                          "padding": "0",
+                        }
+                      }
+                    >
+                      <p>
+                         
+                        <u>
+                           
+                          <em>
+                             Patient ID 
+                          </em>
+                           
+                        </u>
+                         
+                        <span
+                          className="badge"
+                        >
+                          0957402
+                        </span>
+                         
+                      </p>
+                    </div>,
+                  ],
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <h3
+                          style={
+                            Object {
+                              "marginBottom": "0",
+                              "marginTop": "0",
+                            }
+                          }
+                        >
+                           
+                          <u>
+                             Jane 
+                          </u>
+                           
+                        </h3>,
+                        <p
+                          className="help-block"
+                          style={
+                            Object {
+                              "fontSize": "10px",
+                              "marginTop": "0",
+                            }
+                          }
+                        >
+                           
+                          <em>
+                             Given 
+                          </em>
+                           
+                        </p>,
+                      ],
+                      "className": "col-lg-1 col-md-1 col-sm-1",
+                      "style": Object {
+                        "paddingRight": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            " ",
+                            <u>
+                               Jane 
+                            </u>,
+                            " ",
+                          ],
+                          "style": Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": " Jane ",
+                            },
+                            "ref": null,
+                            "rendered": " Jane ",
+                            "type": "u",
+                          },
+                          " ",
+                        ],
+                        "type": "h3",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            " ",
+                            <em>
+                               Given 
+                            </em>,
+                            " ",
+                          ],
+                          "className": "help-block",
+                          "style": Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": " Given ",
+                            },
+                            "ref": null,
+                            "rendered": " Given ",
+                            "type": "em",
+                          },
+                          " ",
+                        ],
+                        "type": "p",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <h3
+                          style={
+                            Object {
+                              "marginBottom": "0",
+                              "marginTop": "0",
+                            }
+                          }
+                        >
+                           
+                          <u>
+                             Doe 
+                          </u>
+                           
+                        </h3>,
+                        <p
+                          className="help-block"
+                          style={
+                            Object {
+                              "fontSize": "10px",
+                              "marginTop": "0",
+                            }
+                          }
+                        >
+                           
+                          <em>
+                             Family Name 
+                          </em>
+                           
+                        </p>,
+                      ],
+                      "className": "col-lg-1 col-md-1 col-sm-1",
+                      "style": Object {
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            " ",
+                            <u>
+                               Doe 
+                            </u>,
+                            " ",
+                          ],
+                          "style": Object {
+                            "marginBottom": "0",
+                            "marginTop": "0",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": " Doe ",
+                            },
+                            "ref": null,
+                            "rendered": " Doe ",
+                            "type": "u",
+                          },
+                          " ",
+                        ],
+                        "type": "h3",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            " ",
+                            <em>
+                               Family Name 
+                            </em>,
+                            " ",
+                          ],
+                          "className": "help-block",
+                          "style": Object {
+                            "fontSize": "10px",
+                            "marginTop": "0",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          " ",
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": " Family Name ",
+                            },
+                            "ref": null,
+                            "rendered": " Family Name ",
+                            "type": "em",
+                          },
+                          " ",
+                        ],
+                        "type": "p",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <p>
+                         Female 
+                      </p>,
+                      "className": "col-lg-1 col-md-1 col-sm-1",
+                      "style": Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": " Female ",
+                      },
+                      "ref": null,
+                      "rendered": " Female ",
+                      "type": "p",
+                    },
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <p>
+                         25 year(s) (16.Mar.1992) 
+                      </p>,
+                      "className": "col-lg-2 col-md-2 col-sm-2",
+                      "style": Object {
+                        "fontSize": "14px",
+                        "marginTop": "10px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": " 25 year(s) (16.Mar.1992) ",
+                      },
+                      "ref": null,
+                      "rendered": " 25 year(s) (16.Mar.1992) ",
+                      "type": "p",
+                    },
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <a
+                          style={
+                            Object {
+                              "paddingRight": "4px",
+                            }
+                          }
+                        >
+                           Edit 
+                        </a>,
+                        <a>
+                           Show Contact Info 
+                        </a>,
+                      ],
+                      "className": "col-lg-2 col-md-2 col-sm-2",
+                      "style": Object {
+                        "fontSize": "12px",
+                        "marginTop": "14px",
+                        "paddingLeft": "0",
+                        "paddingRight": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": " Edit ",
+                          "style": Object {
+                            "paddingRight": "4px",
+                          },
+                        },
+                        "ref": null,
+                        "rendered": " Edit ",
+                        "type": "a",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": " Show Contact Info ",
+                        },
+                        "ref": null,
+                        "rendered": " Show Contact Info ",
+                        "type": "a",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <p>
+                         
+                        <u>
+                           
+                          <em>
+                             Patient ID 
+                          </em>
+                           
+                        </u>
+                         
+                        <span
+                          className="badge"
+                        >
+                          0957402
+                        </span>
+                         
+                      </p>,
+                      "className": "col-lg-2 col-md-2 col-sm-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 text-right",
+                      "style": Object {
+                        "fontSize": "13px",
+                        "marginTop": "12px",
+                        "padding": "0",
+                      },
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          " ",
+                          <u>
+                             
+                            <em>
+                               Patient ID 
+                            </em>
+                             
+                          </u>,
+                          " ",
+                          <span
+                            className="badge"
+                          >
+                            0957402
+                          </span>,
+                          " ",
+                        ],
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              " ",
+                              <em>
+                                 Patient ID 
+                              </em>,
+                              " ",
+                            ],
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            " ",
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": " Patient ID ",
+                              },
+                              "ref": null,
+                              "rendered": " Patient ID ",
+                              "type": "em",
+                            },
+                            " ",
+                          ],
+                          "type": "u",
+                        },
+                        " ",
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "0957402",
+                            "className": "badge",
+                          },
+                          "ref": null,
+                          "rendered": "0957402",
+                          "type": "span",
+                        },
+                        " ",
+                      ],
+                      "type": "p",
+                    },
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="col-lg-1 col-md-1 col-sm-1"
+                  >
+                    <a
+                      href="#"
+                    >
+                      <i
+                        className="fas fa-sticky-note"
+                      />
+                    </a>
+                  </div>,
+                  "className": "row",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <a
+                      href="#"
+                    >
+                      <i
+                        className="fas fa-sticky-note"
+                      />
+                    </a>,
+                    "className": "col-lg-1 col-md-1 col-sm-1",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <i
+                        className="fas fa-sticky-note"
+                      />,
+                      "href": "#",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "className": "fas fa-sticky-note",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": "i",
+                    },
+                    "type": "a",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "section",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": "br",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
