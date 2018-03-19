@@ -8,7 +8,7 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router'
+import { BrowserRouter } from 'react-router-dom'
 import {Provider} from 'react-redux'
 
 import createStore from './redux-store'
@@ -18,8 +18,8 @@ let store = createStore();
 
 render((
          <Provider store={store}>
-           <Router history={hashHistory}>
+           <BrowserRouter>
              {routes(store)}
-           </Router>
+           </BrowserRouter>
          </Provider>
        ), document.getElementById('app'));

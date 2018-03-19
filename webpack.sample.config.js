@@ -162,7 +162,7 @@ var webpackConfig = {
 	        	
 	        	
                 
-                    'react', 'react-router'
+                    'react'
                     
                         , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
                     

@@ -4,3 +4,6 @@ dist
 config.json
 webpack.config.js
 *.zip
+coverage
+.nyc_output
+package-lock.json
