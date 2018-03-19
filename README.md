@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/openmrs/openmrs-owa-orderentry.svg?branch=ORDER-29)](https://travis-ci.org/openmrs/openmrs-owa-orderentry)
-[![Coverage Status](https://coveralls.io/repos/github/openmrs/openmrs-owa-orderentry/badge.svg?branch=ORDER-29)](https://coveralls.io/github/openmrs/openmrs-owa-orderentry?branch=ORDER-29)
+[![Build Status](https://travis-ci.org/openmrs/openmrs-owa-orderentry.svg?branch=master)](https://travis-ci.org/openmrs/openmrs-owa-orderentry)
+[![Coverage Status](https://coveralls.io/repos/github/openmrs/openmrs-owa-orderentry/badge.svg?branch=master)](https://coveralls.io/github/openmrs/openmrs-owa-orderentry?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ca12a1ce3d64c76a84924e186ea4893)](https://www.codacy.com/app/openmrs/openmrs-owa-orderentry?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=openmrs/openmrs-owa-orderentry&amp;utm_campaign=Badge_Grade)
 
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
