@@ -112,7 +112,6 @@ describe('showOrders() method', () => {
   it('should call showOrders() and no click events', () => {
     const mockCallBack = jest.fn();
     const wrapper = shallow(<DraftDataTable onClick={mockCallBack} {...props} />);
-    wrapper.find('#edit-draft-order').simulate('click');
     wrapper.find('#discard-draft-order').simulate('click');
     const renderedComponent = getComponent().instance();
     sinon.spy(renderedComponent, 'showOrders');
@@ -156,6 +155,39 @@ describe('behaviour when adding an order fails', () => {
   });
 });
 
+describe('behaviour when status is not DISCONTINUE', () => {
+  it('should have edit button with no click events', () => {
+    const props = {
+      postDrugOrder: jest.fn(() => Promise.resolve(123)),
+      getOrderEntryConfigurations: jest.fn(),
+      fetchEncounterType: jest.fn(),
+      fetchEncounterRole: jest.fn(),
+      handleDiscardOneOrder: jest.fn(),
+      handleDiscardAllOrders: jest.fn(),
+      encounterRole: encounterRole.results,
+      allConfigurations,
+      sessionReducer,
+      encounterType,
+      orders,
+      patient,
+      careSetting,
+      draftOrders,
+      addedOrder: {},
+      addedOrderError: { data: { error: { message: '' } } },
+      items,
+      itemName,
+      status: 'NEW'
+    };
+    const mockCallBack = jest.fn();
+    const wrapper = shallow(<DraftDataTable onClick={mockCallBack} {...props} />);
+    wrapper.find('#edit-draft-order').simulate('click');
+    wrapper.find('#discard-draft-order').simulate('click');
+    expect(mockCallBack.mock.calls.length).toBe(0);
+    expect(wrapper.find('#edit-draft-order').length).toBe(1);
+    expect(wrapper.find('#discard-draft-order').length).toBe(1);
+  });
+});
+
 describe('details rendered by draft table', () => {
   it('should render standard dose draft order details', () => {
     const newProps = {...props, draftOrders: [standardDoseOrder]};
@@ -193,5 +225,36 @@ describe('Connected DraftDataTable component', () => {
     });
     const wrapper = shallow(<ConnectedDraftTable store={store} />);
     expect(wrapper.length).toBe(1);
+  });
+});
+
+describe('unsaved draft table buttons', () => {
+  it('should have two inputs for cancel and save buttons', () => {
+    const props = {
+      postDrugOrder: jest.fn(() => Promise.resolve(123)),
+      getOrderEntryConfigurations: jest.fn(),
+      fetchEncounterType: jest.fn(),
+      fetchEncounterRole: jest.fn(),
+      handleDiscardOneOrder: jest.fn(),
+      handleDiscardAllOrders: jest.fn(),
+      encounterRole: encounterRole.results,
+      allConfigurations,
+      sessionReducer,
+      encounterType,
+      orders,
+      patient,
+      careSetting,
+      draftOrders: [
+        { dose : ''},
+        { dose : ''}
+      ],
+      addedOrder: {},
+      addedOrderError: { data: { error: { message: '' } } },
+      items,
+      itemName,
+      status: 'NEW'
+    };
+    const wrapper = shallow(<DraftDataTable {...props} />);
+    expect(wrapper.find('input').length).toBe(2);
   });
 });

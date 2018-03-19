@@ -355,3 +355,8 @@ body {
     flex-wrap: wrap;
 }
 
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+ }
