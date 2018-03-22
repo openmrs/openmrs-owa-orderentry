@@ -11,9 +11,10 @@ module.exports = {
   collectCoverageFrom: [
     'app/js/**/*.{js,jsx}'
   ],
+  testEnvironment: "jsdom",
   roots: ['<rootDir>'],
   setupFiles: [
-    '<rootDir>/tests/setup2.js'
+    '<rootDir>/tests/setup.js'
   ],
   moduleFileExtensions: [
     'js',

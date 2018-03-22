@@ -1,9 +1,6 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
-  ],
+  "extends": "airbnb",
+  "parser": "babel-eslint",
   "plugins": [
     "react"
   ],
@@ -11,37 +8,72 @@
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "modules": true
     }
   },
   "globals": {
     "toastr": true,
-    "swal": true
+    "swal": true,
+    "window": true
   },
   "env": {
     "es6": true,
     "browser": true,
     "node": true,
     "jquery": true,
-    "mocha": true
+    "mocha": true,
+    "jest": true
   },
   "rules": {
-    "indent": [1, 2, { "SwitchCase": 1 }],
+    "indent": [
+      1,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "quotes": 0,
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
     "import/no-unresolved": 0,
-    "semi": [1, "always"],
-    "no-trailing-spaces": 0,
+    "semi": [
+      1,
+      "always"
+    ],
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-trailing-spaces": 1,
     "eol-last": 0,
     "no-unused-vars": 0,
     "no-underscore-dangle": 0,
     "no-alert": 0,
     "no-lone-blocks": 0,
     "jsx-quotes": 1,
-    "react/display-name": [ 1, {"ignoreTranspilerName": false }],
-    "react/forbid-prop-types": [1, {"forbid": ["any"]}],
+    "react/display-name": [
+      1,
+      {
+        "ignoreTranspilerName": false
+      }
+    ],
+    "react/forbid-prop-types": [
+      1,
+      {
+        "forbid": [
+          "any"
+        ]
+      }
+    ],
+    "react/prefer-stateless-function": [
+      0,
+      {
+        "ignorePureComponents": true
+      }
+    ],
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": 0,
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
@@ -71,10 +103,11 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/jsx-wrap-multilines": 1,
-     "keyword-spacing": [
-       "error", 
-       { "before": true }
-      ]
-
+    "keyword-spacing": [
+      "error",
+      {
+        "before": true
+      }
+    ]
   }
 }

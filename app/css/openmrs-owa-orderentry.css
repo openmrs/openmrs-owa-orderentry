@@ -16,41 +16,14 @@ body {
     font-size: 16px;
 }
 
-header {
-    position: relative;
-    background-color: #00463f;
-    color: #CCC;
-    line-height: 1em;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -o-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border-radius: 5px;
-    display: block;
-    min-height: 48px;
-}
-
-header .logo {
-    float: left;
-    margin: 4px;
-    display: block;
-}
-
-header .logo img {
-    width: 120px;
-}
-
-#body-wrapper {
-    margin-top: 10px;
-    padding: 10px;
+.body-wrapper {
     background-color: white;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
     -ms-border-radius: 5px;
     -khtml-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
     min-height: 500px;
     justify-content: center;
 }
@@ -70,3 +43,10 @@ header .logo img {
     align-self: center;
 }
 
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

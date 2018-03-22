@@ -1,0 +1,4 @@
+export const SET_LOCATIONS = "SET_LOCATIONS";
+export const SET_CURRENT_SESSION = "SET_CURRENT_SESSION";
+export const SET_PATIENT = "SET_PATIENT";
+export const SET_NOTE = "SET_NOTE";
