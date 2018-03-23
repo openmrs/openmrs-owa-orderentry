@@ -1,36 +1,30 @@
-//Jsdom configuration
-require('babel-register')
-const jsdom = require('jsdom');
-const sinon = require('sinon');
-
-const exposedProperties = ['window', 'navigator', 'document'];
-
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM('')).window;
-global.document = document;
-
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
-    if(typeof global[property] === 'undefined') {
-        exposedProperties.push(property);
-        global[property] = document.defaultView[property];
-    }
-});
-
-global.navigator = {
-    userAgent: 'node.js'
-};
-
-global.event = {
-    target: {
-    name: 'name',
-    value: 'value',
-    },
-    preventDefault: () => sinon.stub()
-};
-
+import expect from 'expect';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import { configure, shallow, render, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import sinon from 'sinon';
 process.env.NODE_ENV = 'test';
 
-function noop() {
-    return null;
-}
+// React 16 Enzyme adapter
+configure({ adapter: new Adapter() });
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const reader = new FileReader();
+
+require.extensions['.css'] = () => null;
+require.extensions['.png'] = () => null;
+require.extensions['.jpg'] = () => null;
+
+global.expect = expect;
+global.mount = mount;
+global.sinon = sinon;
+global.shallow = shallow;
+global.mockStore = mockStore;
+global.navigator = {
+    userAgent: 'node.js'
+  };
+global.document = document;
+
+var documentRef = document;

@@ -18,14 +18,9 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <PatientDashboard />,
+        <Connect(Dashboard) />,
         <SearchAndAddOrder />,
       ],
-      "className": "container-fluid",
-      "style": Object {
-        "paddingLeft": "0",
-        "paddingRight": "0",
-      },
     },
     "ref": null,
     "rendered": Array [
@@ -57,14 +52,9 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <PatientDashboard />,
+          <Connect(Dashboard) />,
           <SearchAndAddOrder />,
         ],
-        "className": "container-fluid",
-        "style": Object {
-          "paddingLeft": "0",
-          "paddingRight": "0",
-        },
       },
       "ref": null,
       "rendered": Array [

@@ -1,0 +1,53 @@
+ .patient-header {
+  border-radius: 5px 5px 0px 0px;
+  margin: 10px 0px 0px 0px;
+}
+
+.rotate180::before {
+  transform: rotate(180deg);
+}
+
+.preformatted-note {
+  margin: 1px;
+  padding: 0px;
+  padding-top: 1px;
+  background: white;
+  color: #e9241d;
+  font-family: "OpenSans", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
+.note-wrapper {
+  float: left;
+  max-width: 92%;
+  min-height: 20px;
+  border: solid 2px #e9241d;
+  border-radius: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background: white;
+  font-family: "OpenSans", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.secondLine {
+  clear: both;
+}
+
+.details {
+  margin-top: 3px;
+  font-size: 0.8em;
+}
+
+.created-by {
+  font-weight: bold;
+  color: #666666;
+}
+
+.created-date {
+  clear: both;
+  font-weight: normal;
+  font-size: 0.7em;
+  color: #666666;
+}

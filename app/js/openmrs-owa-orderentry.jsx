@@ -8,18 +8,20 @@
  */
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import createStore from './redux-store'
-import routes from './routes'
+import createStore from './redux-store';
+import routes from './routes';
 
-let store = createStore();
+const store = createStore();
 
-render((
-  <Provider store={store}>
-    <BrowserRouter>
-      {routes(store)}
-    </BrowserRouter>
-  </Provider>
-), document.getElementById('app'));
+render(
+  (
+    <Provider store={store}>
+      <BrowserRouter>
+        {routes(store)}
+      </BrowserRouter>
+    </Provider>
+  ), document.getElementById('app'),
+);

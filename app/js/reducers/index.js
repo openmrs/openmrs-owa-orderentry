@@ -6,10 +6,13 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
+import { combineReducers } from 'redux';
 
-// Because of the "import *" in redux-store each exported function will control a its own field in the global state
+import locationReducer from './locationReducer';
+import noteReducer from './noteReducer';
+import patientReducer from './patientReducer';
+import sessionReducer from './sessionReducer';
 
-// For example this placeholder function will set your redux state to be { replaceThis: {} } upon the first action
-export function replaceThis(state = {}, action) {
-  return state;
-}
+export default combineReducers({
+  locationReducer, noteReducer, patientReducer, sessionReducer,
+});

@@ -1,0 +1,319 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: PatientDashboard should render properly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Dashboard
+    fetchPatientNote={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            "6ecsd-jdfn-sdfdf",
+          ],
+        ],
+      }
+    }
+    fetchPatientRecord={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            "6ecsd-jdfn-sdfdf",
+          ],
+        ],
+      }
+    }
+    isLoading={false}
+    location={
+      Object {
+        "hash": "#/?patient=6ecsd-jdfn-sdfdf",
+      }
+    }
+    note={
+      Array [
+        Object {
+          "auditInfo": Object {
+            "creator": Object {
+              "display": "admin",
+            },
+            "dateCreated": 2018-03-22T23:26:15.873Z,
+          },
+          "value": "Healthy guy",
+        },
+      ]
+    }
+    patient={
+      Object {
+        "attributes": Array [
+          Object {
+            "value": "0801000000",
+          },
+        ],
+        "patientIdentifier": Object {
+          "identifier": "2001A",
+        },
+        "person": Object {
+          "age": "19",
+          "gender": "M",
+          "personName": Object {
+            "familyName": "Larrystone",
+            "givenName": "Larrystone",
+            "middleName": "Katz",
+          },
+          "preferredAddress": Object {
+            "display": "My Address",
+          },
+        },
+      }
+    }
+    showContactInfo={true}
+    toggleDetailsView={[MockFunction]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <BreadCrumb
+          name="Larrystone. Larrystone"
+          patientId={null}
+        />,
+        <View
+          note={
+            Array [
+              Object {
+                "auditInfo": Object {
+                  "creator": Object {
+                    "display": "admin",
+                  },
+                  "dateCreated": 2018-03-22T23:26:15.873Z,
+                },
+                "value": "Healthy guy",
+              },
+            ]
+          }
+          patient={
+            Object {
+              "attributes": Array [
+                Object {
+                  "value": "0801000000",
+                },
+              ],
+              "patientIdentifier": Object {
+                "identifier": "2001A",
+              },
+              "person": Object {
+                "age": "19",
+                "gender": "M",
+                "personName": Object {
+                  "familyName": "Larrystone",
+                  "givenName": "Larrystone",
+                  "middleName": "Katz",
+                },
+                "preferredAddress": Object {
+                  "display": "My Address",
+                },
+              },
+            }
+          }
+          showContactInfo={false}
+          toggleDetailsView={[Function]}
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "name": "Larrystone. Larrystone",
+          "patientId": null,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "note": Array [
+            Object {
+              "auditInfo": Object {
+                "creator": Object {
+                  "display": "admin",
+                },
+                "dateCreated": 2018-03-22T23:26:15.873Z,
+              },
+              "value": "Healthy guy",
+            },
+          ],
+          "patient": Object {
+            "attributes": Array [
+              Object {
+                "value": "0801000000",
+              },
+            ],
+            "patientIdentifier": Object {
+              "identifier": "2001A",
+            },
+            "person": Object {
+              "age": "19",
+              "gender": "M",
+              "personName": Object {
+                "familyName": "Larrystone",
+                "givenName": "Larrystone",
+                "middleName": "Katz",
+              },
+              "preferredAddress": Object {
+                "display": "My Address",
+              },
+            },
+          },
+          "showContactInfo": false,
+          "toggleDetailsView": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <BreadCrumb
+            name="Larrystone. Larrystone"
+            patientId={null}
+          />,
+          <View
+            note={
+              Array [
+                Object {
+                  "auditInfo": Object {
+                    "creator": Object {
+                      "display": "admin",
+                    },
+                    "dateCreated": 2018-03-22T23:26:15.873Z,
+                  },
+                  "value": "Healthy guy",
+                },
+              ]
+            }
+            patient={
+              Object {
+                "attributes": Array [
+                  Object {
+                    "value": "0801000000",
+                  },
+                ],
+                "patientIdentifier": Object {
+                  "identifier": "2001A",
+                },
+                "person": Object {
+                  "age": "19",
+                  "gender": "M",
+                  "personName": Object {
+                    "familyName": "Larrystone",
+                    "givenName": "Larrystone",
+                    "middleName": "Katz",
+                  },
+                  "preferredAddress": Object {
+                    "display": "My Address",
+                  },
+                },
+              }
+            }
+            showContactInfo={false}
+            toggleDetailsView={[Function]}
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "name": "Larrystone. Larrystone",
+            "patientId": null,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "note": Array [
+              Object {
+                "auditInfo": Object {
+                  "creator": Object {
+                    "display": "admin",
+                  },
+                  "dateCreated": 2018-03-22T23:26:15.873Z,
+                },
+                "value": "Healthy guy",
+              },
+            ],
+            "patient": Object {
+              "attributes": Array [
+                Object {
+                  "value": "0801000000",
+                },
+              ],
+              "patientIdentifier": Object {
+                "identifier": "2001A",
+              },
+              "person": Object {
+                "age": "19",
+                "gender": "M",
+                "personName": Object {
+                  "familyName": "Larrystone",
+                  "givenName": "Larrystone",
+                  "middleName": "Katz",
+                },
+                "preferredAddress": Object {
+                  "display": "My Address",
+                },
+              },
+            },
+            "showContactInfo": false,
+            "toggleDetailsView": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
