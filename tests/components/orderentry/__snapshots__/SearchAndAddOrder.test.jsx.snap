@@ -17,394 +17,154 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <div
-        className="row"
+      "children": <Tabs
+        careSetting={[Function]}
+        defaultActiveTabIndex={0}
       >
-        <br />
-        <div
-          className="col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+        <Tab
+          isActive={false}
+          onClick={[Function]}
+          tabIndex={0}
+          tabName="OutPatient"
         >
-          <ul
-            className="nav nav-tabs"
+          <form
+            className="sized-inputs css-form"
+            noValidate={true}
           >
-            <li
-              className="active"
+            <p
+              className="input-position-class"
             >
-              <a
-                data-toggle="tab"
-                href="#out-tab"
+              <label
+                name="input-id"
               >
-                Outpatient
-              </a>
-            </li>
-            <li>
-              <a
-                data-toggle="tab"
-                href="#in-tab"
-              >
-                Inpatient
-              </a>
-            </li>
-          </ul>
-          <br />
-          <div
-            className="tab-content"
-          >
-            <div
-              className="tab-pane fade"
-              id="in-tab"
-            >
-              <form
-                className="form-horizontal"
-              >
-                <div
-                  className="row"
-                >
-                  <div
-                    className="col-lg-12 col-md-12 col-sm-12"
-                  >
-                    <div
-                      className="form-group text-left"
-                    >
-                      <label
-                        className="control-label col-lg-2 col-md-3 col-sm-3"
-                        htmlFor="search"
-                      >
-                        New order for:
-                      </label>
-                      <div
-                        className="col-lg-9 col-md-9 col-sm-9"
-                      >
-                        <input
-                          className="form-control"
-                          id="search"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <ActiveOrders />
-              <PastOrders />
-            </div>
-            <div
-              className="tab-pane fade in active"
-              id="out-tab"
-            >
-              <form
-                className="form-horizontal"
-              >
-                <div
-                  className="row"
-                >
-                  <div
-                    className="col-lg-12 col-md-12 col-sm-12"
-                  >
-                    <div
-                      className="form-group"
-                    >
-                      <label
-                        className="control-label col-lg-2 col-md-2 col-sm-2"
-                        htmlFor="search2"
-                      >
-                        New order for:
-                      </label>
-                      <div
-                        className="col-lg-9 col-md-9 col-sm-9"
-                      >
-                        <input
-                          className="form-control"
-                          id="search2"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <AddForm />
-              <ActiveOrders />
-              <PastOrders />
-            </div>
-          </div>
-        </div>
-        <br />
-      </div>,
-      "className": "body-wrapper",
+                Input label
+              </label>
+              <input
+                id="input-id"
+              />
+            </p>
+          </form>
+        </Tab>
+        <Tab
+          isActive={false}
+          onClick={[Function]}
+          tabIndex={0}
+          tabName="InPatient"
+        >
+          Tab 2 content
+        </Tab>
+      </Tabs>,
     },
     "ref": null,
     "rendered": Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
+        "careSetting": [Function],
         "children": Array [
-          <br />,
-          <div
-            className="col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+          <Tab
+            isActive={false}
+            onClick={[Function]}
+            tabIndex={0}
+            tabName="OutPatient"
           >
-            <ul
-              className="nav nav-tabs"
+            <form
+              className="sized-inputs css-form"
+              noValidate={true}
             >
-              <li
-                className="active"
+              <p
+                className="input-position-class"
               >
-                <a
-                  data-toggle="tab"
-                  href="#out-tab"
+                <label
+                  name="input-id"
                 >
-                  Outpatient
-                </a>
-              </li>
-              <li>
-                <a
-                  data-toggle="tab"
-                  href="#in-tab"
-                >
-                  Inpatient
-                </a>
-              </li>
-            </ul>
-            <br />
-            <div
-              className="tab-content"
-            >
-              <div
-                className="tab-pane fade"
-                id="in-tab"
-              >
-                <form
-                  className="form-horizontal"
-                >
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col-lg-12 col-md-12 col-sm-12"
-                    >
-                      <div
-                        className="form-group text-left"
-                      >
-                        <label
-                          className="control-label col-lg-2 col-md-3 col-sm-3"
-                          htmlFor="search"
-                        >
-                          New order for:
-                        </label>
-                        <div
-                          className="col-lg-9 col-md-9 col-sm-9"
-                        >
-                          <input
-                            className="form-control"
-                            id="search"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <ActiveOrders />
-                <PastOrders />
-              </div>
-              <div
-                className="tab-pane fade in active"
-                id="out-tab"
-              >
-                <form
-                  className="form-horizontal"
-                >
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col-lg-12 col-md-12 col-sm-12"
-                    >
-                      <div
-                        className="form-group"
-                      >
-                        <label
-                          className="control-label col-lg-2 col-md-2 col-sm-2"
-                          htmlFor="search2"
-                        >
-                          New order for:
-                        </label>
-                        <div
-                          className="col-lg-9 col-md-9 col-sm-9"
-                        >
-                          <input
-                            className="form-control"
-                            id="search2"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <AddForm />
-                <ActiveOrders />
-                <PastOrders />
-              </div>
-            </div>
-          </div>,
-          <br />,
+                  Input label
+                </label>
+                <input
+                  id="input-id"
+                />
+              </p>
+            </form>
+          </Tab>,
+          <Tab
+            isActive={false}
+            onClick={[Function]}
+            tabIndex={0}
+            tabName="InPatient"
+          >
+            Tab 2 content
+          </Tab>,
         ],
-        "className": "row",
+        "defaultActiveTabIndex": 0,
       },
       "ref": null,
       "rendered": Array [
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
-          "props": Object {},
-          "ref": null,
-          "rendered": null,
-          "type": "br",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
+          "nodeType": "function",
           "props": Object {
-            "children": Array [
-              <ul
-                className="nav nav-tabs"
+            "children": <form
+              className="sized-inputs css-form"
+              noValidate={true}
+            >
+              <p
+                className="input-position-class"
               >
-                <li
-                  className="active"
+                <label
+                  name="input-id"
                 >
-                  <a
-                    data-toggle="tab"
-                    href="#out-tab"
-                  >
-                    Outpatient
-                  </a>
-                </li>
-                <li>
-                  <a
-                    data-toggle="tab"
-                    href="#in-tab"
-                  >
-                    Inpatient
-                  </a>
-                </li>
-              </ul>,
-              <br />,
-              <div
-                className="tab-content"
-              >
-                <div
-                  className="tab-pane fade"
-                  id="in-tab"
-                >
-                  <form
-                    className="form-horizontal"
-                  >
-                    <div
-                      className="row"
-                    >
-                      <div
-                        className="col-lg-12 col-md-12 col-sm-12"
-                      >
-                        <div
-                          className="form-group text-left"
-                        >
-                          <label
-                            className="control-label col-lg-2 col-md-3 col-sm-3"
-                            htmlFor="search"
-                          >
-                            New order for:
-                          </label>
-                          <div
-                            className="col-lg-9 col-md-9 col-sm-9"
-                          >
-                            <input
-                              className="form-control"
-                              id="search"
-                              type="text"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <ActiveOrders />
-                  <PastOrders />
-                </div>
-                <div
-                  className="tab-pane fade in active"
-                  id="out-tab"
-                >
-                  <form
-                    className="form-horizontal"
-                  >
-                    <div
-                      className="row"
-                    >
-                      <div
-                        className="col-lg-12 col-md-12 col-sm-12"
-                      >
-                        <div
-                          className="form-group"
-                        >
-                          <label
-                            className="control-label col-lg-2 col-md-2 col-sm-2"
-                            htmlFor="search2"
-                          >
-                            New order for:
-                          </label>
-                          <div
-                            className="col-lg-9 col-md-9 col-sm-9"
-                          >
-                            <input
-                              className="form-control"
-                              id="search2"
-                              type="text"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <AddForm />
-                  <ActiveOrders />
-                  <PastOrders />
-                </div>
-              </div>,
-            ],
-            "className": "col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1",
+                  Input label
+                </label>
+                <input
+                  id="input-id"
+                />
+              </p>
+            </form>,
+            "isActive": false,
+            "onClick": [Function],
+            "tabIndex": 0,
+            "tabName": "OutPatient",
           },
           "ref": null,
-          "rendered": Array [
-            Object {
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <p
+                className="input-position-class"
+              >
+                <label
+                  name="input-id"
+                >
+                  Input label
+                </label>
+                <input
+                  id="input-id"
+                />
+              </p>,
+              "className": "sized-inputs css-form",
+              "noValidate": true,
+            },
+            "ref": null,
+            "rendered": Object {
               "instance": null,
               "key": undefined,
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <li
-                    className="active"
+                  <label
+                    name="input-id"
                   >
-                    <a
-                      data-toggle="tab"
-                      href="#out-tab"
-                    >
-                      Outpatient
-                    </a>
-                  </li>,
-                  <li>
-                    <a
-                      data-toggle="tab"
-                      href="#in-tab"
-                    >
-                      Inpatient
-                    </a>
-                  </li>,
+                    Input label
+                  </label>,
+                  <input
+                    id="input-id"
+                  />,
                 ],
-                "className": "nav nav-tabs",
+                "className": "input-position-class",
               },
               "ref": null,
               "rendered": Array [
@@ -413,655 +173,48 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": <a
-                      data-toggle="tab"
-                      href="#out-tab"
-                    >
-                      Outpatient
-                    </a>,
-                    "className": "active",
+                    "children": "Input label",
+                    "name": "input-id",
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "Outpatient",
-                      "data-toggle": "tab",
-                      "href": "#out-tab",
-                    },
-                    "ref": null,
-                    "rendered": "Outpatient",
-                    "type": "a",
-                  },
-                  "type": "li",
+                  "rendered": "Input label",
+                  "type": "label",
                 },
                 Object {
                   "instance": null,
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": <a
-                      data-toggle="tab"
-                      href="#in-tab"
-                    >
-                      Inpatient
-                    </a>,
+                    "id": "input-id",
                   },
                   "ref": null,
-                  "rendered": Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": "Inpatient",
-                      "data-toggle": "tab",
-                      "href": "#in-tab",
-                    },
-                    "ref": null,
-                    "rendered": "Inpatient",
-                    "type": "a",
-                  },
-                  "type": "li",
+                  "rendered": null,
+                  "type": "input",
                 },
               ],
-              "type": "ul",
+              "type": "p",
             },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": "br",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <div
-                    className="tab-pane fade"
-                    id="in-tab"
-                  >
-                    <form
-                      className="form-horizontal"
-                    >
-                      <div
-                        className="row"
-                      >
-                        <div
-                          className="col-lg-12 col-md-12 col-sm-12"
-                        >
-                          <div
-                            className="form-group text-left"
-                          >
-                            <label
-                              className="control-label col-lg-2 col-md-3 col-sm-3"
-                              htmlFor="search"
-                            >
-                              New order for:
-                            </label>
-                            <div
-                              className="col-lg-9 col-md-9 col-sm-9"
-                            >
-                              <input
-                                className="form-control"
-                                id="search"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <ActiveOrders />
-                    <PastOrders />
-                  </div>,
-                  <div
-                    className="tab-pane fade in active"
-                    id="out-tab"
-                  >
-                    <form
-                      className="form-horizontal"
-                    >
-                      <div
-                        className="row"
-                      >
-                        <div
-                          className="col-lg-12 col-md-12 col-sm-12"
-                        >
-                          <div
-                            className="form-group"
-                          >
-                            <label
-                              className="control-label col-lg-2 col-md-2 col-sm-2"
-                              htmlFor="search2"
-                            >
-                              New order for:
-                            </label>
-                            <div
-                              className="col-lg-9 col-md-9 col-sm-9"
-                            >
-                              <input
-                                className="form-control"
-                                id="search2"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <AddForm />
-                    <ActiveOrders />
-                    <PastOrders />
-                  </div>,
-                ],
-                "className": "tab-content",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      <form
-                        className="form-horizontal"
-                      >
-                        <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group text-left"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-3 col-sm-3"
-                                htmlFor="search"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </form>,
-                      <ActiveOrders />,
-                      <PastOrders />,
-                    ],
-                    "className": "tab-pane fade",
-                    "id": "in-tab",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group text-left"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-3 col-sm-3"
-                                htmlFor="search"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>,
-                        "className": "form-horizontal",
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group text-left"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-3 col-sm-3"
-                                htmlFor="search"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>,
-                          "className": "row",
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": <div
-                              className="form-group text-left"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-3 col-sm-3"
-                                htmlFor="search"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search"
-                                  type="text"
-                                />
-                              </div>
-                            </div>,
-                            "className": "col-lg-12 col-md-12 col-sm-12",
-                          },
-                          "ref": null,
-                          "rendered": Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": Array [
-                                <label
-                                  className="control-label col-lg-2 col-md-3 col-sm-3"
-                                  htmlFor="search"
-                                >
-                                  New order for:
-                                </label>,
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />
-                                </div>,
-                              ],
-                              "className": "form-group text-left",
-                            },
-                            "ref": null,
-                            "rendered": Array [
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "children": "New order for:",
-                                  "className": "control-label col-lg-2 col-md-3 col-sm-3",
-                                  "htmlFor": "search",
-                                },
-                                "ref": null,
-                                "rendered": "New order for:",
-                                "type": "label",
-                              },
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "children": <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />,
-                                  "className": "col-lg-9 col-md-9 col-sm-9",
-                                },
-                                "ref": null,
-                                "rendered": Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "className": "form-control",
-                                    "id": "search",
-                                    "type": "text",
-                                  },
-                                  "ref": null,
-                                  "rendered": null,
-                                  "type": "input",
-                                },
-                                "type": "div",
-                              },
-                            ],
-                            "type": "div",
-                          },
-                          "type": "div",
-                        },
-                        "type": "div",
-                      },
-                      "type": "form",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                  ],
-                  "type": "div",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      <form
-                        className="form-horizontal"
-                      >
-                        <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-2 col-sm-2"
-                                htmlFor="search2"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search2"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </form>,
-                      <AddForm />,
-                      <ActiveOrders />,
-                      <PastOrders />,
-                    ],
-                    "className": "tab-pane fade in active",
-                    "id": "out-tab",
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-2 col-sm-2"
-                                htmlFor="search2"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search2"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>,
-                        "className": "form-horizontal",
-                      },
-                      "ref": null,
-                      "rendered": Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-2 col-sm-2"
-                                htmlFor="search2"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search2"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>,
-                          "className": "row",
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": <div
-                              className="form-group"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-2 col-sm-2"
-                                htmlFor="search2"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search2"
-                                  type="text"
-                                />
-                              </div>
-                            </div>,
-                            "className": "col-lg-12 col-md-12 col-sm-12",
-                          },
-                          "ref": null,
-                          "rendered": Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": Array [
-                                <label
-                                  className="control-label col-lg-2 col-md-2 col-sm-2"
-                                  htmlFor="search2"
-                                >
-                                  New order for:
-                                </label>,
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />
-                                </div>,
-                              ],
-                              "className": "form-group",
-                            },
-                            "ref": null,
-                            "rendered": Array [
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "children": "New order for:",
-                                  "className": "control-label col-lg-2 col-md-2 col-sm-2",
-                                  "htmlFor": "search2",
-                                },
-                                "ref": null,
-                                "rendered": "New order for:",
-                                "type": "label",
-                              },
-                              Object {
-                                "instance": null,
-                                "key": undefined,
-                                "nodeType": "host",
-                                "props": Object {
-                                  "children": <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />,
-                                  "className": "col-lg-9 col-md-9 col-sm-9",
-                                },
-                                "ref": null,
-                                "rendered": Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "className": "form-control",
-                                    "id": "search2",
-                                    "type": "text",
-                                  },
-                                  "ref": null,
-                                  "rendered": null,
-                                  "type": "input",
-                                },
-                                "type": "div",
-                              },
-                            ],
-                            "type": "div",
-                          },
-                          "type": "div",
-                        },
-                        "type": "div",
-                      },
-                      "type": "form",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "class",
-                      "props": Object {},
-                      "ref": null,
-                      "rendered": null,
-                      "type": [Function],
-                    },
-                  ],
-                  "type": "div",
-                },
-              ],
-              "type": "div",
-            },
-          ],
-          "type": "div",
+            "type": "form",
+          },
+          "type": [Function],
         },
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
-          "props": Object {},
+          "nodeType": "function",
+          "props": Object {
+            "children": "Tab 2 content",
+            "isActive": false,
+            "onClick": [Function],
+            "tabIndex": 0,
+            "tabName": "InPatient",
+          },
           "ref": null,
-          "rendered": null,
-          "type": "br",
+          "rendered": "Tab 2 content",
+          "type": [Function],
         },
       ],
-      "type": "div",
+      "type": [Function],
     },
     "type": "div",
   },
@@ -1071,394 +224,154 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <div
-          className="row"
+        "children": <Tabs
+          careSetting={[Function]}
+          defaultActiveTabIndex={0}
         >
-          <br />
-          <div
-            className="col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+          <Tab
+            isActive={false}
+            onClick={[Function]}
+            tabIndex={0}
+            tabName="OutPatient"
           >
-            <ul
-              className="nav nav-tabs"
+            <form
+              className="sized-inputs css-form"
+              noValidate={true}
             >
-              <li
-                className="active"
+              <p
+                className="input-position-class"
               >
-                <a
-                  data-toggle="tab"
-                  href="#out-tab"
+                <label
+                  name="input-id"
                 >
-                  Outpatient
-                </a>
-              </li>
-              <li>
-                <a
-                  data-toggle="tab"
-                  href="#in-tab"
-                >
-                  Inpatient
-                </a>
-              </li>
-            </ul>
-            <br />
-            <div
-              className="tab-content"
-            >
-              <div
-                className="tab-pane fade"
-                id="in-tab"
-              >
-                <form
-                  className="form-horizontal"
-                >
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col-lg-12 col-md-12 col-sm-12"
-                    >
-                      <div
-                        className="form-group text-left"
-                      >
-                        <label
-                          className="control-label col-lg-2 col-md-3 col-sm-3"
-                          htmlFor="search"
-                        >
-                          New order for:
-                        </label>
-                        <div
-                          className="col-lg-9 col-md-9 col-sm-9"
-                        >
-                          <input
-                            className="form-control"
-                            id="search"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <ActiveOrders />
-                <PastOrders />
-              </div>
-              <div
-                className="tab-pane fade in active"
-                id="out-tab"
-              >
-                <form
-                  className="form-horizontal"
-                >
-                  <div
-                    className="row"
-                  >
-                    <div
-                      className="col-lg-12 col-md-12 col-sm-12"
-                    >
-                      <div
-                        className="form-group"
-                      >
-                        <label
-                          className="control-label col-lg-2 col-md-2 col-sm-2"
-                          htmlFor="search2"
-                        >
-                          New order for:
-                        </label>
-                        <div
-                          className="col-lg-9 col-md-9 col-sm-9"
-                        >
-                          <input
-                            className="form-control"
-                            id="search2"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <AddForm />
-                <ActiveOrders />
-                <PastOrders />
-              </div>
-            </div>
-          </div>
-          <br />
-        </div>,
-        "className": "body-wrapper",
+                  Input label
+                </label>
+                <input
+                  id="input-id"
+                />
+              </p>
+            </form>
+          </Tab>
+          <Tab
+            isActive={false}
+            onClick={[Function]}
+            tabIndex={0}
+            tabName="InPatient"
+          >
+            Tab 2 content
+          </Tab>
+        </Tabs>,
       },
       "ref": null,
       "rendered": Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "host",
+        "nodeType": "class",
         "props": Object {
+          "careSetting": [Function],
           "children": Array [
-            <br />,
-            <div
-              className="col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"
+            <Tab
+              isActive={false}
+              onClick={[Function]}
+              tabIndex={0}
+              tabName="OutPatient"
             >
-              <ul
-                className="nav nav-tabs"
+              <form
+                className="sized-inputs css-form"
+                noValidate={true}
               >
-                <li
-                  className="active"
+                <p
+                  className="input-position-class"
                 >
-                  <a
-                    data-toggle="tab"
-                    href="#out-tab"
+                  <label
+                    name="input-id"
                   >
-                    Outpatient
-                  </a>
-                </li>
-                <li>
-                  <a
-                    data-toggle="tab"
-                    href="#in-tab"
-                  >
-                    Inpatient
-                  </a>
-                </li>
-              </ul>
-              <br />
-              <div
-                className="tab-content"
-              >
-                <div
-                  className="tab-pane fade"
-                  id="in-tab"
-                >
-                  <form
-                    className="form-horizontal"
-                  >
-                    <div
-                      className="row"
-                    >
-                      <div
-                        className="col-lg-12 col-md-12 col-sm-12"
-                      >
-                        <div
-                          className="form-group text-left"
-                        >
-                          <label
-                            className="control-label col-lg-2 col-md-3 col-sm-3"
-                            htmlFor="search"
-                          >
-                            New order for:
-                          </label>
-                          <div
-                            className="col-lg-9 col-md-9 col-sm-9"
-                          >
-                            <input
-                              className="form-control"
-                              id="search"
-                              type="text"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <ActiveOrders />
-                  <PastOrders />
-                </div>
-                <div
-                  className="tab-pane fade in active"
-                  id="out-tab"
-                >
-                  <form
-                    className="form-horizontal"
-                  >
-                    <div
-                      className="row"
-                    >
-                      <div
-                        className="col-lg-12 col-md-12 col-sm-12"
-                      >
-                        <div
-                          className="form-group"
-                        >
-                          <label
-                            className="control-label col-lg-2 col-md-2 col-sm-2"
-                            htmlFor="search2"
-                          >
-                            New order for:
-                          </label>
-                          <div
-                            className="col-lg-9 col-md-9 col-sm-9"
-                          >
-                            <input
-                              className="form-control"
-                              id="search2"
-                              type="text"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <AddForm />
-                  <ActiveOrders />
-                  <PastOrders />
-                </div>
-              </div>
-            </div>,
-            <br />,
+                    Input label
+                  </label>
+                  <input
+                    id="input-id"
+                  />
+                </p>
+              </form>
+            </Tab>,
+            <Tab
+              isActive={false}
+              onClick={[Function]}
+              tabIndex={0}
+              tabName="InPatient"
+            >
+              Tab 2 content
+            </Tab>,
           ],
-          "className": "row",
+          "defaultActiveTabIndex": 0,
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "host",
-            "props": Object {},
-            "ref": null,
-            "rendered": null,
-            "type": "br",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
+            "nodeType": "function",
             "props": Object {
-              "children": Array [
-                <ul
-                  className="nav nav-tabs"
+              "children": <form
+                className="sized-inputs css-form"
+                noValidate={true}
+              >
+                <p
+                  className="input-position-class"
                 >
-                  <li
-                    className="active"
+                  <label
+                    name="input-id"
                   >
-                    <a
-                      data-toggle="tab"
-                      href="#out-tab"
-                    >
-                      Outpatient
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      data-toggle="tab"
-                      href="#in-tab"
-                    >
-                      Inpatient
-                    </a>
-                  </li>
-                </ul>,
-                <br />,
-                <div
-                  className="tab-content"
-                >
-                  <div
-                    className="tab-pane fade"
-                    id="in-tab"
-                  >
-                    <form
-                      className="form-horizontal"
-                    >
-                      <div
-                        className="row"
-                      >
-                        <div
-                          className="col-lg-12 col-md-12 col-sm-12"
-                        >
-                          <div
-                            className="form-group text-left"
-                          >
-                            <label
-                              className="control-label col-lg-2 col-md-3 col-sm-3"
-                              htmlFor="search"
-                            >
-                              New order for:
-                            </label>
-                            <div
-                              className="col-lg-9 col-md-9 col-sm-9"
-                            >
-                              <input
-                                className="form-control"
-                                id="search"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <ActiveOrders />
-                    <PastOrders />
-                  </div>
-                  <div
-                    className="tab-pane fade in active"
-                    id="out-tab"
-                  >
-                    <form
-                      className="form-horizontal"
-                    >
-                      <div
-                        className="row"
-                      >
-                        <div
-                          className="col-lg-12 col-md-12 col-sm-12"
-                        >
-                          <div
-                            className="form-group"
-                          >
-                            <label
-                              className="control-label col-lg-2 col-md-2 col-sm-2"
-                              htmlFor="search2"
-                            >
-                              New order for:
-                            </label>
-                            <div
-                              className="col-lg-9 col-md-9 col-sm-9"
-                            >
-                              <input
-                                className="form-control"
-                                id="search2"
-                                type="text"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <AddForm />
-                    <ActiveOrders />
-                    <PastOrders />
-                  </div>
-                </div>,
-              ],
-              "className": "col-lg-10 col-md-10 col-sm-10 col-sm-offset-1 col-md-offset-1 col-lg-offset-1",
+                    Input label
+                  </label>
+                  <input
+                    id="input-id"
+                  />
+                </p>
+              </form>,
+              "isActive": false,
+              "onClick": [Function],
+              "tabIndex": 0,
+              "tabName": "OutPatient",
             },
             "ref": null,
-            "rendered": Array [
-              Object {
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <p
+                  className="input-position-class"
+                >
+                  <label
+                    name="input-id"
+                  >
+                    Input label
+                  </label>
+                  <input
+                    id="input-id"
+                  />
+                </p>,
+                "className": "sized-inputs css-form",
+                "noValidate": true,
+              },
+              "ref": null,
+              "rendered": Object {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <li
-                      className="active"
+                    <label
+                      name="input-id"
                     >
-                      <a
-                        data-toggle="tab"
-                        href="#out-tab"
-                      >
-                        Outpatient
-                      </a>
-                    </li>,
-                    <li>
-                      <a
-                        data-toggle="tab"
-                        href="#in-tab"
-                      >
-                        Inpatient
-                      </a>
-                    </li>,
+                      Input label
+                    </label>,
+                    <input
+                      id="input-id"
+                    />,
                   ],
-                  "className": "nav nav-tabs",
+                  "className": "input-position-class",
                 },
                 "ref": null,
                 "rendered": Array [
@@ -1467,655 +380,48 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": <a
-                        data-toggle="tab"
-                        href="#out-tab"
-                      >
-                        Outpatient
-                      </a>,
-                      "className": "active",
+                      "children": "Input label",
+                      "name": "input-id",
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "Outpatient",
-                        "data-toggle": "tab",
-                        "href": "#out-tab",
-                      },
-                      "ref": null,
-                      "rendered": "Outpatient",
-                      "type": "a",
-                    },
-                    "type": "li",
+                    "rendered": "Input label",
+                    "type": "label",
                   },
                   Object {
                     "instance": null,
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "children": <a
-                        data-toggle="tab"
-                        href="#in-tab"
-                      >
-                        Inpatient
-                      </a>,
+                      "id": "input-id",
                     },
                     "ref": null,
-                    "rendered": Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": "Inpatient",
-                        "data-toggle": "tab",
-                        "href": "#in-tab",
-                      },
-                      "ref": null,
-                      "rendered": "Inpatient",
-                      "type": "a",
-                    },
-                    "type": "li",
+                    "rendered": null,
+                    "type": "input",
                   },
                 ],
-                "type": "ul",
+                "type": "p",
               },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {},
-                "ref": null,
-                "rendered": null,
-                "type": "br",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": Array [
-                    <div
-                      className="tab-pane fade"
-                      id="in-tab"
-                    >
-                      <form
-                        className="form-horizontal"
-                      >
-                        <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group text-left"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-3 col-sm-3"
-                                htmlFor="search"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                      <ActiveOrders />
-                      <PastOrders />
-                    </div>,
-                    <div
-                      className="tab-pane fade in active"
-                      id="out-tab"
-                    >
-                      <form
-                        className="form-horizontal"
-                      >
-                        <div
-                          className="row"
-                        >
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12"
-                          >
-                            <div
-                              className="form-group"
-                            >
-                              <label
-                                className="control-label col-lg-2 col-md-2 col-sm-2"
-                                htmlFor="search2"
-                              >
-                                New order for:
-                              </label>
-                              <div
-                                className="col-lg-9 col-md-9 col-sm-9"
-                              >
-                                <input
-                                  className="form-control"
-                                  id="search2"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                      <AddForm />
-                      <ActiveOrders />
-                      <PastOrders />
-                    </div>,
-                  ],
-                  "className": "tab-content",
-                },
-                "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
-                        <form
-                          className="form-horizontal"
-                        >
-                          <div
-                            className="row"
-                          >
-                            <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group text-left"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-3 col-sm-3"
-                                  htmlFor="search"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </form>,
-                        <ActiveOrders />,
-                        <PastOrders />,
-                      ],
-                      "className": "tab-pane fade",
-                      "id": "in-tab",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <div
-                            className="row"
-                          >
-                            <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group text-left"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-3 col-sm-3"
-                                  htmlFor="search"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>,
-                          "className": "form-horizontal",
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group text-left"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-3 col-sm-3"
-                                  htmlFor="search"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>,
-                            "className": "row",
-                          },
-                          "ref": null,
-                          "rendered": Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": <div
-                                className="form-group text-left"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-3 col-sm-3"
-                                  htmlFor="search"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>,
-                              "className": "col-lg-12 col-md-12 col-sm-12",
-                            },
-                            "ref": null,
-                            "rendered": Object {
-                              "instance": null,
-                              "key": undefined,
-                              "nodeType": "host",
-                              "props": Object {
-                                "children": Array [
-                                  <label
-                                    className="control-label col-lg-2 col-md-3 col-sm-3"
-                                    htmlFor="search"
-                                  >
-                                    New order for:
-                                  </label>,
-                                  <div
-                                    className="col-lg-9 col-md-9 col-sm-9"
-                                  >
-                                    <input
-                                      className="form-control"
-                                      id="search"
-                                      type="text"
-                                    />
-                                  </div>,
-                                ],
-                                "className": "form-group text-left",
-                              },
-                              "ref": null,
-                              "rendered": Array [
-                                Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "children": "New order for:",
-                                    "className": "control-label col-lg-2 col-md-3 col-sm-3",
-                                    "htmlFor": "search",
-                                  },
-                                  "ref": null,
-                                  "rendered": "New order for:",
-                                  "type": "label",
-                                },
-                                Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "children": <input
-                                      className="form-control"
-                                      id="search"
-                                      type="text"
-                                    />,
-                                    "className": "col-lg-9 col-md-9 col-sm-9",
-                                  },
-                                  "ref": null,
-                                  "rendered": Object {
-                                    "instance": null,
-                                    "key": undefined,
-                                    "nodeType": "host",
-                                    "props": Object {
-                                      "className": "form-control",
-                                      "id": "search",
-                                      "type": "text",
-                                    },
-                                    "ref": null,
-                                    "rendered": null,
-                                    "type": "input",
-                                  },
-                                  "type": "div",
-                                },
-                              ],
-                              "type": "div",
-                            },
-                            "type": "div",
-                          },
-                          "type": "div",
-                        },
-                        "type": "form",
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {},
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {},
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                    ],
-                    "type": "div",
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "children": Array [
-                        <form
-                          className="form-horizontal"
-                        >
-                          <div
-                            className="row"
-                          >
-                            <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-2 col-sm-2"
-                                  htmlFor="search2"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </form>,
-                        <AddForm />,
-                        <ActiveOrders />,
-                        <PastOrders />,
-                      ],
-                      "className": "tab-pane fade in active",
-                      "id": "out-tab",
-                    },
-                    "ref": null,
-                    "rendered": Array [
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "host",
-                        "props": Object {
-                          "children": <div
-                            className="row"
-                          >
-                            <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-2 col-sm-2"
-                                  htmlFor="search2"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>,
-                          "className": "form-horizontal",
-                        },
-                        "ref": null,
-                        "rendered": Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": <div
-                              className="col-lg-12 col-md-12 col-sm-12"
-                            >
-                              <div
-                                className="form-group"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-2 col-sm-2"
-                                  htmlFor="search2"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>
-                            </div>,
-                            "className": "row",
-                          },
-                          "ref": null,
-                          "rendered": Object {
-                            "instance": null,
-                            "key": undefined,
-                            "nodeType": "host",
-                            "props": Object {
-                              "children": <div
-                                className="form-group"
-                              >
-                                <label
-                                  className="control-label col-lg-2 col-md-2 col-sm-2"
-                                  htmlFor="search2"
-                                >
-                                  New order for:
-                                </label>
-                                <div
-                                  className="col-lg-9 col-md-9 col-sm-9"
-                                >
-                                  <input
-                                    className="form-control"
-                                    id="search2"
-                                    type="text"
-                                  />
-                                </div>
-                              </div>,
-                              "className": "col-lg-12 col-md-12 col-sm-12",
-                            },
-                            "ref": null,
-                            "rendered": Object {
-                              "instance": null,
-                              "key": undefined,
-                              "nodeType": "host",
-                              "props": Object {
-                                "children": Array [
-                                  <label
-                                    className="control-label col-lg-2 col-md-2 col-sm-2"
-                                    htmlFor="search2"
-                                  >
-                                    New order for:
-                                  </label>,
-                                  <div
-                                    className="col-lg-9 col-md-9 col-sm-9"
-                                  >
-                                    <input
-                                      className="form-control"
-                                      id="search2"
-                                      type="text"
-                                    />
-                                  </div>,
-                                ],
-                                "className": "form-group",
-                              },
-                              "ref": null,
-                              "rendered": Array [
-                                Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "children": "New order for:",
-                                    "className": "control-label col-lg-2 col-md-2 col-sm-2",
-                                    "htmlFor": "search2",
-                                  },
-                                  "ref": null,
-                                  "rendered": "New order for:",
-                                  "type": "label",
-                                },
-                                Object {
-                                  "instance": null,
-                                  "key": undefined,
-                                  "nodeType": "host",
-                                  "props": Object {
-                                    "children": <input
-                                      className="form-control"
-                                      id="search2"
-                                      type="text"
-                                    />,
-                                    "className": "col-lg-9 col-md-9 col-sm-9",
-                                  },
-                                  "ref": null,
-                                  "rendered": Object {
-                                    "instance": null,
-                                    "key": undefined,
-                                    "nodeType": "host",
-                                    "props": Object {
-                                      "className": "form-control",
-                                      "id": "search2",
-                                      "type": "text",
-                                    },
-                                    "ref": null,
-                                    "rendered": null,
-                                    "type": "input",
-                                  },
-                                  "type": "div",
-                                },
-                              ],
-                              "type": "div",
-                            },
-                            "type": "div",
-                          },
-                          "type": "div",
-                        },
-                        "type": "form",
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {},
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {},
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                      Object {
-                        "instance": null,
-                        "key": undefined,
-                        "nodeType": "class",
-                        "props": Object {},
-                        "ref": null,
-                        "rendered": null,
-                        "type": [Function],
-                      },
-                    ],
-                    "type": "div",
-                  },
-                ],
-                "type": "div",
-              },
-            ],
-            "type": "div",
+              "type": "form",
+            },
+            "type": [Function],
           },
           Object {
             "instance": null,
             "key": undefined,
-            "nodeType": "host",
-            "props": Object {},
+            "nodeType": "function",
+            "props": Object {
+              "children": "Tab 2 content",
+              "isActive": false,
+              "onClick": [Function],
+              "tabIndex": 0,
+              "tabName": "InPatient",
+            },
             "ref": null,
-            "rendered": null,
-            "type": "br",
+            "rendered": "Tab 2 content",
+            "type": [Function],
           },
         ],
-        "type": "div",
+        "type": [Function],
       },
       "type": "div",
     },
