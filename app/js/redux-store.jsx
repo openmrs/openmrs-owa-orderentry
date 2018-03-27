@@ -9,11 +9,12 @@
 
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import reducers from './reducers';
 
 export default () => {
   const store = createStore(reducers, compose(
-    applyMiddleware(thunk),
+    applyMiddleware(thunk, logger),
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));

@@ -1,10 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 
-class StandardDose extends React.Component {
-
+export class StandardDose extends React.Component {
+  componentDidMount() {
+    this.props.getConfigurations;
+  }
   render() {
     return (
-      <div className="tab-pane fade"
+      <div
+        className="tab-pane fade"
         id="standard"
         role="tabpanel"
         aria-labelledby="standard-tab">
@@ -119,7 +124,7 @@ class StandardDose extends React.Component {
                 </label>
               </div>
             </div>
-            <div className="col-sm-2" style={{ paddingLeft: "0"}}>
+            <div className="col-sm-2" style={{ paddingLeft: "0" }}>
               <div className="form-group">
                 <div className="input-group date" id="datetimepicker1">
                   <input type="text" className="form-control" />
@@ -154,4 +159,12 @@ class StandardDose extends React.Component {
   }
 }
 
-export default StandardDose;
+const mapStateToProps = state => ({
+  configurations: state.orderEntryConfigurations.configurations,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getConfigurations: dispatch(getOrderEntryConfigurations()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StandardDose);
