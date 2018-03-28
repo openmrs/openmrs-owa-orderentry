@@ -31,7 +31,7 @@ const View = props => (
           </span>
           <span id="edit-patient-demographics" className="edit-info">
             <small>
-              <a href="../../registrationapp/editSection.page?patientId=107&sectionId=demographics&appId=referenceapplication.registrationapp.registerPatient">Edit</a>
+              <a href={`../../registrationapp/editSection.page?patientId=${props.patient.patientId}&sectionId=demographics&appId=referenceapplication.registrationapp.registerPatient`}>Edit</a>
             </small>
           </span>
           <a
@@ -64,7 +64,7 @@ const View = props => (
               </span>
               &nbsp;&nbsp;
               <small id="contact-info-inline-edit" className="edit-info">
-                <a href="../../registrationapp/editSection.page?patientId=107&sectionId=contactInfo&appId=referenceapplication.registrationapp.registerPatient">Edit</a>
+                <a href={`../../registrationapp/editSection.page?patientId=${props.patient.patientId}&sectionId=contactInfo&appId=referenceapplication.registrationapp.registerPatient`}>Edit</a>
               </small>
             </div>
           </div>
