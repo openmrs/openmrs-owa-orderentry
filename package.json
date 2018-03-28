@@ -12,6 +12,7 @@
     "deep-freeze": "0.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "date-fns": "^1.29.0",
+    "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

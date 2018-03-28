@@ -34,4 +34,7 @@ export default {
     },
   },
   defaultCareSetting: {},
+  defaultDrugs: {
+    results: [],
+  },
 };

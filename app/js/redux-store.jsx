@@ -12,9 +12,15 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import reducers from './reducers';
 
+const middlewares = [thunk];
+
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(logger);
+}
+
 export default () => {
   const store = createStore(reducers, compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(...middlewares),
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));
