@@ -44,7 +44,6 @@ class Tabs extends Component {
 Tabs.propTypes = {
   defaultActiveTabIndex: PropTypes.number,
   children: PropTypes.node.isRequired,
-  careSetting: PropTypes.func.isRequired,
 };
 
 Tabs.defaultProps = {
