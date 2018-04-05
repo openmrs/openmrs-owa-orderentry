@@ -15,7 +15,7 @@ export class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    const query = new URLSearchParams(this.props.location.hash.replace('#/', ''));
+    const query = new URLSearchParams(this.props.location.search);
     const patientUuid = query.get('patient');
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
