@@ -25,7 +25,7 @@ describe('Component: PatientDashboard', () => {
   beforeEach(() => {
     props = {
       location: {
-        hash: '#/?patient=6ecsd-jdfn-sdfdf'
+        search: '?patient=6ecsd-jdfn-sdfdf'
       },
       isLoading: false,
       patient: {
