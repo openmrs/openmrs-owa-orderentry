@@ -2,7 +2,6 @@ node_modules
 bower_components
 dist
 config.json
-webpack.config.js
 *.zip
 coverage
 .nyc_output
