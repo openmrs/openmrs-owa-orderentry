@@ -116,7 +116,7 @@ if (env === 'production') {
 } else if (env === 'deploy') {
 	  outputFile = `${outputFile}.js`;
 	  vendorOutputFile = "vendor.bundle.js";
-	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
+	  outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
 	  devtool = 'source-map';
 
 } else if (env === 'dev') {
@@ -181,8 +181,9 @@ var webpackConfig = {
 	    loader: 'babel-loader',
 	    exclude: /node_modules/,
 	    query: {
-	        presets: [ 'es2015', 'react' ],
-	        cacheDirectory : true
+	        presets: [ 'env', 'react' ],
+	        cacheDirectory : true,
+			plugins: ['transform-class-properties', 'transform-object-rest-spread']
 	    }
     },{
 	    test: /\.css$/,
