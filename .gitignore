@@ -6,3 +6,4 @@ config.json
 coverage
 .nyc_output
 package-lock.json
+*.snap

@@ -13,6 +13,7 @@ import noteReducer from './noteReducer';
 import patientReducer from './patientReducer';
 import sessionReducer from './sessionReducer';
 import orderEntryConfigurations from './orderEntryReducer';
+import careSettingReducer from './careSettingReducer';
 
 export default combineReducers({
   locationReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   patientReducer,
   sessionReducer,
   orderEntryConfigurations,
+  careSettingReducer,
 });
