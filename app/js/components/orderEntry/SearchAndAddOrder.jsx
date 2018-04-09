@@ -21,12 +21,6 @@ export class SearchAndAddOrder extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchInpatientCareSetting();
-    this.props.fetchOutpatientCareSetting();
-  }
-
-
   handleCareSettings = (careSetting) => {
     this.setState({ careSetting });
   }
@@ -47,19 +41,4 @@ export class SearchAndAddOrder extends React.Component {
   }
 }
 
-const mapStateToProps = ({ careSettingReducer }) => ({
-  inpatientCareSetting: careSettingReducer.inpatientCareSetting,
-  outpatientCareSetting: careSettingReducer.outpatientCareSetting,
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchInpatientCareSetting: () => dispatch(fetchInpatientCareSetting()),
-  fetchOutpatientCareSetting: () => dispatch(fetchOutpatientCareSetting()),
-});
-
-SearchAndAddOrder.propTypes = {
-  fetchInpatientCareSetting: PropTypes.func.isRequired,
-  fetchOutpatientCareSetting: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchAndAddOrder);
+export default SearchAndAddOrder;

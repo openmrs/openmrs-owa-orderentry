@@ -1,18 +1,19 @@
-import { INPATIENT_CARESETTING, OUTPATIENT_CARESETTING } from '../actions/actionTypes';
+import { PATIENT_CARESETTING, PATIENT_CARESETTING_ERROR } from '../actions/actionTypes';
 import mockData from '../../../__mocks__/mockData';
 
 export default (state = mockData.defaultCareSetting, action) => {
   switch (action.type) {
-    case INPATIENT_CARESETTING:
+    case PATIENT_CARESETTING:
       return {
         ...state,
-        inpatientCareSetting: action.inpatientCareSetting,
+        outpatientCareSetting: action.patientCareSetting[0],
+        inpatientCareSetting: action.patientCareSetting[1],
       };
 
-    case OUTPATIENT_CARESETTING:
+    case PATIENT_CARESETTING_ERROR:
       return {
         ...state,
-        outpatientCareSetting: action.outpatientCareSetting,
+        error: action.error,
       };
     default: return state;
   }
