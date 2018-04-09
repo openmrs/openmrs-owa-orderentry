@@ -11,6 +11,7 @@ import {
   fetchInpatientCareSetting,
   fetchOutpatientCareSetting,
 } from '../../actions/careSetting';
+import SearchDrug from '../searchDrug';
 
 export class SearchAndAddOrder extends React.Component {
   constructor(props) {
@@ -31,18 +32,15 @@ export class SearchAndAddOrder extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="body-wrapper">
         <Tabs careSetting={this.handleCareSettings}>
           <Tab
-            tabName="OutPatient">
-            <form className="sized-inputs css-form" noValidate>
-              <p className="input-position-class">
-                <label name="input-id">Input label</label>
-                <input id="input-id" />
-              </p>
-            </form>
+            tabName="Outpatient">
+            <SearchDrug />
           </Tab>
-          <Tab tabName="InPatient">Tab 2 content</Tab>
+          <Tab tabName="Inpatient">
+            <SearchDrug />
+          </Tab>
         </Tabs>
       </div>
     );

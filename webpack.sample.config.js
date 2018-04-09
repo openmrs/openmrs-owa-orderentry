@@ -16,7 +16,7 @@ const target = require('yargs').argv.target;
 const targetPort = require('yargs').argv.targetPort;
 
 const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
-const CommonsChunkPlugin =  webpack.optimize.CommonsChunkPlugin;
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const DedupePlugin = webpack.optimize.DedupePlugin;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -43,164 +43,168 @@ let localOwaFolder;
 let devtool;
 
 var getConfig = function () {
-	  var config;
+	var config;
 
-	  try {
-	    // look for config file
-	    config = require('./config.json');
-	  } catch (err) {
-	    // create file with defaults if not found
-	    config = {
-	      'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
-	      'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html'
-	    };
+	try {
+		// look for config file
+		config = require('./config.json');
+	} catch (err) {
+		// create file with defaults if not found
+		config = {
+			'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
+			'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html'
+		};
 
-	    fs.writeFile('config.json', JSON.stringify(config));
+		fs.writeFile('config.json', JSON.stringify(config));
 
-	  } finally {
-	    return config;
-	  };
-	}
+	} finally {
+		return config;
+	};
+}
 var config = getConfig();
 
 var resolveBrowserSyncTarget = function () {
-  if (targetPort != null && targetPort != 'null') {
-    return config.APP_ENTRY_POINT.substr(0, 'http://localhost:'.length)
-      + targetPort
-      + config.APP_ENTRY_POINT.substr('http://localhost:'.length + targetPort.toString().length, config.APP_ENTRY_POINT.length);
-  }
-  else {
-    return config.APP_ENTRY_POINT
-  }
+	if (targetPort != null && targetPort != 'null') {
+		return config.APP_ENTRY_POINT.substr(0, 'http://localhost:'.length)
+			+ targetPort
+			+ config.APP_ENTRY_POINT.substr('http://localhost:'.length + targetPort.toString().length, config.APP_ENTRY_POINT.length);
+	}
+	else {
+		return config.APP_ENTRY_POINT
+	}
 };
 var browserSyncTarget = resolveBrowserSyncTarget();
 
 /** Minify for production */
 if (env === 'production') {
 
-	  plugins.push(new UglifyPlugin({
-	    output: {
-	      comments: false,
-	    },
-	    minimize: true,
-	    sourceMap: false,
-	    compress: {
-	        warnings: false
-	    }
-	  }));
-	  plugins.push(new DedupePlugin());
-	  outputFile = `${outputFile}.min.[chunkhash].js`;
-	  vendorOutputFile = "vendor.bundle.[chunkhash].js";
-	  outputPath = `${__dirname}/dist/`;
-	  plugins.push(new WebpackOnBuildPlugin(function(stats){
-      //create zip file
-      var archiver = require('archiver');
-			var output = fs.createWriteStream(THIS_APP_ID+'.zip');
-			var archive = archiver('zip');
+	plugins.push(new webpack.DefinePlugin({
+		'process.env.NODE_ENV': JSON.stringify('production')
+	}));
+	plugins.push(new UglifyPlugin({
+		output: {
+			comments: false,
+		},
+		minimize: true,
+		sourceMap: false,
+		compress: {
+			warnings: false
+		}
+	}));
+	plugins.push(new DedupePlugin());
+	outputFile = `${outputFile}.min.[chunkhash].js`;
+	vendorOutputFile = "vendor.bundle.[chunkhash].js";
+	outputPath = `${__dirname}/dist/`;
+	plugins.push(new WebpackOnBuildPlugin(function (stats) {
+		//create zip file
+		var archiver = require('archiver');
+		var output = fs.createWriteStream(THIS_APP_ID + '.zip');
+		var archive = archiver('zip');
 
-			output.on('close', function () {
-			    console.log('distributable has been zipped! size: '+archive.pointer());
-			});
+		output.on('close', function () {
+			console.log('distributable has been zipped! size: ' + archive.pointer());
+		});
 
-			archive.on('error', function(err){
-			    throw err;
-			});
+		archive.on('error', function (err) {
+			throw err;
+		});
 
-			archive.pipe(output);
+		archive.pipe(output);
 
-      archive.directory(`${outputPath}`, '');
+		archive.directory(`${outputPath}`, '');
 
-			archive.finalize();
-		 }))
+		archive.finalize();
+	}))
 
 } else if (env === 'deploy') {
-	  outputFile = `${outputFile}.js`;
-	  vendorOutputFile = "vendor.bundle.js";
-	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
-	  devtool = 'source-map';
+	outputFile = `${outputFile}.js`;
+	vendorOutputFile = "vendor.bundle.js";
+	outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
+	devtool = 'source-map';
 
 } else if (env === 'dev') {
-	  outputFile = `${outputFile}.js`;
-	  vendorOutputFile = "vendor.bundle.js";
-	  outputPath = `${__dirname}/dist/`;
-	  devtool = 'source-map';
+	outputFile = `${outputFile}.js`;
+	vendorOutputFile = "vendor.bundle.js";
+	outputPath = `${__dirname}/dist/`;
+	devtool = 'source-map';
 }
 
 plugins.push(new BrowserSyncPlugin({
-    proxy: {
-    	target : browserSyncTarget
-    }
+	proxy: {
+		target: browserSyncTarget
+	}
 }));
 
 plugins.push(new CommonsChunkPlugin({
-    name: 'vendor', 
-    filename: vendorOutputFile
+	name: 'vendor',
+	filename: vendorOutputFile
 }));
 
 plugins.push(new HtmlWebpackPlugin({
-    template: './app/index.html',
-    inject: 'body'
+	template: './app/index.html',
+	inject: 'body'
 }));
 
 plugins.push(new CopyWebpackPlugin([{
-    from: './app/manifest.webapp'
+	from: './app/manifest.webapp'
 }]));
 
 plugins.push(new CopyWebpackPlugin([{
-    from: './app/img/omrs-button.png',
-    to: 'img/omrs-button.png'
+	from: './app/img/omrs-button.png',
+	to: 'img/omrs-button.png'
 }]));
 
 
 
 var webpackConfig = {
-  quiet: false,
-  entry: {
-	  app : `${__dirname}/app/js/openmrs-owa-orderentry`,
-	  css: `${__dirname}/app/css/openmrs-owa-orderentry.css`,
-	  vendor : [
-	        	
-	        	
-                
-                    'react'
-                    
-                        , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
-                    
-                
-	            ]
-  },
-  devtool: devtool,
-  target,
-  output: {
-    path: outputPath,
-    filename: '[name]'+outputFile,
-  },
-  module: {
-    loaders: [{
-	    test: /\.jsx?$/,
-	    loader: 'babel-loader',
-	    exclude: /node_modules/,
-	    query: {
-	        presets: [ 'es2015', 'react' ],
-	        cacheDirectory : true
-	    }
-    },{
-	    test: /\.css$/,
-	    loader: 'style-loader!css-loader'
-	}, {
-	    test: /\.(png|jpg|jpeg|gif|svg)$/,
-	    loader: 'url'
-	}, {
-	    test: /\.html$/,
-	    loader: 'html'
-	}],
-  },
-  resolve: {
-    root: path.resolve('./src'),
-    extensions: ['', '.js', '.jsx'],
-  },
-  plugins,
-  externals: nodeModules,
+	quiet: false,
+	entry: {
+		app: `${__dirname}/app/js/openmrs-owa-orderentry`,
+		css: `${__dirname}/app/css/openmrs-owa-orderentry.css`,
+		vendor: [
+
+
+
+			'react'
+
+			, 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
+
+
+		]
+	},
+	devtool: devtool,
+	target,
+	output: {
+		path: outputPath,
+		filename: '[name]' + outputFile,
+	},
+	module: {
+		loaders: [{
+			test: /\.jsx?$/,
+			loader: 'babel-loader',
+			exclude: /node_modules/,
+			query: {
+				presets: ['env', 'react'],
+				cacheDirectory: true,
+				plugins: ['transform-class-properties', 'transform-object-rest-spread']
+			}
+		}, {
+			test: /\.css$/,
+			loader: 'style-loader!css-loader'
+		}, {
+			test: /\.(png|jpg|jpeg|gif|svg)$/,
+			loader: 'url'
+		}, {
+			test: /\.html$/,
+			loader: 'html'
+		}],
+	},
+	resolve: {
+		root: path.resolve('./src'),
+		extensions: ['', '.js', '.jsx'],
+	},
+	plugins,
+	externals: nodeModules,
 };
 
 module.exports = webpackConfig;
