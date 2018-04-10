@@ -1,21 +1,19 @@
 import axios from 'axios';
 import {
-  INPATIENT_CARESETTING,
-  INPATIENT_CARESETTING_ERROR,
-  OUTPATIENT_CARESETTING,
-  OUTPATIENT_CARESETTING_ERROR,
+  PATIENT_CARESETTING,
+  PATIENT_CARESETTING_ERROR,
 } from './actionTypes';
 import networkError from './networkError';
 
 const contextPath = window.location.href.split('/')[3];
 const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
-export function fetchInpatientCareSetting() {
-  return dispatch => axios.get(`${apiBaseUrl}/caresetting?q=inpatient`)
+const fetchPatientCareSetting = () => dispatch =>
+  axios.get(`${apiBaseUrl}/caresetting`)
     .then((response) => {
       dispatch({
-        type: INPATIENT_CARESETTING,
-        inpatientCareSetting: response.data.results[0],
+        type: PATIENT_CARESETTING,
+        patientCareSetting: response.data.results,
       });
     })
     .catch((error) => {
@@ -23,29 +21,9 @@ export function fetchInpatientCareSetting() {
         dispatch(networkError('Network error occurred'));
       } else {
         dispatch({
-          type: INPATIENT_CARESETTING_ERROR,
+          type: PATIENT_CARESETTING_ERROR,
           error: error.response,
         });
       }
     });
-}
-
-export function fetchOutpatientCareSetting() {
-  return dispatch => axios.get(`${apiBaseUrl}/caresetting?q=outpatient`)
-    .then((response) => {
-      dispatch({
-        type: OUTPATIENT_CARESETTING,
-        outpatientCareSetting: response.data.results[0],
-      });
-    })
-    .catch((error) => {
-      if (!error.response) {
-        dispatch(networkError('Network error occurred'));
-      } else {
-        dispatch({
-          type: OUTPATIENT_CARESETTING_ERROR,
-          error: error.response,
-        });
-      }
-    });
-}
+export default fetchPatientCareSetting;
