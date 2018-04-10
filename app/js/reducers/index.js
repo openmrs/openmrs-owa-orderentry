@@ -7,7 +7,7 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 import { combineReducers } from 'redux';
-
+import pastOrdersReducer from "./pastOrdersReducer";
 import locationReducer from './locationReducer';
 import noteReducer from './noteReducer';
 import patientReducer from './patientReducer';
@@ -24,4 +24,5 @@ export default combineReducers({
   orderEntryConfigurations,
   careSettingReducer,
   drugSearchReducer,
+  pastOrdersReducer,
 });

@@ -4,8 +4,13 @@ import { SearchAndAddOrder } from '../../../app/js/components/orderEntry/SearchA
 import store from '../../../app/js/redux-store';
 
 const props = {
-  fetchInpatientCareSetting: jest.fn(),
-  fetchOutpatientCareSetting: jest.fn(),
+  outpatientCareSetting:{
+    uuid:{}
+  },
+  getPastOrders: jest.fn(),
+  location:{
+    search:()=>{}
+  }
 };
 
 describe('Test for Searching and Adding an order', () => {
