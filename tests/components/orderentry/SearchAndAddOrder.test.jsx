@@ -10,7 +10,10 @@ const props = {
   getPastOrders: jest.fn(),
   location:{
     search:()=>{}
-  }
+  },
+  fetchInpatientCareSetting: jest.fn(),
+  fetchOutpatientCareSetting: jest.fn(),
+  drug: "abc-e345-thed-uuid2345",
 };
 
 describe('Test for Searching and Adding an order', () => {

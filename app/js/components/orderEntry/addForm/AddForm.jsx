@@ -1,46 +1,112 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
+import DraftDataTable from './DraftDataTable';
 
-class AddForm extends React.Component {
+import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 
+export class AddForm extends React.Component {
+  state = {
+    drugFormPopulated: false,
+    action: '',
+    fields: {
+      completeInstructions: '',
+      dose: '',
+      dosingUnit: '',
+      frequency: '',
+      route: '',
+      duration: '',
+      durationUnit: '',
+      dispensingUnit: '',
+      dispensingQuantity: '',
+      reason: '',
+      note: '',
+    },
+  };
+  componentDidMount() {
+    this.props.getOrderEntryConfigurations();
+  }
+  handleCancel = () => {
+    // Cancel a draft drug order
+  }
+  handleSubmitDrugForm = () => (
+    this.setState({ drugFormPopulated: true, action: "NEW" })
+  )
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      fields: { ...this.state.fields, [e.target.name]: e.target.value }
+    });
+  }
+  addDrugOrder = (event) => {
+    event.preventDefault();
+    // make post request to API
+  }
+  renderDraftDataTable = () => (
+    <div>
+      <DraftDataTable
+        drugName={this.props.drugName}
+        fields={this.state.fields}
+        status={this.state.action}
+        handleCancel={this.handleCancel}
+        handleSubmit={this.addDrugOrder}
+      />
+    </div>
+  );
+  renderDrugOrderForms = () => (
+    <div>
+      <div>
+        <ul>
+          <li><a href="#standard">Standard Dosing</a></li>
+          <li><a href="#free">Free Text</a></li>
+        </ul>
+        <br />
+
+        <div>
+          <FreeText
+            fields={this.state.fields}
+            allConfigurations={this.props.allConfigurations}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmitDrugForm}
+          />
+          <StandardDose />
+        </div>
+
+      </div>
+    </div>
+  );
   render() {
     return (
-      <div className="row">
-        <div className="col-lg-11 col-sm-11 col-md-11 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-          <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li className="nav-item">
-              <a className="nav-link"
-                id="standard-tab"
-                data-toggle="pill"
-                href="#standard"
-                role="tab"
-                aria-controls="standard"
-                aria-selected="false">Standard Dosing
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link"
-                id="free-tab"
-                data-toggle="pill"
-                href="#free"
-                role="tab"
-                aria-controls="free"
-                aria-selected="false">Free Text
-              </a>
-            </li>
-          </ul>
-          <br />
-
-          <div className="tab-content" id="pills-tabContent">
-            <FreeText />
-            <StandardDose />
-          </div>
-
-        </div>
+      <div>
+        {
+          this.state.drugFormPopulated ?
+            this.renderDraftDataTable() :
+            this.renderDrugOrderForms()
+        }
       </div>
     );
   }
 }
 
-export default AddForm;
+const mapStateToProps = ({ orderEntryConfigurations }) => ({
+  allConfigurations: orderEntryConfigurations.configurations,
+});
+
+AddForm.propTypes = {
+  getOrderEntryConfigurations: PropTypes.func,
+  allConfigurations: PropTypes.shape({
+    drugDispensingUnits: PropTypes.string,
+  }),
+  drugName: PropTypes.string,
+};
+
+AddForm.defaultProps = {
+  getOrderEntryConfigurations: {},
+  allConfigurations: {},
+  drugName: '',
+};
+
+export default connect(mapStateToProps, { getOrderEntryConfigurations })(AddForm);
