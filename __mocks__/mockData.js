@@ -40,6 +40,7 @@ export default {
     results: [],
   },
   pastOrders: {},
+
   encounterTypes: {
     data: {
       results: [
@@ -49,5 +50,9 @@ export default {
         },
       ],
     },
+  },
+  defaultpatientActiveOrder: {
+    activeOrders: [],
+
   },
 };
