@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StandardDose } from '../../../../app/js/components/orderEntry/addForm/StandardDose';
+import StandardDose from '../../../../app/js/components/orderEntry/addForm/StandardDose';
 import store from '../../../../app/js/redux-store';
 
 describe('Test for Standard dose form', () => {

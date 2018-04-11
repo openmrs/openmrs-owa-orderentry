@@ -38,7 +38,7 @@ export class AddForm extends React.Component {
   handleChange = (e) => {
     this.setState({
       ...this.state,
-      fields: { ...this.state.fields, [e.target.name]: e.target.value }
+      fields: { ...this.state.fields, [e.target.name]: e.target.value },
     });
   }
   addDrugOrder = (event) => {
@@ -97,9 +97,7 @@ const mapStateToProps = ({ orderEntryConfigurations }) => ({
 
 AddForm.propTypes = {
   getOrderEntryConfigurations: PropTypes.func,
-  allConfigurations: PropTypes.shape({
-    drugDispensingUnits: PropTypes.string,
-  }),
+  allConfigurations: PropTypes.shape({}),
   drugName: PropTypes.string,
 };
 
