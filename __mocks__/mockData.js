@@ -37,4 +37,5 @@ export default {
   defaultDrugs: {
     results: [],
   },
+  pastOrders: {},
 };

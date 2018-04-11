@@ -1,4 +1,3 @@
-import expect from 'expect';
 import patientReducer from '../../app/js/reducers/patientReducer';
 import mockData from '../../__mocks__/mockData';
 
