@@ -40,4 +40,14 @@ export default {
     results: [],
   },
   pastOrders: {},
+  encounterTypes: {
+    data: {
+      results: [
+        {
+          uuid: '',
+          display: '',
+        },
+      ],
+    },
+  },
 };
