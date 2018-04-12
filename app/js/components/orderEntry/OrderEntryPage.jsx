@@ -2,44 +2,51 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PatientDashboard from '../patientDashboard';
-import { withRouter } from 'react-router-dom';
 import SearchAndAddOrder from './SearchAndAddOrder';
-import { fetchInpatientCareSetting, fetchOutpatientCareSetting } from '../../actions/careSetting';
+import fetchPatientCareSetting from '../../actions/careSetting';
+import imageLoader from '../../../img/loading.gif';
 
-class OrderEntryPage extends React.Component {
+export class OrderEntryPage extends React.Component {
   componentDidMount() {
-    this.props.fetchInpatientCareSetting();
-    this.props.fetchOutpatientCareSetting();
+    this.props.fetchPatientCareSetting();
   }
   render() {
+    if (!(this.props.outpatientCareSetting && this.props.inpatientCareSetting)) {
+      return (
+        <div className="text-align-center">
+          <img src={imageLoader} alt="loader" />
+        </div>
+      );
+    }
+
     return (
       <div>
         <PatientDashboard {...this.props} />
-        {
-          !this.props.inpatientCareSetting || !this.props.outpatientCareSetting ? <div />
-            : <SearchAndAddOrder
-              inpatientCareSetting={this.props.inpatientCareSetting}
-              outpatientCareSetting={this.props.outpatientCareSetting}
-              location={this.props.location} />
-        }
+        <SearchAndAddOrder
+          outpatientCareSetting={this.props.outpatientCareSetting}
+          inpatientCareSetting={this.props.inpatientCareSetting}
+          location={this.props.location}
+        />
       </div>
     );
   }
 }
 
 OrderEntryPage.propTypes = {
-  fetchInpatientCareSetting: PropTypes.func.isRequired,
-  fetchOutpatientCareSetting: PropTypes.func.isRequired,
+  fetchPatientCareSetting: PropTypes.func.isRequired,
+  location: PropTypes.shape({}).isRequired,
+  outpatientCareSetting: PropTypes.shape({}).isRequired,
 };
 
-const mapStateToProps = ({ careSettingReducer }) => ({
-  inpatientCareSetting: careSettingReducer.inpatientCareSetting,
-  outpatientCareSetting: careSettingReducer.outpatientCareSetting,
+const mapStateToProps = ({
+  careSettingReducer: { outpatientCareSetting, inpatientCareSetting },
+}) => ({
+  outpatientCareSetting,
+  inpatientCareSetting,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchInpatientCareSetting: () => dispatch(fetchInpatientCareSetting()),
-  fetchOutpatientCareSetting: () => dispatch(fetchOutpatientCareSetting()),
+  fetchPatientCareSetting: () => dispatch(fetchPatientCareSetting()),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage));
+export default connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage);
