@@ -25,13 +25,14 @@ export class SearchAndAddOrder extends React.Component {
     this.setState({ careSetting });
   }
 
-  renderAddForm = () => (
+  renderAddForm = careSetting => (
     <div>
       {
         this.props.drug.uuid &&
         <AddForm
           drugName={this.props.drug.display}
           drugUuid={this.props.drug.uuid}
+          careSetting={careSetting}
         />
       }
     </div>
@@ -44,7 +45,7 @@ export class SearchAndAddOrder extends React.Component {
           <Tab
             tabName="OutPatient">
             <SearchDrug />
-            {this.renderAddForm()}
+            {this.renderAddForm(this.props.outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 tabName="OutPatient"
@@ -65,7 +66,7 @@ export class SearchAndAddOrder extends React.Component {
           <Tab
             tabName="InPatient">
             <SearchDrug />
-            {this.renderAddForm()}
+            {this.renderAddForm(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 tabName="InPatient"

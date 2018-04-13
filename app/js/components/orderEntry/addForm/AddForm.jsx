@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
 import DraftDataTable from './DraftDataTable';
+import DosageTabs from '../../tabs/DosageTabs';
 
 import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 
@@ -58,24 +59,12 @@ export class AddForm extends React.Component {
   );
   renderDrugOrderForms = () => (
     <div>
-      <div>
-        <ul>
-          <li><a href="#standard">Standard Dosing</a></li>
-          <li><a href="#free">Free Text</a></li>
-        </ul>
-        <br />
-
-        <div>
-          <FreeText
-            fields={this.state.fields}
-            allConfigurations={this.props.allConfigurations}
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmitDrugForm}
-          />
-          <StandardDose />
-        </div>
-
-      </div>
+      <DosageTabs
+        fields={this.state.fields}
+        allConfigurations={this.props.allConfigurations}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmitDrugForm}
+        careSetting={this.props.careSetting} />
     </div>
   );
   render() {

@@ -76,7 +76,7 @@ const FreeText = ({
 FreeText.propTypes = {
   fields: PropTypes.object.isRequired,
   allConfigurations: PropTypes.shape({
-    drugDispensingUnits: PropTypes.string,
+    drugDispensingUnits: PropTypes.array,
   }),
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
