@@ -44,33 +44,37 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <PastOrders
-              tabName="OutPatient"
-              careSetting={this.props.outpatientCareSetting}
-              location={this.props.location} />
-
-            <br />
-            {/* Example usages of the Accordion */}
             <Accordion open border title="Accordion Header">
               <p>This is the first paragraph</p>
               <p>This is the second paragraph</p>
               <p>This is the third paragraph</p>
             </Accordion>
 
-            <Accordion title="Accordion Header">
-              <p>This is the first paragraph</p>
-              <p>This is the second paragraph</p>
-              <p>This is the third paragraph</p>
+            <Accordion title="Past Orders">
+              <PastOrders
+                tabName="OutPatient"
+                careSetting={this.props.outpatientCareSetting}
+                location={this.props.location} />
+
+              <br />
             </Accordion>
           </Tab>
           <Tab
             tabName="InPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <PastOrders
-              tabName="InPatient"
-              careSetting={this.props.inpatientCareSetting}
-              location={this.props.location} />
+            <Accordion open border title="Accordion Header">
+              <p>This is the first paragraph</p>
+              <p>This is the second paragraph</p>
+              <p>This is the third paragraph</p>
+            </Accordion>
+
+            <Accordion title="Past Orders">
+              <PastOrders
+                tabName="InPatient"
+                careSetting={this.props.inpatientCareSetting}
+                location={this.props.location} />
+            </Accordion>
           </Tab>
         </Tabs>
       </div>

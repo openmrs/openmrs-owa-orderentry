@@ -3,29 +3,58 @@ import { format } from 'date-fns';
 
 export const PastOrder = (props) => {
   const {
-    drug, auditInfo, dose, doseUnits, frequency,
+    drug, dosingType, action, auditInfo, dose, doseUnits, frequency,
     route, duration, durationUnits, dosingInstructions,
-    quantityUnits, quantity,
+    quantityUnits, autoExpireDate, quantity,
   } = props;
+
+  const getStatus = () => {
+    if (action === "NEW" && autoExpireDate !== null) {
+      return 'Completed';
+    } else if (autoExpireDate !== null && action === "REVISE") {
+      return 'Revised';
+    } else if (autoExpireDate === null) {
+      return 'Discontinued';
+    }
+  };
+
+  let details;
+  if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
+    details = (
+      <p>
+        {drug.display}:
+        {` ${dose}`}
+        {` ${doseUnits.display},`}
+        {` ${frequency.display},`}
+        {` ${route.display}, for `}
+        {duration && ` ${duration}`}
+        {durationUnits && ` ${durationUnits.display}`}
+        {dosingInstructions && ` (${dosingInstructions})`}
+        {(dosingInstructions && quantityUnits) && ` (Dispense: ${quantity} ${quantityUnits.display})`}
+      </p>
+    );
+  } else {
+    details = (
+      <p>
+        {drug.display}:
+        {dosingInstructions && ` ${dosingInstructions}`}
+        {(dosingInstructions && quantityUnits) && ` (Dispense: ${quantity} ${quantityUnits.display})`}
+
+      </p>
+    );
+  }
   return (
     <tr>
       <td>
-        {format(auditInfo.dateCreated, 'DD/MM/YYYY | HH:MM:SS')}
+        <small>{format(auditInfo.dateCreated, 'DD/MM/YYYY HH:MM')} &nbsp; {autoExpireDate && `-${format(autoExpireDate, 'DD/MM/YYYY HH:MM')}`}</small>
       </td>
-      <td>Inactive</td>
+      <td>{action ? `${getStatus()}` : ""}</td>
       <td>
-        {drug.display}:
-        {dose ? ` ${dose}` : ""}
-        {doseUnits.display ? ` ${doseUnits.display}` : ""}
-        {frequency.display ? `, ${frequency.display}` : ""}
-        {route.display ? `, ${route.display}` : ""}
-        {duration ? `, for ${duration}` : ""}
-        {durationUnits.display ? ` ${durationUnits.display} total` : ""}
-        {dosingInstructions ? `, (${dosingInstructions})` : ""}
-        {(dosingInstructions && quantityUnits.display) ? `, (Dispense: ${quantity} ${quantityUnits.display})` : ""}
+        {details}
       </td>
       <td>&nbsp;&nbsp;<span className="icon-ban-circle" /></td>
     </tr>
   );
 };
+
 export default PastOrder;
