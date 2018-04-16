@@ -192,12 +192,15 @@ var webpackConfig = {
 			test: /\.css$/,
 			loader: 'style-loader!css-loader'
 		}, {
-			test: /\.(png|jpg|jpeg|gif|svg)$/,
+			  test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
 			loader: 'url'
 		}, {
 			test: /\.html$/,
 			loader: 'html'
-		}],
+		}, {
+			test: /\.scss$/,
+			loaders: ["style-loader", "css-loader", "sass-loader"]
+	}],
 	},
 	resolve: {
 		root: path.resolve('./src'),
