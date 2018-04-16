@@ -32,12 +32,11 @@ export class PastOrders extends React.Component {
     }
     return (
       <div>
-        <h3>Past Drug Orders</h3>
         {pastOrders.length > 0 ?
           <table className="table bordered">
             <tbody>
               <tr>
-                <th>Date Activated</th>
+                <th>Date</th>
                 <th>Status</th>
                 <th>Details</th>
                 <th>Actions</th>
