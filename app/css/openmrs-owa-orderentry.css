@@ -229,3 +229,37 @@ body {
   .rotate90 {
     transform: rotate(90deg);
   }
+
+/* *
+ Drug search
+*/
+.options-container {
+    border: 1px solid #a1c1e7;
+    max-height: 500px;
+    overflow-x: scroll;
+    background-color: #fff;
+    width: 352px;
+}
+
+.search-container {
+    margin: 0px auto 10px auto;
+}
+
+.search-container input {
+    padding: 5px 10px;
+    margin-top: 5px;
+    width: 330px;
+}
+
+.option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: #bad4fe;
+}
+
+.emoji-sorry {
+    font-size: 24px;
+}
