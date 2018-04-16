@@ -5,6 +5,11 @@ import AddForm from './addForm/AddForm';
 import PastOrders from '../orderEntry/PastOrders';
 import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
+import Accordion from '../accordion';
+import {
+  fetchInpatientCareSetting,
+  fetchOutpatientCareSetting,
+} from '../../actions/careSetting';
 import SearchDrug from '../searchDrug';
 
 export class SearchAndAddOrder extends React.Component {
@@ -23,10 +28,10 @@ export class SearchAndAddOrder extends React.Component {
     <div>
       {
         this.props.drug.uuid &&
-          <AddForm
-            drugName={this.props.drug.display}
-            drugUuid={this.props.drug.uuid}
-          />
+        <AddForm
+          drugName={this.props.drug.display}
+          drugUuid={this.props.drug.uuid}
+        />
       }
     </div>
   );
@@ -43,6 +48,20 @@ export class SearchAndAddOrder extends React.Component {
               tabName="OutPatient"
               careSetting={this.props.outpatientCareSetting}
               location={this.props.location} />
+
+            <br />
+            {/* Example usages of the Accordion */}
+            <Accordion open border title="Accordion Header">
+              <p>This is the first paragraph</p>
+              <p>This is the second paragraph</p>
+              <p>This is the third paragraph</p>
+            </Accordion>
+
+            <Accordion title="Accordion Header">
+              <p>This is the first paragraph</p>
+              <p>This is the second paragraph</p>
+              <p>This is the third paragraph</p>
+            </Accordion>
           </Tab>
           <Tab
             tabName="InPatient">
