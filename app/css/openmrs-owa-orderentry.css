@@ -61,3 +61,19 @@ body {
 .number-input{
     width: 3em;
 }
+
+.fs-14-px {
+    font-size: 14px
+}
+
+.w-18-percent {
+    width: 18%
+}
+
+.w-10-percent {
+    width: 10%
+}
+
+.w-44-percent {
+    width: 44%
+}

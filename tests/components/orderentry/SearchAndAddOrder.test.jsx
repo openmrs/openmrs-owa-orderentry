@@ -7,6 +7,9 @@ const props = {
   outpatientCareSetting:{
     uuid:{}
   },
+  inpatientCareSetting: {
+    uuid: {}
+  },
   getPastOrders: jest.fn(),
   location:{
     search:()=>{}

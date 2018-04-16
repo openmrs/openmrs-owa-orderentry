@@ -11,6 +11,7 @@ import {
   fetchOutpatientCareSetting,
 } from '../../actions/careSetting';
 import SearchDrug from '../searchDrug';
+import ActiveOrders from './ActiveOrders';
 
 export class SearchAndAddOrder extends React.Component {
   constructor(props) {
@@ -44,10 +45,12 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <Accordion open border title="Accordion Header">
-              <p>This is the first paragraph</p>
-              <p>This is the second paragraph</p>
-              <p>This is the third paragraph</p>
+            <Accordion open border title="Active Order">
+              <ActiveOrders
+                tabName="OutPatient"
+                careSetting={this.props.outpatientCareSetting}
+                location={this.props.location}
+              />
             </Accordion>
 
             <Accordion title="Past Orders">
@@ -63,10 +66,12 @@ export class SearchAndAddOrder extends React.Component {
             tabName="InPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <Accordion open border title="Accordion Header">
-              <p>This is the first paragraph</p>
-              <p>This is the second paragraph</p>
-              <p>This is the third paragraph</p>
+            <Accordion open border title="Active Order">
+              <ActiveOrders
+                tabName="OutPatient"
+                careSetting={this.props.outpatientCareSetting}
+                location={this.props.location}
+              />
             </Accordion>
 
             <Accordion title="Past Orders">
@@ -75,6 +80,7 @@ export class SearchAndAddOrder extends React.Component {
                 careSetting={this.props.inpatientCareSetting}
                 location={this.props.location} />
             </Accordion>
+
           </Tab>
         </Tabs>
       </div>
@@ -97,6 +103,7 @@ SearchAndAddOrder.propTypes = {
     uuid: PropTypes.string,
     display: PropTypes.string,
   }),
+  location: PropTypes.shape({}).isRequired,
 };
 
 SearchAndAddOrder.defaultProps = {

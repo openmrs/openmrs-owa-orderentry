@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import PatientDashboard from '../patientDashboard';
 import SearchAndAddOrder from './SearchAndAddOrder';
 import fetchPatientCareSetting from '../../actions/careSetting';
@@ -10,6 +10,7 @@ export class OrderEntryPage extends React.Component {
   componentDidMount() {
     this.props.fetchPatientCareSetting();
   }
+
   render() {
     if (!(this.props.outpatientCareSetting && this.props.inpatientCareSetting)) {
       return (
@@ -21,6 +22,7 @@ export class OrderEntryPage extends React.Component {
 
     return (
       <div>
+        <div />
         <PatientDashboard {...this.props} />
         <SearchAndAddOrder
           outpatientCareSetting={this.props.outpatientCareSetting}
@@ -48,5 +50,10 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => ({
   fetchPatientCareSetting: () => dispatch(fetchPatientCareSetting()),
 });
+
+OrderEntryPage.propTypes = {
+  fetchPatientCareSetting: PropTypes.func.isRequired,
+  location: PropTypes.shape({}).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage);

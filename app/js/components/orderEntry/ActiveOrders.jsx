@@ -1,67 +1,160 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import format from 'date-fns/format';
+import PropTypes from 'prop-types';
+import activeOrderAction from '../../actions/activeOrderAction';
+import imageLoader from '../../../img/loading.gif';
 
-class ActiveOrders extends React.Component {
+export class ActiveOrders extends React.Component {
+  componentDidMount() {
+    this.fetchActiveOrders(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tabName !== this.props.tabName) {
+      this.fetchActiveOrders(nextProps);
+    }
+  }
+
+  fetchActiveOrders(props) {
+    const { location, careSetting } = this.props;
+
+    const query = new URLSearchParams(location.search);
+    const patientUuid = query.get('patient');
+    const caresettingUuid = careSetting.uuid;
+
+    this.props.activeOrderAction(props.careSetting.uuid, patientUuid);
+  }
+
+  showOrders = activeOrders => activeOrders
+    .map((order) => {
+      const {
+        uuid,
+        dateActivated,
+        autoExpireDate,
+        drug,
+        dose,
+        doseUnits,
+        frequency,
+        route,
+        duration,
+        durationUnits,
+        dosingInstructions,
+        quantity,
+        quantityUnits,
+        dosingType,
+      } = order;
+
+      let details;
+
+      if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
+        details = (
+          <td className="fs-14-px">
+
+            {drug.display}:
+            {dose && ` ${dose}`}
+            {doseUnits.display && ` ${doseUnits.display}`}
+            {frequency.display && `, ${frequency.display}`}
+            {route.display && `, ${route.display}`}
+            {duration && `, for ${duration}`}
+            {durationUnits.display && ` ${durationUnits.display} total`}
+            {dosingInstructions && `, (${dosingInstructions})`}
+            {(quantity && quantityUnits.display) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
+
+          </td>
+        );
+      } else {
+        details = (
+          <td className="fs-14-px">
+
+            {drug.display}:
+            {dosingInstructions && ` (${dosingInstructions})`}
+            {(quantity && quantityUnits.display) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
+
+          </td>
+        );
+      }
+
+      return (
+        <tr key={uuid}>
+          <td className="text-center fs-14-px">
+            {format(dateActivated, 'MM/DD/YYYY')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM/DD/YYYY HH:mm')}`)}
+          </td>
+          <td className="text-center fs-14-px">
+            Active
+          </td>
+
+          {details}
+
+          <td className="text-center">
+            <a href="#"> <i className="icon-edit" /> </a>
+            <a href="#"> <i className="icon-remove" /> </a>
+          </td>
+        </tr>
+      );
+    })
+
 
   render() {
+    const { activeOrders, loading } = this.props.drugOrder;
+
+    if (!activeOrders || loading) {
+      return (
+        <div className="text-align-center">
+          <img src={imageLoader} alt="loader" />
+        </div>
+      );
+    } else if (activeOrders.length === 0) {
+      return (
+        <div>
+          <h4> Active Orders </h4>
+          <p>No Active Orders</p>
+        </div>
+      );
+    }
     return (
       <div>
         <br /> <br />
-        <div className="row">
-          <div className="col-lg-12 col-md-12 col-sm-12">
-            <h4> Active Orders </h4>
-            <div className="table-responsive">
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th className="text-center" style={{ width: "18%" }}>Date</th>
-                    <th className="text-center" style={{ width: "10%" }}>Status</th>
-                    <th className="text-center" style={{ width: "44%" }}>Details</th>
-                    <th className="text-center" style={{ width: "10%" }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="text-center" style={{ fontSize: "14px" }}>
-                      started 12/03/2018
-                    </td>
-                    <td className="text-center" style={{ fontSize: "14px" }}>
-                      Active
-                    </td>
-                    <td style={{ paddingTop: "0" }}>
-                      <table className="table" style={{ marginBottom: "0" }}>
-                        <tbody>
-                          <tr style={{ fontSize: "14px" }}>
-                            <td> Oral </td>
-                            <td> 1 tablet, twice daily, for 3 days </td>
-                            <td> Some additional notes </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                    <td className="text-center">
-                      <a href="#"> <i className="fas fa-edit" /> </a>
-                      <a href="#"> <i className="fas fa-times" /> </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table >
-              <span>
-                <div className="row">
-                  <div className="col-lg-4 col-md-4 col-sm-4">
-                    <p> Showing 1 to 3 of 3 entries </p>
-                  </div>
-                  <div className="col-sm-4 col-md-4 col-lg-4 col-lg-offset-4 col-md-offset-4 col-sm-offset-4 text-right">
-                    <p> Previous 1 Next Last</p>
-                  </div>
-                </div>
-              </span>
-            </div >
-          </div >
-        </div >
+        <div>
+          <h4> Active Orders </h4>
+          <div className="table-responsive">
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th className="text-center w-18-percent">Date</th>
+                  <th className="text-center w-10-percent">Status</th>
+                  <th className="text-center w-44-percent">Details</th>
+                  <th className="text-center w-10-percent">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.showOrders(activeOrders)}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <br />
-      </div >
+      </div>
     );
   }
 }
 
-export default ActiveOrders;
+ActiveOrders.propTypes = {
+  activeOrderAction: PropTypes.func.isRequired,
+  drugOrder: PropTypes.shape({
+    loading: PropTypes.bool,
+  }).isRequired,
+  careSetting: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({}).isRequired,
+};
+
+const mapStateToProps = ({ activeOrderReducer }) => ({
+  drugOrder: activeOrderReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  activeOrderAction: (careSetting, patientUuid) =>
+    dispatch(activeOrderAction(careSetting, patientUuid)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActiveOrders);
