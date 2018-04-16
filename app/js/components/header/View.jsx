@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../../../css/header.css';
-
 const contextPath = window.location.href.split('/')[3];
 
 const View = props => (

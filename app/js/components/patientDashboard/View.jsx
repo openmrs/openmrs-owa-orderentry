@@ -2,8 +2,6 @@ import React from 'react';
 import dateFns, { distanceInWordsToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import '../../../css/patient.css';
-
 const View = props => (
   <div className="patient-header ">
     <div className="demographics">
