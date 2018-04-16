@@ -15,6 +15,7 @@ import sessionReducer from './sessionReducer';
 import orderEntryConfigurations from './orderEntryReducer';
 import careSettingReducer from './careSettingReducer';
 import drugSearchReducer from './drugSearchReducer';
+import encounterReducer from './encounterReducer';
 
 export default combineReducers({
   locationReducer,
@@ -25,4 +26,5 @@ export default combineReducers({
   careSettingReducer,
   drugSearchReducer,
   pastOrdersReducer,
+  encounterReducer,
 });
