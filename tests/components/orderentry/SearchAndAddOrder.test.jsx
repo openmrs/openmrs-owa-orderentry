@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { SearchAndAddOrder } from '../../../app/js/components/orderEntry/SearchAndAddOrder';
-import store from '../../../app/js/redux-store';
 
 const props = {
   outpatientCareSetting:{

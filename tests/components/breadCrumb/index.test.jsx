@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import BreadCrumb from '../../../app/js/components/breadCrumb';
 
 let props;

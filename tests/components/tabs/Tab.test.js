@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Tab from '../../../app/js/components/tabs/Tab';
 
 describe('`Tab` component', () => {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ActiveOrders } from '../../../app/js/components/orderEntry/ActiveOrders';
-import store from '../../../app/js/redux-store';
 
 const props = {
   activeOrderAction: jest.fn(),
