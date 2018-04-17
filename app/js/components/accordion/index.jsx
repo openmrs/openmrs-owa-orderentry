@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../../../css/accordion.css';
-
 class Accordion extends React.Component {
   state = {
     isVisible: this.props.open === undefined ? false : this.props.open,

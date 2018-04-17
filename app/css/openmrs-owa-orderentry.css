@@ -20,6 +20,9 @@ body {
 }
 
 .body-wrapper {
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     background-color: white;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -101,3 +104,128 @@ body {
 .action-padding {
     padding: 10px 10px 10px 25px;
 }
+/* *
+ * Css for Header Component
+*/
+
+.location-container {
+    display: block;
+    background: white;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 320px;
+    border: 2px solid #006056;
+    left: 20px;
+  }
+
+  .location-container li {
+    color: #007fff;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .location-container li:hover {
+    background: #007fff;
+    color: white;
+  }
+
+  .location-container li.selected {
+    background: #007fff;
+    color: white !important;
+  }
+
+/* *
+ * Css  for Patient Component
+*/
+
+.patient-header {
+    border-radius: 5px 5px 0px 0px;
+    margin: 10px 0px 0px 0px;
+  }
+
+  .rotate180::before {
+    transform: rotate(180deg);
+  }
+
+  .preformatted-note {
+    margin: 1px;
+    padding: 0px;
+    padding-top: 1px;
+    background: white;
+    color: #e9241d;
+    font-family: "OpenSans", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+
+  .note-wrapper {
+    float: left;
+    max-width: 92%;
+    min-height: 20px;
+    border: solid 2px #e9241d;
+    border-radius: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background: white;
+    font-family: "OpenSans", Arial, sans-serif;
+    cursor: pointer;
+  }
+
+  .secondLine {
+    clear: both;
+  }
+
+  .details {
+    margin-top: 3px;
+    font-size: 0.8em;
+  }
+
+  .created-by {
+    font-weight: bold;
+    color: #666666;
+  }
+
+  .created-date {
+    clear: both;
+    font-weight: normal;
+    font-size: 0.7em;
+    color: #666666;
+  }
+
+/* *
+ * Accordion CSS
+*/
+
+.accordion.border {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+  }
+
+  .accordion .header {
+    cursor: pointer;
+    background-color: #F9F9F9;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 5px;
+    font-size: 1.2em;
+  }
+
+  .accordion .content {
+    padding: 0px 5px;
+      overflow-y: scroll;
+    max-height: 0px;
+    transition: all .5s ease;
+  }
+
+  .accordion .content.close {
+      max-height: 0;
+  }
+
+  .accordion .content.open {
+      max-height: 500px;
+  }
+
+  .rotate90 {
+    transform: rotate(90deg);
+  }
