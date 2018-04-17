@@ -24,8 +24,7 @@ export class PastOrders extends React.Component {
 
     if (!pastOrders || loading) {
       return (
-        <div
-          style={{ textAlign: "center" }}>
+        <div className="text-align-center">
           <img src={imageLoder} alt="loader" />
         </div>
       );
@@ -33,14 +32,16 @@ export class PastOrders extends React.Component {
     return (
       <div>
         {pastOrders.length > 0 ?
-          <table className="table bordered">
-            <tbody>
+          <table className="table bordered mw-958-px">
+            <thead>
               <tr>
-                <th>Date</th>
-                <th>Status</th>
+                <th className="w-145-px">Date</th>
+                <th className="w-120-px">Status</th>
                 <th>Details</th>
-                <th>Actions</th>
+                <th className="w-81-px">Actions</th>
               </tr>
+            </thead>
+            <tbody>
               {pastOrders.map(pastOrder =>
                 <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
             </tbody>
@@ -51,7 +52,7 @@ export class PastOrders extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ careSettingReducer, pastOrdersReducer }) => ({
+const mapStateToProps = ({ pastOrdersReducer }) => ({
   pastOrders: pastOrdersReducer,
 });
 

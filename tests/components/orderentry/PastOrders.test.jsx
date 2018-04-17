@@ -40,6 +40,6 @@ describe('Test for Past orders', () => {
   });
   it('should render no past orders', () => {
     const wrapper = mount(<PastOrders {...props} />  );
-    expect(wrapper.find('span')).toHaveLength(1);
+    expect(wrapper.find('a')).toHaveLength(1);
   });
 });

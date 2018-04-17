@@ -77,3 +77,27 @@ body {
 .w-44-percent {
     width: 44%
 }
+
+.mw-958-px {
+    min-width: 958px;
+}
+
+.w-145-px {
+    width: 145px;
+}
+
+.w-81-px {
+    width: 81px;
+}
+
+.w-120-px {
+    width: 120px;
+}
+
+.pl-39-px {
+    padding-left: 39px;
+}
+
+.action-padding {
+    padding: 10px 10px 10px 25px;
+}

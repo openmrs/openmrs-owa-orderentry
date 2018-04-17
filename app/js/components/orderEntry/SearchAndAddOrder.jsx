@@ -45,7 +45,7 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <Accordion open border title="Active Order">
+            <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 tabName="OutPatient"
                 careSetting={this.props.outpatientCareSetting}
@@ -53,7 +53,7 @@ export class SearchAndAddOrder extends React.Component {
               />
             </Accordion>
 
-            <Accordion title="Past Orders">
+            <Accordion title="Past Drug Orders">
               <PastOrders
                 tabName="OutPatient"
                 careSetting={this.props.outpatientCareSetting}
@@ -66,15 +66,15 @@ export class SearchAndAddOrder extends React.Component {
             tabName="InPatient">
             <SearchDrug />
             {this.renderAddForm()}
-            <Accordion open border title="Active Order">
+            <Accordion open title="Active Drug Orders">
               <ActiveOrders
-                tabName="OutPatient"
-                careSetting={this.props.outpatientCareSetting}
+                tabName="InPatient"
+                careSetting={this.props.inpatientCareSetting}
                 location={this.props.location}
               />
             </Accordion>
 
-            <Accordion title="Past Orders">
+            <Accordion title="Past Drug Orders">
               <PastOrders
                 tabName="InPatient"
                 careSetting={this.props.inpatientCareSetting}

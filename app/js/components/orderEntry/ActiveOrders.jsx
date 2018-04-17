@@ -49,27 +49,27 @@ export class ActiveOrders extends React.Component {
 
       if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
         details = (
-          <td className="fs-14-px">
+          <td>
 
             {drug.display}:
-            {dose && ` ${dose}`}
-            {doseUnits.display && ` ${doseUnits.display}`}
-            {frequency.display && `, ${frequency.display}`}
-            {route.display && `, ${route.display}`}
+            {` ${dose}`}
+            {` ${doseUnits.display}`}
+            {`, ${frequency.display}`}
+            {`, ${route.display}`}
             {duration && `, for ${duration}`}
-            {durationUnits.display && ` ${durationUnits.display} total`}
+            {durationUnits && ` ${durationUnits.display} total`}
             {dosingInstructions && `, (${dosingInstructions})`}
-            {(quantity && quantityUnits.display) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
+            {(quantity && quantityUnits) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
 
           </td>
         );
       } else {
         details = (
-          <td className="fs-14-px">
+          <td>
 
             {drug.display}:
-            {dosingInstructions && ` (${dosingInstructions})`}
-            {(quantity && quantityUnits.display) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
+            {dosingInstructions && ` ${dosingInstructions}`}
+            {(quantity && quantityUnits) && `, (Dispense: ${quantity} ${quantityUnits.display})`}
 
           </td>
         );
@@ -77,18 +77,18 @@ export class ActiveOrders extends React.Component {
 
       return (
         <tr key={uuid}>
-          <td className="text-center fs-14-px">
-            {format(dateActivated, 'MM/DD/YYYY')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM/DD/YYYY HH:mm')}`)}
+          <td>
+            {format(dateActivated, 'MM-DD-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM-DD-YYYY HH:mm')}`)}
           </td>
-          <td className="text-center fs-14-px">
+          <td>
             Active
           </td>
 
           {details}
 
-          <td className="text-center">
-            <a href="#"> <i className="icon-edit" /> </a>
-            <a href="#"> <i className="icon-remove" /> </a>
+          <td className="text-center action-padding">
+            <a href="#"> <i className="icon-edit" title="Edit" /> </a>
+            <a href="#"> <i className="icon-remove" title="Delete" /> </a>
           </td>
         </tr>
       );
@@ -107,32 +107,25 @@ export class ActiveOrders extends React.Component {
     } else if (activeOrders.length === 0) {
       return (
         <div>
-          <h4> Active Orders </h4>
           <p>No Active Orders</p>
         </div>
       );
     }
     return (
       <div>
-        <br /> <br />
-        <div>
-          <h4> Active Orders </h4>
-          <div className="table-responsive">
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th className="text-center w-18-percent">Date</th>
-                  <th className="text-center w-10-percent">Status</th>
-                  <th className="text-center w-44-percent">Details</th>
-                  <th className="text-center w-10-percent">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.showOrders(activeOrders)}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <table className="table bordered mw-958-px">
+          <thead>
+            <tr>
+              <th className="w-145-px">Date</th>
+              <th className="w-120-px">Status</th>
+              <th>Details</th>
+              <th className="w-81-px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.showOrders(activeOrders)}
+          </tbody>
+        </table>
         <br />
       </div>
     );
