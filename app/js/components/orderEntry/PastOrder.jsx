@@ -46,13 +46,15 @@ export const PastOrder = (props) => {
   return (
     <tr>
       <td>
-        <small>{format(auditInfo.dateCreated, 'DD/MM/YYYY HH:MM')} &nbsp; {autoExpireDate && `-${format(autoExpireDate, 'DD/MM/YYYY HH:MM')}`}</small>
+        {format(auditInfo.dateCreated, 'DD-MM-YYYY HH:MM')} {autoExpireDate && `- ${format(autoExpireDate, 'DD-MM-YYYY HH:MM')}`}
       </td>
       <td>{action ? `${getStatus()}` : ""}</td>
       <td>
         {details}
       </td>
-      <td>&nbsp;&nbsp;<span className="icon-ban-circle" /></td>
+      <td className="text-center pl-39-px">
+        <a href="#"> <i className="icon-ban-circle" title="Delete" /> </a>
+      </td>
     </tr>
   );
 };
