@@ -1,7 +1,3 @@
-import expect from 'expect';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
 import {
   fetchLocations,
   fetchCurrentSession,
@@ -12,16 +8,8 @@ import {
   SET_LOCATIONS, SET_CURRENT_SESSION
 } from '../../app/js/actions/actionTypes';
 
-import mockData from '../../__mocks__/mockData';
-import locationMock from '../../__mocks__/locationMock';
-
-const middlewares = [thunk];
-
-const mockStore = configureMockStore(middlewares);
 window.location = locationMock;
 
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 describe('Header actions', () => {
   beforeEach(() => moxios.install());
@@ -82,4 +70,3 @@ describe('Header actions', () => {
     done();
   });
 });
-

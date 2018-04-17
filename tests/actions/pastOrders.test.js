@@ -1,11 +1,11 @@
-import moxios from 'moxios';
-import { LOAD_PAST_ORDERS_SUCCESS, LOAD_PAST_ORDERS_FAILURE } from '../../app/js/actions/actionTypes';
-import mockData from '../../__mocks__/mockData';
-import locationMock from '../../__mocks__/locationMock';
+import {
+  LOAD_PAST_ORDERS_SUCCESS,
+  LOAD_PAST_ORDERS_FAILURE
+} from '../../app/js/actions/actionTypes';
 import { getPastOrders } from '../../app/js/actions/pastOrders';
+
 window.location = locationMock;
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+
 const uuid = '761d8414-6cb4-4456-be4f-232e6f819e06';
 const careSetting = '46bd378e-2de1-4cf7-aa75-9351d030948e';
 
@@ -17,7 +17,7 @@ describe('Past order actions', () => {
     const { pastOrders } = mockData;
     let request = moxios.requests.mostRecent();
     moxios.stubRequest(
-    `${apiBaseUrl}/order?careSetting=${careSetting}&patient=${uuid}&status=inactive&t=drugorder&v=full`, 
+    `${apiBaseUrl}/order?careSetting=${careSetting}&patient=${uuid}&status=inactive&t=drugorder&v=full`,
     {
     status: 200,
     response: pastOrders
@@ -34,4 +34,3 @@ describe('Past order actions', () => {
     done();
   });
 });
-
