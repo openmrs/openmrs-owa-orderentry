@@ -1,15 +1,7 @@
 import React from 'react';
-import expect from 'expect';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import sinon from 'sinon';
-import { shallow } from 'enzyme';
 import ConnectedHeader, {
   Header
 } from '../../../app/js/components/header';
-
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
 
 let props;
 let mountedComponent;

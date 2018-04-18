@@ -8,6 +8,7 @@ import moxios from 'moxios';
 
 import mockData from '../__mocks__/mockData';
 import locationMock from '../__mocks__/locationMock';
+import store from '../app/js/redux-store';
 
 process.env.NODE_ENV = 'test';
 
@@ -28,6 +29,7 @@ require.extensions['.jpg'] = () => null;
 global.expect = expect;
 global.mockData = mockData;
 global.locationMock = locationMock;
+global.store = store;
 global.apiBaseUrl = apiBaseUrl;
 global.moxios = moxios;
 global.mount = mount;

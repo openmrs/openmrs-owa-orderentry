@@ -1,6 +1,5 @@
 import React from 'react';
 import {PastOrders} from '../../../app/js/components/orderEntry/PastOrders';
-import store from '../../../app/js/redux-store';
 
 const props={
   getPastOrders:()=>{},
@@ -33,7 +32,7 @@ describe('Test for Past orders', () => {
   it('should render component', () => {
     const wrapper = mount(<PastOrders {...props}/>  );
     expect(wrapper).toMatchSnapshot()
-  });  
+  });
   it('should render a table with past orders', () => {
     const wrapper = mount(<PastOrders {...props}/>  );
     expect(wrapper.find('table')).toHaveLength(1);
