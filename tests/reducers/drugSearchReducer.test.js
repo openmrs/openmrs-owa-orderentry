@@ -1,6 +1,4 @@
-import expect from 'expect';
 import drugSearchReducer from '../../app/js/reducers/drugSearchReducer';
-import mockData from '../../__mocks__/mockData';
 
 const defaultDrugs = mockData.defaultDrugs.results;
 

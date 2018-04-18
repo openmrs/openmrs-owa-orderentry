@@ -1,5 +1,4 @@
 import pastOrdersReducer from '../../app/js/reducers/pastOrdersReducer';
-import mockData from '../../__mocks__/mockData';
 
 const pastOrders = mockData.pastOrders;
 

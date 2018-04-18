@@ -1,6 +1,4 @@
-import expect from 'expect';
 import locationReducer from '../../app/js/reducers/locationReducer';
-import mockData from '../../__mocks__/mockData';
 
 const locationTags = mockData.defaultLocations.results;
 
