@@ -1,154 +1,296 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../../../../css/grid.scss';
 
-const StandardDose = () => (
-  <div>
-    <form className="simple-form-ui">
-      <div className="grid-row">
-        <div className="column-1">
-          <label name="dose">Dose</label>
-          <input
-            className="number-input"
-            id="dose"
-            name="dose"
-            type="number"
-            min="0"
-            required
-            autoFocus />
+const StandardDose = ({
+  fields,
+  fieldErrors,
+  careSetting,
+  allConfigurations,
+  handleChange,
+  handleValidation,
+  activateStandardSaveButton,
+  handleSubmit,
+  handleCancel,
+}) => {
+  const {
+    drugDosingUnits, orderFrequencies, drugRoutes, durationUnits, drugDispensingUnits,
+  } = allConfigurations;
+  return (
+    <div>
+      <form className="simple-form-ui">
+        <div className="grid-row">
+          <div className="column-10">
+            <p className="left p-margin">
+              <input
+                className={`small-input ${fieldErrors.dose ? "illegalValue" : ""}`}
+                placeholder="Dose"
+                id="dose"
+                name="dose"
+                type="number"
+                min="0"
+                onBlur={handleValidation}
+                onChange={handleChange}
+                value={fields.dose}
+                required
+                autoFocus />
+              {
+                fieldErrors.dose ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+            <p className="left p-margin">
+              <input
+                className={fields.dose && !fields.dosingUnit ? "illegalValue" : ""}
+                placeholder="Units"
+                id="drugDosingUnits"
+                name="dosingUnit"
+                list="dosingUnits"
+                size="7"
+                value={fields.dosingUnit}
+                onBlur={handleValidation}
+                onChange={handleChange}
+                required />
+              <datalist id="dosingUnits" >
+                {
+                  drugDosingUnits
+                && drugDosingUnits.map(unit => (
+                  <option
+                    key={unit.uuid}
+                    value={unit.display}
+                  />))
+                }
+              </datalist>
+              {
+                (fields.dose && !fields.dosingUnit) ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+            <p className="left p-margin">
+              <input
+                className={fieldErrors.frequency ? "illegalValue" : ""}
+                placeholder="Frequency"
+                id="frequency"
+                name="frequency"
+                list="orderFrequencies"
+                size="20"
+                value={fields.frequency}
+                onBlur={handleValidation}
+                onChange={handleChange} />
+              <datalist id="orderFrequencies" >
+                {
+                  orderFrequencies &&
+                orderFrequencies.map(frequency => (
+                  <option
+                    key={frequency.uuid}
+                    value={frequency.display}
+                  />
+                ))
+                }
+              </datalist>
+              {
+                fieldErrors.frequency ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+            <p className="left p-margin">
+              <input
+                className={fieldErrors.route ? "illegalValue" : ""}
+                placeholder="Route"
+                id="route"
+                name="route"
+                list="routes"
+                size="20"
+                value={fields.route}
+                onBlur={handleValidation}
+                onChange={handleChange} />
+              <datalist id="routes" >
+                {
+                  drugRoutes &&
+                drugRoutes.map(route => (
+                  <option
+                    key={route.uuid}
+                    value={route.display}
+                  />))
+                }
+              </datalist>
+              {
+                fieldErrors.route ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+          </div>
         </div>
-        <div className="column-2">
-          <label name="drugDosingUnits">Units</label>
-          <input
-            id="drugDosingUnits"
-            name="dosingUnit"
-            list="dosingUnits"
-            size="10"
-            required />
-          <datalist id="dosingUnits" >
-            <option value="Kilograms" />
-            <option value="grams" />
-            <option value="milligrams" />
-          </datalist>
+        <div className="grid-row">
+          <div className="column-7">
+            <p className="left label-margin">
+              <label name="reason">As needed for</label>
+            </p>
+            <p className="left">
+              <input
+                name="reason"
+                placeholder="reason(optional)"
+                id="reason"
+                type="text"
+                size="30"
+                onChange={handleChange}
+                value={fields.reason} />
+            </p>
+          </div>
         </div>
-        <div className="column-2">
-          <label name="frequency">Frequency</label>
-          <input
-            id="frequency"
-            name="frequency"
-            list="orderFrequencies"
-            size="10"
-          />
-          <datalist id="orderFrequencies" >
-            <option value="Daily" />
-            <option value="Twice everyday" />
-            <option value="Twice a month" />
-          </datalist>
+        <div className="grid-row">
+          <div className="column-7">
+            <p className="left label-margin">
+              <label>For</label>
+            </p>
+            <p className="left p-margin">
+              <input
+                className="medium-input"
+                placeholder="Duration"
+                id="duration"
+                name="duration"
+                type="number"
+                min="0"
+                onChange={handleChange}
+                value={fields.duration} />
+            </p>
+            <p className="left label-margin">
+              <input
+                className={fields.duration && !fields.durationUnit ? "illegalValue" : ""}
+                placeholder="Units"
+                name="durationUnit"
+                id="drugDurationUnits"
+                list="durationUnits"
+                size="8"
+                value={fields.durationUnit}
+                onBlur={handleValidation}
+                onChange={handleChange} />
+              <datalist id="durationUnits" >
+                {
+                  durationUnits &&
+                durationUnits.map(unit => (
+                  <option
+                    key={unit.uuid}
+                    value={unit.display}
+                  />
+                ))
+                }
+              </datalist>
+              {
+                (fields.duration && !fields.durationUnit) ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+            <p className="left">
+              <label>total</label>
+            </p>
+          </div>
         </div>
-        <div className="column-2">
-          <label name="route">Route</label>
-          <input
-            id="route"
-            name="route"
-            list="routes"
-            size="10"
-          />
-          <datalist id="routes" >
-            <option value="Orally" />
-            <option value="Eye drops" />
-            <option value="Ear drops" />
-          </datalist>
+        <div className="grid-row">
+          <div className="column-6">
+            <textarea
+              rows="2"
+              cols="60"
+              id="notes"
+              placeholder="Additional instruction not covered above"
+              name="drugInstructions"
+              onChange={handleChange}
+              value={fields.drugInstructions} />
+          </div>
         </div>
-        <div className="column-1">
-          <label name="duration">Duration</label>
-          <input
-            className="number-input"
-            id="duration"
-            name="duration"
-            type="number"
-            min="0"
-          />
+        { careSetting.display === 'Outpatient' ?
+          <div className="grid-row">
+            <div className="column-7">
+              <label>For outpatient orders </label>
+              <p className="left label-margin">
+                <label>Dispense:</label>
+              </p>
+              <p className="left p-margin">
+                <input
+                  className={`medium-input ${fieldErrors.dispensingQuantity ? "illegalValue" : ""}`}
+                  placeholder="Quantity"
+                  name="dispensingQuantity"
+                  id="dispenseQuantity"
+                  type="number"
+                  min="0"
+                  onBlur={handleValidation}
+                  onChange={handleChange}
+                  value={fields.dispensingQuantity} />
+                {
+                  fieldErrors.dispensingQuantity ?
+                    <span className="field-error">Required</span>
+                    : ""
+                }
+              </p>
+              <p className="left">
+                <input
+                  className={fields.dispensingQuantity && !fields.dispensingUnit ? "illegalValue" : ""}
+                  placeholder="Units"
+                  name="dispensingUnit"
+                  id="drugDispensingUnits"
+                  list="dispensingUnits"
+                  size="8"
+                  value={fields.dispensingUnit}
+                  onBlur={handleValidation}
+                  onChange={handleChange} />
+                <datalist id="dispensingUnits" >
+                  {
+                    drugDispensingUnits &&
+                  drugDispensingUnits.map(unit => (
+                    <option
+                      key={unit.uuid}
+                      value={unit.display}
+                    />))
+                  }
+                </datalist>
+                {
+                  (fields.dispensingQuantity && !fields.dispensingUnit) ?
+                    <span className="field-error">Required</span>
+                    : ""
+                }
+              </p>
+            </div>
+          </div> :
+          <br />
+        }
+        <div className="grid-row">
+          <div className="column-1">
+            <button
+              className="cancel"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          </div>
+          <div className="column-1 pull-right-8">
+            <button
+              className="confirm"
+              onClick={handleSubmit}
+              disabled={activateStandardSaveButton()}>
+                Save
+            </button>
+          </div>
         </div>
-        <div className="column-2">
-          <label name="drugDurationUnits">Units</label>
-          <input
-            name="durationUnit"
-            id="drugDurationUnits"
-            list="durationUnits"
-            size="10"
-          />
-          <datalist id="durationUnits" >
-            <option value="Weeks" />
-            <option value="Months" />
-            <option value="Years" />
-          </datalist>
-        </div>
-      </div>
-      <div className="grid-row">
-        <p className="left column-4">
-          <label name="reason">As needed</label>
-          <input
-            name="reason"
-            id="reason"
-            type="text"
-          />
-        </p>
-        <div className="column-1">
-          <label>Dispense: </label>
-        </div>
-        <div className="column-1">
-          <label name="dispenseQuantity">Quantity</label>
-          <input
-            className="number-input"
-            name="dispensingQuantity"
-            id="dispenseQuantity"
-            type="number"
-            min="0"
-          />
-        </div>
-        <div className="column-2">
-          <label name="drugDispensingUnits">Units</label>
-          <input
-            name="dispensingUnit"
-            id="drugDispensingUnits"
-            list="dispensingUnits"
-            size="10"
-          />
-          <datalist id="dispensingUnits" >
-            <option value="Tablets" />
-            <option value="Bottles" />
-            <option value="Tins" />
-          </datalist>
-        </div>
-      </div>
-      <div className="grid-row">
-        <div className="column-4">
-          <label name="notes">Notes</label>
-          <textarea
-            rows="2"
-            cols="85"
-            id="notes"
-            name="note"
-          />
-        </div>
-      </div>
-      <div className="button-row">
-        <div className="column-1">
-          <button
-            className="cancel"
-          >
-          Cancel
-          </button>
-        </div>
-        <div className="column-1 pull-right-8">
-          <button
-            className="confirm"
-          >
-          Save
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-);
+      </form>
+    </div>
+  );
+};
+
+StandardDose.propTypes = {
+  fields: PropTypes.object.isRequired,
+  fieldErrors: PropTypes.object.isRequired,
+  careSetting: PropTypes.object.isRequired,
+  allConfigurations: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleValidation: PropTypes.func.isRequired,
+  activateStandardSaveButton: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+};
 
 export default StandardDose;

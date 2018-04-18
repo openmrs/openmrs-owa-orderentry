@@ -29,7 +29,7 @@ describe('Component: SearchDrug: Container', () => {
       onChange: jest.fn(),
       onOptionSelected: jest.fn(),
       selectDrug: jest.fn(),
-      onChanging: jest.fn(),
+      onChange: jest.fn(),
       onSelectDrug: jest.fn(),
     };
     mountedComponent = undefined;

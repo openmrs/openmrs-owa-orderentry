@@ -8,7 +8,7 @@ const FreeText = ({
   handleSubmit,
   handleCancel,
 }) => {
-  const { note, dispensingQuantity, dispensingUnit } = fields;
+  const { drugInstructions, dispensingQuantity, dispensingUnit } = fields;
   return (
     <div>
       <form>
@@ -17,8 +17,8 @@ const FreeText = ({
             <label name="instructions">Complete Instructions</label>
             <textarea
               id="instructions"
-              name="note"
-              value={note}
+              name="drugInstructions"
+              value={drugInstructions}
               onChange={handleChange}
               required
             />
@@ -76,16 +76,10 @@ const FreeText = ({
 
 FreeText.propTypes = {
   fields: PropTypes.object.isRequired,
-  allConfigurations: PropTypes.shape({
-    drugDispensingUnits: PropTypes.array,
-  }),
+  allConfigurations: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
-};
-
-FreeText.defaultProps = {
-  allConfigurations: {},
 };
 
 export default FreeText;

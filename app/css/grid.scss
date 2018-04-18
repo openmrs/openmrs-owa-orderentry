@@ -4,15 +4,9 @@
     @include row();
 }
 
-.button-row {
-    @include row();
-    margin-top: 1%;
-}
-
 @for $i from 1 through 12 {
     .column-#{$i} {
         @include column($i);
-        margin-right: 1em;
     }
 }
 

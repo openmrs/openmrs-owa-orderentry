@@ -30,7 +30,7 @@ const DraftDataTable = ({
             duration,
             durationUnit,
             reason,
-            note,
+            drugInstructions,
             dispensingQuantity,
             dispensingUnit,
             orderNumber,
@@ -46,7 +46,7 @@ const DraftDataTable = ({
                 {route && ` ${route}` }
                 {duration && `, for ${duration} ${durationUnit} total` }
                 {reason && `, (Reason: ${reason})` }
-                {note && ` (${note})`}
+                {drugInstructions && ` (${drugInstructions})`}
                 {dispensingQuantity && `, (Dispense: ${dispensingQuantity} ${dispensingUnit})`}
               </td>
               <td>
