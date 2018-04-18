@@ -1,26 +1,13 @@
-import expect from 'expect';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
 import {
   fetchPatientRecord,
   fetchPatientNote,
 } from '../../app/js/actions/patient';
-
 import {
   SET_PATIENT, SET_NOTE
 } from '../../app/js/actions/actionTypes';
 
-import mockData from '../../__mocks__/mockData';
-import locationMock from '../../__mocks__/locationMock';
-
-const middlewares = [thunk];
-
-const mockStore = configureMockStore(middlewares);
 window.location = locationMock;
 
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 const uuid = '6cesf-4hijk-mkls';
 
 describe('Patient actions', () => {
@@ -64,4 +51,3 @@ describe('Patient actions', () => {
     done();
   });
 });
-

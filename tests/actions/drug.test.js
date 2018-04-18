@@ -1,20 +1,12 @@
-import expect from 'expect';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
-
 import { searchDrug } from '../../app/js/actions/drug';
 
-import * as actionTypes from '../../app/js/actions/actionTypes';
+import {
+  SEARCH_DRUGS_FAILURE,
+  SEARCH_DRUGS_LOADING,
+  SEARCH_DRUGS_SUCCESS
+} from '../../app/js/actions/actionTypes';
 
 import mockData from '../../__mocks__/mockData';
-
-const middlewares = [thunk];
-
-const mockStore = configureMockStore(middlewares);
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 const text = 'para';
 
@@ -32,15 +24,15 @@ describe('Drug Search actions', () => {
     });
     const expectedActions = [
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: true
       },
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: false
       },
       {
-        type: actionTypes.SEARCH_DRUGS_SUCCESS,
+        type: SEARCH_DRUGS_SUCCESS,
         drugs: defaultDrugs.results
       },
     ];
@@ -64,15 +56,15 @@ describe('Drug Search actions', () => {
 
     const expectedActions = [
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: true
       },
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: false
       },
       {
-        type: actionTypes.SEARCH_DRUGS_FAILURE,
+        type: SEARCH_DRUGS_FAILURE,
         error: {
           data: 'Server error'
         }
@@ -94,15 +86,15 @@ describe('Drug Search actions', () => {
 
     const expectedActions = [
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: true
       },
       {
-        type: actionTypes.SEARCH_DRUGS_LOADING,
+        type: SEARCH_DRUGS_LOADING,
         status: false
       },
       {
-        type: actionTypes.SEARCH_DRUGS_FAILURE,
+        type: SEARCH_DRUGS_FAILURE,
         error: {
           data: { message: "Network connection error" }
         }
@@ -116,4 +108,3 @@ describe('Drug Search actions', () => {
     done();
   });
 });
-

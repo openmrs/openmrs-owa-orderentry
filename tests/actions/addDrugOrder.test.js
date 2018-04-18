@@ -1,12 +1,8 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
-
 import {
     postDrugOrderLoading,
     postDrugOrderSuccess,
     postDrugOrderFailure,
-    postDrugOrder, 
+    postDrugOrder,
 } from '../../app/js/actions/addDrugOrder';
 import {
     POST_DRUG_ORDER_LOADING,
@@ -14,11 +10,6 @@ import {
     POST_DRUG_ORDER_FAILURE,
 } from '../../app/js/actions/actionTypes';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 describe('addDrugOrder action creators', () => {
     it('should create POST_DRUG_ORDER_LOADING action', () => {
@@ -54,7 +45,7 @@ describe('addDrugOrder post thunk', () => {
         const payload = "1 tablet twice daily for 3 days";
         const store = mockStore({});
         moxios.stubRequest(`${apiBaseUrl}/encounter`, {
-            status: 201, 
+            status: 201,
         });
         const expectedActions = [
             POST_DRUG_ORDER_LOADING,
@@ -65,13 +56,13 @@ describe('addDrugOrder post thunk', () => {
             const actionType = store.getActions().map(action => action.type);
             expect(actionType).toEqual(expectedActions);
         });
-        done(); 
+        done();
     });
     it('should dispatch POST_DRUG_ORDER_FAILURE on fail', async (done) => {
         const payload = {}
         const store = mockStore({});
         moxios.stubRequest(`${apiBaseUrl}/encounter`, {
-            status: 400, 
+            status: 400,
             error: {
                 response: "Bad request"
             }
@@ -86,6 +77,6 @@ describe('addDrugOrder post thunk', () => {
             const actionType = store.getActions().map(action => action.type);
             expect(actionType).toEqual(expectedActions);
         });
-        done(); 
+        done();
     });
 });

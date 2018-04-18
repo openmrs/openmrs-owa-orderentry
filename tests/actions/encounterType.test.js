@@ -1,7 +1,3 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
-
 import {
     fetchencounterTypeLoading,
     fetchencounterTypeSuccess,
@@ -13,15 +9,8 @@ import {
     FETCH_ENCOUNTER_TYPE_SUCCESS,
     FETCH_ENCOUNTER_TYPE_FAILURE,
   } from '../../app/js/actions/actionTypes';
-import mockData from '../../__mocks__/mockData';
 
 const encounterType = mockData.encounterType;
-
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 describe('encounterType get action creators', () => {
     it('should create FETCH_ENCOUNTER_TYPE_LOADING action', () => {
@@ -57,7 +46,7 @@ describe('encounterType get thunk', () => {
     it('should dispatch FETCH_ENCOUNTER_TYPE_SUCEESS on success', async (done) => {
         const store = mockStore({});
         moxios.stubRequest(`${apiBaseUrl}/encountertype?q=${value}`, {
-            status: 200, 
+            status: 200,
             response: encounterType
         });
         const expectedActions = [
@@ -69,12 +58,12 @@ describe('encounterType get thunk', () => {
             const actionType = store.getActions().map(action => action.type);
             expect(actionType).toEqual(expectedActions);
         });
-        done(); 
+        done();
     });
     it('should dispatch FETCH_ENCOUNTER_TYPE_FAILURE on fail', async (done) => {
         const store = mockStore({});
         moxios.stubRequest(`${apiBaseUrl}/encountertype?q=${value}`, {
-            status: 401, 
+            status: 401,
             error: {
                 response: "User not logged in"
             }
@@ -89,6 +78,6 @@ describe('encounterType get thunk', () => {
             const actionType = store.getActions().map(action => action.type);
             expect(actionType).toEqual(expectedActions);
         });
-        done(); 
+        done();
     });
 });
