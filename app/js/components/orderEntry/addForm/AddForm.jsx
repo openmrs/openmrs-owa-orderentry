@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
 import DraftDataTable from './DraftDataTable';
 import DosageTabs from '../../tabs/DosageTabs';
-
+import DosageTab from '../../tabs/DosageTab';
 import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 
 export class AddForm extends React.Component {
@@ -59,12 +58,21 @@ export class AddForm extends React.Component {
   );
   renderDrugOrderForms = () => (
     <div>
-      <DosageTabs
-        fields={this.state.fields}
-        allConfigurations={this.props.allConfigurations}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmitDrugForm}
-        careSetting={this.props.careSetting} />
+      <DosageTabs>
+        <DosageTab tabName="Standard Dosage &nbsp;" icon="icon-th-large">
+          <StandardDose />
+          <br />
+        </DosageTab>
+        <DosageTab tabName="Free Text" icon="icon-edit">
+          <FreeText
+            fields={this.state.fields}
+            allConfigurations={this.props.allConfigurations}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmitDrugForm}
+            careSetting={this.props.careSetting} />
+          <br />
+        </DosageTab>
+      </DosageTabs>
     </div>
   );
   render() {
