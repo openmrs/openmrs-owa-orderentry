@@ -19,7 +19,10 @@ describe('Component: searchDrug: View', () => {
         { display: 'paraphenol', uuid: '8932h-2323' }
       ],
       loading: false,
-      searchDrug: jest.fn(),
+      onChange: jest.fn(),
+      storeToState: jest.fn(),
+      onOptionSelected: jest.fn(),
+      focused: false,
     };
     mountedComponent = undefined;
   });
@@ -33,26 +36,33 @@ describe('Component: searchDrug: View', () => {
     it('show Searching...', () => {
       props.loading = true;
       const component = getComponent().find('span').at(1);
-
       expect(component.props().children).toBe(' Searching...');
     });
 
     it('show search error...', () => {
       props.error = { data: { message: 'Network error' } };
-      const component = getComponent().find('span').at(2);
-
+      const component = getComponent().find('span').at(1);
       expect(component.props().children).toBe('Network error');
     });
   });
 
-  describe('Search drug action', () => {
-    it('calls setCurrentLocation()', () => {
+  describe('Drug Search input field', () => {
+    it('calls onChange()', () => {
       const event = { target: { value: 'para' } };
-      const searchDrugSpy = jest.spyOn(props, 'searchDrug');
-      const drugSearchInput = getComponent().find('p input').first();
+      const searchDrugSpy = jest.spyOn(props, 'onChange');
+      const drugSearchInput = getComponent().find('span input').first();
       drugSearchInput.simulate('change', event);
-
       expect(searchDrugSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Select drug action', () => {
+    it('calls onOptionSelected()', () => {
+      props.focused = true;
+      const optionSelectedSpy = jest.spyOn(props, 'onOptionSelected');
+      const drugSearchInput = getComponent().find('.option').first();
+      drugSearchInput.simulate('click');
+      expect(optionSelectedSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

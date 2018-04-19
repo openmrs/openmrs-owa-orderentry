@@ -1,4 +1,9 @@
-import * as actionTypes from '../actions/actionTypes';
+import {
+  SEARCH_DRUGS_LOADING,
+  SEARCH_DRUGS_FAILURE,
+  SEARCH_DRUGS_SUCCESS,
+  SELECT_DRUG,
+} from '../actions/actionTypes';
 
 const initialState = {
   drugs: [], selected: {}, error: null, loading: false,
@@ -6,29 +11,25 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SEARCH_DRUGS_SUCCESS:
+    case SEARCH_DRUGS_SUCCESS:
       return {
         ...state,
-        drugs: action.drugs,
-        selected: action.drugs && action.drugs.length === 1 ? action.drugs[0] : {},
-        error: null,
-        loading: false,
+        ...action,
       };
-    case actionTypes.SEARCH_DRUGS_FAILURE:
+    case SEARCH_DRUGS_FAILURE:
       return {
         ...state,
-        drugs: [],
-        selected: {},
-        error: action.error,
-        loading: false,
+        ...action,
       };
-    case actionTypes.SEARCH_DRUGS_LOADING:
+    case SEARCH_DRUGS_LOADING:
       return {
         ...state,
-        drugs: [],
-        selected: {},
-        error: null,
         loading: action.status,
+      };
+    case SELECT_DRUG:
+      return {
+        ...state,
+        selected: state.drugs.filter(drug => drug.uuid === action.drug)[0],
       };
     default: return state;
   }

@@ -1,22 +1,30 @@
 import axios from 'axios';
-import * as actionTypes from './actionTypes';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+import {
+  SEARCH_DRUGS_LOADING,
+  SEARCH_DRUGS_FAILURE,
+  SEARCH_DRUGS_SUCCESS,
+  SELECT_DRUG,
+} from './actionTypes';
+import apiBaseUrl from '../actions/apiBaseUrl';
 
 export const searchDrugSuccess = drugs => ({
-  type: actionTypes.SEARCH_DRUGS_SUCCESS,
+  type: SEARCH_DRUGS_SUCCESS,
   drugs,
 });
 
 export const searchDrugFailure = error => ({
-  type: actionTypes.SEARCH_DRUGS_FAILURE,
+  type: SEARCH_DRUGS_FAILURE,
   error,
 });
 
 export const searchDrugLoading = status => ({
-  type: actionTypes.SEARCH_DRUGS_LOADING,
+  type: SEARCH_DRUGS_LOADING,
   status,
+});
+
+export const selectDrugSuccess = drugUuid => ({
+  type: SELECT_DRUG,
+  drug: drugUuid,
 });
 
 export const searchDrug = text => (dispatch) => {
@@ -34,4 +42,8 @@ export const searchDrug = text => (dispatch) => {
         dispatch(searchDrugFailure({ data: { message: "Network connection error" } }));
       }
     });
+};
+
+export const selectDrug = drugUuid => (dispatch) => {
+  dispatch(selectDrugSuccess(drugUuid));
 };

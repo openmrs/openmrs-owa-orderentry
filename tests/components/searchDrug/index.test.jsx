@@ -26,6 +26,9 @@ describe('Component: SearchDrug: Container', () => {
         drugs: []
       },
       searchDrug: jest.fn(),
+      onChange: jest.fn(),
+      onOptionSelected: jest.fn(),
+      selectDrug: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -63,12 +66,26 @@ describe('Component: SearchDrug: Container', () => {
       clock.tick(500);
       expect(searchDrugSpy).not.toHaveBeenCalled();
     });
-  });
 
+    it('should call onChange()', () => {
+      const event = {
+        target: {
+          value: "Value"
+        },
+        preventDefault: jest.fn(),
+      };
+      sinon.spy(getComponent().instance(), 'onChange');
+      getComponent().instance().onChange(event);
+      expect(getComponent().instance().onChange.calledOnce)
+        .toEqual(true);
+    });
 
-  describe('timer tests', function () {
-
-
+    it('should call onOptionSelected()', () => {
+      sinon.spy(getComponent().instance(), 'onOptionSelected');
+      getComponent().instance().onOptionSelected('6eecdsd-dfdfdfd', 'Panadol');
+      expect(getComponent().instance().onOptionSelected.calledOnce)
+        .toEqual(true);
+    });
   });
 
   describe('Connected SearchDrug component', () => {
