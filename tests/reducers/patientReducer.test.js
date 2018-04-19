@@ -1,5 +1,4 @@
 import patientReducer from '../../app/js/reducers/patientReducer';
-import mockData from '../../__mocks__/mockData';
 
 const patient = mockData.defaultPatient.patient;
 

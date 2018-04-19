@@ -1,8 +1,10 @@
-import * as types from '../../app/js/actions/actionTypes';
+import {
+    FETCH_ENCOUNTER_TYPE_FAILURE,
+    FETCH_ENCOUNTER_TYPE_LOADING,
+    FETCH_ENCOUNTER_TYPE_SUCCESS
+} from '../../app/js/actions/actionTypes';
 
 import encounterReducer from '../../app/js/reducers/encounterReducer';
-
-import mockData from '../../__mocks__/mockData';
 
 const encounterType = mockData.encounterType;
 
@@ -15,7 +17,7 @@ describe('encounter reducer for get actions', () => {
     it('should return loading as true', () => {
         const initialState = {};
         const action = {
-            type: types.FETCH_ENCOUNTER_TYPE_LOADING,
+            type: FETCH_ENCOUNTER_TYPE_LOADING,
             status: true
         }
         const expected = {
@@ -28,7 +30,7 @@ describe('encounter reducer for get actions', () => {
     });
     it('should return encounterType', () => {
         const action = {
-            type: types.FETCH_ENCOUNTER_TYPE_SUCCESS,
+            type: FETCH_ENCOUNTER_TYPE_SUCCESS,
             encounterType
         }
         const expected = {
@@ -41,7 +43,7 @@ describe('encounter reducer for get actions', () => {
     });
     it('should return an error', () => {
         const action = {
-            type: types.FETCH_ENCOUNTER_TYPE_FAILURE,
+            type: FETCH_ENCOUNTER_TYPE_FAILURE,
             error: "User not logged in"
         }
         const expected = {

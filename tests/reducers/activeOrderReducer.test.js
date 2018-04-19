@@ -1,5 +1,4 @@
 import activeOrderReducer from '../../app/js/reducers/activeOrderReducer';
-import mockData from '../../__mocks__/mockData';
 import { FETCH_ACTIVE_ORDER_SUCCESS } from '../../app/js/actions/actionTypes';
 
 const activeOrders = mockData.defaultpatientActiveOrder;

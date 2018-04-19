@@ -1,6 +1,4 @@
-import expect from 'expect';
 import noteReducer from '../../app/js/reducers/noteReducer';
-import mockData from '../../__mocks__/mockData';
 
 const defaultNote = mockData.defaultNote.results;
 

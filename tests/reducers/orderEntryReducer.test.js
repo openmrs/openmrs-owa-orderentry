@@ -1,5 +1,9 @@
 import deepFreeze from 'deep-freeze';
-import * as actions from '../../app/js/actions/orderEntryActions';
+import {
+    fetchConfigurationsFailure,
+    fetchConfigurationsLoading,
+    fetchConfigurationsSuccess
+} from '../../app/js/actions/orderEntryActions';
 import orderEntryConfigurations from '../../app/js/reducers/orderEntryReducer';
 
 
@@ -30,7 +34,7 @@ describe('Order Entry Configurations reducer', () => {
             isLoading: false,
             hasError: ''
         };
-        const actualState = orderEntryConfigurations(initialState, actions.fetchConfigurationsSuccess(configurations));
+        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsSuccess(configurations));
         expect(actualState).toEqual(expectedState);
     });
     it('should handle `FETCH_ORDER_CONFIG_LOADING`', () => {
@@ -39,7 +43,7 @@ describe('Order Entry Configurations reducer', () => {
             isLoading: true,
             hasError: ''
         };
-        const actualState = orderEntryConfigurations(initialState, actions.fetchConfigurationsLoading(true));
+        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsLoading(true));
         expect(actualState).toEqual(expectedState);
     });
     it('should handle `FETCH_ORDER_CONFIG_FAILURE`', () => {
@@ -48,7 +52,7 @@ describe('Order Entry Configurations reducer', () => {
             isLoading: false,
             hasError: 'Bad request'
         };
-        const actualState = orderEntryConfigurations(initialState, actions.fetchConfigurationsFailure('Bad request'));
+        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsFailure('Bad request'));
         expect(actualState).toEqual(expectedState);
     });
 });

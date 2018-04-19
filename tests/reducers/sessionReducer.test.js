@@ -1,6 +1,4 @@
-import expect from 'expect';
 import sessionReducer from '../../app/js/reducers/sessionReducer';
-import mockData from '../../__mocks__/mockData';
 
 const currentSession = mockData.currentSession;
 
