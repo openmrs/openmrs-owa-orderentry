@@ -9,7 +9,6 @@ const DraftDataTable = ({
   handleSubmit,
 }) => {
   const {
-    completeInstructions,
     dose,
     dosingUnit,
     frequency,
@@ -29,7 +28,7 @@ const DraftDataTable = ({
           <tr>
             <td><h3>Status</h3></td>
             <td><h3>Instructions</h3></td>
-            <td><h3>Edit</h3></td>
+            <td><h3>Actions</h3></td>
           </tr>
         </thead>
         <tbody>
@@ -37,14 +36,14 @@ const DraftDataTable = ({
             <td>{status}</td>
             <td>
               {drugName}:
-              {dose && `${dose}` }
-              {dosingUnit && `${dosingUnit},` }
-              {frequency && `${frequency},` }
-              {route && `${route},` }
-              {duration && `for ${duration} ${durationUnit} total,` }
-              {reason && `(Reason: ${reason}),` }
-              {note && `(Other notes: ${note}),`}
-              {dispensingUnit && `(Dispense: ${dispensingUnit} ${dispensingQuantity})`}
+              {dose && ` ${dose}` }
+              {dosingUnit && ` ${dosingUnit},` }
+              {frequency && ` ${frequency},` }
+              {route && ` ${route}` }
+              {duration && `, for ${duration} ${durationUnit} total` }
+              {reason && `, (Reason: ${reason})` }
+              {note && ` (${note})`}
+              {dispensingUnit && `, (Dispense: ${dispensingUnit} ${dispensingQuantity})`}
             </td>
             <td>
               <span className="icon-edit" />
