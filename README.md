@@ -144,6 +144,12 @@ Sharing in Tomcat.
 
 See instructions [here](http://enable-cors.org/server_tomcat.html) for Tomcat 7 and [here](https://www.dforge.net/2013/09/16/enabling-cors-on-apache-tomcat-6/) for Tomcat 6.
 
+## Usage
+Before using the Order Entry Open Web Application, the administrator should make the following one time configurations using the admin portal. 
+1. Create an Encounter Type called `Order Entry` or any other name.
+2. Create a setting `order.encounterType` whose value should correspond to the name given to the Encounter Type created above.
+**NB:** Not having any of the above configurations will result into an error notice.
+
 ## License
 
 [MPL 2.0 w/ HD](http://openmrs.org/license/)

@@ -263,3 +263,7 @@ body {
 .emoji-sorry {
     font-size: 24px;
 }
+
+.error-notice{
+    color: red;
+}

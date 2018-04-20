@@ -53,6 +53,10 @@ export default {
   },
   defaultpatientActiveOrder: {
     activeOrders: [],
-
+  },
+  defaultSettingEncounterType: {
+    settingEncounterType: '',
+    isLoading: false,
+    error: '',
   },
 };
