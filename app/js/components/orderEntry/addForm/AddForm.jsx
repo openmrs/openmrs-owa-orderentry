@@ -14,7 +14,6 @@ export class AddForm extends React.Component {
     drugFormPopulated: false,
     action: '',
     fields: {
-      completeInstructions: '',
       dose: '',
       dosingUnit: '',
       frequency: '',

@@ -7,7 +7,7 @@ const FreeText = ({
   handleChange,
   handleSubmit,
 }) => {
-  const { completeInstructions, dispensingQuantity, dispensingUnit } = fields;
+  const { note, dispensingQuantity, dispensingUnit } = fields;
   return (
     <div>
       <form>
@@ -16,8 +16,8 @@ const FreeText = ({
             <label name="instructions">Complete Instructions</label>
             <textarea
               id="instructions"
-              name="completeInstructions"
-              value={completeInstructions}
+              name="note"
+              value={note}
               onChange={handleChange}
               required
             />
