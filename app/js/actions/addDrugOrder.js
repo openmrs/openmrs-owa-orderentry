@@ -5,14 +5,11 @@ import {
   POST_DRUG_ORDER_FAILURE,
 } from './actionTypes';
 import networkError from './networkError';
+import loading from './loading';
 
 const contextPath = window.location.href.split('/')[3];
 const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
-export const postDrugOrderLoading = status => ({
-  type: POST_DRUG_ORDER_LOADING,
-  status,
-});
 export const postDrugOrderSuccess = () => ({
   type: POST_DRUG_ORDER_SUCCESS,
 });
@@ -21,12 +18,12 @@ export const postDrugOrderFailure = error => ({
   error,
 });
 export const postDrugOrder = (ordersPayload, patientUuid, careSetting) => (dispatch) => {
-  dispatch(postDrugOrderLoading(true));
+  dispatch(loading('POST_DRUG_ORDER', true));
   return axios.post(`${apiBaseUrl}/encounter`, ordersPayload)
     .then(() => {
       dispatch(postDrugOrderSuccess());
     }).catch((error) => {
-      dispatch(postDrugOrderLoading(false));
+      dispatch(loading('POST_DRUG_ORDER', false));
       if (error.response) {
         dispatch(postDrugOrderFailure(error));
       } else {
