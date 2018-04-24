@@ -37,8 +37,4 @@ describe('Test for Past orders', () => {
     const wrapper = mount(<PastOrders {...props}/>  );
     expect(wrapper.find('table')).toHaveLength(1);
   });
-  it('should render no past orders', () => {
-    const wrapper = mount(<PastOrders {...props} />  );
-    expect(wrapper.find('a')).toHaveLength(1);
-  });
 });
