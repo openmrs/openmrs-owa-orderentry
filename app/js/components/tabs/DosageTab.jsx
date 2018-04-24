@@ -6,12 +6,11 @@ const DosageTab = props => (
     role="presentation"
     onClick={(event) => {
       event.preventDefault();
-      props.onClick(props.tabIndex);
+      props.onClick(props.tabIndex, props.tabName);
     }}>
     <span className={props.icon} />
     {props.tabName}
   </a>
-
 );
 
 DosageTab.propTypes = {

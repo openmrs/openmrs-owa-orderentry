@@ -6,8 +6,9 @@ const FreeText = ({
   allConfigurations,
   handleChange,
   handleSubmit,
+  handleCancel,
 }) => {
-  const { completeInstructions, dispensingQuantity, dispensingUnit } = fields;
+  const { note, dispensingQuantity, dispensingUnit } = fields;
   return (
     <div>
       <form>
@@ -16,8 +17,8 @@ const FreeText = ({
             <label name="instructions">Complete Instructions</label>
             <textarea
               id="instructions"
-              name="completeInstructions"
-              value={completeInstructions}
+              name="note"
+              value={note}
               onChange={handleChange}
               required
             />
@@ -64,7 +65,7 @@ const FreeText = ({
             </div>
           </div>
           <div>
-            <input type="button" className="button cancel" value="Cancel" />
+            <input type="button" onClick={handleCancel} className="button cancel" value="Cancel" />
             <input type="button" onClick={handleSubmit} className="button confirm right" value="Save" />
           </div>
         </div>
@@ -80,6 +81,7 @@ FreeText.propTypes = {
   }),
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
 };
 
 FreeText.defaultProps = {

@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
     case SELECT_DRUG:
       return {
         ...state,
-        selected: state.drugs.filter(drug => drug.uuid === action.drug)[0],
+        selected: state.drugs.filter(drug => drug.uuid === action.drug)[0] || '',
       };
     default: return state;
   }

@@ -6,35 +6,44 @@ import PastOrders from '../orderEntry/PastOrders';
 import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
 import Accordion from '../accordion';
-import {
-  fetchInpatientCareSetting,
-  fetchOutpatientCareSetting,
-} from '../../actions/careSetting';
 import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
 
 export class SearchAndAddOrder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      careSetting: 'OutPatient',
-    };
+  state = {
+    value: "",
+    focused: false,
+  };
+
+  onSelectDrug = (drugName) => {
+    this.setState(() => ({
+      value: drugName,
+      focused: false,
+    }));
   }
 
-  handleCareSettings = (careSetting) => {
-    this.setState({ careSetting });
+  onChange = (value) => {
+    this.setState(() => ({
+      value,
+      focused: true,
+    }));
+  }
+
+  clearSearchField = () => {
+    this.setState({
+      value: "",
+      focused: false,
+    });
   }
 
   renderAddForm = careSetting => (
     <div>
-      {
-        this.props.drug.uuid &&
-        <AddForm
-          drugName={this.props.drug.display}
-          drugUuid={this.props.drug.uuid}
-          careSetting={careSetting}
-        />
-      }
+      <AddForm
+        drugName={this.props.drug.display}
+        drugUuid={this.props.drug.uuid}
+        careSetting={careSetting}
+        clearSearchField={this.clearSearchField}
+      />
     </div>
   );
 
@@ -44,7 +53,12 @@ export class SearchAndAddOrder extends React.Component {
         <Tabs careSetting={this.handleCareSettings}>
           <Tab
             tabName="OutPatient">
-            <SearchDrug />
+            <SearchDrug
+              value={this.state.value}
+              focused={this.state.focused}
+              onChanging={this.onChange}
+              onSelectDrug={this.onSelectDrug}
+            />
             {this.renderAddForm(this.props.outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
@@ -65,7 +79,12 @@ export class SearchAndAddOrder extends React.Component {
           </Tab>
           <Tab
             tabName="InPatient">
-            <SearchDrug />
+            <SearchDrug
+              value={this.state.value}
+              focused={this.state.focused}
+              onChanging={this.onChange}
+              onSelectDrug={this.onSelectDrug}
+            />
             {this.renderAddForm(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
@@ -100,15 +119,12 @@ const mapStateToProps = ({
 });
 
 SearchAndAddOrder.propTypes = {
-  drug: PropTypes.shape({
-    uuid: PropTypes.string,
-    display: PropTypes.string,
-  }),
+  drug: PropTypes.string,
   location: PropTypes.shape({}).isRequired,
 };
 
 SearchAndAddOrder.defaultProps = {
-  drug: {},
+  drug: "",
 };
 
 export default connect(mapStateToProps)(SearchAndAddOrder);
