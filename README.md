@@ -25,19 +25,36 @@ cd into openmrs-owa-orderentry
 # Install the dependencies
 npm install
 
-# Copy the webpack configuration from webpack.config.sample.js to webpack.config.js
-cp webpack.sample.config.js webpack.config.js
+# Create config.json
 
-# Locate the 'appdata/owa' directory and type the following command to get the path to the 'appdata/owa' directory and copy it to the clipboard.
+Create a config.json file in the top level directory following this template:
+
+{
+    'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
+    'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html'
+}
+
+"LOCAL_OWA_FOLDER" should point to the "owa" directory of your locally running OpenMRS instance, and
+"APP_ENTRY_POINT" should point to the entry point of your app
+
+## Linux/SDK example
+
+For example in a link environment where I have OpenMRS running on port 8080 via the SDK in
+directory "/home/mgoodrich/openmrs/haiti", I set config.json as follows:
+
+{"LOCAL_OWA_FOLDER":"/home/mgoodrich/openmrs/haiti/owa",
+"APP_ENTRY_POINT":"http://localhost:8080/openmrs/owa/openmrs-owa-orderentry/index.html"}
+
+## Windows/Standalone example
+
+Locate the 'appdata/owa' directory and type the following command to get the path to the 'appdata/owa' directory and copy it to the clipboard.
 pwd | pbcopy
 
 An example of the path is: /Users/name/downloads/openmrs-owa-orderentry/appdata\owa
 
 Modify the path to look like: /Users/name/downloads/openmrs-owa-orderentry/appdata\\owa/
 
-Copy the path.
-
-# Open the webpack.config.js file, locate the getConfig function and update the config object with the following
+Copy the path. Edit config.json as follows:
 {
   "LOCAL_OWA_FOLDER": "PASTE_THE_PATH_YOU_COPIED_HERE",
   "APP_ENTRY_POINT": "http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html"
