@@ -18,6 +18,7 @@ import drugSearchReducer from './drugSearchReducer';
 import encounterReducer from './encounterReducer';
 import activeOrderReducer from './activeOrderReducer';
 import settingEncounterTypeReducer from './settingEncounterTypeReducer';
+import discontinueOrderReducer from './discontinueOrderReducer';
 
 export default combineReducers({
   locationReducer,
@@ -31,4 +32,5 @@ export default combineReducers({
   encounterReducer,
   activeOrderReducer,
   settingEncounterTypeReducer,
+  discontinueOrderReducer,
 });
