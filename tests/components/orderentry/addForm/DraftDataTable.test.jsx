@@ -3,7 +3,8 @@ import React from 'react';
 import DraftDataTable from '../../../../app/js/components/orderEntry/addForm/DraftDataTable';
 
 const props = {
-    fields: {}
+    fields: {},
+    draftOrders: [{}]
 };
 
 describe('Draft Data Table', () => {

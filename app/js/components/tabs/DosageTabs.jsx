@@ -3,28 +3,19 @@ import PropTypes from 'prop-types';
 import DosageTab from '../tabs/DosageTab';
 
 class DosageTabs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTabIndex: 0,
-    };
-  }
-
-  handleTabClick = (tabIndex) => {
-    this.setState({
-      activeTabIndex: tabIndex,
-    });
+  handleTabClick = (tabIndex, tabName) => {
+    this.props.handleFormTabs(tabIndex);
+    this.props.formType(tabName);
   }
 
   renderChildrenWithTabsAsProps =() => React.Children.map(this.props.children, (child, index) => React.cloneElement(child, {
     onClick: this.handleTabClick,
     tabIndex: index,
-    isActive: index === this.state.activeTabIndex,
+    isActive: index === this.props.activeTabIndex,
   }))
 
   renderActiveTabContent=() => {
-    const { children } = this.props;
-    const { activeTabIndex } = this.state;
+    const { children, activeTabIndex } = this.props;
     if (children[activeTabIndex]) {
       return children[activeTabIndex].props.children;
     }
@@ -43,6 +34,9 @@ class DosageTabs extends Component {
 
 DosageTabs.propTypes = {
   children: PropTypes.array.isRequired,
+  handleFormTabs: PropTypes.func.isRequired,
+  formType: PropTypes.func.isRequired,
+  activeTabIndex: PropTypes.number.isRequired,
 };
 
 export default DosageTabs;
