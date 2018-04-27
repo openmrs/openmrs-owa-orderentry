@@ -1,13 +1,10 @@
-import axios from 'axios';
 import {
   PATIENT_CARESETTING_SUCCESS,
   PATIENT_CARESETTING_LOADING,
   PATIENT_CARESETTING_ERROR,
 } from './actionTypes';
+import axiosInstance from '../config';
 import networkError from './networkError';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 const fetchPatientCareSettingActionCreator = patientCareSetting => ({
   type: PATIENT_CARESETTING_SUCCESS,
@@ -26,7 +23,7 @@ const fetchPatientCareSettingLoading = status => ({
 
 const fetchPatientCareSetting = () => (dispatch) => {
   dispatch(fetchPatientCareSettingLoading(true));
-  return axios.get(`${apiBaseUrl}/caresetting`)
+  return axiosInstance.get(`caresetting`)
     .then((response) => {
       dispatch(fetchPatientCareSettingActionCreator(response.data.results));
       dispatch(fetchPatientCareSettingLoading(false));

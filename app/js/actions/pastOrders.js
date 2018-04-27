@@ -1,10 +1,7 @@
-import axios from 'axios';
 import { LOAD_PAST_ORDERS_SUCCESS, LOAD_PAST_ORDERS_FAILURE, LOADING } from './actionTypes';
 import networkError from './networkError';
+import axiosInstance from '../config';
 import loading from './loading';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
 export const getPastOrdersSuccess = pastOrders => ({
   type: LOAD_PAST_ORDERS_SUCCESS,
@@ -18,7 +15,7 @@ export const getPastOrdersFailure = error => ({
 
 export const getPastOrders = (patientUuid, careSetting) => (dispatch) => {
   dispatch(loading('LOAD_PAST_ORDERS', true));
-  return axios.get(`${apiBaseUrl}/order?careSetting=${careSetting}&patient=${patientUuid}&status=inactive&t=drugorder&v=full`)
+  return axiosInstance.get(`/order?careSetting=${careSetting}&patient=${patientUuid}&status=inactive&t=drugorder&v=full`)
     .then((response) => {
       dispatch(loading('LOAD_PAST_ORDERS', false));
       dispatch(getPastOrdersSuccess(response.data.results));

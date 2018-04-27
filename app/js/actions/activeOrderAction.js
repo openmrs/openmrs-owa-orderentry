@@ -1,9 +1,8 @@
-import axios from 'axios';
 import {
   FETCH_ACTIVE_ORDER_SUCCESS,
   FETCH_ACTIVE_ORDER_ERROR,
 } from './actionTypes';
-import apiBaseUrl from './apiBaseUrl';
+import axiosInstance from '../config';
 import networkError from './networkError';
 import loading from './loading';
 
@@ -19,7 +18,7 @@ const activeOrderActionError = error => ({
 
 const activeOrderAction = (careSetting, patientUuid) => (dispatch) => {
   dispatch(loading('FETCH_ACTIVE_ORDER', true));
-  return axios.get(`${apiBaseUrl}/order?careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
+  return axiosInstance.get(`order?careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
   })
     .then((response) => {
       const activeOrders = response.data.results;

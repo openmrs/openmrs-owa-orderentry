@@ -1,11 +1,9 @@
-import axios from 'axios';
 import { SET_PATIENT, SET_NOTE } from './actionTypes';
+import axiosInstance from '../config';
 
 const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
-
 export function fetchPatientRecord(patientUuid) {
-  return dispatch => axios.get(`${apiBaseUrl}/patient/${patientUuid}?v=custom:(patientId,uuid,patientIdentifier:(uuid,identifier),person:(gender,age,birthdate,birthdateEstimated,personName,preferredAddress),attributes:(value,attributeType:(name)))`)
+  return dispatch => axiosInstance.get(`patient/${patientUuid}?v=custom:(patientId,uuid,patientIdentifier:(uuid,identifier),person:(gender,age,birthdate,birthdateEstimated,personName,preferredAddress),attributes:(value,attributeType:(name)))`)
     .then((response) => {
       dispatch({
         type: SET_PATIENT,
@@ -20,7 +18,7 @@ export function fetchPatientRecord(patientUuid) {
 }
 
 export function fetchPatientNote(patientUuid) {
-  return dispatch => axios.get(`${apiBaseUrl}/obs?concept=162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&patient=${patientUuid}&v=full`)
+  return dispatch => axiosInstance.get(`obs?concept=162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&patient=${patientUuid}&v=full`)
     .then((response) => {
       dispatch({
         type: SET_NOTE,

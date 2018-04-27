@@ -1,13 +1,10 @@
-import axios from 'axios';
 import {
   FETCH_ENCOUNTER_TYPE_LOADING,
   FETCH_ENCOUNTER_TYPE_SUCCESS,
   FETCH_ENCOUNTER_TYPE_FAILURE,
 } from './actionTypes';
 import networkError from './networkError';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+import axiosInstance from '../config';
 
 export const fetchencounterTypeLoading = status => ({
   type: FETCH_ENCOUNTER_TYPE_LOADING,
@@ -23,7 +20,7 @@ export const fetchencounterTypeFailure = error => ({
 });
 export const fetchencounterType = value => (dispatch) => {
   dispatch(fetchencounterTypeLoading(true));
-  return axios.get(`${apiBaseUrl}/encountertype?q=${value}`)
+  return axiosInstance.get(`encountertype?q=${value}`)
     .then((response) => {
       dispatch(fetchencounterTypeSuccess(response));
     }).catch((error) => {

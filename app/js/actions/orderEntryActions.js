@@ -1,8 +1,5 @@
-import axios from 'axios';
 import * as types from './actionTypes';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+import axiosInstance from '../config';
 
 export const fetchConfigurationsSuccess = configurations => ({
   type: types.FETCH_ORDER_CONFIG_SUCCESS,
@@ -26,7 +23,7 @@ export const fetchConfigurationsLoading = status => ({
  */
 export const getOrderEntryConfigurations = () => (dispatch) => {
   dispatch(fetchConfigurationsLoading(true));
-  return axios.get(`${apiBaseUrl}/orderentryconfig?v=custom:(uuid,display)`, { headers: { accept: 'application/json' } })
+  return axiosInstance.get(`orderentryconfig?v=custom:(uuid,display)`)
     .then((response) => {
       if (response.status !== 200) {
         throw Error(response.statusText);

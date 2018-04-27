@@ -5,6 +5,8 @@ import { configure, shallow, render, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 import moxios from 'moxios';
+import axios from 'axios'
+import axiosInstance from '../app/js/config'
 
 import mockData from '../__mocks__/mockData';
 import locationMock from '../__mocks__/locationMock';
@@ -18,7 +20,7 @@ configure({ adapter: new Adapter() });
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const reader = new FileReader();
-
+moxios.install(axiosInstance)
 const contextPath = window.location.href.split('/')[3];
 const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
 
