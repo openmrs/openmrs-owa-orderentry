@@ -36,17 +36,7 @@ describe('Setting Encounter Type reducer', () => {
         );
         expect(actualState).toEqual(expectedState);
     });
-    it('should handle `SETTING_ENCOUNTER_TYPE_LOADING`', () => {
-        const expectedState = {
-            settingEncounterType: '',
-            isLoading: true,
-            error: ''
-        };
-        const actualState = settingEncounterTypeReducer(
-            initialState, settingEncounterTypeLoading(true)
-        );
-        expect(actualState).toEqual(expectedState);
-    });
+    
     it('should handle `SETTING_ENCOUNTER_TYPE_FAILURE`', () => {
         const expectedState = {
             settingEncounterType: '',

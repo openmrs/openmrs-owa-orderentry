@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import axiosInstance from '../config';
+import loading from './loading';
 
 export const fetchConfigurationsSuccess = configurations => ({
   type: types.FETCH_ORDER_CONFIG_SUCCESS,
@@ -11,29 +12,24 @@ export const fetchConfigurationsFailure = error => ({
   error,
 });
 
-export const fetchConfigurationsLoading = status => ({
-  type: types.FETCH_ORDER_CONFIG_LOADING,
-  status,
-});
-
 /**
  * @function
  * @returns {Object} - Object consisting drug order configurations from API resource
  * @throws {Object} - when an error occurs
  */
 export const getOrderEntryConfigurations = () => (dispatch) => {
-  dispatch(fetchConfigurationsLoading(true));
+  dispatch(loading('FETCH_ORDER_CONFIG', true));
   return axiosInstance.get(`orderentryconfig?v=custom:(uuid,display)`)
     .then((response) => {
       if (response.status !== 200) {
         throw Error(response.statusText);
       }
-      dispatch(fetchConfigurationsLoading(false));
+      dispatch(loading('FETCH_ORDER_CONFIG', false));
       return response;
     })
     .then(response => dispatch(fetchConfigurationsSuccess(response.data)))
     .catch((error) => {
-      dispatch(fetchConfigurationsLoading(false));
+      dispatch(loading('FETCH_ORDER_CONFIG', false));
       dispatch(fetchConfigurationsFailure(error));
     });
 };

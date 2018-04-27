@@ -1,5 +1,4 @@
 import {
-    fetchencounterTypeLoading,
     fetchencounterTypeSuccess,
     fetchencounterTypeFailure,
     fetchencounterType,
@@ -13,13 +12,6 @@ import {
 const encounterType = mockData.encounterType;
 
 describe('encounterType get action creators', () => {
-    it('should create FETCH_ENCOUNTER_TYPE_LOADING action', () => {
-        const store = mockStore({});
-        const expectedAction = [ FETCH_ENCOUNTER_TYPE_LOADING ]
-        store.dispatch(fetchencounterTypeLoading())
-        const actionType = store.getActions().map(action => action.type);
-        expect(actionType).toEqual(expectedAction);
-    });
     it('should create FETCH_ENCOUNTER_TYPE_SUCEESS action', () => {
         const store = mockStore({});
         const expectedAction = [ FETCH_ENCOUNTER_TYPE_SUCCESS ]
