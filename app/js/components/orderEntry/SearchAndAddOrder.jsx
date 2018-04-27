@@ -119,12 +119,8 @@ const mapStateToProps = ({
 });
 
 SearchAndAddOrder.propTypes = {
-  drug: PropTypes.string,
+  drug: PropTypes.shape({}).isRequired,
   location: PropTypes.shape({}).isRequired,
-};
-
-SearchAndAddOrder.defaultProps = {
-  drug: "",
 };
 
 export default connect(mapStateToProps)(SearchAndAddOrder);

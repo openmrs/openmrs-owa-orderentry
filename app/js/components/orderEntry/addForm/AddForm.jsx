@@ -83,7 +83,7 @@ export class AddForm extends React.Component {
             'org.openmrs.SimpleDosingInstructions' :
             'org.openmrs.FreeTextDosingInstructions',
           type: "drugorder",
-          orderNumber: this.state.orders.length,
+          orderNumber: this.state.draftOrders.length,
         },
       ],
     });
@@ -106,7 +106,7 @@ export class AddForm extends React.Component {
       reason,
       drugInstructions,
     } = order;
-    this.state.orders.splice(this.state.orders.indexOf(order), 1);
+    this.handleDiscardOneOrder(order);
     this.setState({
       activeTabIndex: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
       fields: {
@@ -121,17 +121,19 @@ export class AddForm extends React.Component {
         reason,
         drugInstructions,
       },
-      ...this.state.orders,
+      ...this.state.draftOrders,
     });
   }
 
   handleDiscardOneOrder = (order) => {
-    this.state.orders.splice(this.state.orders.indexOf(order), 1);
-    this.setState({ ...this.state.orders });
+    this.setState({
+      draftOrders: this.state.draftOrders.filter((_, index) =>
+        index !== this.state.draftOrders.indexOf(order)),
+    });
   }
 
   handleDiscardDraftOrders = () => {
-    this.setState({ orders: [] });
+    this.setState({ draftOrders: [] });
   }
   /**
    * Validation of datalist tag values using onblur event handler
