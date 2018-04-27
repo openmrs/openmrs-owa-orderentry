@@ -36,9 +36,7 @@ export class PastOrders extends React.Component {
             <thead>
               <tr>
                 <th className="w-145-px">Date</th>
-                <th className="w-120-px">Status</th>
                 <th>Details</th>
-                <th className="w-81-px">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -46,7 +44,7 @@ export class PastOrders extends React.Component {
                 <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
             </tbody>
           </table>
-          : <p>No Past Orders</p>}
+          : <p id="no_past_orders">No Past Orders</p>}
         <div />
       </div>
     );

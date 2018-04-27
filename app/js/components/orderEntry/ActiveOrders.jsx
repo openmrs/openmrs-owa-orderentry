@@ -80,12 +80,7 @@ export class ActiveOrders extends React.Component {
           <td>
             {format(dateActivated, 'MM-DD-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM-DD-YYYY HH:mm')}`)}
           </td>
-          <td>
-            Active
-          </td>
-
           {details}
-
           <td className="text-center action-padding">
             <a href="#"> <i className="icon-edit" title="Edit" /> </a>
             <a href="#"> <i className="icon-remove" title="Delete" /> </a>
@@ -117,7 +112,6 @@ export class ActiveOrders extends React.Component {
           <thead>
             <tr>
               <th className="w-145-px">Date</th>
-              <th className="w-120-px">Status</th>
               <th>Details</th>
               <th className="w-81-px">Actions</th>
             </tr>

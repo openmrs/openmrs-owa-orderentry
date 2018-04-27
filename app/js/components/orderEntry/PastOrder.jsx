@@ -8,16 +8,6 @@ export const PastOrder = (props) => {
     quantityUnits, autoExpireDate, quantity,
   } = props;
 
-  const getStatus = () => {
-    if (action === "NEW" && autoExpireDate !== null) {
-      return 'Completed';
-    } else if (autoExpireDate !== null && action === "REVISE") {
-      return 'Revised';
-    } else if (autoExpireDate === null) {
-      return 'Discontinued';
-    }
-  };
-
   let details;
   if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
     details = (
@@ -48,12 +38,8 @@ export const PastOrder = (props) => {
       <td>
         {format(auditInfo.dateCreated, 'DD-MM-YYYY HH:MM')} {autoExpireDate && `- ${format(autoExpireDate, 'DD-MM-YYYY HH:MM')}`}
       </td>
-      <td>{action ? `${getStatus()}` : ""}</td>
       <td>
         {details}
-      </td>
-      <td className="text-center pl-39-px">
-        <a href="#"> <i className="icon-ban-circle" title="Delete" /> </a>
       </td>
     </tr>
   );
