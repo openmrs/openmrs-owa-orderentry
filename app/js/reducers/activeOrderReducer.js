@@ -1,13 +1,13 @@
 import {
   FETCH_ACTIVE_ORDER_SUCCESS,
   FETCH_ACTIVE_ORDER_ERROR,
-  LOADING,
+  FETCH_ACTIVE_ORDER_LOADING,
 } from '../actions/actionTypes';
 import mockData from '../../../__mocks__/mockData';
 
 export default (state = mockData.defaultpatientActiveOrder, action) => {
   switch (action.type) {
-    case LOADING:
+    case FETCH_ACTIVE_ORDER_LOADING:
       return {
         ...state,
         loading: action.status,

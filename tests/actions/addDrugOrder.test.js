@@ -12,13 +12,6 @@ import {
 
 
 describe('addDrugOrder action creators', () => {
-    it('should create POST_DRUG_ORDER_LOADING action', () => {
-        const store = mockStore({});
-        const expectedAction = [ POST_DRUG_ORDER_LOADING ]
-        store.dispatch(postDrugOrderLoading())
-        const actionType = store.getActions().map(action => action.type);
-        expect(actionType).toEqual(expectedAction);
-    });
     it('should create POST_DRUG_ORDER_SUCCESS action', () => {
         const store = mockStore({});
         const expectedAction = [ POST_DRUG_ORDER_SUCCESS ]

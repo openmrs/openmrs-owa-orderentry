@@ -1,5 +1,5 @@
 import { LOADING } from './actionTypes';
 
-const loading = (status, action) => ({ type: `LOADING_${action}`, status });
+const loading = (action, status) => ({ type: `${action}_LOADING`, status });
 
 export default loading;
