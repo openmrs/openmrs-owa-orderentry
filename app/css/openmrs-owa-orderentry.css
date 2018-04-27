@@ -61,10 +61,6 @@ body {
     text-align: center
 }
 
-.number-input{
-    width: 3em;
-}
-
 .fs-14-px {
     font-size: 14px
 }
@@ -266,4 +262,20 @@ body {
 
 .error-notice{
     color: red;
+}
+
+.p-margin {
+    margin-right: 1em;
+}
+
+.label-margin {
+    margin-right: 0.5em;
+}
+
+.small-input {
+    width: 4em;
+}
+
+.medium-input {
+    width: 5em;
 }

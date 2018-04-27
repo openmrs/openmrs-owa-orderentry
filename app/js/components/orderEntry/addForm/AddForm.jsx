@@ -22,7 +22,9 @@ export class AddForm extends React.Component {
       dispensingUnit: '',
       dispensingQuantity: '',
       reason: '',
-      note: '',
+      drugInstructions: '',
+    },
+    fieldErrors: {
     },
     draftOrders: [],
     orders: [],
@@ -57,7 +59,7 @@ export class AddForm extends React.Component {
       dispensingQuantity,
       dispensingUnit,
       reason,
-      note,
+      drugInstructions,
     } = this.state.fields;
     this.setState({
       draftOrders: [
@@ -74,7 +76,7 @@ export class AddForm extends React.Component {
           dispensingUnit,
           dispensingQuantity,
           reason,
-          note,
+          drugInstructions,
           careSetting: this.props.careSetting.uuid,
           drug: this.props.drugUuid,
           dosingType: this.state.formType === 'Standard Dosage' ?
@@ -102,7 +104,7 @@ export class AddForm extends React.Component {
       dispensingQuantity,
       dispensingUnit,
       reason,
-      note,
+      drugInstructions,
     } = order;
     this.state.orders.splice(this.state.orders.indexOf(order), 1);
     this.setState({
@@ -117,7 +119,7 @@ export class AddForm extends React.Component {
         dispensingQuantity,
         dispensingUnit,
         reason,
-        note,
+        drugInstructions,
       },
       ...this.state.orders,
     });
@@ -131,11 +133,50 @@ export class AddForm extends React.Component {
   handleDiscardDraftOrders = () => {
     this.setState({ orders: [] });
   }
+  /**
+   * Validation of datalist tag values using onblur event handler
+   */
+  handleValidation = (event) => {
+    const {
+      drugDosingUnits, orderFrequencies, drugRoutes, durationUnits, drugDispensingUnits,
+    } = this.props.allConfigurations;
+    const { name, value } = event.target;
+    let item = false;
+    switch (name) {
+      case 'dosingUnit':
+        item = drugDosingUnits.filter(unit => unit.display === value).length > 0;
+        break;
+      case 'frequency':
+        item = orderFrequencies.filter(frequency => frequency.display === value).length > 0;
+        break;
+      case 'route':
+        item = drugRoutes.filter(route => route.display === value).length > 0;
+        break;
+      case 'durationUnit':
+        item = durationUnits.filter(unit => unit.display === value).length > 0;
+        break;
+      case 'dispensingUnit':
+        item = drugDispensingUnits.filter(unit => unit.display === value).length > 0;
+        break;
+      default:
+        item = value.length > 0;
+    }
 
-  handleChange = (e) => {
+    { this.setState({
+      ...this.state,
+      fields: {
+        ...this.state.fields, [name]: item ? value : '',
+      },
+      fieldErrors: {
+        ...this.state.fieldErrors, [name]: !item,
+      },
+    }); }
+  }
+
+  handleChange = (event) => {
     this.setState({
       ...this.state,
-      fields: { ...this.state.fields, [e.target.name]: e.target.value },
+      fields: { ...this.state.fields, [event.target.name]: event.target.value },
     });
   }
 
@@ -157,9 +198,39 @@ export class AddForm extends React.Component {
         dispensingUnit: '',
         dispensingQuantity: '',
         reason: '',
-        note: '',
+        drugInstructions: '',
       },
     });
+  }
+
+  activateStandardSaveButton = () => {
+    const {
+      dose,
+      dosingUnit,
+      frequency,
+      route,
+      dispensingQuantity,
+      dispensingUnit,
+      duration,
+      durationUnit,
+    } = this.state.fields;
+
+    if (Object.values(this.state.fieldErrors).includes(true)) return true;
+
+    else if (duration && !durationUnit) return true;
+
+    else if ((this.props.careSetting.display === 'Outpatient') &&
+      !(dose &&
+        dosingUnit &&
+        frequency &&
+        route &&
+        dispensingQuantity &&
+        dispensingUnit)) return true;
+
+    else if ((this.props.careSetting.display === 'Inpatient') &&
+    !(dose && dosingUnit && frequency && route)) return true;
+
+    return false;
   }
 
   addDrugOrder = (event) => {
@@ -178,6 +249,7 @@ export class AddForm extends React.Component {
       />
     </div>
   );
+
   renderDrugOrderForms = () => (
     <div>
       <DosageTabs
@@ -186,7 +258,16 @@ export class AddForm extends React.Component {
         handleFormTabs={this.handleFormTabs}
       >
         <DosageTab tabName="Standard Dosage &nbsp;" icon="icon-th-large">
-          <StandardDose />
+          <StandardDose
+            careSetting={this.props.careSetting}
+            fields={this.state.fields}
+            fieldErrors={this.state.fieldErrors}
+            allConfigurations={this.props.allConfigurations}
+            handleValidation={this.handleValidation}
+            activateStandardSaveButton={this.activateStandardSaveButton}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmitDrugForm}
+            handleCancel={this.handleCancel} />
           <br />
         </DosageTab>
         <DosageTab tabName="Free Text" icon="icon-edit">
@@ -214,21 +295,22 @@ export class AddForm extends React.Component {
 }
 
 const mapStateToProps = ({ orderEntryConfigurations, drugSearchReducer }) => ({
-  allConfigurations: orderEntryConfigurations.configurations,
   drug: drugSearchReducer.selected,
+  allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
 });
 
 AddForm.propTypes = {
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
-  allConfigurations: PropTypes.shape({}),
+  allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
+  careSetting: PropTypes.object.isRequired,
+  drugUuid: PropTypes.string.isRequired,
 };
 
 AddForm.defaultProps = {
   selectDrugSuccess: {},
-  getOrderEntryConfigurations: {},
-  allConfigurations: {},
+  getOrderEntryConfigurations: () => {},
   drugName: '',
 };
 

@@ -50,13 +50,13 @@ export class SearchAndAddOrder extends React.Component {
   render() {
     return (
       <div className="body-wrapper">
-        <Tabs careSetting={this.handleCareSettings}>
+        <Tabs>
           <Tab
             tabName="OutPatient">
             <SearchDrug
               value={this.state.value}
               focused={this.state.focused}
-              onChanging={this.onChange}
+              onChange={this.onChange}
               onSelectDrug={this.onSelectDrug}
             />
             {this.renderAddForm(this.props.outpatientCareSetting)}
@@ -82,7 +82,7 @@ export class SearchAndAddOrder extends React.Component {
             <SearchDrug
               value={this.state.value}
               focused={this.state.focused}
-              onChanging={this.onChange}
+              onChange={this.onChange}
               onSelectDrug={this.onSelectDrug}
             />
             {this.renderAddForm(this.props.inpatientCareSetting)}

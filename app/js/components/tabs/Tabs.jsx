@@ -10,7 +10,6 @@ class Tabs extends Component {
       this.setState({
         activeTabIndex: tabIndex,
       });
-      this.props.careSetting(tabName);
     }
 
     passPropsToChildren = () => (
