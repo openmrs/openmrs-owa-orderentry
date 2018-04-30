@@ -1,6 +1,5 @@
 import {
     fetchConfigurationsFailure,
-    fetchConfigurationsLoading,
     fetchConfigurationsSuccess,
     getOrderEntryConfigurations
 } from '../../app/js/actions/orderEntryActions';
@@ -28,15 +27,6 @@ describe ('Order entry configuration actions', () => {
             error
         };
         expect(fetchConfigurationsFailure(error)).toEqual(expectedAction);
-    });
-
-    it('should create action for loading event', () => {
-        const status = true;
-        const expectedAction = {
-            type: FETCH_ORDER_CONFIG_LOADING,
-            status
-        };
-        expect(fetchConfigurationsLoading(status)).toEqual(expectedAction);
     });
 
     describe ('Order Entry Configurations API call', () => {

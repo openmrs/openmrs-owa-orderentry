@@ -1,10 +1,10 @@
 import {
   PATIENT_CARESETTING_SUCCESS,
-  PATIENT_CARESETTING_LOADING,
   PATIENT_CARESETTING_ERROR,
 } from './actionTypes';
 import axiosInstance from '../config';
 import networkError from './networkError';
+import loading from './loading';
 
 const fetchPatientCareSettingActionCreator = patientCareSetting => ({
   type: PATIENT_CARESETTING_SUCCESS,
@@ -16,24 +16,19 @@ const fetchPatientCareSettingError = error => ({
   error,
 });
 
-const fetchPatientCareSettingLoading = status => ({
-  type: PATIENT_CARESETTING_LOADING,
-  status,
-});
-
 const fetchPatientCareSetting = () => (dispatch) => {
-  dispatch(fetchPatientCareSettingLoading(true));
+  dispatch(loading('PATIENT_CARESETTING', true));
   return axiosInstance.get(`caresetting`)
     .then((response) => {
       dispatch(fetchPatientCareSettingActionCreator(response.data.results));
-      dispatch(fetchPatientCareSettingLoading(false));
+      dispatch(loading('PATIENT_CARESETTING', false));
     })
     .catch((error) => {
+      dispatch(loading('PATIENT_CARESETTING', false));
       if (!error.response) {
         dispatch(networkError('Network error occurred'));
       } else {
         dispatch(fetchPatientCareSettingError(error.response));
-        dispatch(fetchPatientCareSettingLoading(false));
       }
     });
 };

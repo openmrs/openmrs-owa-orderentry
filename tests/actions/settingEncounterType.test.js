@@ -1,6 +1,5 @@
 import {
     settingEncounterTypeSuccess,
-    settingEncounterTypeLoading,
     settingEncounterTypeFailure,
     getSettingEncounterType,
 } from '../../app/js/actions/settingEncounterType';
@@ -27,15 +26,6 @@ describe ('Get the encounterType configuration actions', () => {
             error
         };
         expect(settingEncounterTypeFailure(error)).toEqual(expectedAction);
-    });
-
-    it('should create action for loading event', () => {
-        const status = true;
-        const expectedAction = {
-            type: SETTING_ENCOUNTER_TYPE_LOADING,
-            status
-        };
-        expect(settingEncounterTypeLoading(status)).toEqual(expectedAction);
     });
 
     describe ('Get setting for encounterType API call', () => {

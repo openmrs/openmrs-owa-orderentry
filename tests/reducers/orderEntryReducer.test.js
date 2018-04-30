@@ -37,15 +37,7 @@ describe('Order Entry Configurations reducer', () => {
         const actualState = orderEntryConfigurations(initialState, fetchConfigurationsSuccess(configurations));
         expect(actualState).toEqual(expectedState);
     });
-    it('should handle `FETCH_ORDER_CONFIG_LOADING`', () => {
-        const expectedState = {
-            configurations: [],
-            isLoading: true,
-            hasError: ''
-        };
-        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsLoading(true));
-        expect(actualState).toEqual(expectedState);
-    });
+
     it('should handle `FETCH_ORDER_CONFIG_FAILURE`', () => {
         const expectedState = {
             configurations: [],
