@@ -6,9 +6,7 @@ import {
 } from './actionTypes';
 import networkError from './networkError';
 import loading from './loading';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+import axiosInstance from '../config';
 
 export const discontinueOrderSuccess = () => ({
   type: DISCONTINUE_ORDER_SUCCESS,
@@ -22,7 +20,7 @@ export const discontinueOrderFailure = error => ({
 
 export const discontinueOrder = ordersPayload => (dispatch) => {
   dispatch(loading(DISCONTINUE_ORDER, true));
-  return axios.post(`${apiBaseUrl}/encounter`, ordersPayload)
+  return axiosInstance.post(`encounter`, ordersPayload)
     .then(() => {
       dispatch(
         discontinueOrderSuccess(),

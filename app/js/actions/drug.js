@@ -1,11 +1,10 @@
-import axios from 'axios';
 import {
   SEARCH_DRUGS_FAILURE,
   SEARCH_DRUGS_SUCCESS,
   SELECT_DRUG,
 } from './actionTypes';
-import apiBaseUrl from '../actions/apiBaseUrl';
 import loading from './loading';
+import axiosInstance from '../config';
 
 export const searchDrugSuccess = drugs => ({
   type: SEARCH_DRUGS_SUCCESS,
@@ -24,7 +23,7 @@ export const selectDrugSuccess = drugUuid => ({
 
 export const searchDrug = text => (dispatch) => {
   dispatch(loading('SEARCH_DRUGS', true));
-  return axios.get(`${apiBaseUrl}/drug?q=${text}`)
+  return axiosInstance.get(`drug?q=${text}`)
     .then((response) => {
       dispatch(loading('SEARCH_DRUGS', false));
       dispatch(searchDrugSuccess(response.data.results));

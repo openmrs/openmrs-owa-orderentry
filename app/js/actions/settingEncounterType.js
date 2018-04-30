@@ -4,9 +4,7 @@ import {
   SETTING_ENCOUNTER_TYPE_FAILURE,
   SETTING_ENCOUNTER_TYPE_LOADING,
 } from './actionTypes';
-
-const contextPath = window.location.href.split('/')[3];
-const apiBaseUrl = `/${contextPath}/ws/rest/v1`;
+import axiosInstance from '../config';
 
 export const settingEncounterTypeSuccess = configuration => ({
   type: SETTING_ENCOUNTER_TYPE_SUCCESS,
@@ -25,7 +23,7 @@ export const settingEncounterTypeLoading = status => ({
 
 export const getSettingEncounterType = () => (dispatch) => {
   dispatch(settingEncounterTypeLoading(true));
-  return axios.get(`${apiBaseUrl}/systemsetting?v=custom:(value)&q=order.encounterType`, { headers: { accept: 'application/json' } })
+  return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterType`)
     .then((response) => {
       if (response.status !== 200) {
         throw Error(response.statusText);
