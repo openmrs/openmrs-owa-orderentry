@@ -1,24 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import { getPastOrders } from '../../actions/pastOrders';
 import PastOrder from './PastOrder';
 import imageLoder from '../../../img/loading.gif';
 
 export class PastOrders extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageCount: 0,
+      limit: 10,
+      startIndex: 0,
+      pageNumber: 0,
+    };
+    this.onPageChange = this.onPageChange.bind(this);
+  }
+
   componentDidMount() {
     this.getAllPastOrders(this.props);
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.tabName !== this.props.tabName) {
       this.getAllPastOrders(nextProps);
     }
+    this.setState({ pageCount: nextProps.pageCount });
   }
-  getAllPastOrders=(props) => {
+
+  onPageChange({ selected }) {
+    let { startIndex, pageNumber } = this.state;
+    const { limit } = this.state;
+
+    startIndex = Math.ceil(selected * limit);
+    pageNumber = startIndex / limit;
+
+    this.setState(() => ({ startIndex, pageNumber }));
+    this.getAllPastOrders(this.props, { limit, startIndex });
+  }
+
+  getAllPastOrders=(props, newState) => {
+    const { limit, startIndex = 0 } = newState || this.state;
+
+    this.setState(() => ({ startIndex: 0 }));
+
     const query = new URLSearchParams(this.props.location.search);
     const patientUuid = query.get('patient');
-    this.props.getPastOrders(patientUuid, props.careSetting.uuid);
+    this.props.getPastOrders(limit, startIndex, patientUuid, props.careSetting.uuid);
   }
+
   render() {
     const { loading, pastOrders } = this.props.pastOrders;
 
@@ -29,37 +60,83 @@ export class PastOrders extends React.Component {
         </div>
       );
     }
+
     return (
       <div>
         {pastOrders.length > 0 ?
-          <table className="table bordered mw-958-px">
-            <thead>
-              <tr>
-                <th className="w-145-px">Date</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pastOrders.map(pastOrder =>
-                <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
-            </tbody>
-          </table>
+          <div>
+            <table className="table bordered mw-958-px">
+              <thead>
+                <tr>
+                  <th className="w-145-px">Date</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pastOrders.map(pastOrder =>
+                  <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
+              </tbody>
+            </table>
+            <div className="clear">
+              <div className="float-left-padding">
+                {this.props.showResultCount}
+              </div>
+              <div className="dataTables_paginate">
+                <ReactPaginate
+                  pageCount={this.state.pageCount}
+                  pageRangeDisplayed={5}
+                  marginPagesDisplayed={3}
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  breakClassName="text-align-center"
+                  initialPage={0}
+                  containerClassName="react-paginate-container"
+                  pageLinkClassName="page-link"
+                  activeClassName="active-link"
+                  disabledClassName="active-link"
+                  nextLinkClassName="page-link"
+                  previousLinkClassName="page-link"
+                  onPageChange={this.onPageChange}
+                  forcePage={this.state.pageNumber}
+                  disableInitialCallback={true} // eslint-disable-line
+                />
+              </div>
+            </div>
+          </div>
           : <p id="no_past_orders">No Past Orders</p>}
         <div />
       </div>
     );
   }
 }
+
 const mapStateToProps = ({ pastOrdersReducer }) => ({
   pastOrders: pastOrdersReducer,
+  pageCount: pastOrdersReducer.pageCount,
+  showResultCount: pastOrdersReducer.pastOrdersResultCount,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getPastOrders: (uuid, careSetting) => dispatch(getPastOrders(uuid, careSetting)),
+  getPastOrders: (limit, startIndex, uuid, careSetting) =>
+    dispatch(getPastOrders(limit, startIndex, uuid, careSetting)),
 });
+
+PastOrders.defaultProps = {
+  showResultCount: 'Showing 1 to 10 of 55 entries',
+  nextProps: {
+    tabName: 'OutPatient',
+    pageCount: 0,
+  },
+};
 
 PastOrders.propTypes = {
   getPastOrders: PropTypes.func.isRequired,
+  showResultCount: PropTypes.string,
+  tabName: PropTypes.string.isRequired,
+  nextProps: PropTypes.shape({
+    tabName: PropTypes.string,
+    pageCount: PropTypes.number,
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PastOrders);

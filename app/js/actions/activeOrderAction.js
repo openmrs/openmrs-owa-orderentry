@@ -27,10 +27,10 @@ const activeOrderAction = (careSetting, patientUuid) => (dispatch) => {
       dispatch(activeOrderActionCreator(activeOrders));
     })
     .catch((error) => {
+      dispatch(loading('FETCH_ACTIVE_ORDER', false));
       if (!error.response) {
         dispatch(networkError('Network error occurred'));
       } else {
-        dispatch(loading('FETCH_ACTIVE_ORDER', false));
         dispatch(activeOrderActionError(error));
       }
     });

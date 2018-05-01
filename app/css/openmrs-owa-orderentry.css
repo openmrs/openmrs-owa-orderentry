@@ -280,3 +280,36 @@ body {
 .medium-input {
     width: 5em;
 }
+
+.react-paginate-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/**
+* pagination
+*/
+
+.react-paginate-container li {
+    float: left;
+}
+
+.react-paginate-container li a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.page-link {
+    color: #007fff !important;
+}
+
+.active-link a {
+    color: #bcd7fd !important;
+}
+
+.float-left-padding {
+    float: left;
+    padding-top: 5px;
+}
