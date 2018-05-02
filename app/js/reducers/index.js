@@ -19,6 +19,7 @@ import encounterReducer from './encounterReducer';
 import activeOrderReducer from './activeOrderReducer';
 import settingEncounterTypeReducer from './settingEncounterTypeReducer';
 import discontinueOrderReducer from './discontinueOrderReducer';
+import encounterRoleReducer from './encounterRoleReducer';
 
 export default combineReducers({
   locationReducer,
@@ -33,4 +34,5 @@ export default combineReducers({
   activeOrderReducer,
   settingEncounterTypeReducer,
   discontinueOrderReducer,
+  encounterRoleReducer,
 });

@@ -51,6 +51,16 @@ export default {
       ],
     },
   },
+  encounterRole: {
+    data: {
+      results: [
+        {
+          uuid: '',
+          display: '',
+        },
+      ],
+    },
+  },
   defaultpatientActiveOrder: {
     activeOrders: [],
   },
