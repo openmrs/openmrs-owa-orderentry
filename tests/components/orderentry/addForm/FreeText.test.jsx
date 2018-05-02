@@ -3,7 +3,9 @@ import React from 'react';
 import FreeText from '../../../../app/js/components/orderEntry/addForm/FreeText';
 
 const props = {
-  fields: {}
+  activateSaveButton: jest.fn(),
+  fields: {},
+  careSetting: {}
 };
 
 describe('Test for Free text form', () => {

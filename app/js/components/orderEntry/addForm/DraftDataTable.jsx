@@ -47,7 +47,7 @@ const DraftDataTable = ({
                 {duration && `, for ${duration} ${durationUnit} total` }
                 {reason && `, (Reason: ${reason})` }
                 {drugInstructions && ` (${drugInstructions})`}
-                {dispensingQuantity && `, (Dispense: ${dispensingQuantity} ${dispensingUnit})`}
+                {dispensingQuantity && ` (Dispense: ${dispensingQuantity} ${dispensingUnit})`}
               </td>
               <td>
                 <a href="#" onClick={() => handleEditDrugOrder(order, order.drug, order.dosingType)}>
@@ -58,13 +58,23 @@ const DraftDataTable = ({
                 </a>
               </td>
             </tr>
-          )
+          );
         })}
       </tbody>
     </table>
     <br />
-    <input type="button" onClick={handleCancel} className="button cancel" value="Discard" />
-    <input type="submit" onClick={handleSubmit} className="button confirm right" value="Sign and Save" />
+    <input
+      type="button"
+      onClick={handleCancel}
+      className="button cancel"
+      value={draftOrders.length > 1 ? "Discard All" : "Discard"}
+    />
+    <input
+      type="submit"
+      onClick={handleSubmit}
+      className="button confirm right"
+      value="Sign and Save"
+    />
   </div>
 );
 

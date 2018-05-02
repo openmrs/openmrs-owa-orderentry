@@ -9,7 +9,7 @@ const inpatientProps = {
   allConfigurations: {},
   handleChange: jest.fn(),
   handleValidation: jest.fn(),
-  activateStandardSaveButton: jest.fn(),
+  activateSaveButton: jest.fn(),
   handleSubmit: jest.fn(),
   handleCancel: jest.fn(),
 }
