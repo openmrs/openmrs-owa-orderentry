@@ -9,7 +9,7 @@ const StandardDose = ({
   allConfigurations,
   handleChange,
   handleValidation,
-  activateStandardSaveButton,
+  activateSaveButton,
   handleSubmit,
   handleCancel,
 }) => {
@@ -33,7 +33,7 @@ const StandardDose = ({
                 onChange={handleChange}
                 value={fields.dose}
                 required
-                autoFocus />
+              />
               {
                 fieldErrors.dose ?
                   <span className="field-error">Required</span>
@@ -271,7 +271,7 @@ const StandardDose = ({
             <button
               className="confirm"
               onClick={handleSubmit}
-              disabled={activateStandardSaveButton()}>
+              disabled={activateSaveButton()}>
                 Save
             </button>
           </div>
@@ -288,7 +288,7 @@ StandardDose.propTypes = {
   allConfigurations: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleValidation: PropTypes.func.isRequired,
-  activateStandardSaveButton: PropTypes.func.isRequired,
+  activateSaveButton: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired,
 };

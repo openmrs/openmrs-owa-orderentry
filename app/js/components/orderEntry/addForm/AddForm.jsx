@@ -19,8 +19,8 @@ export class AddForm extends React.Component {
       route: '',
       duration: '',
       durationUnit: '',
-      dispensingUnit: '',
       dispensingQuantity: '',
+      dispensingUnit: '',
       reason: '',
       drugInstructions: '',
     },
@@ -205,7 +205,7 @@ export class AddForm extends React.Component {
     });
   }
 
-  activateStandardSaveButton = () => {
+  activateSaveButton = () => {
     const {
       dose,
       dosingUnit,
@@ -215,23 +215,37 @@ export class AddForm extends React.Component {
       dispensingUnit,
       duration,
       durationUnit,
+      drugInstructions,
     } = this.state.fields;
 
-    if (Object.values(this.state.fieldErrors).includes(true)) return true;
-
-    else if (duration && !durationUnit) return true;
-
-    else if ((this.props.careSetting.display === 'Outpatient') &&
-      !(dose &&
+    if (Object.values(this.state.fieldErrors).includes(true)) {
+      return true;
+    } else if (this.state.formType === 'Standard Dosage') {
+      if (duration && !durationUnit) {
+        return true;
+      } else if ((this.props.careSetting.display === 'Outpatient') &&
+      !(
+        dose &&
         dosingUnit &&
         frequency &&
         route &&
         dispensingQuantity &&
-        dispensingUnit)) return true;
-
-    else if ((this.props.careSetting.display === 'Inpatient') &&
-    !(dose && dosingUnit && frequency && route)) return true;
-
+        dispensingUnit
+      )) {
+        return true;
+      } else if ((this.props.careSetting.display === 'Inpatient') &&
+      !(dose && dosingUnit && frequency && route)) {
+        return true;
+      }
+    } else if (this.state.formType === 'Free Text') {
+      if ((this.props.careSetting.display === 'Outpatient') &&
+      !(drugInstructions && dispensingQuantity && dispensingUnit)) {
+        return true;
+      } else if ((this.props.careSetting.display === 'Inpatient') &&
+      !(drugInstructions)) {
+        return true;
+      }
+    }
     return false;
   }
 
@@ -266,7 +280,7 @@ export class AddForm extends React.Component {
             fieldErrors={this.state.fieldErrors}
             allConfigurations={this.props.allConfigurations}
             handleValidation={this.handleValidation}
-            activateStandardSaveButton={this.activateStandardSaveButton}
+            activateSaveButton={this.activateSaveButton}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmitDrugForm}
             handleCancel={this.handleCancel} />
@@ -275,7 +289,10 @@ export class AddForm extends React.Component {
         <DosageTab tabName="Free Text" icon="icon-edit">
           <FreeText
             fields={this.state.fields}
+            fieldErrors={this.state.fieldErrors}
             allConfigurations={this.props.allConfigurations}
+            handleValidation={this.handleValidation}
+            activateSaveButton={this.activateSaveButton}
             handleChange={this.handleChange}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmitDrugForm}
@@ -307,13 +324,14 @@ AddForm.propTypes = {
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
   careSetting: PropTypes.object.isRequired,
-  drugUuid: PropTypes.string.isRequired,
+  drugUuid: PropTypes.string,
 };
 
 AddForm.defaultProps = {
   selectDrugSuccess: {},
   getOrderEntryConfigurations: () => {},
   drugName: '',
+  drugUuid: '',
 };
 
 export default connect(
