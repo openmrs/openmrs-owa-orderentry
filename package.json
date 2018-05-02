@@ -100,7 +100,7 @@
     "est": "node_modules/.bin/mocha tests/**/*.test.* --require tests/setup.js",
     "test": "jest -u",
     "test:debug": "karma start",
-    "lint": "eslint * --ignore-pattern [node-modules]"
+    "lint": "eslint ."
   },
   "nyc": {
     "reporter": [
