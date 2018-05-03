@@ -11,7 +11,7 @@ import { selectDrugSuccess } from '../../../actions/drug';
 
 export class AddForm extends React.Component {
   state = {
-    action: '',
+    action: 'NEW',
     fields: {
       dose: '',
       dosingUnit: '',
@@ -36,6 +36,10 @@ export class AddForm extends React.Component {
 
   componentDidMount() {
     this.props.getOrderEntryConfigurations();
+  }
+
+  componentDidUpdate() {
+    Object.keys(this.props.editOrder).length && this.populateEditActiveOrderForm();
   }
 
   handleFormTabs = (tabIndex) => {
@@ -66,7 +70,7 @@ export class AddForm extends React.Component {
         ...this.state.draftOrders,
         {
           drugName: this.props.drugName,
-          action: "NEW",
+          action: this.state.action,
           dose,
           dosingUnit,
           frequency,
@@ -134,6 +138,8 @@ export class AddForm extends React.Component {
 
   handleDiscardDraftOrders = () => {
     this.setState({ draftOrders: [] });
+    this.props.clearSearchField();
+    this.props.clearEditOrderNumber();
   }
   /**
    * Validation of datalist tag values using onblur event handler
@@ -202,6 +208,7 @@ export class AddForm extends React.Component {
         reason: '',
         drugInstructions: '',
       },
+      action: 'NEW',
     });
   }
 
@@ -254,6 +261,41 @@ export class AddForm extends React.Component {
     // make post request to API
   }
 
+  populateEditActiveOrderForm = () => {
+    const {
+      dose,
+      doseUnits,
+      frequency,
+      route,
+      duration,
+      durationUnits,
+      quantity,
+      quantityUnits,
+      asNeededCondition,
+      dosingInstructions,
+      dosingType,
+    } = this.props.editOrder;
+    this.setState({
+      activeTabIndex: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
+      action: 'REVISE',
+      formType: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
+      dosingType,
+      fields: {
+        dose: dose || '',
+        dosingUnit: (doseUnits && doseUnits.display) || '',
+        frequency: (frequency && frequency.display) || '',
+        route: (route && route.display) || '',
+        duration: duration || '',
+        durationUnit: (durationUnits && durationUnits.display) || '',
+        dispensingQuantity: quantity || '',
+        dispensingUnit: (quantityUnits && quantityUnits.display) || '',
+        reason: asNeededCondition || '',
+        drugInstructions: dosingInstructions || '',
+      },
+    });
+    this.props.removeOrder();
+  }
+
   renderDraftDataTable = () => (
     <div>
       <DraftDataTable
@@ -302,7 +344,7 @@ export class AddForm extends React.Component {
       </DosageTabs>
     </div>
   );
-
+  
   render() {
     return (
       <div>
@@ -319,18 +361,34 @@ const mapStateToProps = ({ orderEntryConfigurations, drugSearchReducer }) => ({
 });
 
 AddForm.propTypes = {
+  clearEditOrderNumber: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
   careSetting: PropTypes.object.isRequired,
   drugUuid: PropTypes.string,
+  removeOrder: PropTypes.func.isRequired,
+  editOrder: PropTypes.shape({
+    dose: PropTypes.number,
+    doseUnits: PropTypes.shape({}),
+    frequency: PropTypes.shape({}),
+    route: PropTypes.shape({}),
+    duration: PropTypes.number,
+    durationUnits: PropTypes.shape({}),
+    quantity: PropTypes.number,
+    quantityUnits: PropTypes.shape({}),
+    asNeededCondition: PropTypes.string,
+    dosingInstructions: PropTypes.string,
+    dosingType: PropTypes.string,
+  }),
 };
 
 AddForm.defaultProps = {
   selectDrugSuccess: {},
   getOrderEntryConfigurations: () => {},
   drugName: '',
+  editOrder: {},
   drugUuid: '',
 };
 

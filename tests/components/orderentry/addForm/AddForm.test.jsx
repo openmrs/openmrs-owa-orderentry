@@ -3,6 +3,7 @@ import React from 'react';
 import { AddForm } from '../../../../app/js/components/orderEntry/addForm/AddForm';
 
 const props = {
+  removeOrder: jest.fn(),
   selectDrugSuccess: jest.fn(),
   getOrderEntryConfigurations: jest.fn(),
   allConfigurations: {
@@ -21,6 +22,14 @@ const outpatientprops = {
   ...props,
   careSetting: {display: 'Outpatient'},
 }
+
+let mountedComponent;
+const getComponent = () => {
+  if (!mountedComponent) {
+    mountedComponent = shallow(<AddForm {...props} />);
+  }
+  return mountedComponent;
+};
 
 describe('Test for adding a new drug order', () => {
     it('should render component', () => {
@@ -115,3 +124,47 @@ describe('Test for adding a new drug order', () => {
     });
   });
 });
+
+describe('populateEditActiveOrderForm() method', () => {
+  it('should call populateEditActiveOrderForm()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'populateEditActiveOrderForm');
+    renderedComponent.populateEditActiveOrderForm();
+    expect(renderedComponent.populateEditActiveOrderForm.calledOnce).toEqual(true);
+    expect(getComponent().state('activeTabIndex')).toEqual(1);
+    expect(getComponent().state('fields')).toEqual({
+      dispensingQuantity: "",
+      dispensingUnit: "",
+      dose: "",
+      dosingUnit: "",
+      drugInstructions: "",
+      duration: "",
+      durationUnit: "",
+      frequency: "",
+      reason: "",
+      route: "",
+    });
+  });
+});
+
+describe('clearDrugForms() method', () => {
+  it('should call clearDrugForms()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'clearDrugForms');
+    renderedComponent.clearDrugForms();
+    expect(renderedComponent.clearDrugForms.calledOnce).toEqual(true);
+    expect(getComponent().state('fields')).toEqual({
+      dispensingQuantity: "",
+      dispensingUnit: "",
+      dose: "",
+      dosingUnit: "",
+      drugInstructions: "",
+      duration: "",
+      durationUnit: "",
+      frequency: "",
+      reason: "",
+      route: "",
+    });
+  });
+});
+
