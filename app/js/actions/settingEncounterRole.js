@@ -3,7 +3,7 @@ import {
   SETTING_ENCOUNTER_ROLE_SUCCESS,
   SETTING_ENCOUNTER_ROLE_FAILURE,
 } from './actionTypes';
-import { axiosInstance } from '../config';
+import axiosInstance from '../config';
 import loading from './loading';
 import networkError from './networkError';
 
