@@ -27,6 +27,7 @@
     "jest": true
   },
   "rules": {
+    "curly": 2,
     "indent": [
       1,
       2,

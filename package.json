@@ -98,9 +98,9 @@
     "build:deploy": "webpack --progress --colors --mode=deploy --target=web",
     "watch": "webpack --progress --colors --watch --mode=deploy --target=web",
     "est": "node_modules/.bin/mocha tests/**/*.test.* --require tests/setup.js",
-    "test": "jest -u",
+    "test": "npm run lint && jest -u",
     "test:debug": "karma start",
-    "lint": "eslint * --ignore-pattern [node-modules]"
+    "lint": "eslint ."
   },
   "nyc": {
     "reporter": [
