@@ -53,6 +53,16 @@ body {
     display: block;
 }
 
+.icon-color {
+    color: #007fff;
+}
+
+.draft-spacing {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    background-color: #fffdf7;
+}
+
 .hide {
     display: none;
 }

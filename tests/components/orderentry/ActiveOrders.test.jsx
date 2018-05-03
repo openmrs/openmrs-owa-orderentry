@@ -4,6 +4,9 @@ import { ActiveOrders } from '../../../app/js/components/orderEntry/ActiveOrders
 
 const props = {
   activeOrderAction: jest.fn(),
+  addDraftOrder: jest.fn(),
+  onDelete: jest.fn(),
+  isDelete: false,
   drugOrder: {
     activeOrders: [],
     loading: false
@@ -16,9 +19,29 @@ const props = {
   }
 }
 
+const setup = () => {
+  const wrapper = shallow(<ActiveOrders {...props} store={store} />);
+  return { wrapper }
+}
+
+describe('onClickDiscontinue', () => {
+  it('should be called on discontinuing an active order', () => {
+    const order = {
+      drug: {
+        display: 'panadol'
+      },
+      orderNumber: 3
+    };
+
+    const { wrapper } = setup();
+
+    wrapper.instance().onClickDiscontinue(order);
+  });
+});
+
 describe('Test for Inpatient Active orders', () => {
   it('should render component', () => {
-    const wrapper = shallow(<ActiveOrders {...props} />  );
+    const wrapper = setup();
     expect(wrapper).toMatchSnapshot()
   });
 });
