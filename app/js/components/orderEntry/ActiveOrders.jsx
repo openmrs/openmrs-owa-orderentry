@@ -82,8 +82,18 @@ export class ActiveOrders extends React.Component {
           </td>
           {details}
           <td className="text-center action-padding">
-            <a href="#"> <i className="icon-edit" title="Edit" /> </a>
-            <a href="#"> <i className="icon-remove" title="Delete" /> </a>
+            {
+              (this.props.editOrderNumber === order.orderNumber) ?
+                <p> will REVISE </p> :
+                <div>
+                  <a
+                    href="#"
+                    onClick={() => this.props.handleEditActiveDrugOrder(order)}
+                  > <i className="icon-edit" title="Edit" />
+                  </a>
+                  <a href="#"> <i className="icon-remove" title="Delete" /> </a>
+                </div>
+            }
           </td>
         </tr>
       );
@@ -127,6 +137,8 @@ export class ActiveOrders extends React.Component {
 }
 
 ActiveOrders.propTypes = {
+  handleEditActiveDrugOrder: PropTypes.func.isRequired,
+  editOrderNumber: PropTypes.string,
   activeOrderAction: PropTypes.func.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
@@ -134,6 +146,10 @@ ActiveOrders.propTypes = {
   careSetting: PropTypes.shape({}).isRequired,
   location: PropTypes.shape({}).isRequired,
 };
+
+ActiveOrders.defaultProps = {
+  editOrderNumber: "",
+}
 
 const mapStateToProps = ({ activeOrderReducer }) => ({
   drugOrder: activeOrderReducer,

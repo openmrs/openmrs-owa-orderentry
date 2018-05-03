@@ -13,6 +13,10 @@ export class SearchAndAddOrder extends React.Component {
   state = {
     value: "",
     focused: false,
+    editDrugUuid: '',
+    editDrugName: '',
+    editOrder: {},
+    editOrderNumber: '',
   };
 
   onSelectDrug = (drugName) => {
@@ -33,16 +37,49 @@ export class SearchAndAddOrder extends React.Component {
     this.setState({
       value: "",
       focused: false,
+      editDrugUuid: "",
+      editDrugName: "",
     });
   }
+
+  clearEditOrderNumber = () => {
+    this.setState({ editOrderNumber: '' });
+  }
+
+  handleEditActiveDrugOrder = (order) => {
+    this.setState({
+      editDrugUuid: order.drug.uuid,
+      editDrugName: order.drug.display,
+      editOrder: order,
+      editOrderNumber: order.orderNumber,
+    });
+  }
+
+  removeOrder = () => {
+    this.setState({ editOrder: {} });
+  }
+
+  renderSearchDrug = () => (
+    this.state.editDrugName ?
+      <h1> Revise for: {this.state.editDrugName} </h1> :
+      <SearchDrug
+        value={this.state.value}
+        focused={this.state.focused}
+        onChange={this.onChange}
+        onSelectDrug={this.onSelectDrug}
+      />
+  )
 
   renderAddForm = careSetting => (
     <div>
       <AddForm
-        drugName={this.props.drug.display}
-        drugUuid={this.props.drug.uuid}
+        drugName={this.state.editDrugName ? this.state.editDrugName : this.props.drug.display}
+        drugUuid={this.state.editDrugUuid ? this.state.editDrugUuid : this.props.drug.uuid}
+        editOrder={this.state.editOrder}
         careSetting={careSetting}
         clearSearchField={this.clearSearchField}
+        clearEditOrderNumber={this.clearEditOrderNumber}
+        removeOrder={this.removeOrder}
       />
     </div>
   );
@@ -53,18 +90,15 @@ export class SearchAndAddOrder extends React.Component {
         <Tabs>
           <Tab
             tabName="OutPatient">
-            <SearchDrug
-              value={this.state.value}
-              focused={this.state.focused}
-              onChange={this.onChange}
-              onSelectDrug={this.onSelectDrug}
-            />
+            {this.renderSearchDrug()}
             {this.renderAddForm(this.props.outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 tabName="OutPatient"
                 careSetting={this.props.outpatientCareSetting}
                 location={this.props.location}
+                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
+                editOrderNumber={this.state.editOrderNumber}
               />
             </Accordion>
 
@@ -79,18 +113,15 @@ export class SearchAndAddOrder extends React.Component {
           </Tab>
           <Tab
             tabName="InPatient">
-            <SearchDrug
-              value={this.state.value}
-              focused={this.state.focused}
-              onChange={this.onChange}
-              onSelectDrug={this.onSelectDrug}
-            />
+            {this.renderSearchDrug()}
             {this.renderAddForm(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 tabName="InPatient"
                 careSetting={this.props.inpatientCareSetting}
                 location={this.props.location}
+                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
+                editOrderNumber={this.state.editOrder.orderNumber}
               />
             </Accordion>
 
