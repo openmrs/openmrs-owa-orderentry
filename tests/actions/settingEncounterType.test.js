@@ -6,6 +6,7 @@ import {
 import {
     SETTING_ENCOUNTER_TYPE_SUCCESS,
     SETTING_ENCOUNTER_TYPE_FAILURE,
+    FETCH_ENCOUNTER_TYPE_LOADING,
     SETTING_ENCOUNTER_TYPE_LOADING,
 } from '../../app/js/actions/actionTypes';
 
@@ -47,8 +48,9 @@ describe ('Get the encounterType configuration actions', () => {
 
             const expectedActions = [
                 SETTING_ENCOUNTER_TYPE_LOADING,
-                SETTING_ENCOUNTER_TYPE_LOADING,
-                SETTING_ENCOUNTER_TYPE_SUCCESS
+                SETTING_ENCOUNTER_TYPE_SUCCESS,
+                FETCH_ENCOUNTER_TYPE_LOADING,
+                SETTING_ENCOUNTER_TYPE_LOADING
             ];
             
             const store = mockStore({ setting: {}});
@@ -73,8 +75,8 @@ describe ('Get the encounterType configuration actions', () => {
 
             const expectedActions = [
                 SETTING_ENCOUNTER_TYPE_LOADING,
+                SETTING_ENCOUNTER_TYPE_FAILURE,
                 SETTING_ENCOUNTER_TYPE_LOADING,
-                SETTING_ENCOUNTER_TYPE_FAILURE
             ];
             
             const store = mockStore({ setting: {}});
