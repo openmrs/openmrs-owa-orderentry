@@ -27,16 +27,26 @@ export class OrderEntryPage extends React.Component {
         </div>
       );
     }
-    if (settingEncounterType.length === 0 && error) {
+
+    if (settingEncounterType.length === 0 || error) {
       return (
         <div className="error-notice">
           <p>
-            Setting for <strong>order.encounterType</strong> does not exist.
-            Please contact your administrator to create one for you.
+            Configuration for <strong>order.encounterType</strong> {error === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Please contact your administrator for more information.
           </p>
           <p>
-            As an Administrator, if you have already configured this setting, please check
-            if its name corresponds to <strong>order.encounterType</strong>
+            As an Administrator,&nbsp;
+            {
+              error === 'incomplete config' ?
+                <span>
+                  please ensure that you have created a valid <strong>encounter type</strong>.
+                </span> :
+                <span>
+                  ensure that you have created a setting called <strong>order.encounterType</strong>&nbsp;
+                  with a value corresponding to a valid encounter type.
+                </span>
+            }
           </p>
         </div>
       );
@@ -65,7 +75,7 @@ export class OrderEntryPage extends React.Component {
           inpatientCareSetting={this.props.inpatientCareSetting}
           location={this.props.location}
         />
-      </div>
+      </div >
     );
   }
 }
@@ -73,19 +83,23 @@ export class OrderEntryPage extends React.Component {
 OrderEntryPage.propTypes = {
   fetchPatientCareSetting: PropTypes.func.isRequired,
   location: PropTypes.shape({}).isRequired,
-  outpatientCareSetting: PropTypes.shape({}).isRequired,
+  outpatientCareSetting: PropTypes.shape({}),
   settingEncounterTypeReducer: PropTypes.shape({
-    error: '',
-    isLoading: '',
-    settingEncounterType: {},
+    error: PropTypes.string,
+    isLoading: PropTypes.bool,
+    settingEncounterType: PropTypes.string,
   }).isRequired,
   settingEncounterRoleReducer: PropTypes.shape({
-    roleError: '',
-    isLoading: '',
-    settingEncounterRole: {},
+    roleError: PropTypes.string,
+    isLoading: PropTypes.bool,
+    settingEncounterRole: PropTypes.object,
   }).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
+};
+
+OrderEntryPage.defaultProps = {
+  outpatientCareSetting: {},
 };
 
 const mapStateToProps = ({
@@ -99,10 +113,10 @@ const mapStateToProps = ({
   settingEncounterRoleReducer,
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchPatientCareSetting: () => dispatch(fetchPatientCareSetting()),
-  getSettingEncounterType: () => dispatch(getSettingEncounterType()),
-  getSettingEncounterRole: () => dispatch(getSettingEncounterRole()),
-});
+const actionCreators = {
+  fetchPatientCareSetting,
+  getSettingEncounterType,
+  getSettingEncounterRole,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage);
+export default connect(mapStateToProps, actionCreators)(OrderEntryPage);

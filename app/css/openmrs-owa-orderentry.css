@@ -262,6 +262,7 @@ body {
 
 .error-notice{
     color: red;
+    padding: 0px 8px;
 }
 
 .p-margin {

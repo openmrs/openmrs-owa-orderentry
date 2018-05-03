@@ -5,6 +5,8 @@ import {
 } from './actionTypes';
 import axiosInstance from '../config';
 import loading from './loading';
+import networkError from './networkError';
+import { fetchEncounterType } from './encounterType';
 
 export const settingEncounterTypeSuccess = configuration => ({
   type: SETTING_ENCOUNTER_TYPE_SUCCESS,
@@ -20,15 +22,16 @@ export const getSettingEncounterType = () => (dispatch) => {
   dispatch(loading('SETTING_ENCOUNTER_TYPE', true));
   return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterType`)
     .then((response) => {
-      if (response.status !== 200) {
-        throw Error(response.statusText);
+      if (response.data.results.length === 0) {
+        throw Error("config not found");
       }
+      const { value } = response.data.results[0];
+      dispatch(settingEncounterTypeSuccess(value));
+      dispatch(fetchEncounterType(value));
       dispatch(loading('SETTING_ENCOUNTER_TYPE', false));
-      return response;
     })
-    .then(response => dispatch(settingEncounterTypeSuccess(response.data.results[0].value)))
     .catch((error) => {
+      dispatch(settingEncounterTypeFailure(error.message));
       dispatch(loading('SETTING_ENCOUNTER_TYPE', false));
-      dispatch(settingEncounterTypeFailure(error));
     });
 };

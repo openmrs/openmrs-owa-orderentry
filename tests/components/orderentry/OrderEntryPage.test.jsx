@@ -1,111 +1,168 @@
 import React from 'react';
-import { OrderEntryPage } from '../../../app/js/components/orderEntry/OrderEntryPage';
-import  SearchAndAddOrder from '../../../app/js/components/orderEntry/SearchAndAddOrder';
+import ConnectedOrderEntryPage, { OrderEntryPage } from '../../../app/js/components/orderEntry/OrderEntryPage';
+import SearchAndAddOrder from '../../../app/js/components/orderEntry/SearchAndAddOrder';
 
-const props = {
-  fetchPatientCareSetting: jest.fn(),
-  getSettingEncounterType: jest.fn(),
-  getSettingEncounterRole: jest.fn(),
-  settingEncounterTypeReducer: {
-    settingEncounterType: '',
-    error: '',
-  },
-  settingEncounterRoleReducer: {
-    settingEncounterRole: '',
-    roleError: '',
-  },
-  outpatientCareSetting: {uuid: '5677666'},
-  inpatientCareSetting: {uuid: '6766667'}
-}
+let props;
+
+let mountedComponent;
+
+const getComponent = () => {
+  if (!mountedComponent) {
+    mountedComponent = shallow(<SearchDrug {...props} />);
+  }
+  return mountedComponent;
+};
 
 describe('Test for Order entry page when order.encounterType is set', () => {
-  const typeProps = {
-    ...props,
-    settingEncounterTypeReducer: {
-      ...props.settingEncounterTypeReducer,
-      settingEncounterType: 'order type',
-    },
-  }
-  let wrapper;  
   beforeEach(() => {
-    wrapper = shallow(<OrderEntryPage {...typeProps} />  );
-  })
-  it('should render component', () => {
-    expect(wrapper).toMatchSnapshot()
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: 'Admin role',
+        roleError: '',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
   });
+  it('should render component', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent).toMatchSnapshot();
+  });
+
+  it('should render Loader Images ', () => {
+    props.outpatientCareSetting = null;
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div img').length).toBe(1);
+  });
+
   it('should render SearchAndAddOrder Component ', () => {
-    expect(wrapper.find(SearchAndAddOrder).length).toBe(1);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
   });
   it('should not show error', () => {
-    expect(wrapper.find('div.error-notice').length).toBe(0);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
 });
 
 describe('Test for Order entry page when order.encounterType is not set', () => {
-  const typeProps = {
-    ...props,
-    settingEncounterTypeReducer: {
-      ...props.settingEncounterTypeReducer,
-      error: 'Property can not be found',
-    },
-  }
-  let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<OrderEntryPage {...typeProps} />  );
-  })
-  it('should render component', () => {
-    expect(wrapper).toMatchSnapshot()
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: 'Admin role',
+        roleError: '',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
   });
   it('should not render SearchAndAddOrder Component ', () => {
-    expect(wrapper.find(SearchAndAddOrder).length).toBe(0);
+    props.settingEncounterTypeReducer = {
+      settingEncounterType: '',
+      error: 'Property can not be found',
+    }
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
   });
   it('should show error', () => {
-    expect(wrapper.find('div.error-notice').length).toBe(1);
+    props.settingEncounterTypeReducer = {
+      settingEncounterType: '',
+      error: 'Property can not be found',
+    }
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
 
 describe('Test for Order entry page when order.encounterRole is set', () => {
-  const roleProps = {
-    ...props,
-    settingEncounterRoleReducer: {
-      ...props.settingEncounterRoleReducer,
-      settingEncounterRole: 'clinician',
-    },
-  }
-  let wrapper;  
   beforeEach(() => {
-    wrapper = shallow(<OrderEntryPage {...roleProps} />  );
-  })
-  it('should render component', () => {
-    expect(wrapper).toMatchSnapshot()
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: 'Admin role',
+        roleError: '',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
   });
+
   it('should render SearchAndAddOrder Component ', () => {
-    expect(wrapper.find(SearchAndAddOrder).length).toBe(1);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
   });
   it('should not show error', () => {
-    expect(wrapper.find('div.error-notice').length).toBe(0);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
 });
 
 describe('Test for Order entry page when order.encounterRole is not set', () => {
-  const roleProps = {
-    ...props,
-    settingEncounterRoleReducer: {
-      ...props.settingEncounterRoleReducer,
-      roleError: 'Property can not be found',
-    },
-  }
-  let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<OrderEntryPage {...roleProps} />  );
-  })
-  it('should render component', () => {
-    expect(wrapper).toMatchSnapshot()
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: '',
+        roleError: 'error error',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
   });
+
   it('should not render SearchAndAddOrder Component ', () => {
-    expect(wrapper.find(SearchAndAddOrder).length).toBe(0);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
   });
   it('should show error', () => {
-    expect(wrapper.find('div.error-notice').length).toBe(1);
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(1);
+  });
+});
+
+describe('Connected OrderEntryPage component', () => {
+  it('component successfully rendered', () => {
+    const store = mockStore({
+      careSettingReducer: {
+        outpatientCareSetting: { uuid: '' },
+        inpatientCareSetting: { uuid: '' }
+      },
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order entry',
+        error: ''
+      },
+    });
+    const wrapper = shallow(<ConnectedOrderEntryPage store={store} />);
+    expect(wrapper.length).toBe(1);
   });
 });

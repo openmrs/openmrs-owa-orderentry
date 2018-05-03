@@ -41,15 +41,16 @@ export default {
   },
   pastOrders: {},
 
-  encounterTypes: {
-    data: {
-      results: [
-        {
-          uuid: '',
-          display: '',
-        },
-      ],
-    },
+  encounterTypeValid: {
+    results: [
+      {
+        uuid: '',
+        display: '',
+      },
+    ],
+  },
+  encounterTypeInValid: {
+    results: [],
   },
   encounterRole: {
     data: {
