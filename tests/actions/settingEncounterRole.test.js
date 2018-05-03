@@ -34,14 +34,12 @@ describe ('Get the encounterRole configuration actions', () => {
             moxios.install();
         });
 
-        it ('should dispatch `SETTING_ENCOUNTER_ROLE_SUCCESS` after sucessful fetching', () => {
+        it ('should dispatch `SETTING_ENCOUNTER_ROLE_SUCCESS` after successful fetching', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 200,
-                    response: {
-                        results: 'clinician'
-                    },
+                    response: { results: ['clinician']},
                 });
             });
 
@@ -60,14 +58,12 @@ describe ('Get the encounterRole configuration actions', () => {
             });
         });
 
-        it ('should dispatch `SETTING_ENCOUNTER_ROLE_SUCCESS` after an error', () => {
+        it ('should dispatch `SETTING_ENCOUNTER_ROLE_FAILURE` after an error', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 401,
-                    response: {
-                        error: 'Unauthorised'
-                    },
+                    error: 'Unauthorised'
                 });
             });
 

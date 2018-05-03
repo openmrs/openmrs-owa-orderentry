@@ -17,23 +17,23 @@ export const settingEncounterRoleFailure = error => ({
   error,
 });
 
+const NotFoundException = message => ({
+  message,
+  response: 'Not Found',
+});
+
 export const getSettingEncounterRole = () => (dispatch) => {
   dispatch(loading('SETTING_ENCOUNTER_ROLE', true));
   return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterRole`)
     .then((response) => {
-      if (response.status !== 200) {
-        throw Error(response.statusText);
-      }
-      dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
-      return response;
+      if (response.data.results.length > 0) {
+        dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
+        dispatch(settingEncounterRoleSuccess(response.data.results[0].value));
+      } else throw NotFoundException('Property not found');
     })
-    .then(response => dispatch(settingEncounterRoleSuccess(response.data.results[0].value)))
     .catch((error) => {
       dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
-      if (error.response) {
-        dispatch(settingEncounterRoleFailure(error));
-      } else {
-        dispatch(networkError('Network error occurred'));
-      }
+      if (!error.response) dispatch(networkError('Network error occurred'));
+      else dispatch(settingEncounterRoleFailure(error));
     });
 };
