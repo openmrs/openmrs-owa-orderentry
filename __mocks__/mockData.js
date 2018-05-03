@@ -69,4 +69,9 @@ export default {
     isLoading: false,
     error: '',
   },
+  defaultSettingEncounterRole: {
+    settingEncounterRole: '',
+    isLoading: false,
+    roleError: '',
+  },
 };
