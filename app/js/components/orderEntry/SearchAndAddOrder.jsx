@@ -8,6 +8,8 @@ import Tab from '../tabs/Tab';
 import Accordion from '../accordion';
 import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
+import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
+import DraftDataTable from './addForm/DraftDataTable';
 
 export class SearchAndAddOrder extends React.Component {
   state = {
@@ -17,6 +19,7 @@ export class SearchAndAddOrder extends React.Component {
     editDrugName: '',
     editOrder: {},
     editOrderNumber: '',
+    isDelete: false,
   };
 
   onSelectDrug = (drugName) => {
@@ -31,6 +34,23 @@ export class SearchAndAddOrder extends React.Component {
       value,
       focused: true,
     }));
+  }
+
+  onDelete = (event) => {
+    this.setState({ isDelete: event });
+  }
+
+  handleDiscardOneOrder = (order) => {
+    this.props.deleteDraftOrder(order);
+    if (order.action === 'DISCONTINUE') {
+      this.setState({ isDelete: false });
+    }
+  }
+
+  handleDiscardAllOrders = () => {
+    this.setState({ isDelete: false }, () => {
+      this.props.deleteAllDraftOrders();
+    });
   }
 
   clearSearchField = () => {
@@ -92,8 +112,17 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.outpatientCareSetting)}
+            {(this.state.isDelete || this.props.draftOrders.length > 0) &&
+              <DraftDataTable
+                draftOrders={this.props.draftOrders}
+                handleDiscardOneOrder={this.handleDiscardOneOrder}
+                handleDiscardAllOrders={this.handleDiscardAllOrders}
+              />
+            }
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
+                isDelete={this.state.isDelete}
+                onDelete={this.onDelete}
                 tabName="OutPatient"
                 careSetting={this.props.outpatientCareSetting}
                 location={this.props.location}
@@ -115,13 +144,22 @@ export class SearchAndAddOrder extends React.Component {
             tabName="InPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.inpatientCareSetting)}
+            {(this.state.isDelete || this.props.draftOrders.length > 0) &&
+              <DraftDataTable
+                draftOrders={this.props.draftOrders}
+                handleDiscardOneOrder={this.handleDiscardOneOrder}
+                handleDiscardAllOrders={this.handleDiscardAllOrders}
+              />
+            }
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
+                isDelete={this.state.isDelete}
+                onDelete={this.onDelete}
                 tabName="InPatient"
                 careSetting={this.props.inpatientCareSetting}
                 location={this.props.location}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-                editOrderNumber={this.state.editOrder.orderNumber}
+                editOrderNumber={this.state.editOrderNumber}
               />
             </Accordion>
 
@@ -143,15 +181,30 @@ const mapStateToProps = ({
   careSettingReducer:
   { inpatientCareSetting, outpatientCareSetting },
   drugSearchReducer,
+  draftTableReducer: { draftOrders },
 }) => ({
   inpatientCareSetting,
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
+  draftOrders,
 });
 
-SearchAndAddOrder.propTypes = {
-  drug: PropTypes.shape({}).isRequired,
-  location: PropTypes.shape({}).isRequired,
+SearchAndAddOrder.defaultProps = {
+  draftOrders: [],
 };
 
-export default connect(mapStateToProps)(SearchAndAddOrder);
+SearchAndAddOrder.propTypes = {
+  drug: PropTypes.string.isRequired,
+  draftOrders: PropTypes.arrayOf(PropTypes.any),
+  location: PropTypes.shape({}).isRequired,
+  deleteDraftOrder: PropTypes.func.isRequired,
+  deleteAllDraftOrders: PropTypes.func.isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    deleteDraftOrder,
+    deleteAllDraftOrders,
+  },
+)(SearchAndAddOrder);

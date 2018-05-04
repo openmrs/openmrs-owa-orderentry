@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SearchAndAddOrder } from '../../../app/js/components/orderEntry/SearchAndAddOrder';
+import connectedSearchAndAddOrder, {SearchAndAddOrder} from '../../../app/js/components/orderEntry/SearchAndAddOrder';
 
 const props = {
   outpatientCareSetting:{
@@ -10,11 +10,14 @@ const props = {
     uuid: {}
   },
   getPastOrders: jest.fn(),
+  draftOrders: [],
   location:{
     search:()=>{}
   },
   fetchInpatientCareSetting: jest.fn(),
   fetchOutpatientCareSetting: jest.fn(),
+  deleteDraftOrder: jest.fn(),
+  deleteAllDraftOrders: jest.fn(),
   drug: "abc-e345-thed-uuid2345",
 };
 
@@ -101,5 +104,50 @@ describe('clearEditOrderNumber() method', () => {
     renderedComponent.clearEditOrderNumber();
     expect(renderedComponent.clearEditOrderNumber.calledOnce).toEqual(true);
     expect(getComponent().state('editOrderNumber')).toEqual('');
+  });
+});
+
+
+const setup = () => {
+  const wrapper = shallow(<SearchAndAddOrder {...props} store={store} />);
+  return { wrapper }
+}
+
+describe('onDelete', () => {
+  it('should change event', () => {
+    const event = true
+    const { wrapper } = setup();
+
+    wrapper.instance().onDelete(event);
+  });
+});
+
+describe('handleDiscardOneOrder', () => {
+  it('should be called on discarding one draft order', () => {
+    const order = {
+      action: 'DISCONTINUE',
+      drugName: 'panadol',
+      orderNumber: 3
+    };
+
+    const { wrapper } = setup();
+
+    wrapper.instance().handleDiscardOneOrder(order);
+  });
+});
+
+describe('handleDiscardAllOrders', () => {
+  it('should be called on discarding all draft orders', () => {
+    const { wrapper } = setup();
+
+    wrapper.instance().handleDiscardAllOrders();
+    expect(props.deleteAllDraftOrders.mock.calls.length).toEqual(1);
+  });
+});
+
+describe('Test for Searching and Adding an order', () => {
+  it('should render component', () => {
+    const wrapper = setup();
+    expect(wrapper).toMatchSnapshot();
   });
 });

@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import PropTypes from 'prop-types';
 import activeOrderAction from '../../actions/activeOrderAction';
+import { addDraftOrder } from '../../actions/draftTableAction';
 import imageLoader from '../../../img/loading.gif';
 
 export class ActiveOrders extends React.Component {
+  state = {
+    draftOrder: {},
+  };
+
   componentDidMount() {
     this.fetchActiveOrders(this.props);
   }
@@ -14,6 +19,46 @@ export class ActiveOrders extends React.Component {
     if (nextProps.tabName !== this.props.tabName) {
       this.fetchActiveOrders(nextProps);
     }
+  }
+
+  onClickDiscontinue = (order) => {
+    const {
+      uuid,
+      drug,
+      dose,
+      dosingUnit,
+      frequency,
+      route,
+      duration,
+      durationUnit,
+      reason,
+      drugInstructions,
+      dispensingQuantity,
+      dispensingUnit,
+      orderNumber,
+    } = order;
+
+    this.setState({
+      draftOrder: {
+        uuid,
+        drugName: drug.display,
+        action: 'DISCONTINUE',
+        dose,
+        dosingUnit,
+        frequency,
+        route,
+        duration,
+        durationUnit,
+        reason,
+        drugInstructions,
+        dispensingQuantity,
+        dispensingUnit,
+        orderNumber,
+      },
+    }, () => {
+      this.props.onDelete(true);
+      this.props.addDraftOrder(this.state.draftOrder);
+    });
   }
 
   fetchActiveOrders(props) {
@@ -30,6 +75,7 @@ export class ActiveOrders extends React.Component {
     .map((order) => {
       const {
         uuid,
+        action,
         dateActivated,
         autoExpireDate,
         drug,
@@ -46,6 +92,7 @@ export class ActiveOrders extends React.Component {
       } = order;
 
       let details;
+
 
       if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
         details = (
@@ -75,25 +122,45 @@ export class ActiveOrders extends React.Component {
         );
       }
 
+      let showStatus;
+
+      if (this.props.editOrderNumber === order.orderNumber) {
+        showStatus = (
+          <p> will REVISE </p>
+        );
+      } else if (this.props.isDelete) {
+        showStatus = (
+          <p> Will DISCONTINUE </p>
+        );
+      } else {
+        showStatus = (
+          <div>
+            <a
+              href="#"
+              onClick={() => this.props.handleEditActiveDrugOrder(order)}
+            > <i className="icon-edit" title="Edit" />
+            </a>
+            <a > <i
+              className="icon-remove icon-color"
+              title="Delete"
+              id="delete"
+              role="button"
+              tabIndex="0"
+              onKeyPress={this.handleKeyPress}
+              onClick={() => this.onClickDiscontinue(order)} />
+            </a>
+          </div>
+        );
+      }
+
       return (
-        <tr key={uuid}>
+        <tr key={uuid} >
           <td>
             {format(dateActivated, 'MM-DD-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM-DD-YYYY HH:mm')}`)}
           </td>
           {details}
-          <td className="text-center action-padding">
-            {
-              (this.props.editOrderNumber === order.orderNumber) ?
-                <p> will REVISE </p> :
-                <div>
-                  <a
-                    href="#"
-                    onClick={() => this.props.handleEditActiveDrugOrder(order)}
-                  > <i className="icon-edit" title="Edit" />
-                  </a>
-                  <a href="#"> <i className="icon-remove" title="Delete" /> </a>
-                </div>
-            }
+          <td className="text-center action-padding" >
+            {showStatus}
           </td>
         </tr>
       );
@@ -140,6 +207,9 @@ ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
   editOrderNumber: PropTypes.string,
   activeOrderAction: PropTypes.func.isRequired,
+  addDraftOrder: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  isDelete: PropTypes.bool.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
   }).isRequired,
@@ -149,7 +219,7 @@ ActiveOrders.propTypes = {
 
 ActiveOrders.defaultProps = {
   editOrderNumber: "",
-}
+};
 
 const mapStateToProps = ({ activeOrderReducer }) => ({
   drugOrder: activeOrderReducer,
@@ -158,6 +228,8 @@ const mapStateToProps = ({ activeOrderReducer }) => ({
 const mapDispatchToProps = dispatch => ({
   activeOrderAction: (careSetting, patientUuid) =>
     dispatch(activeOrderAction(careSetting, patientUuid)),
+  addDraftOrder: order =>
+    dispatch(addDraftOrder(order)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveOrders);

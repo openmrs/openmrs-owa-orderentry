@@ -21,6 +21,7 @@ import settingEncounterTypeReducer from './settingEncounterTypeReducer';
 import settingEncounterRoleReducer from './settingEncounterRoleReducer';
 import discontinueOrderReducer from './discontinueOrderReducer';
 import encounterRoleReducer from './encounterRoleReducer';
+import draftTableReducer from './draftTableReducer';
 
 export default combineReducers({
   locationReducer,
@@ -37,4 +38,5 @@ export default combineReducers({
   settingEncounterRoleReducer,
   discontinueOrderReducer,
   encounterRoleReducer,
+  draftTableReducer,
 });

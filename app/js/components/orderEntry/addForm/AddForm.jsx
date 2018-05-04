@@ -8,6 +8,7 @@ import DosageTabs from '../../tabs/DosageTabs';
 import DosageTab from '../../tabs/DosageTab';
 import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 import { selectDrugSuccess } from '../../../actions/drug';
+import { addDraftOrder } from '../../../actions/draftTableAction';
 
 export class AddForm extends React.Component {
   state = {
@@ -26,7 +27,7 @@ export class AddForm extends React.Component {
     },
     fieldErrors: {
     },
-    draftOrders: [],
+    draftOrder: {},
     orders: [],
     orderNumber: 0,
     formType: 'Standard Dosage',
@@ -66,30 +67,29 @@ export class AddForm extends React.Component {
       drugInstructions,
     } = this.state.fields;
     this.setState({
-      draftOrders: [
-        ...this.state.draftOrders,
-        {
-          drugName: this.props.drugName,
-          action: this.state.action,
-          dose,
-          dosingUnit,
-          frequency,
-          route,
-          duration,
-          durationUnit,
-          dispensingUnit,
-          dispensingQuantity,
-          reason,
-          drugInstructions,
-          careSetting: this.props.careSetting.uuid,
-          drug: this.props.drugUuid,
-          dosingType: this.state.formType === 'Standard Dosage' ?
-            'org.openmrs.SimpleDosingInstructions' :
-            'org.openmrs.FreeTextDosingInstructions',
-          type: "drugorder",
-          orderNumber: this.state.draftOrders.length,
-        },
-      ],
+      draftOrder: {
+        drugName: this.props.drugName,
+        action: "NEW",
+        dose,
+        dosingUnit,
+        frequency,
+        route,
+        duration,
+        durationUnit,
+        dispensingUnit,
+        dispensingQuantity,
+        reason,
+        drugInstructions,
+        careSetting: this.props.careSetting.uuid,
+        drug: this.props.drugUuid,
+        dosingType: this.state.formType === 'Standard Dosage' ?
+          'org.openmrs.SimpleDosingInstructions' :
+          'org.openmrs.FreeTextDosingInstructions',
+        type: "drugorder",
+        orderNumber: this.props.draftOrders.length,
+      },
+    }, () => {
+      this.props.addDraftOrder(this.state.draftOrder);
     });
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
@@ -344,26 +344,33 @@ export class AddForm extends React.Component {
       </DosageTabs>
     </div>
   );
-  
+
   render() {
     return (
       <div>
         { this.props.drugUuid && this.renderDrugOrderForms() }
-        { this.state.draftOrders.length > 0 && this.renderDraftDataTable()}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ orderEntryConfigurations, drugSearchReducer }) => ({
-  drug: drugSearchReducer.selected,
-  allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
-});
+const mapStateToProps = ({
+  orderEntryConfigurations,
+  drugSearchReducer,
+  draftTableReducer: { draftOrders },
+}) =>
+  ({
+    drug: drugSearchReducer.selected,
+    draftOrders,
+    allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
+  });
 
 AddForm.propTypes = {
   clearEditOrderNumber: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
+  addDraftOrder: PropTypes.func.isRequired,
+  draftOrders: PropTypes.arrayOf(PropTypes.any),
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
   careSetting: PropTypes.object.isRequired,
@@ -389,6 +396,7 @@ AddForm.defaultProps = {
   getOrderEntryConfigurations: () => {},
   drugName: '',
   editOrder: {},
+  draftOrders: [],
   drugUuid: '',
 };
 
@@ -397,5 +405,6 @@ export default connect(
   {
     getOrderEntryConfigurations,
     selectDrugSuccess,
+    addDraftOrder,
   },
 )(AddForm);
