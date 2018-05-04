@@ -1,8 +1,20 @@
-import { LOAD_PAST_ORDERS_SUCCESS, LOAD_PAST_ORDERS_FAILURE, LOADING } from '../actions/actionTypes';
+import {
+  LOAD_PAST_ORDERS_SUCCESS,
+  LOAD_PAST_ORDERS_FAILURE,
+  LOADING,
+  PAST_ORDERS_PAGE_COUNT,
+  PAST_ORDERS_RESULT_COUNT,
+  LOAD_PAST_ORDERS_LOADING,
+} from '../actions/actionTypes';
 import mockData from '../../../__mocks__/mockData';
 
 export default (state = mockData.pastOrders, action) => {
   switch (action.type) {
+    case LOAD_PAST_ORDERS_LOADING:
+      return {
+        ...state,
+        loading: action.status,
+      };
     case LOAD_PAST_ORDERS_SUCCESS:
       return {
         ...state,
@@ -13,10 +25,15 @@ export default (state = mockData.pastOrders, action) => {
         ...state,
         error: action.error,
       };
-    case LOADING:
+    case PAST_ORDERS_PAGE_COUNT:
       return {
         ...state,
-        loading: action.status,
+        pageCount: action.pageCount,
+      };
+    case PAST_ORDERS_RESULT_COUNT:
+      return {
+        ...state,
+        pastOrdersResultCount: action.pastOrdersResultCount,
       };
     default: return state;
   }
