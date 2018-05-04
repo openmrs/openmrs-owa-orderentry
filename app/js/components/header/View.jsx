@@ -75,6 +75,14 @@ View.propTypes = {
   currentLocation: PropTypes.shape().isRequired,
   currentUser: PropTypes.string.isRequired,
   locations: PropTypes.array.isRequired,
+  toggleState: PropTypes.func.isRequired,
+  userDropdown: PropTypes.bool,
+  locationDropdown: PropTypes.bool,
+};
+
+View.defaultProps = {
+  userDropdown: false,
+  locationDropdown: false,
 };
 
 export default View;

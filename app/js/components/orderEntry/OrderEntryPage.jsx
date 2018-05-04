@@ -43,7 +43,8 @@ export class OrderEntryPage extends React.Component {
                   please ensure that you have created a valid <strong>encounter type</strong>.
                 </span> :
                 <span>
-                  ensure that you have created a setting called <strong>order.encounterType</strong>&nbsp;
+                  ensure that you have created a setting called<strong>order.encounterType</strong>
+                  &nbsp;
                   with a value corresponding to a valid encounter type.
                 </span>
             }
@@ -82,24 +83,36 @@ export class OrderEntryPage extends React.Component {
 
 OrderEntryPage.propTypes = {
   fetchPatientCareSetting: PropTypes.func.isRequired,
-  location: PropTypes.shape({}).isRequired,
-  outpatientCareSetting: PropTypes.shape({}),
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+  outpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string,
+    display: PropTypes.string,
+  }),
+  inpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string,
+    display: PropTypes.string,
+  }),
   settingEncounterTypeReducer: PropTypes.shape({
     error: PropTypes.string,
     isLoading: PropTypes.bool,
     settingEncounterType: PropTypes.string,
-  }).isRequired,
+  }),
   settingEncounterRoleReducer: PropTypes.shape({
     roleError: PropTypes.string,
     isLoading: PropTypes.bool,
-    settingEncounterRole: PropTypes.object,
-  }).isRequired,
+    settingEncounterRole: PropTypes.string,
+  }),
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
-  outpatientCareSetting: {},
+  inpatientCareSetting: null,
+  outpatientCareSetting: null,
+  settingEncounterRoleReducer: null,
+  settingEncounterTypeReducer: null,
 };
 
 const mapStateToProps = ({

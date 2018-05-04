@@ -8,17 +8,17 @@ class DosageTabs extends Component {
     this.props.formType(tabName);
   }
 
-  renderChildrenWithTabsAsProps =() => React.Children.map(this.props.children, (child, index) => React.cloneElement(child, {
-    onClick: this.handleTabClick,
-    tabIndex: index,
-    isActive: index === this.props.activeTabIndex,
-  }))
+  renderChildrenWithTabsAsProps =() => (
+    React.Children.map(this.props.children, (child, index) => React.cloneElement(child, {
+      onClick: this.handleTabClick,
+      tabIndex: index,
+      isActive: index === this.props.activeTabIndex,
+    })));
 
   renderActiveTabContent=() => {
     const { children, activeTabIndex } = this.props;
-    if (children[activeTabIndex]) {
-      return children[activeTabIndex].props.children;
-    }
+    if (children[activeTabIndex]) return children[activeTabIndex].props.children;
+    return false;
   }
 
   render() {

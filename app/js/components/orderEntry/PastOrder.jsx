@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 export const PastOrder = (props) => {
   const {
@@ -43,6 +44,37 @@ export const PastOrder = (props) => {
       </td>
     </tr>
   );
+};
+
+PastOrder.propTypes = {
+  drug: PropTypes.shape({}).isRequired,
+  action: PropTypes.string.isRequired,
+  auditInfo: PropTypes.shape({}).isRequired,
+  dosingType: PropTypes.string,
+  dose: PropTypes.number,
+  doseUnits: PropTypes.shape({}),
+  frequency: PropTypes.shape({}),
+  route: PropTypes.shape({}),
+  duration: PropTypes.number,
+  durationUnits: PropTypes.shape({}),
+  dosingInstructions: PropTypes.string,
+  quantityUnits: PropTypes.shape({}),
+  autoExpireDate: PropTypes.string,
+  quantity: PropTypes.number,
+};
+
+PastOrder.defaultProps = {
+  dosingType: '',
+  dose: 0,
+  doseUnits: null,
+  frequency: null,
+  route: null,
+  duration: 0,
+  durationUnits: null,
+  dosingInstructions: '',
+  quantityUnits: null,
+  autoExpireDate: '',
+  quantity: null,
 };
 
 export default PastOrder;
