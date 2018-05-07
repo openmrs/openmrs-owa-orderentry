@@ -6,6 +6,7 @@ const props = {
   activeOrderAction: jest.fn(),
   addDraftOrder: jest.fn(),
   onDelete: jest.fn(),
+  setOrderAction: jest.fn(),
   isDelete: false,
   drugOrder: {
     activeOrders: [],

@@ -9,6 +9,7 @@ import DosageTab from '../../tabs/DosageTab';
 import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
+import { setOrderAction } from '../../../actions/orderAction';
 
 export class AddForm extends React.Component {
   state = {
@@ -93,6 +94,7 @@ export class AddForm extends React.Component {
       },
     }, () => {
       this.props.addDraftOrder(this.state.draftOrder);
+      this.props.setOrderAction('DRAFT', this.props.orderNumber);
     });
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
@@ -151,6 +153,7 @@ export class AddForm extends React.Component {
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
     this.props.clearSearchField();
+    this.props.setOrderAction('DISCARD_ONE', this.props.orderNumber);
   }
 
   clearDrugForms = () => {
@@ -305,6 +308,8 @@ AddForm.propTypes = {
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
   addDraftOrder: PropTypes.func.isRequired,
+  setOrderAction: PropTypes.func.isRequired,
+  orderNumber: PropTypes.string,
   draftOrders: PropTypes.arrayOf(PropTypes.any),
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
@@ -335,6 +340,7 @@ AddForm.defaultProps = {
   draftOrder: {},
   draftOrders: [],
   drugUuid: '',
+  orderNumber: '0',
 };
 
 export default connect(
@@ -343,5 +349,6 @@ export default connect(
     getOrderEntryConfigurations,
     selectDrugSuccess,
     addDraftOrder,
+    setOrderAction,
   },
 )(AddForm);
