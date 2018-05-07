@@ -15,7 +15,9 @@ export default (state = mockData.defaultpatientActiveOrder, action) => {
     case FETCH_ACTIVE_ORDER_SUCCESS:
       return {
         ...state,
-        activeOrders: action.activeOrders,
+        activeOrders: action.results,
+        pageCount: action.pageCount,
+        showResultCount: action.showResultCount,
       };
     case FETCH_ACTIVE_ORDER_ERROR:
       return {

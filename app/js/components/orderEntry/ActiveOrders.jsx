@@ -2,15 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import PropTypes from 'prop-types';
-import activeOrderAction from '../../actions/activeOrderAction';
+import ReactPaginate from 'react-paginate';
+import { activeOrderAction } from '../../actions/activeOrderAction';
 import { addDraftOrder } from '../../actions/draftTableAction';
 import imageLoader from '../../../img/loading.gif';
 
-export class ActiveOrders extends React.Component {
-  state = {
-    draftOrder: {},
-  };
 
+export class ActiveOrders extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      draftOrder: {},
+      pageCount: 0,
+      limit: 10,
+      startIndex: 0,
+      pageNumber: 0,
+    };
+    this.onPageChange = this.onPageChange.bind(this);
+  }
   componentDidMount() {
     this.fetchActiveOrders(this.props);
   }
@@ -19,6 +28,7 @@ export class ActiveOrders extends React.Component {
     if (nextProps.tabName !== this.props.tabName) {
       this.fetchActiveOrders(nextProps);
     }
+    this.setState({ pageCount: nextProps.pageCount });
   }
 
   onClickDiscontinue = (order) => {
@@ -61,14 +71,23 @@ export class ActiveOrders extends React.Component {
     });
   }
 
-  fetchActiveOrders(props) {
-    const { location, careSetting } = this.props;
+  onPageChange({ selected }) {
+    let { startIndex, pageNumber } = this.state;
+    const { limit } = this.state;
+    startIndex = Math.ceil(selected * limit);
+    pageNumber = startIndex / limit;
+    this.setState(() => ({ startIndex, pageNumber }));
+    this.fetchActiveOrders(this.props, { limit, startIndex });
+  }
 
+  fetchActiveOrders(props, newState) {
+    const { limit, startIndex = 0 } = newState || this.state;
+    this.setState(() => ({ startIndex: 0 }));
+    const { location, careSetting } = this.props;
     const query = new URLSearchParams(location.search);
     const patientUuid = query.get('patient');
     const caresettingUuid = careSetting.uuid;
-
-    this.props.activeOrderAction(props.careSetting.uuid, patientUuid);
+    this.props.activeOrderAction(limit, startIndex, patientUuid, caresettingUuid);
   }
 
   showOrders = activeOrders => activeOrders
@@ -197,11 +216,56 @@ export class ActiveOrders extends React.Component {
             {this.showOrders(activeOrders)}
           </tbody>
         </table>
-        <br />
+        <div className="clear">
+          <div className="float-left-padding">
+            {this.props.showResultCount}
+          </div>
+          <div className="dataTables_paginate">
+            <ReactPaginate
+              pageCount={this.state.pageCount}
+              pageRangeDisplayed={5}
+              marginPagesDisplayed={3}
+              previousLabel="Previous"
+              nextLabel="Next"
+              breakClassName="text-align-center"
+              initialPage={0}
+              containerClassName="react-paginate-container"
+              pageLinkClassName="page-link"
+              activeClassName="active-link"
+              disabledClassName="active-link"
+              nextLinkClassName="page-link"
+              previousLinkClassName="page-link"
+              onPageChange={this.onPageChange}
+              forcePage={this.state.pageNumber}
+              disableInitialCallback
+            />
+          </div>
+        </div>
       </div>
     );
   }
 }
+
+ActiveOrders.defaultProps = {
+  editOrderNumber: "",
+  showResultCount: 'Showing 1 to 10 of 55 entries',
+  pageCount: 0,
+
+};
+
+
+const mapStateToProps = ({ activeOrderReducer }) => ({
+  drugOrder: activeOrderReducer,
+  pageCount: activeOrderReducer.pageCount,
+  showResultCount: activeOrderReducer.showResultCount,
+});
+
+const mapDispatchToProps = dispatch => ({
+  activeOrderAction: (limit, startIndex, careSetting, patientUuid) =>
+    dispatch(activeOrderAction(limit, startIndex, careSetting, patientUuid)),
+  addDraftOrder: order =>
+    dispatch(addDraftOrder(order)),
+});
 
 ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
@@ -214,28 +278,10 @@ ActiveOrders.propTypes = {
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
     activeOrders: PropTypes.arrayOf(PropTypes.shape({})),
-  }),
+  }).isRequired,
   careSetting: PropTypes.shape({}).isRequired,
   location: PropTypes.shape({}).isRequired,
+  showResultCount: PropTypes.string,
+  pageCount: PropTypes.number,
 };
-
-ActiveOrders.defaultProps = {
-  editOrderNumber: "",
-  drugOrder: {
-    loading: false,
-    activeOrders: [],
-  },
-};
-
-const mapStateToProps = ({ activeOrderReducer }) => ({
-  drugOrder: activeOrderReducer,
-});
-
-const mapDispatchToProps = dispatch => ({
-  activeOrderAction: (careSetting, patientUuid) =>
-    dispatch(activeOrderAction(careSetting, patientUuid)),
-  addDraftOrder: order =>
-    dispatch(addDraftOrder(order)),
-});
-
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveOrders);
