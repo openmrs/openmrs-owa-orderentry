@@ -40,7 +40,7 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate() {
-    Object.keys(this.props.editOrder).length && this.populateEditActiveOrderForm();
+    return Object.keys(this.props.editOrder).length && this.populateEditActiveOrderForm();
   }
 
   handleFormTabs = (tabIndex) => {
@@ -366,6 +366,7 @@ const mapStateToProps = ({
   });
 
 AddForm.propTypes = {
+  clearSearchField: PropTypes.func.isRequired,
   clearEditOrderNumber: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,

@@ -123,20 +123,21 @@ const mapDispatchToProps = dispatch => ({
 
 PastOrders.defaultProps = {
   showResultCount: 'Showing 1 to 10 of 55 entries',
-  nextProps: {
-    tabName: 'OutPatient',
-    pageCount: 0,
-  },
+  pageCount: 0,
 };
 
 PastOrders.propTypes = {
   getPastOrders: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
   showResultCount: PropTypes.string,
   tabName: PropTypes.string.isRequired,
-  nextProps: PropTypes.shape({
-    tabName: PropTypes.string,
-    pageCount: PropTypes.number,
-  }),
+  pageCount: PropTypes.number,
+  pastOrders: PropTypes.shape({
+    loading: PropTypes.bool,
+    pastOrders: PropTypes.arrayOf(PropTypes.shape({})),
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PastOrders);

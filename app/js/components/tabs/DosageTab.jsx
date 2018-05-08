@@ -16,6 +16,13 @@ const DosageTab = props => (
 DosageTab.propTypes = {
   icon: PropTypes.string.isRequired,
   tabName: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  tabIndex: PropTypes.number,
+};
+
+DosageTab.defaultProps = {
+  onClick: () => {},
+  tabIndex: 0,
 };
 
 export default DosageTab;

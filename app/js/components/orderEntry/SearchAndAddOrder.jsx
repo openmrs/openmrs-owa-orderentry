@@ -191,14 +191,31 @@ const mapStateToProps = ({
 
 SearchAndAddOrder.defaultProps = {
   draftOrders: [],
+  drug: null,
 };
 
 SearchAndAddOrder.propTypes = {
-  drug: PropTypes.string.isRequired,
+  drug: PropTypes.oneOfType([
+    PropTypes.shape({
+      uuid: PropTypes.string,
+      display: PropTypes.string,
+    }),
+    PropTypes.string,
+  ]),
   draftOrders: PropTypes.arrayOf(PropTypes.any),
-  location: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,
+  outpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  }).isRequired,
+  inpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string.isRequired,
+    display: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(

@@ -205,6 +205,7 @@ export class ActiveOrders extends React.Component {
 
 ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
+  tabName: PropTypes.string.isRequired,
   editOrderNumber: PropTypes.string,
   activeOrderAction: PropTypes.func.isRequired,
   addDraftOrder: PropTypes.func.isRequired,
@@ -212,13 +213,18 @@ ActiveOrders.propTypes = {
   isDelete: PropTypes.bool.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
-  }).isRequired,
+    activeOrders: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
   careSetting: PropTypes.shape({}).isRequired,
   location: PropTypes.shape({}).isRequired,
 };
 
 ActiveOrders.defaultProps = {
   editOrderNumber: "",
+  drugOrder: {
+    loading: false,
+    activeOrders: [],
+  },
 };
 
 const mapStateToProps = ({ activeOrderReducer }) => ({
