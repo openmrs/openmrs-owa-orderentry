@@ -2,6 +2,8 @@ import React from 'react';
 
 import { AddForm } from '../../../../app/js/components/orderEntry/addForm/AddForm';
 
+const { draftOrder, editOrder } = mockData;
+
 const props = {
   removeOrder: jest.fn(),
   selectDrugSuccess: jest.fn(),
@@ -16,6 +18,8 @@ const props = {
   careSetting: {display: 'Inpatient'},
   drugName: 'Paracentamol',
   drugUuid: 'AJJJKW7378JHJ',
+  draftOrder,
+  editOrder,
 };
 
 const outpatientprops = {
@@ -125,12 +129,12 @@ describe('Test for adding a new drug order', () => {
   });
 });
 
-describe('populateEditActiveOrderForm() method', () => {
+describe('populateEditOrderForm() method', () => {
   it('should call populateEditActiveOrderForm()', () => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'populateEditActiveOrderForm');
-    renderedComponent.populateEditActiveOrderForm();
-    expect(renderedComponent.populateEditActiveOrderForm.calledOnce).toEqual(true);
+    sinon.spy(renderedComponent, 'populateEditOrderForm');
+    renderedComponent.populateEditOrderForm();
+    expect(renderedComponent.populateEditOrderForm.calledOnce).toEqual(true);
     expect(getComponent().state('activeTabIndex')).toEqual(1);
     expect(getComponent().state('fields')).toEqual({
       dispensingQuantity: "",

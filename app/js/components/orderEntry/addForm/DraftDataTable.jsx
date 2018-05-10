@@ -20,7 +20,7 @@ class DraftDataTable extends React.Component {
       orderNumber,
     } = order;
 
-    const { handleDiscardOneOrder } = this.props;
+    const { handleDiscardOneOrder, handleEditDraftOrder } = this.props;
 
     const details = (
       <p>
@@ -63,7 +63,7 @@ class DraftDataTable extends React.Component {
           }
         </td>
         <td>
-          <a href="#" >
+          <a href="#" onClick={() => handleEditDraftOrder(order)}>
             <i className="icon-edit" title="Edit" />
           </a>
           <a href="#" onClick={() => handleDiscardOneOrder(order)}>
@@ -116,6 +116,12 @@ DraftDataTable.propTypes = {
   draftOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   handleDiscardAllOrders: PropTypes.func.isRequired,
   handleDiscardOneOrder: PropTypes.func.isRequired,
+  handleEditDraftOrder: PropTypes.func,
 };
+
+
+DraftDataTable.defaultProps = {
+  handleEditDraftOrder: () => {},
+}
 
 export default DraftDataTable;

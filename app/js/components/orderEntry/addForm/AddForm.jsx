@@ -7,8 +7,8 @@ import DraftDataTable from './DraftDataTable';
 import DosageTabs from '../../tabs/DosageTabs';
 import DosageTab from '../../tabs/DosageTab';
 import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
-import { selectDrugSuccess } from '../../../actions/drug';
 import { addDraftOrder } from '../../../actions/draftTableAction';
+import { selectDrugSuccess } from '../../../actions/drug';
 
 export class AddForm extends React.Component {
   state = {
@@ -40,7 +40,10 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate() {
-    return Object.keys(this.props.editOrder).length && this.populateEditActiveOrderForm();
+    return (
+      Object.keys(this.props.draftOrder).length ||
+      Object.keys(this.props.editOrder).length
+    ) && this.populateEditOrderForm();
   }
 
   handleFormTabs = (tabIndex) => {
@@ -50,7 +53,7 @@ export class AddForm extends React.Component {
   }
 
   handleFormType = (formType) => {
-    this.setState({ formType });
+    this.setState({ formType: formType.trim() });
   }
 
   handleSubmitDrugForm = () => {
@@ -96,51 +99,7 @@ export class AddForm extends React.Component {
     this.props.clearSearchField();
   }
 
-  handleEditDrugOrder = (order, drugUuid, dosingType) => {
-    this.props.selectDrugSuccess(drugUuid);
-    const {
-      dose,
-      dosingUnit,
-      frequency,
-      route,
-      duration,
-      durationUnit,
-      dispensingQuantity,
-      dispensingUnit,
-      reason,
-      drugInstructions,
-    } = order;
-    this.handleDiscardOneOrder(order);
-    this.setState({
-      activeTabIndex: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
-      fields: {
-        dose,
-        dosingUnit,
-        frequency,
-        route,
-        duration,
-        durationUnit,
-        dispensingQuantity,
-        dispensingUnit,
-        reason,
-        drugInstructions,
-      },
-      ...this.state.draftOrders,
-    });
-  }
 
-  handleDiscardOneOrder = (order) => {
-    this.setState({
-      draftOrders: this.state.draftOrders.filter((_, index) =>
-        index !== this.state.draftOrders.indexOf(order)),
-    });
-  }
-
-  handleDiscardDraftOrders = () => {
-    this.setState({ draftOrders: [] });
-    this.props.clearSearchField();
-    this.props.clearEditOrderNumber();
-  }
   /**
    * Validation of datalist tag values using onblur event handler
    */
@@ -261,52 +220,28 @@ export class AddForm extends React.Component {
     // make post request to API
   }
 
-  populateEditActiveOrderForm = () => {
-    const {
-      dose,
-      doseUnits,
-      frequency,
-      route,
-      duration,
-      durationUnits,
-      quantity,
-      quantityUnits,
-      asNeededCondition,
-      dosingInstructions,
-      dosingType,
-    } = this.props.editOrder;
+  populateEditOrderForm = () => {
+    const { editOrder, draftOrder } = this.props;
     this.setState({
-      activeTabIndex: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
-      action: 'REVISE',
-      formType: dosingType === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
-      dosingType,
+      activeTabIndex: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
+      action: this.props.editOrder ? 'REVISE' : 'NEW',
+      formType: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
+      dosingType: draftOrder.dosingType || editOrder.dosingType,
       fields: {
-        dose: dose || '',
-        dosingUnit: (doseUnits && doseUnits.display) || '',
-        frequency: (frequency && frequency.display) || '',
-        route: (route && route.display) || '',
-        duration: duration || '',
-        durationUnit: (durationUnits && durationUnits.display) || '',
-        dispensingQuantity: quantity || '',
-        dispensingUnit: (quantityUnits && quantityUnits.display) || '',
-        reason: asNeededCondition || '',
-        drugInstructions: dosingInstructions || '',
+        dose: editOrder.dose || draftOrder.dose || '',
+        dosingUnit: (editOrder.doseUnits && editOrder.doseUnits.display) || draftOrder.dosingUnit || '',
+        frequency: (editOrder.frequency && editOrder.frequency.display) || draftOrder.frequency || '',
+        route: (editOrder.route && editOrder.route.display) || draftOrder.route || '',
+        duration: editOrder.duration || draftOrder.duration || '',
+        durationUnit: (editOrder.durationUnits && editOrder.durationUnits.display) || draftOrder.durationUnit || '',
+        dispensingQuantity: editOrder.quantity || draftOrder.dispensingQuantity || '',
+        dispensingUnit: (editOrder.quantityUnits && editOrder.quantityUnits.display) || draftOrder.dispensingUnit || '',
+        reason: editOrder.asNeededCondition || draftOrder.reason || '',
+        drugInstructions: editOrder.dosingInstructions || draftOrder.drugInstructions || '',
       },
     });
     this.props.removeOrder();
   }
-
-  renderDraftDataTable = () => (
-    <div>
-      <DraftDataTable
-        draftOrders={this.state.draftOrders}
-        handleEditDrugOrder={this.handleEditDrugOrder}
-        handleDiscardOneOrder={this.handleDiscardOneOrder}
-        handleCancel={this.handleDiscardDraftOrders}
-        handleSubmit={this.addDrugOrder}
-      />
-    </div>
-  );
 
   renderDrugOrderForms = () => (
     <div>
@@ -367,7 +302,6 @@ const mapStateToProps = ({
 
 AddForm.propTypes = {
   clearSearchField: PropTypes.func.isRequired,
-  clearEditOrderNumber: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
   addDraftOrder: PropTypes.func.isRequired,
@@ -390,6 +324,7 @@ AddForm.propTypes = {
     dosingInstructions: PropTypes.string,
     dosingType: PropTypes.string,
   }),
+  draftOrder: PropTypes.shape({}),
 };
 
 AddForm.defaultProps = {
@@ -397,6 +332,7 @@ AddForm.defaultProps = {
   getOrderEntryConfigurations: () => {},
   drugName: '',
   editOrder: {},
+  draftOrder: {},
   draftOrders: [],
   drugUuid: '',
 };

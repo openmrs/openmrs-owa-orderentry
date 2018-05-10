@@ -75,4 +75,6 @@ export default {
     isLoading: false,
     roleError: '',
   },
+  draftOrder: {},
+  editOrder: {},
 };
