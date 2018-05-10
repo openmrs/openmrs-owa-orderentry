@@ -1,4 +1,4 @@
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 import {
   SETTING_ENCOUNTER_TYPE_SUCCESS,
   SETTING_ENCOUNTER_TYPE_FAILURE,
@@ -6,7 +6,7 @@ import {
 } from '../../../app/js/actions/actionTypes';
 
 const settingEncounterTypeReducer = (
-  state = mockData.defaultSettingEncounterType,
+  state = initialState.defaultSettingEncounterType,
   action,
 ) => {
   switch (action.type) {

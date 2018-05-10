@@ -3,9 +3,9 @@ import {
   PATIENT_CARESETTING_ERROR,
   PATIENT_CARESETTING_LOADING,
 } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.defaultCareSetting, action) => {
+export default (state = initialState.defaultCareSetting, action) => {
   switch (action.type) {
     case PATIENT_CARESETTING_SUCCESS:
       return {

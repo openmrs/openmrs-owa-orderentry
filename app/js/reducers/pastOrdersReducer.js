@@ -6,9 +6,9 @@ import {
   PAST_ORDERS_RESULT_COUNT,
   LOAD_PAST_ORDERS_LOADING,
 } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.pastOrders, action) => {
+export default (state = initialState.pastOrders, action) => {
   switch (action.type) {
     case LOAD_PAST_ORDERS_LOADING:
       return {

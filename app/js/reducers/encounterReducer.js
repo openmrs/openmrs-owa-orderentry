@@ -3,13 +3,9 @@ import {
   FETCH_ENCOUNTER_TYPE_SUCCESS,
   FETCH_ENCOUNTER_TYPE_FAILURE,
 } from '../../../app/js/actions/actionTypes';
+import initialState from './initialState';
 
-const initialState = {
-  isLoading: false,
-  encounterType: {},
-  error: null,
-};
-const encounterType = (state = initialState, action) => {
+const encounterType = (state = initialState.encounterReducer, action) => {
   switch (action.type) {
     case FETCH_ENCOUNTER_TYPE_LOADING:
       return {

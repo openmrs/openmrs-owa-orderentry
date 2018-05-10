@@ -4,12 +4,9 @@ import {
   SEARCH_DRUGS_SUCCESS,
   SELECT_DRUG,
 } from '../actions/actionTypes';
+import initialState from './initialState';
 
-const initialState = {
-  drugs: [], selected: {}, error: null, loading: false,
-};
-
-export default (state = initialState, action) => {
+export default (state = initialState.drugSearchReducer, action) => {
   switch (action.type) {
     case SEARCH_DRUGS_SUCCESS:
       return {

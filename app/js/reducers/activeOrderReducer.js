@@ -4,9 +4,9 @@ import {
   FETCH_ACTIVE_ORDER_LOADING,
   SET_ORDER_ACTION,
 } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.defaultpatientActiveOrder, action) => {
+export default (state = initialState.defaultpatientActiveOrder, action) => {
   switch (action.type) {
     case FETCH_ACTIVE_ORDER_LOADING:
       return {

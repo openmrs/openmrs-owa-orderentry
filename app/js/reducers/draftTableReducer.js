@@ -3,12 +3,9 @@ import {
   DELETE_DRAFT_ORDER_SUCCESS,
   DELETE_ALL_DRAFT_ORDERS_SUCCESS,
 } from '../actions/actionTypes';
+import initialState from './initialState';
 
-const initialState = {
-  draftOrders: [],
-};
-
-export default (state = initialState, action) => {
+export default (state = initialState.draftTableReducer, action) => {
   switch (action.type) {
     case ADD_DRAFT_ORDER_SUCCESS:
       return {
