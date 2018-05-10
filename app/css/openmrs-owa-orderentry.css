@@ -313,6 +313,7 @@ body {
 
 .page-link {
     color: #007fff !important;
+    cursor: pointer;
 }
 
 .active-link a {

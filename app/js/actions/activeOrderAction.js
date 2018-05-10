@@ -6,25 +6,32 @@ import axiosInstance from '../config';
 import networkError from './networkError';
 import loading from './loading';
 
-const activeOrderActionCreator = activeOrders => ({
+export const activeOrderActionCreator = (results, pageCount, showResultCount) => ({
   type: FETCH_ACTIVE_ORDER_SUCCESS,
-  activeOrders,
+  results,
+  pageCount,
+  showResultCount,
 });
 
-const activeOrderActionError = error => ({
+export const activeOrderActionError = error => ({
   type: FETCH_ACTIVE_ORDER_ERROR,
   error,
 });
 
-const activeOrderAction = (careSetting, patientUuid) => (dispatch) => {
+export const activeOrderAction = (limit, startIndex, patientUuid, careSetting) => (dispatch) => {
   dispatch(loading('FETCH_ACTIVE_ORDER', true));
-  return axiosInstance.get(`order?careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
+  return axiosInstance.get(`/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
   })
     .then((response) => {
-      const activeOrders = response.data.results;
+      const { results, totalCount } = response.data;
+      const pageCount = Math.ceil(totalCount / limit);
+      const startIndexLimit = startIndex + limit;
+      const from = startIndex + 1;
+      const to = startIndexLimit > totalCount ? totalCount : startIndexLimit;
+      const showResultCount = `Showing ${from} to ${to} of ${totalCount} entries`;
 
       dispatch(loading('FETCH_ACTIVE_ORDER', false));
-      dispatch(activeOrderActionCreator(activeOrders));
+      dispatch(activeOrderActionCreator(results, pageCount, showResultCount));
     })
     .catch((error) => {
       dispatch(loading('FETCH_ACTIVE_ORDER', false));

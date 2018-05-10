@@ -9,10 +9,10 @@ describe('Active Order Reducer', () => {
 
     const action = {
       type: FETCH_ACTIVE_ORDER_SUCCESS,
-      activeOrders
+      results:{}
     };
 
     const newState = activeOrderReducer(initialState, action);
-    expect(newState.activeOrders).toEqual(activeOrders);
+    expect(newState.activeOrders).toEqual(action.results);
   });
 });
