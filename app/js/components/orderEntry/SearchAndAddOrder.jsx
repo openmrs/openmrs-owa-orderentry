@@ -10,6 +10,7 @@ import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
 import DraftDataTable from './addForm/DraftDataTable';
+import { selectDrugSuccess } from '../../actions/drug';
 
 export class SearchAndAddOrder extends React.Component {
   state = {
@@ -20,6 +21,7 @@ export class SearchAndAddOrder extends React.Component {
     editOrder: {},
     editOrderNumber: '',
     isDelete: false,
+    draftOrder: {},
   };
 
   onSelectDrug = (drugName) => {
@@ -66,6 +68,12 @@ export class SearchAndAddOrder extends React.Component {
     this.setState({ editOrderNumber: '' });
   }
 
+  handleEditDraftOrder = (order) => {
+    this.props.selectDrugSuccess(order.drug);
+    this.setState({ draftOrder: order });
+    this.handleDiscardOneOrder(order);
+  }
+
   handleEditActiveDrugOrder = (order) => {
     this.setState({
       editDrugUuid: order.drug.uuid,
@@ -76,7 +84,10 @@ export class SearchAndAddOrder extends React.Component {
   }
 
   removeOrder = () => {
-    this.setState({ editOrder: {} });
+    this.setState({
+      editOrder: {},
+      draftOrder: {},
+    });
   }
 
   renderSearchDrug = () => (
@@ -100,6 +111,7 @@ export class SearchAndAddOrder extends React.Component {
         clearSearchField={this.clearSearchField}
         clearEditOrderNumber={this.clearEditOrderNumber}
         removeOrder={this.removeOrder}
+        draftOrder={this.state.draftOrder}
       />
     </div>
   );
@@ -117,6 +129,7 @@ export class SearchAndAddOrder extends React.Component {
                 draftOrders={this.props.draftOrders}
                 handleDiscardOneOrder={this.handleDiscardOneOrder}
                 handleDiscardAllOrders={this.handleDiscardAllOrders}
+                handleEditDraftOrder={this.handleEditDraftOrder}
               />
             }
             <Accordion open title="Active Drug Orders">
@@ -216,6 +229,7 @@ SearchAndAddOrder.propTypes = {
     uuid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   }).isRequired,
+  selectDrugSuccess: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -223,5 +237,6 @@ export default connect(
   {
     deleteDraftOrder,
     deleteAllDraftOrders,
+    selectDrugSuccess,
   },
 )(SearchAndAddOrder);

@@ -261,6 +261,7 @@ const StandardDose = ({
         <div className="grid-row">
           <div className="column-1">
             <button
+              type="button"
               className="cancel"
               onClick={handleCancel}
             >
@@ -269,6 +270,7 @@ const StandardDose = ({
           </div>
           <div className="column-1 pull-right-8">
             <button
+              type="button"
               className="confirm"
               onClick={handleSubmit}
               disabled={activateSaveButton()}>
