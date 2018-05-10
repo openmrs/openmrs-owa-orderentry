@@ -83,7 +83,7 @@ export class ActiveOrders extends React.Component {
   fetchActiveOrders(props, newState) {
     const { limit, startIndex = 0 } = newState || this.state;
     this.setState(() => ({ startIndex: 0 }));
-    const { location, careSetting } = this.props;
+    const { location, careSetting } = props;
     const query = new URLSearchParams(location.search);
     const patientUuid = query.get('patient');
     const caresettingUuid = careSetting.uuid;
@@ -279,8 +279,6 @@ ActiveOrders.propTypes = {
     loading: PropTypes.bool,
     activeOrders: PropTypes.arrayOf(PropTypes.shape({})),
   }).isRequired,
-  careSetting: PropTypes.shape({}).isRequired,
-  location: PropTypes.shape({}).isRequired,
   showResultCount: PropTypes.string,
   pageCount: PropTypes.number,
 };
