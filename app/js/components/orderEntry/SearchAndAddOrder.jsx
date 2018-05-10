@@ -8,6 +8,7 @@ import Tab from '../tabs/Tab';
 import Accordion from '../accordion';
 import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
+import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
 import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
@@ -19,7 +20,6 @@ export class SearchAndAddOrder extends React.Component {
     editDrugUuid: '',
     editDrugName: '',
     editOrder: {},
-    editOrderNumber: '',
     isDelete: false,
     draftOrder: {},
   };
@@ -45,13 +45,18 @@ export class SearchAndAddOrder extends React.Component {
   handleDiscardOneOrder = (order) => {
     this.props.deleteDraftOrder(order);
     if (order.action === 'DISCONTINUE') {
-      this.setState({ isDelete: false });
+      this.props.setOrderAction('DISCARD_ONE', order.orderNumber);
+    } else if (order.action === 'NEW') {
+      this.props.setOrderAction('DISCARD_EDIT', order.orderNumber);
+    } else {
+      this.props.setOrderAction('DISCARD_ONE', this.state.orderNumber);
     }
   }
 
   handleDiscardAllOrders = () => {
     this.setState({ isDelete: false }, () => {
       this.props.deleteAllDraftOrders();
+      this.props.setOrderAction('DISCARD_ALL', '0');
     });
   }
 
@@ -62,10 +67,6 @@ export class SearchAndAddOrder extends React.Component {
       editDrugUuid: "",
       editDrugName: "",
     });
-  }
-
-  clearEditOrderNumber = () => {
-    this.setState({ editOrderNumber: '' });
   }
 
   handleEditDraftOrder = (order) => {
@@ -79,7 +80,9 @@ export class SearchAndAddOrder extends React.Component {
       editDrugUuid: order.drug.uuid,
       editDrugName: order.drug.display,
       editOrder: order,
-      editOrderNumber: order.orderNumber,
+      orderNumber: order.orderNumber,
+    }, () => {
+      this.props.setOrderAction('EDIT', order.orderNumber);
     });
   }
 
@@ -109,9 +112,9 @@ export class SearchAndAddOrder extends React.Component {
         editOrder={this.state.editOrder}
         careSetting={careSetting}
         clearSearchField={this.clearSearchField}
-        clearEditOrderNumber={this.clearEditOrderNumber}
         removeOrder={this.removeOrder}
         draftOrder={this.state.draftOrder}
+        orderNumber={this.state.orderNumber}
       />
     </div>
   );
@@ -124,7 +127,7 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.outpatientCareSetting)}
-            {(this.state.isDelete || this.props.draftOrders.length > 0) &&
+            {(this.props.draftOrders.length > 0) &&
               <DraftDataTable
                 draftOrders={this.props.draftOrders}
                 handleDiscardOneOrder={this.handleDiscardOneOrder}
@@ -140,7 +143,6 @@ export class SearchAndAddOrder extends React.Component {
                 careSetting={this.props.outpatientCareSetting}
                 location={this.props.location}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-                editOrderNumber={this.state.editOrderNumber}
               />
             </Accordion>
 
@@ -157,7 +159,7 @@ export class SearchAndAddOrder extends React.Component {
             tabName="InPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.inpatientCareSetting)}
-            {(this.state.isDelete || this.props.draftOrders.length > 0) &&
+            {(this.props.draftOrders.length > 0) &&
               <DraftDataTable
                 draftOrders={this.props.draftOrders}
                 handleDiscardOneOrder={this.handleDiscardOneOrder}
@@ -172,7 +174,6 @@ export class SearchAndAddOrder extends React.Component {
                 careSetting={this.props.inpatientCareSetting}
                 location={this.props.location}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-                editOrderNumber={this.state.editOrderNumber}
               />
             </Accordion>
 
@@ -219,6 +220,7 @@ SearchAndAddOrder.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+  setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,
   outpatientCareSetting: PropTypes.shape({
@@ -235,6 +237,7 @@ SearchAndAddOrder.propTypes = {
 export default connect(
   mapStateToProps,
   {
+    setOrderAction,
     deleteDraftOrder,
     deleteAllDraftOrders,
     selectDrugSuccess,

@@ -11,6 +11,7 @@ const props = {
   },
   getPastOrders: jest.fn(),
   draftOrders: [],
+  setOrderAction: jest.fn(),
   location:{
     search:()=>{}
   },
@@ -97,16 +98,6 @@ describe('removeOrder() method', () => {
   });
 });
 
-describe('clearEditOrderNumber() method', () => {
-  it('should call clearEditOrderNumber()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'clearEditOrderNumber');
-    renderedComponent.clearEditOrderNumber();
-    expect(renderedComponent.clearEditOrderNumber.calledOnce).toEqual(true);
-    expect(getComponent().state('editOrderNumber')).toEqual('');
-  });
-});
-
 
 const setup = () => {
   const wrapper = shallow(<SearchAndAddOrder {...props} store={store} />);
@@ -127,7 +118,7 @@ describe('handleDiscardOneOrder', () => {
     const order = {
       action: 'DISCONTINUE',
       drugName: 'panadol',
-      orderNumber: 3
+      orderNumber: '3'
     };
 
     const { wrapper } = setup();

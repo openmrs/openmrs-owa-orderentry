@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { activeOrderAction } from '../../actions/activeOrderAction';
 import { addDraftOrder } from '../../actions/draftTableAction';
+import { setOrderAction } from '../../actions/orderAction';
 import imageLoader from '../../../img/loading.gif';
 
 
@@ -67,6 +68,7 @@ export class ActiveOrders extends React.Component {
       },
     }, () => {
       this.props.onDelete(true);
+      this.props.setOrderAction('DISCONTINUE', orderNumber);
       this.props.addDraftOrder(this.state.draftOrder);
     });
   }
@@ -108,6 +110,8 @@ export class ActiveOrders extends React.Component {
         quantity,
         quantityUnits,
         dosingType,
+        orderNumber,
+        status,
       } = order;
 
       let details;
@@ -143,13 +147,13 @@ export class ActiveOrders extends React.Component {
 
       let showStatus;
 
-      if (this.props.editOrderNumber === order.orderNumber) {
+      if (status === 'EDIT' || status === 'DRAFT') {
         showStatus = (
           <p> will REVISE </p>
         );
-      } else if (this.props.isDelete) {
+      } else if (this.props.isDelete && status === 'DISCONTINUE') {
         showStatus = (
-          <p> Will DISCONTINUE </p>
+          <p> will DISCONTINUE </p>
         );
       } else {
         showStatus = (
@@ -247,7 +251,6 @@ export class ActiveOrders extends React.Component {
 }
 
 ActiveOrders.defaultProps = {
-  editOrderNumber: "",
   showResultCount: 'Showing 1 to 10 of 55 entries',
   pageCount: 0,
 
@@ -265,21 +268,32 @@ const mapDispatchToProps = dispatch => ({
     dispatch(activeOrderAction(limit, startIndex, careSetting, patientUuid)),
   addDraftOrder: order =>
     dispatch(addDraftOrder(order)),
+  setOrderAction: (action, orderNumber) =>
+    dispatch(setOrderAction(action, orderNumber)),
 });
 
 ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
-  editOrderNumber: PropTypes.string,
   activeOrderAction: PropTypes.func.isRequired,
   addDraftOrder: PropTypes.func.isRequired,
+  setOrderAction: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   isDelete: PropTypes.bool.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
     activeOrders: PropTypes.arrayOf(PropTypes.shape({})),
-  }).isRequired,
+  }),
+  activeOrders: PropTypes.shape({}).isRequired,
   showResultCount: PropTypes.string,
   pageCount: PropTypes.number,
 };
+
+ActiveOrders.defaultProps = {
+  drugOrder: {
+    loading: false,
+    activeOrders: [],
+  },
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveOrders);
