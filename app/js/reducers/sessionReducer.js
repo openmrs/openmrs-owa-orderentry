@@ -1,7 +1,7 @@
 import { SET_CURRENT_SESSION } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.defaultSession, action) => {
+export default (state = initialState.defaultSession, action) => {
   switch (action.type) {
     case SET_CURRENT_SESSION:
       return {

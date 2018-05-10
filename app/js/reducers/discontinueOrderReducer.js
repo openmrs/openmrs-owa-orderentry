@@ -3,15 +3,9 @@ import {
   DISCONTINUE_ORDER_SUCCESS,
   DISCONTINUE_ORDER,
 } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-const initialState = [
-  mockData.defaultpatientActiveOrder,
-  mockData.pastOrders,
-  mockData.loading,
-];
-
-export default (state = initialState, action) => {
+export default (state = initialState.discontinueOrderReducer, action) => {
   switch (action.type) {
     case 'DISCONTINUE_ORDER_LOADING':
       return {

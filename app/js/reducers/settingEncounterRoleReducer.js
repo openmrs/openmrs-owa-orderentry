@@ -1,13 +1,13 @@
-import mockData from '../../../__mocks__/mockData';
 import {
   SETTING_ENCOUNTER_ROLE_SUCCESS,
   SETTING_ENCOUNTER_ROLE_FAILURE,
   SETTING_ENCOUNTER_ROLE_LOADING,
   NETWORK_ERROR,
 } from '../../../app/js/actions/actionTypes';
+import initialState from './initialState';
 
 const settingEncounterRoleReducer = (
-  state = mockData.defaultSettingEncounterRole,
+  state = initialState.defaultSettingEncounterRole,
   action,
 ) => {
   switch (action.type) {

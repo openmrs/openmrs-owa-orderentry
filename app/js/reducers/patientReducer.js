@@ -1,7 +1,7 @@
 import { SET_PATIENT } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.defaultPatient, action) => {
+export default (state = initialState.defaultPatient, action) => {
   switch (action.type) {
     case SET_PATIENT:
       return {

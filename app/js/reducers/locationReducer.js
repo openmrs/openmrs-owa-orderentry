@@ -1,7 +1,7 @@
 import { SET_LOCATIONS } from '../actions/actionTypes';
-import mockData from '../../../__mocks__/mockData';
+import initialState from './initialState';
 
-export default (state = mockData.defaultLocations.results, action) => {
+export default (state = initialState.defaultLocations.results, action) => {
   switch (action.type) {
     case SET_LOCATIONS:
       return {
