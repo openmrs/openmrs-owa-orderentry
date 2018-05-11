@@ -219,11 +219,6 @@ export class AddForm extends React.Component {
     return false;
   }
 
-  addDrugOrder = (event) => {
-    event.preventDefault();
-    // make post request to API
-  }
-
   populateEditOrderForm = () => {
     const { editOrder, draftOrder } = this.props;
     this.setState({
