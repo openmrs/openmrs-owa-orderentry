@@ -27,7 +27,8 @@
     "redux": "^3.6.0",
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "sinon": "4.4.6"
+    "sinon": "^4.4.6",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "archiver": "^1.0.0",

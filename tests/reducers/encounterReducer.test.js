@@ -22,8 +22,6 @@ describe('encounter reducer for get actions', () => {
         }
         const expected = {
             isLoading: true,
-            encounterType: {},
-            error: null,
         };
         const newSate = encounterReducer(initialState, action);
         expect(newSate).toEqual(expected);

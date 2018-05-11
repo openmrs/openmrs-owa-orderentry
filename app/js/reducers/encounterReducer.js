@@ -11,8 +11,6 @@ const encounterType = (state = initialState.encounterReducer, action) => {
       return {
         ...state,
         isLoading: action.status,
-        encounterType: {},
-        error: null,
       };
     case FETCH_ENCOUNTER_TYPE_SUCCESS:
       return {

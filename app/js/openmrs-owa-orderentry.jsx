@@ -14,6 +14,8 @@ import { Provider } from 'react-redux';
 import createStore from './redux-store';
 import routes from './routes';
 
+import '../../node_modules/toastr/build/toastr.css';
+
 const store = createStore();
 
 render(

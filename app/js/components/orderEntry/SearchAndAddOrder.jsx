@@ -119,6 +119,16 @@ export class SearchAndAddOrder extends React.Component {
     </div>
   );
 
+  renderDraftDataTable = careSetting => (
+    (this.state.isDelete || this.props.draftOrders.length > 0) &&
+    <DraftDataTable
+      draftOrders={this.props.draftOrders}
+      handleDiscardOneOrder={this.handleDiscardOneOrder}
+      handleDiscardAllOrders={this.handleDiscardAllOrders}
+      careSetting={careSetting}
+    />
+  )
+
   render() {
     return (
       <div className="body-wrapper">
@@ -127,14 +137,7 @@ export class SearchAndAddOrder extends React.Component {
             tabName="OutPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.outpatientCareSetting)}
-            {(this.props.draftOrders.length > 0) &&
-              <DraftDataTable
-                draftOrders={this.props.draftOrders}
-                handleDiscardOneOrder={this.handleDiscardOneOrder}
-                handleDiscardAllOrders={this.handleDiscardAllOrders}
-                handleEditDraftOrder={this.handleEditDraftOrder}
-              />
-            }
+            {this.renderDraftDataTable(this.props.outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 isDelete={this.state.isDelete}
@@ -159,13 +162,7 @@ export class SearchAndAddOrder extends React.Component {
             tabName="InPatient">
             {this.renderSearchDrug()}
             {this.renderAddForm(this.props.inpatientCareSetting)}
-            {(this.props.draftOrders.length > 0) &&
-              <DraftDataTable
-                draftOrders={this.props.draftOrders}
-                handleDiscardOneOrder={this.handleDiscardOneOrder}
-                handleDiscardAllOrders={this.handleDiscardAllOrders}
-              />
-            }
+            {this.renderDraftDataTable(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 isDelete={this.state.isDelete}

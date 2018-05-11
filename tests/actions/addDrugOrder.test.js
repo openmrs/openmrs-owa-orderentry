@@ -8,6 +8,7 @@ import {
     POST_DRUG_ORDER_LOADING,
     POST_DRUG_ORDER_SUCCESS,
     POST_DRUG_ORDER_FAILURE,
+    FETCH_ACTIVE_ORDER_LOADING,
 } from '../../app/js/actions/actionTypes';
 
 
@@ -42,7 +43,8 @@ describe('addDrugOrder post thunk', () => {
         });
         const expectedActions = [
             POST_DRUG_ORDER_LOADING,
-            POST_DRUG_ORDER_SUCCESS
+            POST_DRUG_ORDER_SUCCESS,
+            FETCH_ACTIVE_ORDER_LOADING,
         ]
         await store.dispatch(postDrugOrder(payload))
         .then ( () => {

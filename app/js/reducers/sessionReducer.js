@@ -8,6 +8,7 @@ export default (state = initialState.defaultSession, action) => {
         ...state,
         currentUser: action.currentSession.user ? action.currentSession.user.display : '',
         currentLocation: action.currentSession.sessionLocation,
+        currentProvider: action.currentSession.currentProvider,
       };
     default: return state;
   }
