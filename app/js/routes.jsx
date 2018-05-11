@@ -8,15 +8,13 @@
  */
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Header from './components/header';
+import { Header } from 'openmrs-contrib-reactcomponents';
 import OrderEntryPage from './components/orderEntry/OrderEntryPage';
 
 const Routes = store => (
   <div>
     <Header />
-    <Switch>
-      <Route path="/" component={OrderEntryPage} />
-    </Switch>
+
   </div>
 );
 

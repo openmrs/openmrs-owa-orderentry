@@ -27,7 +27,7 @@ export default combineReducers({
   locationReducer,
   noteReducer,
   patientReducer,
-  sessionReducer,
+ // sessionReducer,
   orderEntryConfigurations,
   careSettingReducer,
   drugSearchReducer,

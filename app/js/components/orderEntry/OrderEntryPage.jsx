@@ -103,9 +103,11 @@ OrderEntryPage.defaultProps = {
 };
 
 const mapStateToProps = ({
-  careSettingReducer: { outpatientCareSetting, inpatientCareSetting },
-  settingEncounterTypeReducer,
-  settingEncounterRoleReducer,
+  orderEntry: {
+    careSettingReducer: { outpatientCareSetting, inpatientCareSetting },
+    settingEncounterTypeReducer,
+    settingEncounterRoleReducer,
+  },
 }) => ({
   outpatientCareSetting,
   inpatientCareSetting,

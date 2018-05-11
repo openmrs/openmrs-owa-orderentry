@@ -18,6 +18,7 @@
     "deep-freeze": "0.0.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "lodash": "^4.17.5",
+    "openmrs-contrib-reactcomponents": "file:../../contrib/reactcomponents/openmrs-contrib-reactcomponents-0.1.0.tgz",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.2.0",
@@ -26,6 +27,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.6.0",
     "redux-promise-middleware": "^4.2.0",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "sinon": "^4.4.6"
   },

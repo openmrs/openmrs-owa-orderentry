@@ -10,19 +10,30 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+import { saga as openmrsSaga, reducers as openmrsReducers } from 'openmrs-contrib-reactcomponents';
 import reducers from './reducers';
 
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [thunk, sagaMiddleware];
+
+const rootReducer = combineReducers({
+  orderEntry: reducers,
+  openmrs: openmrsReducers,
+})
+
 
 if (process.env.NODE_ENV !== 'production') {
   middlewares.push(logger);
 }
 
 export default () => {
-  const store = createStore(reducers, compose(
+  const store = createStore(rootReducer, compose(
     applyMiddleware(...middlewares),
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));
+  sagaMiddleware.run(openmrsSaga);
   return store;
 };

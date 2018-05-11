@@ -164,7 +164,7 @@ var webpackConfig = {
 		vendor: [
 
 
-
+	    'babel-polyfill',
 			'react'
 
 			, 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
