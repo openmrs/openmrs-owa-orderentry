@@ -77,4 +77,40 @@ export default {
   },
   draftOrder: {},
   editOrder: {},
+  draftOrders: [
+    {
+      action: '',
+      drugName: '',
+      orderNumber: 3,
+    },
+  ],
+  addedOrder: {
+    data: {},
+  },
+  addedOrderError: {
+    data: {},
+  },
+  allConfigurations: {
+    drugDispensingUnits: {},
+    drugDosingUnits: {},
+    drugRoutes: {},
+    durationUnits: {},
+    orderFrequencies: {},
+  },
+  sessionReducer: {
+    currentProvider: {
+      uuid: '',
+    },
+    currentLocation: {},
+  },
+  encounterType: {
+    uuid: '',
+  },
+  orders: [],
+  patient: {
+    uuid: '',
+  },
+  careSetting: {
+    uuid: '',
+  },
 };

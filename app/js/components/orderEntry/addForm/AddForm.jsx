@@ -86,6 +86,7 @@ export class AddForm extends React.Component {
         drugInstructions,
         careSetting: this.props.careSetting.uuid,
         drug: this.props.drugUuid,
+        orderer: this.props.session.currentProvider.uuid,
         dosingType: this.state.formType === 'Standard Dosage' ?
           'org.openmrs.SimpleDosingInstructions' :
           'org.openmrs.FreeTextDosingInstructions',
@@ -296,11 +297,13 @@ const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
   draftTableReducer: { draftOrders },
+  sessionReducer,
 }) =>
   ({
     drug: drugSearchReducer.selected,
     draftOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
+    session: sessionReducer,
   });
 
 AddForm.propTypes = {

@@ -6,7 +6,7 @@ import {
 } from './actionTypes';
 import networkError from './networkError';
 import loading from './loading';
-import axiosIntsance from '../config';
+import axiosInstance from '../config';
 
 export const fetchEncounterRoleSuccess = encounterRole => ({
   type: FETCH_ENCOUNTER_ROLE_SUCCESS,
@@ -18,9 +18,9 @@ export const fetchEncounterRoleFailure = error => ({
 });
 export const fetchEncounterRole = value => (dispatch) => {
   dispatch(loading('FETCH_ENCOUNTER_ROLE', true));
-  return axiosIntsance.get(`encounterrole?q=${value}`)
+  return axiosInstance.get(`encounterrole?q=${value}`)
     .then((response) => {
-      dispatch(fetchEncounterRoleSuccess(response));
+      dispatch(fetchEncounterRoleSuccess(response.data.results));
     }).catch((error) => {
       dispatch(loading('FETCH_ENCOUNTER_ROLE', false));
       if (error.response) {

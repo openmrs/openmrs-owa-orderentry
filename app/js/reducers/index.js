@@ -22,6 +22,7 @@ import settingEncounterRoleReducer from './settingEncounterRoleReducer';
 import discontinueOrderReducer from './discontinueOrderReducer';
 import encounterRoleReducer from './encounterRoleReducer';
 import draftTableReducer from './draftTableReducer';
+import addDrugOrderReducer from './addDrugOrderReducer';
 
 export default combineReducers({
   locationReducer,
@@ -39,4 +40,5 @@ export default combineReducers({
   discontinueOrderReducer,
   encounterRoleReducer,
   draftTableReducer,
+  addDrugOrderReducer,
 });
