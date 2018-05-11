@@ -53,14 +53,12 @@ export default {
     results: [],
   },
   encounterRole: {
-    data: {
-      results: [
-        {
-          uuid: '',
-          display: '',
-        },
-      ],
-    },
+    results: [
+      {
+        uuid: '',
+        display: 'Order Signer',
+      },
+    ],
   },
   defaultpatientActiveOrder: {
     activeOrders: [],

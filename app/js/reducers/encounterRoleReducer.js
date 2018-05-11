@@ -17,11 +17,6 @@ const encounterRole = (state = initialState.encounterRoleReducer, action) => {
         ...state,
         encounterRole: action.encounterRole,
       };
-    case FETCH_ENCOUNTER_ROLE_FAILURE:
-      return {
-        ...state,
-        error: action.error,
-      };
     default:
       return state;
   }
