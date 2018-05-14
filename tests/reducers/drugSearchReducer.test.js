@@ -48,4 +48,32 @@ describe('drugSearch Reducer', () => {
       expect(newState.loading).toEqual(true);
     });
   });
+
+  describe('SELECT_DRUG', () => {
+    it('set the selected drug', () => {
+      const initialState = {
+        drugs: [{uuid:'d57f9b39-3bae-43ed-9f66-b3b728946f57'}],
+        selected: {},
+      };
+      const action = {
+        type: 'SELECT_DRUG',
+        drug: 'd57f9b39-3bae-43ed-9f66-b3b728946f57',
+      };
+      const newState = drugSearchReducer(initialState, action);
+      expect(newState.selected).toEqual(initialState.drugs[0]);
+    });
+
+    it('set the selected drug to empty', () => {
+      const initialState = {
+        drugs: [{uuid:'d57f9b39-3bae-43ed-9f66-b3b728946f57'}],
+        selected: '',
+      };
+      const action = {
+        type: 'SELECT_DRUG',
+        drug: 'xxxxxxxxxxxxxxx',
+      };
+      const newState = drugSearchReducer(initialState, action);
+      expect(newState.selected).toEqual(initialState.selected);
+    });
+  });
 });

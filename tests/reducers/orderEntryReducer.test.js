@@ -47,4 +47,14 @@ describe('Order Entry Configurations reducer', () => {
         const actualState = orderEntryConfigurations(initialState, fetchConfigurationsFailure('Bad request'));
         expect(actualState).toEqual(expectedState);
     });
+
+    it('should set the loading status for fetching the order entry configuration',() => {
+        const initialState = {};
+        const action = {
+          type: 'FETCH_ORDER_CONFIG_LOADING',
+          status:true
+        };
+        const newState = orderEntryConfigurations(initialState, action);
+        expect(newState.isLoading).toEqual(action.status);
+      });
 });

@@ -11,11 +11,18 @@ describe('Session Reducer', () => {
 
       const action = {
         type: 'SET_CURRENT_SESSION',
-        currentSession,
-      };
+        currentSession:{
+          user:{
+            display:'New User'
+          },
+          sessionLocation:{
+            display:'Laboratory'
+          }
+        },
+      }
       const newState = sessionReducer(initialState, action);
-      expect(newState.currentUser).toEqual("");
-      expect(newState.currentLocation).toEqual(currentSession.sessionLocation);
+      expect(newState.currentUser).toEqual(action.currentSession.user.display);
+      expect(newState.currentLocation).toEqual(action.currentSession.sessionLocation);
     });
   });
 
