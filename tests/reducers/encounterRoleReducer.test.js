@@ -11,8 +11,7 @@ const encounterRole = mockData.encounterRole;
 describe('encounterRole reducer for get actions', () => {
     const initialState = {
         isLoading: false,
-        encounterRole: {},
-        error: null,
+        encounterRole: [],
       };
     it('should return loading as true', () => {
         const initialState = {};
@@ -34,7 +33,6 @@ describe('encounterRole reducer for get actions', () => {
         const expected = {
             isLoading: false,
             encounterRole: encounterRole,
-            error: null,
         };
         const newSate = encounterRoleReducer(initialState, action);
         expect(newSate).toEqual(expected);
@@ -46,8 +44,7 @@ describe('encounterRole reducer for get actions', () => {
         }
         const expected = {
             isLoading: false,
-            encounterRole: {},
-            error: "User not logged in"
+            encounterRole: [],
         };
         const newSate = encounterRoleReducer(initialState, action);
         expect(newSate).toEqual(expected);

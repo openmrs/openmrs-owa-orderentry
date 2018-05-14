@@ -9,7 +9,11 @@ import {
     SETTING_ENCOUNTER_ROLE_LOADING,
 } from '../../app/js/actions/actionTypes';
 
-describe ('Get the encounterRole configuration actions', () => {
+jest.mock('../../app/js/actions/encounterRole', () => ({
+    fetchEncounterRole: (value) => jest.fn()
+}));
+
+describe('Get the encounterRole configuration actions', () => {
     it('should create an action to store fetched configuration', () => {
         const configuration = 'order entry';
         const expectedAction = {
@@ -28,28 +32,28 @@ describe ('Get the encounterRole configuration actions', () => {
         expect(settingEncounterRoleFailure(error)).toEqual(expectedAction);
     });
 
-    describe ('Get setting for encounterRole API call', () => {
+    describe('Get setting for encounterRole API call', () => {
 
         beforeEach(() => {
             moxios.install();
         });
 
-        it ('should dispatch `SETTING_ENCOUNTER_ROLE_SUCCESS` after successful fetching', () => {
+        it('should dispatch `SETTING_ENCOUNTER_ROLE_SUCCESS` with results', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 200,
-                    response: { results: ['clinician']},
+                    response: { results: ['clinician'] },
                 });
             });
 
             const expectedActions = [
                 SETTING_ENCOUNTER_ROLE_LOADING,
+                SETTING_ENCOUNTER_ROLE_SUCCESS,
                 SETTING_ENCOUNTER_ROLE_LOADING,
-                SETTING_ENCOUNTER_ROLE_SUCCESS
             ];
-            
-            const store = mockStore({ setting: {}});
+
+            const store = mockStore({ setting: {} });
 
             return store.dispatch(getSettingEncounterRole()).then(() => {
                 const dispatchedActions = store.getActions();
@@ -58,7 +62,31 @@ describe ('Get the encounterRole configuration actions', () => {
             });
         });
 
-        it ('should dispatch `SETTING_ENCOUNTER_ROLE_FAILURE` after an error', () => {
+        it('should dispatch `SETTING_ENCOUNTER_ROLE_FAILURE` if empty results returned', () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.respondWith({
+                    status: 200,
+                    response: { results: [] },
+                });
+            });
+
+            const expectedActions = [
+                SETTING_ENCOUNTER_ROLE_LOADING,
+                SETTING_ENCOUNTER_ROLE_FAILURE,
+                SETTING_ENCOUNTER_ROLE_LOADING,
+            ];
+
+            const store = mockStore({ setting: {} });
+
+            return store.dispatch(getSettingEncounterRole()).then(() => {
+                const dispatchedActions = store.getActions();
+                const dispatchedActionTypes = dispatchedActions.map(action => action.type);
+                expect(dispatchedActionTypes).toEqual(expectedActions);
+            });
+        });
+
+        it('should dispatch `SETTING_ENCOUNTER_ROLE_FAILURE` after an error', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
@@ -69,11 +97,11 @@ describe ('Get the encounterRole configuration actions', () => {
 
             const expectedActions = [
                 SETTING_ENCOUNTER_ROLE_LOADING,
+                SETTING_ENCOUNTER_ROLE_FAILURE,
                 SETTING_ENCOUNTER_ROLE_LOADING,
-                SETTING_ENCOUNTER_ROLE_FAILURE
             ];
-            
-            const store = mockStore({ setting: {}});
+
+            const store = mockStore({ setting: {} });
 
             return store.dispatch(getSettingEncounterRole()).then(() => {
                 const dispatchedActions = store.getActions();

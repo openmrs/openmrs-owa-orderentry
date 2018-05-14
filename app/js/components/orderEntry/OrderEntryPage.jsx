@@ -53,16 +53,26 @@ export class OrderEntryPage extends React.Component {
       );
     }
 
-    if (settingEncounterRole.length === 0 && roleError) {
+    if (settingEncounterRole.length === 0 || roleError) {
       return (
         <div className="error-notice">
           <p>
-            Setting for <strong>order.encounterRole</strong> does not exist.
-            Please contact your administrator to create one for you.
+            Configuration for <strong>order.encounterRole</strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Please contact your administrator for more information.
           </p>
           <p>
-            As an Administrator, if you have already configured this setting, please check
-            if its name corresponds to <strong>order.encounterRole</strong>
+            As an Administrator,&nbsp;
+            {
+              roleError === 'incomplete config' ?
+                <span>
+                  please ensure that you have created a valid <strong>encounter role</strong>.
+                </span> :
+                <span>
+                  ensure that you have created a setting called<strong>order.encounterRole</strong>
+                  &nbsp;
+                  with a value corresponding to the encounter type above.
+                </span>
+            }
           </p>
         </div>
       );

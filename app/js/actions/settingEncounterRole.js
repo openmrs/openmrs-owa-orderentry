@@ -6,6 +6,7 @@ import {
 import axiosInstance from '../config';
 import loading from './loading';
 import networkError from './networkError';
+import { fetchEncounterRole } from './encounterRole';
 
 export const settingEncounterRoleSuccess = configuration => ({
   type: SETTING_ENCOUNTER_ROLE_SUCCESS,
@@ -27,13 +28,15 @@ export const getSettingEncounterRole = () => (dispatch) => {
   return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterRole`)
     .then((response) => {
       if (response.data.results.length > 0) {
+        const { value } = response.data.results[0];
+        dispatch(settingEncounterRoleSuccess(value));
+        dispatch(fetchEncounterRole(value));
         dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
-        dispatch(settingEncounterRoleSuccess(response.data.results[0].value));
       } else throw NotFoundException('Property not found');
     })
     .catch((error) => {
-      dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
       if (!error.response) dispatch(networkError('Network error occurred'));
       else dispatch(settingEncounterRoleFailure(error));
+      dispatch(loading('SETTING_ENCOUNTER_ROLE', false));
     });
 };

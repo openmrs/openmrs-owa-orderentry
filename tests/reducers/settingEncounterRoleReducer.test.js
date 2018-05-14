@@ -1,9 +1,10 @@
 import deepFreeze from 'deep-freeze';
 import {
     settingEncounterRoleSuccess,
-    settingEncounterRoleLoading,
     settingEncounterRoleFailure,
 } from '../../app/js/actions/settingEncounterRole';
+
+import loading from '../../app/js/actions/loading'
 import settingEncounterRoleReducer from '../../app/js/reducers/settingEncounterRoleReducer';
 
 
@@ -23,6 +24,20 @@ describe('Setting Encounter Tole reducer', () => {
         expect(initialState).toEqual(expectedState);
     });
 
+    it('should handle `SETTING_ENCOUNTER_ROLE_LOADING`', () => {
+        const configuration = 'clinician';
+        const expectedState = {
+            settingEncounterRole: '',
+            isLoading: true,
+            roleError: ''
+        };
+        const actualState = settingEncounterRoleReducer(
+            initialState,
+            loading('SETTING_ENCOUNTER_ROLE', true)
+        );
+        expect(actualState).toEqual(expectedState);
+    });
+
     it('should handle `SETTING_ENCOUNTER_ROLE_SUCCESS`', () => {
         const configuration = 'clinician';
         const expectedState = {
@@ -36,7 +51,7 @@ describe('Setting Encounter Tole reducer', () => {
         );
         expect(actualState).toEqual(expectedState);
     });
-    
+
     it('should handle `SETTING_ENCOUNTER_ROLE_FAILURE`', () => {
         const expectedState = {
             settingEncounterRole: '',

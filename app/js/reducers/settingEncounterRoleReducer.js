@@ -17,8 +17,6 @@ const settingEncounterRoleReducer = (
       return { ...state, isLoading: action.status };
     case SETTING_ENCOUNTER_ROLE_FAILURE:
       return { ...state, roleError: action.error };
-    case NETWORK_ERROR:
-      return { ...state, roleError: action.error };
     default:
       return state;
   }

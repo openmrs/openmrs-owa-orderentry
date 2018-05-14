@@ -20,7 +20,7 @@ const props = {
     fetchEncounterRole: jest.fn(),
     handleDiscardOneOrder: jest.fn(),
     handleDiscardAllOrders: jest.fn(),
-    encounterRole: encounterRole.data.results,
+    encounterRole: encounterRole.results,
     allConfigurations,
     sessionReducer,
     encounterType,
