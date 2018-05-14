@@ -38,6 +38,18 @@ const getComponent = () => {
   return mountedComponent;
 };
 
+describe('onChange', () => {
+  it('should change event', () => {
+    const event = {
+      target: { value: 'Allergic to something' },
+    };
+
+    const wrapper = getComponent();
+    wrapper.instance().onChange(event);
+    expect(wrapper.instance().state.discontinueReason).toBe('Allergic to something');
+  });
+});
+
 describe('Draft Data Table', () => {
   it('should render component', () => {
     const wrapper = getComponent();
