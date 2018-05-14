@@ -19,7 +19,6 @@ import encounterReducer from './encounterReducer';
 import activeOrderReducer from './activeOrderReducer';
 import settingEncounterTypeReducer from './settingEncounterTypeReducer';
 import settingEncounterRoleReducer from './settingEncounterRoleReducer';
-import discontinueOrderReducer from './discontinueOrderReducer';
 import encounterRoleReducer from './encounterRoleReducer';
 import draftTableReducer from './draftTableReducer';
 import addDrugOrderReducer from './addDrugOrderReducer';
@@ -37,7 +36,6 @@ export default combineReducers({
   activeOrderReducer,
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
-  discontinueOrderReducer,
   encounterRoleReducer,
   draftTableReducer,
   addDrugOrderReducer,
