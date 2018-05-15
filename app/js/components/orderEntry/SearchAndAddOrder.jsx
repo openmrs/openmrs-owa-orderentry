@@ -125,6 +125,7 @@ export class SearchAndAddOrder extends React.Component {
       draftOrders={this.props.draftOrders}
       handleDiscardOneOrder={this.handleDiscardOneOrder}
       handleDiscardAllOrders={this.handleDiscardAllOrders}
+      handleEditDraftOrder={this.handleEditDraftOrder}
       careSetting={careSetting}
     />
   )
