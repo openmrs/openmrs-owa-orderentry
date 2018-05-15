@@ -13,10 +13,6 @@ export class DraftDataTable extends React.Component {
     startIndex: 0,
   }
 
-  componentDidMount() {
-    this.props.fetchEncounterRole(this.props.settingEncounterRole);
-  }
-
   getUUID = (items, itemName) => items.find(item => item.display === itemName)
 
   addDrugOrder = (event) => {
@@ -76,8 +72,8 @@ export class DraftDataTable extends React.Component {
         route: (
           route && this.getUUID(drugRoutes, route).uuid) || null,
         type,
-      }
-    })
+      };
+    });
 
     this.setState(
       {
@@ -94,6 +90,7 @@ export class DraftDataTable extends React.Component {
           orders: this.state.orders,
           patient: this.props.patient.uuid,
         };
+
         this.props.postDrugOrder(
           encounterPayload,
           this.state.limit,
@@ -108,7 +105,7 @@ export class DraftDataTable extends React.Component {
           }
         });
       },
-    )
+    );
   }
 
   showOrders = draftOrders => draftOrders.map((order) => {
@@ -225,7 +222,6 @@ const mapStateToProps = ({
   drugSearchReducer,
   draftTableReducer: { draftOrders },
   sessionReducer,
-  settingEncounterRoleReducer: { settingEncounterRole },
   patientReducer: { patient },
   encounterReducer: { encounterType },
   addDrugOrderReducer: { addedOrder, error },
@@ -235,9 +231,8 @@ const mapStateToProps = ({
   draftOrders,
   allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
   sessionReducer,
-  settingEncounterRole,
-  encounterRole: encounterRole[0],
-  encounterType: encounterType[0],
+  encounterRole,
+  encounterType,
   patient,
   addedOrder,
   addOrderError: error,
@@ -249,7 +244,6 @@ DraftDataTable.propTypes = {
   handleDiscardOneOrder: PropTypes.func.isRequired,
   handleEditDraftOrder: PropTypes.func,
   postDrugOrder: PropTypes.func.isRequired,
-  fetchEncounterRole: PropTypes.func.isRequired,
   allConfigurations: PropTypes.shape({
     drugDispensingUnits: PropTypes.arrayOf(PropTypes.any),
     drugDosingUnits: PropTypes.arrayOf(PropTypes.any),
@@ -257,7 +251,6 @@ DraftDataTable.propTypes = {
     durationUnits: PropTypes.arrayOf(PropTypes.any),
     orderFrequencies: PropTypes.arrayOf(PropTypes.any),
   }).isRequired,
-  settingEncounterRole: PropTypes.string.isRequired,
   sessionReducer: PropTypes.shape({
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
@@ -292,7 +285,7 @@ DraftDataTable.defaultProps = {
   handleEditDraftOrder: () => {},
   addOrderError: {},
   encounterRole: {},
-}
+};
 
 const actionCreators = {
   fetchEncounterRole,
