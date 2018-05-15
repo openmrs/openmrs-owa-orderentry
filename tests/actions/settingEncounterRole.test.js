@@ -7,6 +7,7 @@ import {
     SETTING_ENCOUNTER_ROLE_SUCCESS,
     SETTING_ENCOUNTER_ROLE_FAILURE,
     SETTING_ENCOUNTER_ROLE_LOADING,
+    NETWORK_ERROR,
 } from '../../app/js/actions/actionTypes';
 
 jest.mock('../../app/js/actions/encounterRole', () => ({
@@ -89,9 +90,11 @@ describe('Get the encounterRole configuration actions', () => {
         it('should dispatch `SETTING_ENCOUNTER_ROLE_FAILURE` after an error', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
-                request.respondWith({
+                request.reject({
                     status: 401,
-                    error: 'Unauthorised'
+                    response: {
+                        message: "Please login",
+                    }
                 });
             });
 
@@ -102,6 +105,29 @@ describe('Get the encounterRole configuration actions', () => {
             ];
 
             const store = mockStore({ setting: {} });
+
+            return store.dispatch(getSettingEncounterRole()).then(() => {
+                const dispatchedActions = store.getActions();
+                const dispatchedActionTypes = dispatchedActions.map(action => action.type);
+                expect(dispatchedActionTypes).toEqual(expectedActions);
+            });
+        });
+
+        it ('should dispatch `NETWORK_ERROR` when there is a network error', () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.reject({
+                    status: 500,
+                });
+            });
+
+            const expectedActions = [
+                SETTING_ENCOUNTER_ROLE_LOADING,
+                NETWORK_ERROR,
+                SETTING_ENCOUNTER_ROLE_LOADING
+            ];
+
+            const store = mockStore({ setting: {}});
 
             return store.dispatch(getSettingEncounterRole()).then(() => {
                 const dispatchedActions = store.getActions();

@@ -10,6 +10,7 @@ import {
     POST_DRUG_ORDER_FAILURE,
     FETCH_ACTIVE_ORDER_LOADING,
     LOAD_PAST_ORDERS_LOADING,
+    NETWORK_ERROR,
 } from '../../app/js/actions/actionTypes';
 
 
@@ -75,5 +76,23 @@ describe('addDrugOrder post thunk', () => {
             expect(actionType).toEqual(expectedActions);
         });
         done();
+    });
+    it ('should dispatch `NETWORK_ERROR` when there is a network error', () => {
+        const payload = {}
+        moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
+            request.reject({
+                status: 500,
+            });
+        });
+    
+        const store = mockStore({});
+        const expectedAction = {
+            type: NETWORK_ERROR
+        }
+        return store.dispatch(postDrugOrder(payload))
+        .then(() => {
+            expect(store.getActions()).toEqual(expect.arrayContaining([expect.objectContaining(expectedAction)]));
+        });
     });
 });

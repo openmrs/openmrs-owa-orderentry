@@ -6,17 +6,17 @@ import axiosInstance from '../config';
 import networkError from './networkError';
 import loading from './loading';
 
-const fetchPatientCareSettingActionCreator = patientCareSetting => ({
+export const fetchPatientCareSettingActionCreator = patientCareSetting => ({
   type: PATIENT_CARESETTING_SUCCESS,
   patientCareSetting,
 });
 
-const fetchPatientCareSettingError = error => ({
+export const fetchPatientCareSettingError = error => ({
   type: PATIENT_CARESETTING_ERROR,
   error,
 });
 
-const fetchPatientCareSetting = () => (dispatch) => {
+export const fetchPatientCareSetting = () => (dispatch) => {
   dispatch(loading('PATIENT_CARESETTING', true));
   return axiosInstance.get(`caresetting`)
     .then((response) => {

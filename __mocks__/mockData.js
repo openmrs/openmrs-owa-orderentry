@@ -49,7 +49,7 @@ export default {
       },
     ],
   },
-  encounterTypeInValid: {
+  encounterTypeInvalid: {
     results: [],
   },
   encounterRole: {
@@ -62,6 +62,12 @@ export default {
   },
   defaultpatientActiveOrder: {
     activeOrders: [],
+    results: {
+      dateActivated: '',
+    },
+    pageCount: 1,
+    showResultCount: 'Showing 1 to 1 of 1 entries',
+    totalCount: 1,
   },
   defaultSettingEncounterType: {
     settingEncounterType: '',
