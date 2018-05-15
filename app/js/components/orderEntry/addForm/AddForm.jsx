@@ -26,6 +26,7 @@ export class AddForm extends React.Component {
       reason: '',
       drugInstructions: '',
     },
+    previousOrder: null,
     fieldErrors: {
     },
     draftOrder: {},
@@ -73,7 +74,7 @@ export class AddForm extends React.Component {
     this.setState({
       draftOrder: {
         drugName: this.props.drugName,
-        action: "NEW",
+        action: this.state.action,
         dose,
         dosingUnit,
         frequency,
@@ -83,6 +84,7 @@ export class AddForm extends React.Component {
         dispensingUnit,
         dispensingQuantity,
         reason,
+        previousOrder: this.state.previousOrder,
         drugInstructions,
         careSetting: this.props.careSetting.uuid,
         drug: this.props.drugUuid,
@@ -172,6 +174,7 @@ export class AddForm extends React.Component {
         drugInstructions: '',
       },
       action: 'NEW',
+      previousOrder: null,
     });
   }
 
@@ -223,7 +226,8 @@ export class AddForm extends React.Component {
     const { editOrder, draftOrder } = this.props;
     this.setState({
       activeTabIndex: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
-      action: this.props.editOrder ? 'REVISE' : 'NEW',
+      action: editOrder ? 'REVISE' : 'NEW',
+      previousOrder: editOrder ? editOrder.uuid : null,
       formType: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
       dosingType: draftOrder.dosingType || editOrder.dosingType,
       fields: {

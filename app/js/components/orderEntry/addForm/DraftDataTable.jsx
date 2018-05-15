@@ -44,6 +44,7 @@ export class DraftDataTable extends React.Component {
         dispensingUnit,
         route,
         type,
+        previousOrder,
       } = order;
       return {
         action,
@@ -65,7 +66,7 @@ export class DraftDataTable extends React.Component {
           frequency && this.getUUID(orderFrequencies, frequency).uuid) || null,
         numRefills: 0,
         orderer,
-        previousOrder: null,
+        previousOrder,
         quantity: dispensingQuantity || null,
         quantityUnits: (
           dispensingUnit && this.getUUID(drugDispensingUnits, dispensingUnit).uuid) || null,
