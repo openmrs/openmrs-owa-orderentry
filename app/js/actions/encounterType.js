@@ -20,11 +20,11 @@ export const fetchEncounterTypeFailure = error => ({
 export const fetchEncounterType = value => (dispatch) => {
   dispatch(loading('FETCH_ENCOUNTER_TYPE', true));
   return axiosInstance.get(`encountertype?q=${value}`)
-    .then((response) => {
-      if (response.data.results.length === 0) {
+    .then(({ data: { results } }) => {
+      if (results.length === 0) {
         throw Error("incomplete config");
       }
-      dispatch(fetchEncounterTypeSuccess(response.data.results));
+      dispatch(fetchEncounterTypeSuccess(results[0]));
       dispatch(loading('FETCH_ENCOUNTER_TYPE', false));
     }).catch((error) => {
       dispatch(settingEncounterTypeFailure(error.message));
