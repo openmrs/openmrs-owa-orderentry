@@ -31,7 +31,13 @@ describe('onClickDiscontinue', () => {
       drug: {
         display: 'panadol'
       },
-      orderNumber: 3
+      orderNumber: 3,
+      careSetting: {
+        uuid: 'c365e560-c3ec-11e3-9c1a-0800200c9a66'
+      },
+      orderer: {
+        uuid: 'c657e560-c3ec-11e3-9c1a-8688647h3s54'
+      },
     };
 
     const { wrapper } = setup();

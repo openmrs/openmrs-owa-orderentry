@@ -11,6 +11,13 @@ export class DraftDataTable extends React.Component {
     orders: [],
     limit: 10,
     startIndex: 0,
+    discontinueReason: '',
+  }
+
+  onChange = (event) => {
+    this.setState({
+      discontinueReason: event.target.value,
+    });
   }
 
   getUUID = (items, itemName) => items.find(item => item.display === itemName)
@@ -46,11 +53,13 @@ export class DraftDataTable extends React.Component {
         type,
         previousOrder,
       } = order;
+
       return {
         action,
         asNeeded: (reason && true) || false,
         asNeededCondition: reason,
         autoExpireDate: null,
+        orderReasonNonCoded: this.state.discontinueReason || null,
         careSetting,
         commentToFulfiller: '',
         dose: dose || null,
@@ -151,7 +160,8 @@ export class DraftDataTable extends React.Component {
         </p>
         <p className="left">
           <input
-            name="reason"
+            name="discontinueReason"
+            onChange={this.onChange}
             placeholder="reason"
             id="discontinueReason"
             type="text"
