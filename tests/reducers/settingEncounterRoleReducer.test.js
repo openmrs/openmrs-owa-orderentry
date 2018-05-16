@@ -64,4 +64,14 @@ describe('Setting Encounter Tole reducer', () => {
         );
         expect(actualState).toEqual(expectedState);
     });
+
+    it('should set the loading status for the encounter role',() => {
+        const initialState = {};
+        const action = {
+          type: 'SETTING_ENCOUNTER_ROLE_LOADING',
+          status:true
+        };
+        const newState =settingEncounterRoleReducer(initialState, action);
+        expect(newState.isLoading).toEqual(action.status);
+      });
 });
