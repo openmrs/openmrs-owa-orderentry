@@ -44,12 +44,10 @@ export class SearchAndAddOrder extends React.Component {
 
   handleDiscardOneOrder = (order) => {
     this.props.deleteDraftOrder(order);
-    if (order.action === 'DISCONTINUE') {
-      this.props.setOrderAction('DISCARD_ONE', order.orderNumber);
-    } else if (order.action === 'NEW') {
+    if (order.action === 'REVISE') {
       this.props.setOrderAction('DISCARD_EDIT', order.orderNumber);
     } else {
-      this.props.setOrderAction('DISCARD_ONE', this.state.orderNumber);
+      this.props.setOrderAction('DISCARD_ONE', order.orderNumber);
     }
   }
 

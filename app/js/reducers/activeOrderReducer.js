@@ -30,12 +30,19 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
       return {
         ...state,
         activeOrders: state.activeOrders.map((order) => {
-          if (action.action === 'EDIT' || action.action === 'DRAFT') {
+          if (action.action === 'DISCARD_ALL') {
+            if (order.status === 'EDIT') {
+              return { ...order, status: 'EDIT' };
+            }
+            return { ...order, status: action.action };
+          } else if (action.action === 'EDIT' || 'DRAFT_EDIT') {
             if (order.orderNumber === action.orderNumber) {
               return { ...order, status: action.action };
             } else if (order.status === 'EDIT') {
               return { ...order, status: 'NONE' };
             }
+          } else if (action.action === 'DRAFT') {
+            return { ...order, status: action.action };
           } else if (action.action === 'DISCONTINUE') {
             if (order.orderNumber === action.orderNumber) {
               return { ...order, status: action.action };
@@ -44,11 +51,6 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
             if (order.orderNumber === action.orderNumber) {
               return { ...order, status: action.action };
             }
-          } else if (action.action === 'DISCARD_ALL') {
-            if (order.status === 'EDIT') {
-              return { ...order, status: 'EDIT' };
-            }
-            return { ...order, status: action.action };
           } else if (action.action === 'DISCARD_EDIT') {
             if (order.status === 'DISCONTINUE') {
               return { ...order, status: 'DISCONTINUE' };

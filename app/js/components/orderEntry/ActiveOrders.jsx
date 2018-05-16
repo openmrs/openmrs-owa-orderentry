@@ -158,7 +158,7 @@ export class ActiveOrders extends React.Component {
 
       let showStatus;
 
-      if (status === 'EDIT' || status === 'DRAFT') {
+      if (status === 'EDIT' || status === 'DRAFT_EDIT') {
         showStatus = (
           <p> will REVISE </p>
         );
