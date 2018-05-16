@@ -7,6 +7,7 @@ import axiosInstance from '../config';
 import networkError from './networkError';
 import loading from './loading';
 import activeOrderAction from './activeOrderAction';
+import { getPastOrders } from '../actions/pastOrders';
 
 export const postDrugOrderSuccess = response => ({
   type: POST_DRUG_ORDER_SUCCESS,
@@ -25,6 +26,7 @@ export const postDrugOrder = (ordersPayload, limit, startIndex, patientUuid, car
       .then((response) => {
         dispatch(postDrugOrderSuccess(response));
         dispatch(activeOrderAction(limit, startIndex, patientUuid, careSetting));
+        dispatch(getPastOrders(limit, startIndex, patientUuid, careSetting));
       }).catch((error) => {
         dispatch(loading('POST_DRUG_ORDER', false));
         if (error.response) {
