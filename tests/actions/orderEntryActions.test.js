@@ -35,7 +35,7 @@ describe ('Order entry configuration actions', () => {
             moxios.install();
         });
 
-        it ('should dispatch `FETCH_ORDER_CONFIG_SUCCESS` after sucessful fetching', () => {
+        it ('should dispatch `FETCH_ORDER_CONFIG_SUCCESS` after sucessfull fetching', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
@@ -61,14 +61,42 @@ describe ('Order entry configuration actions', () => {
             });
         });
 
-        it ('should dispatch `FETCH_ORDER_CONFIG_FAILURE` after an error', () => {
+        it ('should throw an error if status code is not 200', () => {
             moxios.wait(() => {
                 const request = moxios.requests.mostRecent();
                 request.respondWith({
+                    status: 204,
+                    response: {
+                        statusText: 'OK'
+                    },
+                });
+            });
+
+            const expectedActions = [
+                FETCH_ORDER_CONFIG_LOADING,
+                FETCH_ORDER_CONFIG_LOADING,
+                FETCH_ORDER_CONFIG_FAILURE
+            ];
+
+            const store = mockStore({ configurations: []});
+
+            return store.dispatch(getOrderEntryConfigurations()).then(() => {
+                const dispatchedActions = store.getActions();
+                const dispatchedActionTypes = dispatchedActions.map(action => action.type);
+                expect(dispatchedActionTypes).toEqual(expectedActions);
+            });
+        });
+
+
+        it ('should dispatch `FETCH_ORDER_CONFIG_FAILURE` when unauthorized', () => {
+            moxios.wait(() => {
+                const request = moxios.requests.mostRecent();
+                request.reject({
                     status: 401,
                     response: {
-                        error: 'Not authorised'
+                        message: 'Not authorised',
                     },
+                    statusText: 'unauthorised'
                 });
             });
 

@@ -19,8 +19,7 @@ export const settingEncounterRoleFailure = error => ({
 });
 
 const NotFoundException = message => ({
-  message,
-  response: 'Not Found',
+  response: message,
 });
 
 export const getSettingEncounterRole = () => (dispatch) => {

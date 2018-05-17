@@ -1,9 +1,13 @@
-import { searchDrug } from '../../app/js/actions/drug';
+import {
+  searchDrug,
+  selectDrug
+} from '../../app/js/actions/drug';
 
 import {
   SEARCH_DRUGS_FAILURE,
   SEARCH_DRUGS_LOADING,
-  SEARCH_DRUGS_SUCCESS
+  SEARCH_DRUGS_SUCCESS,
+  SELECT_DRUG,
 } from '../../app/js/actions/actionTypes';
 
 import mockData from '../../__mocks__/mockData';
@@ -105,6 +109,16 @@ describe('Drug Search actions', () => {
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
+    done();
+  });
+
+  it('should call `SELECT_DRUG` when drug is selected', async (done) => {
+    const expectedAction = {
+      type: SELECT_DRUG
+    }
+    const store = mockStore({});
+    await store.dispatch(selectDrug('Paracentamol'));
+    expect(store.getActions()).toEqual(expect.arrayContaining([expect.objectContaining(expectedAction)]));
     done();
   });
 });
