@@ -19,5 +19,16 @@ describe('Dosage Tab component', () => {
       const wrapper = shallow(<DosageTab {...props}><FreeText/></DosageTab>);
       expect(wrapper).toMatchSnapshot();
   });
+});
 
+describe('Test click events', () => {
+  it('should trigger event when clicked', () => {
+    const mockCallBack = jest.fn();
+    const wrapper = shallow(<DosageTab onClick={mockCallBack}/>);
+    expect(mockCallBack.mock.calls.length).toBe(0);
+    wrapper.find('a').simulate('click', {
+        preventDefault: () => {},
+      });
+    expect(mockCallBack.mock.calls.length).toBe(1);
+  });
 });

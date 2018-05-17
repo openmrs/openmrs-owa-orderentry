@@ -180,10 +180,10 @@ export class DraftDataTable extends React.Component {
           }
         </td>
         <td>
-          <a href="#" onClick={() => handleEditDraftOrder(order)}>
+          <a id="edit-draft-order" href="#" onClick={() => handleEditDraftOrder(order)}>
             <i className="icon-edit" title="Edit" />
           </a>
-          <a href="#" onClick={() => handleDiscardOneOrder(order)}>
+          <a id="discard-draft-order" href="#" onClick={() => handleDiscardOneOrder(order)}>
             <i className="icon-remove" title="Delete" />
           </a>
         </td>

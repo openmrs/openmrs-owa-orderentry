@@ -332,6 +332,11 @@ AddForm.propTypes = {
     dosingType: PropTypes.string,
   }),
   draftOrder: PropTypes.shape({}),
+  session: PropTypes.shape({
+    currentProvider: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 AddForm.defaultProps = {

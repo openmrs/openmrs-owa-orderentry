@@ -2,6 +2,7 @@ import React from 'react';
 
 import connectedSearchAndAddOrder, {SearchAndAddOrder} from '../../../app/js/components/orderEntry/SearchAndAddOrder';
 
+const { order } = mockData;
 const props = {
   outpatientCareSetting:{
     uuid:{}
@@ -15,6 +16,8 @@ const props = {
   location:{
     search:()=>{}
   },
+  order,
+  selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
   fetchOutpatientCareSetting: jest.fn(),
   deleteDraftOrder: jest.fn(),
@@ -71,12 +74,6 @@ describe('clearSearchField() method', () => {
 });
 
 describe('handleEditActiveDrugOrder() method', () => {
-  const order = {
-    drug: {
-      uuid: "",
-      display: ""
-    }
-  }
   it('should call handleEditActiveDrugOrder()', () => {
     const renderedComponent = getComponent().instance();
     sinon.spy(renderedComponent, 'handleEditActiveDrugOrder');
@@ -98,6 +95,16 @@ describe('removeOrder() method', () => {
   });
 });
 
+describe('handleEditDraftOrder() method', () => {
+  it('should call handleEditDraftOrder()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'handleEditDraftOrder');
+    renderedComponent.handleEditDraftOrder(order);
+    expect(renderedComponent.handleEditDraftOrder.calledOnce).toEqual(true);
+    expect(getComponent().state('draftOrder')).toEqual(order);
+  });
+});
+
 
 const setup = () => {
   const wrapper = shallow(<SearchAndAddOrder {...props} store={store} />);
@@ -115,14 +122,8 @@ describe('onDelete', () => {
 
 describe('handleDiscardOneOrder', () => {
   it('should be called on discarding one draft order', () => {
-    const order = {
-      action: 'DISCONTINUE',
-      drugName: 'panadol',
-      orderNumber: '3'
-    };
-
     const { wrapper } = setup();
-
+    
     wrapper.instance().handleDiscardOneOrder(order);
   });
 });
