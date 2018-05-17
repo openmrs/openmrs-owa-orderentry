@@ -91,7 +91,7 @@
     "yargs": "^4.3.1"
   },
   "scripts": {
-    "coverage": "nyc -all -e .jsx npm test",
+    "coverage": "nyc -all -e .jsx && jest -u",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "rimraf dist && rimraf coverage*",
     "build": "npm run clean && webpack --progress --colors --mode=production --target=web",
@@ -99,8 +99,8 @@
     "build:prod": "npm run test && npm run build",
     "build:deploy": "webpack --progress --colors --mode=deploy --target=web",
     "watch": "webpack --progress --colors --watch --mode=deploy --target=web",
-    "est": "node_modules/.bin/mocha tests/**/*.test.* --require tests/setup.js",
-    "test": "npm run lint && jest -u",
+    "test": "npm run lint",
+    "test:dev": "npm run lint && jest -u",
     "test:debug": "karma start",
     "lint": "node_modules/.bin/eslint . --ext .js,.jsx"
   },
