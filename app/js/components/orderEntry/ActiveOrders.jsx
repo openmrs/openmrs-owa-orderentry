@@ -232,31 +232,34 @@ export class ActiveOrders extends React.Component {
             {this.showOrders(activeOrders)}
           </tbody>
         </table>
-        <div className="clear">
-          <div className="float-left-padding">
-            {this.props.showResultCount}
-          </div>
-          <div className="dataTables_paginate">
-            <ReactPaginate
-              pageCount={this.state.pageCount}
-              pageRangeDisplayed={5}
-              marginPagesDisplayed={3}
-              previousLabel="Previous"
-              nextLabel="Next"
-              breakClassName="text-align-center"
-              initialPage={0}
-              containerClassName="react-paginate-container"
-              pageLinkClassName="page-link"
-              activeClassName="active-link"
-              disabledClassName="active-link"
-              nextLinkClassName="page-link"
-              previousLinkClassName="page-link"
-              onPageChange={this.onPageChange}
-              forcePage={this.state.pageNumber}
-              disableInitialCallback
-            />
-          </div>
-        </div>
+        {
+          this.props.pageCount !== 1 &&
+            <div className="clear">
+              <div className="float-left-padding">
+                {this.props.showResultCount}
+              </div>
+              <div className="dataTables_paginate">
+                <ReactPaginate
+                  pageCount={this.state.pageCount}
+                  pageRangeDisplayed={5}
+                  marginPagesDisplayed={3}
+                  previousLabel="Previous"
+                  nextLabel="Next"
+                  breakClassName="text-align-center"
+                  initialPage={0}
+                  containerClassName="react-paginate-container"
+                  pageLinkClassName="page-link"
+                  activeClassName="active-link"
+                  disabledClassName="active-link"
+                  nextLinkClassName="page-link"
+                  previousLinkClassName="page-link"
+                  onPageChange={this.onPageChange}
+                  forcePage={this.state.pageNumber}
+                  disableInitialCallback
+                />
+              </div>
+            </div>
+        }
       </div>
     );
   }
