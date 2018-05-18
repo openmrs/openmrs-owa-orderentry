@@ -125,9 +125,10 @@ export class ActiveOrders extends React.Component {
         status,
       } = order;
 
+      let editClass;
+      if (status === 'EDIT' || status === 'DRAFT_EDIT') editClass = 'current-order-color';
+
       let details;
-
-
       if (dosingType === 'org.openmrs.SimpleDosingInstructions') {
         details = (
           <td>
@@ -146,7 +147,7 @@ export class ActiveOrders extends React.Component {
         );
       } else {
         details = (
-          <td>
+          <td className={editClass}>
 
             {drug.display}:
             {dosingInstructions && ` ${dosingInstructions}`}
@@ -172,7 +173,7 @@ export class ActiveOrders extends React.Component {
             <a
               id="edit-drug-orders"
               href="#"
-              onClick={() => this.props.handleEditActiveDrugOrder(order)}
+              onClick={() => this.props.handleEditActiveDrugOrder(order, details)}
             > <i className="icon-edit" title="Edit" />
             </a>
             <a > <i
@@ -190,7 +191,7 @@ export class ActiveOrders extends React.Component {
 
       return (
         <tr key={uuid} >
-          <td>
+          <td className={editClass}>
             {format(dateActivated, 'DD-MMM-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'DD-MMM-YYYY HH:mm')}`)}
           </td>
           {details}

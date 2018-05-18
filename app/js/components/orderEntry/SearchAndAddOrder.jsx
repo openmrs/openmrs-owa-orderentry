@@ -73,8 +73,13 @@ export class SearchAndAddOrder extends React.Component {
     this.handleDiscardOneOrder(order);
   }
 
-  handleEditActiveDrugOrder = (order) => {
+  handleEditActiveDrugOrder = (order, details) => {
+    let formattedDetails = details.props.children.join("");
+    if (formattedDetails.length > 250) {
+      formattedDetails = `${formattedDetails.substring(0, 250)}...`;
+    }
     this.setState({
+      formattedDetails,
       editDrugUuid: order.drug.uuid,
       editDrugName: order.drug.display,
       editOrder: order,
@@ -93,7 +98,11 @@ export class SearchAndAddOrder extends React.Component {
 
   renderSearchDrug = () => (
     this.state.editDrugName ?
-      <h1> Revise for: {this.state.editDrugName} </h1> :
+      <p className="revise-order-padding">
+        <b className="revised-order-text"> Revise for: {this.state.editDrugName} </b><br />
+        <b className="current-order-color">Current Order: <em>{this.state.formattedDetails}</em></b>
+      </p>
+      :
       <SearchDrug
         value={this.state.value}
         focused={this.state.focused}
