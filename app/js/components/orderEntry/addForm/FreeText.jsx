@@ -101,7 +101,7 @@ const FreeText = ({
               onClick={handleSubmit}
               disabled={activateSaveButton()}
             >
-            Save
+            Add
             </button>
           </div>
         </div>

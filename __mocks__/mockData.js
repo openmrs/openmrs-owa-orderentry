@@ -93,6 +93,22 @@ export default {
       orderNumber: 3,
     },
   ],
+  freeTextOrder: {
+    action: 'NEW',
+    drugInstructions: 'After a meal',
+    drugName: 'syrup',
+    orderNumber: 3,
+  },
+  standardDoseOrder: {
+    action: 'NEW',
+    dose: 8,
+    dosingUnit: 'kg',
+    frequency: 'daily',
+    route: 'oral',
+    drugInstructions: 'After a meal',
+    drugName: 'syrup',
+    orderNumber: 4,
+  },
   addedOrder: {
     data: {},
   },

@@ -145,9 +145,12 @@ export class DraftDataTable extends React.Component {
         {dosingUnit && ` ${dosingUnit},`}
         {frequency && ` ${frequency},`}
         {route && ` ${route}`}
+        {reason && `, as needed for ${reason}`}
         {duration && `, for ${duration} ${durationUnit} total`}
-        {reason && `, (Reason: ${reason})`}
-        {drugInstructions && ` (${drugInstructions})`}
+        {dose ?
+          drugInstructions && ` (${drugInstructions})` :
+          drugInstructions && ` "${drugInstructions}"`
+        }
         {dispensingQuantity && ` (Dispense: ${dispensingQuantity} ${dispensingUnit})`}
       </p>
     );
