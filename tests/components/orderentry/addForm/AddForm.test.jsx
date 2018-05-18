@@ -2,9 +2,13 @@ import React from 'react';
 
 import { AddForm } from '../../../../app/js/components/orderEntry/addForm/AddForm';
 
-const { draftOrder, editOrder } = mockData;
+const { draftOrders, draftOrder, editOrder, formType, session } = mockData;
 
 const props = {
+  addDraftOrder: jest.fn(),
+  clearDrugForms: jest.fn(),
+  clearSearchField: jest.fn(),
+  setOrderAction: jest.fn(),
   removeOrder: jest.fn(),
   selectDrugSuccess: jest.fn(),
   getOrderEntryConfigurations: jest.fn(),
@@ -19,7 +23,10 @@ const props = {
   drugName: 'Paracentamol',
   drugUuid: 'AJJJKW7378JHJ',
   draftOrder,
+  draftOrders,
   editOrder,
+  formType,
+  session,
 };
 
 const outpatientprops = {
@@ -74,26 +81,38 @@ describe('Test for adding a new drug order', () => {
           expect(wrapper.find('button.confirm').props().disabled).toBe(true);
         });
       });
-    });  
+    }); 
    describe('Outpatient orders', () => {
       const wrapper = mount(<AddForm {...outpatientprops} />);
-      beforeEach(() => {
-        wrapper.find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 8}});
-        wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'kilogram'}});
-        wrapper.find('[name="route"]').simulate('change', {target: {name: 'route', value: 'oral'}});
-        wrapper.find('[name="frequency"]').simulate('change', {target: {name: 'frequency', value: 'once'}});
+      describe('Activate and deactivate Confirm button under standard dosing form', () => {
+        beforeEach(() => {
+          wrapper.find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 8}});
+          wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'kilogram'}});
+          wrapper.find('[name="route"]').simulate('change', {target: {name: 'route', value: 'oral'}});
+          wrapper.find('[name="frequency"]').simulate('change', {target: {name: 'frequency', value: 'once'}});
+        });
+        it('should be deactivated without both dispensing quantity and units', () => {
+          expect(wrapper.find('button.confirm').props().disabled).toBe(true);
+        });
+        it('should be deactivated with dispensing quantity without units', () => {
+          wrapper.find('[name="dispensingQuantity"]').simulate('change', {target: {name: 'dispensingQuantity', value: 12}});
+          expect(wrapper.find('button.confirm').props().disabled).toBe(true);
+        });
+        it('should be activated with both dispensing Quantity and units', () => {
+          wrapper.find('[name="dispensingQuantity"]').simulate('change', {target: {name: 'dispensingQuantity', value: 12}});
+          wrapper.find('[name="dispensingUnit"]').simulate('change', {target: {name: 'dispensingUnit', value: 'kits'}});
+          expect(wrapper.find('button.confirm').props().disabled).toBe(false);
+        });
       });
-      it('should be deactivated without both dispensing quantity and units', () => {
-        expect(wrapper.find('button.confirm').props().disabled).toBe(true);
-      });
-      it('should be deactivated with dispensing quantity without units', () => {
-        wrapper.find('[name="dispensingQuantity"]').simulate('change', {target: {name: 'dispensingQuantity', value: 12}});
-        expect(wrapper.find('button.confirm').props().disabled).toBe(true);
-      });
-      it('should be activated with both dispensing Quantity and units', () => {
-        wrapper.find('[name="dispensingQuantity"]').simulate('change', {target: {name: 'dispensingQuantity', value: 12}});
-        wrapper.find('[name="dispensingUnit"]').simulate('change', {target: {name: 'dispensingUnit', value: 'kits'}});
-        expect(wrapper.find('button.confirm').props().disabled).toBe(false);
+      describe('Activate and deactivate Confirm button under free text form', () => {
+        it('should activate when the required fields are filled', () => {
+          wrapper.setState({ formType: 'Free Text' })
+          expect(wrapper.state().formType).toEqual('Free Text');
+          wrapper.find('[name="drugInstructions"]').simulate('change', {target: {name: 'drugInstructions', value: "3 tablets"}});
+          wrapper.find('[name="dispensingQuantity"]').simulate('change', {target: {name: 'dispensingQuantity', value: 12}});
+          wrapper.find('[name="dispensingUnit"]').simulate('change', {target: {name: 'dispensingUnit', value: 'kits'}});
+          expect(wrapper.find('button.confirm').props().disabled).toBe(false);
+        });
       });
       describe('Validation of fields', () => {
         beforeEach(() => {
@@ -126,6 +145,45 @@ describe('Test for adding a new drug order', () => {
           expect(wrapper.find('button.confirm').props().disabled).toBe(true);
         });
     });
+  });
+});
+
+describe('Test AddForm state', () => {
+  it('should update state', () => {
+    mountedComponent = mount(<AddForm {...props} />);
+    getComponent().setState({fields:  { dose: 11}})
+    getComponent().find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 9}});
+    getComponent().find('.confirm').simulate('click');
+    expect(getComponent().state().fields.dose).toEqual(9);
+  });
+});
+
+describe('handleFormType() method', () => {
+  it('should call handleFormType()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'handleFormType');
+    renderedComponent.handleFormType(formType);
+    expect(renderedComponent.handleFormType.calledOnce).toEqual(true);
+    expect(getComponent().state('formType')).toEqual("Free Text");
+  });
+});
+
+describe('handleFormTabs() method', () => {
+  it('should call handleFormTabs()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'handleFormTabs');
+    renderedComponent.handleFormTabs(1);
+    expect(renderedComponent.handleFormTabs.calledOnce).toEqual(true);
+    expect(getComponent().state('activeTabIndex')).toEqual(1);
+  });
+});
+
+describe('handleCancel() method', () => {
+  it('should call handleCancel()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'handleCancel');
+    renderedComponent.handleCancel();
+    expect(renderedComponent.handleCancel.calledOnce).toEqual(true);
   });
 });
 
@@ -172,3 +230,32 @@ describe('clearDrugForms() method', () => {
   });
 });
 
+describe('handleSubmitDrugForm() method', () => {
+  it('should call handleSubmitDrugForm()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'handleSubmitDrugForm');
+    renderedComponent.handleSubmitDrugForm();
+    expect(renderedComponent.handleSubmitDrugForm.calledOnce).toEqual(true);
+    expect(getComponent().state('draftOrder')).toEqual({
+      action: "NEW",
+      careSetting: undefined,
+      dosingType: "org.openmrs.FreeTextDosingInstructions",
+      drug: "AJJJKW7378JHJ",
+      drugName: "Paracentamol",
+      orderNumber: 1,
+      type: "drugorder",
+      orderer: "",
+      previousOrder: null,
+      dispensingQuantity: "",
+      dispensingUnit: "",
+      dose: "",
+      dosingUnit: "",
+      drugInstructions: "",
+      duration: "",
+      durationUnit: "",
+      frequency: "",
+      reason: "",
+      route: "",
+    });
+  });
+});

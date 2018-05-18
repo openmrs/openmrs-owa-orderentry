@@ -1,6 +1,8 @@
 import React from 'react';
 import View from '../../../app/js/components/patientDashboard/View';
 
+const { attributes } = mockData;
+
 let props;
 let mountedComponent;
 
@@ -15,6 +17,7 @@ describe('Component: PatientDashBoard: View', () => {
   beforeEach(() => {
     props = {
       isLoading: false,
+      attributes,
       patient: {
         person: {
           personName: {
@@ -23,7 +26,11 @@ describe('Component: PatientDashBoard: View', () => {
             familyName: 'Larrystone'
           },
           preferredAddress: {
-            display: 'My Address'
+            display: 'My Address',
+            cityVillage: 'A city',
+            stateProvince: 'A province',
+            country: 'Kenya',
+            postalCode: "09876"
           },
           gender: 'M',
           age: '19'
@@ -60,29 +67,34 @@ describe('Component: PatientDashBoard: View', () => {
     it('show Female as gender and hide Address/Phone details', () => {
       props.showContactInfo = false,
         props.patient = {
+          ...props.patient,
           person: {
             personName: {
               givenName: 'Larrystone',
               middleName: 'Katz',
               familyName: 'Larrystone'
             },
-            preferredAddress: {
-              display: 'My Address'
-            },
             gender: 'F',
             age: '19'
           },
-          patientIdentifier: {
-            identifier: '2001A'
-          },
-          attributes: [{
-            value: '0801000000'
-          }]
         }
       const component = getComponent();
 
       expect(component.find('.gender-age > span').first().props().children[0]).toBe('Female');
       expect(component.find('.gender-age a span').first().props().children[0]).toBe('Show contact info ');
+    });
+
+    it('show only user address', () => {
+      props.showContactInfo = true,
+        props.patient = {
+          ...props.patient,
+        }
+      const component = getComponent();
+      expect(component.find('.contact-info-inline span').first().props().children[0]).toBe('My Address');
+      expect(component.find('.contact-info-inline span').first().props().children[1]).toBe(' , A city');
+      expect(component.find('.contact-info-inline span').first().props().children[2]).toBe(',A province');
+      expect(component.find('.contact-info-inline span').first().props().children[3]).toBe(',Kenya');
+      expect(component.find('.contact-info-inline span').first().props().children[4]).toBe(',09876');
     });
   });
 

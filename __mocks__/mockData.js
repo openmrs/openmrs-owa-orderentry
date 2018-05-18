@@ -79,6 +79,11 @@ export default {
     isLoading: false,
     roleError: '',
   },
+  session: {
+    currentProvider: {
+      uuid: '',
+    },
+  },
   draftOrder: {},
   editOrder: {},
   draftOrders: [
@@ -110,11 +115,64 @@ export default {
   encounterType: {
     uuid: '',
   },
-  orders: [],
+  orders: [{
+    uuid: '',
+    drugName: { drug: { display: '' } },
+    action: '',
+    dose: '',
+    dosingUnit: '',
+    frequency: '',
+    route: '',
+    duration: '',
+    durationUnit: '',
+    reason: '',
+    drugInstructions: '',
+    dispensingQuantity: '',
+    dispensingUnit: '',
+    orderNumber: '',
+  }],
   patient: {
     uuid: '',
   },
   careSetting: {
     uuid: '',
   },
+  drug: {},
+  auditInfo: {},
+  order: {
+    uuid: '',
+    drugName: { drug: { display: '' } },
+    action: '',
+    dose: '',
+    dosingUnit: '',
+    frequency: '',
+    route: '',
+    duration: '',
+    durationUnit: '',
+    reason: '',
+    drugInstructions: '',
+    dispensingQuantity: '',
+    dispensingUnit: '',
+    orderNumber: '',
+    drug: {
+      uuid: "",
+      display: "",
+    },
+    careSetting: {
+      uuid: '',
+    },
+    orderer: {
+      uuid: '',
+    },
+    dosingType: 'org.openmrs.SimpleDosingInstructions',
+    status: '',
+  },
+  data: {
+    selected: {},
+  },
+  formType: "Free Text",
+  items: [],
+  itemName: '',
+  attributes: [],
 };
+

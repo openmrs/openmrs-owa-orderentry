@@ -170,6 +170,7 @@ export class ActiveOrders extends React.Component {
         showStatus = (
           <div>
             <a
+              id="edit-drug-orders"
               href="#"
               onClick={() => this.props.handleEditActiveDrugOrder(order)}
             > <i className="icon-edit" title="Edit" />
@@ -274,14 +275,11 @@ const mapStateToProps = ({ activeOrderReducer }) => ({
   showResultCount: activeOrderReducer.showResultCount,
 });
 
-const mapDispatchToProps = dispatch => ({
-  activeOrderAction: (limit, startIndex, careSetting, patientUuid) =>
-    dispatch(activeOrderAction(limit, startIndex, careSetting, patientUuid)),
-  addDraftOrder: order =>
-    dispatch(addDraftOrder(order)),
-  setOrderAction: (action, orderNumber) =>
-    dispatch(setOrderAction(action, orderNumber)),
-});
+const actionCreators = {
+  activeOrderAction,
+  addDraftOrder,
+  setOrderAction,
+};
 
 ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
@@ -307,4 +305,4 @@ ActiveOrders.defaultProps = {
   },
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActiveOrders);
+export default connect(mapStateToProps, actionCreators)(ActiveOrders);

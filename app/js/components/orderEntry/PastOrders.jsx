@@ -116,11 +116,6 @@ const mapStateToProps = ({ pastOrdersReducer }) => ({
   showResultCount: pastOrdersReducer.pastOrdersResultCount,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPastOrders: (limit, startIndex, uuid, careSetting) =>
-    dispatch(getPastOrders(limit, startIndex, uuid, careSetting)),
-});
-
 PastOrders.defaultProps = {
   showResultCount: 'Showing 1 to 10 of 55 entries',
   pageCount: 0,
@@ -140,4 +135,4 @@ PastOrders.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PastOrders);
+export default connect(mapStateToProps, { getPastOrders })(PastOrders);

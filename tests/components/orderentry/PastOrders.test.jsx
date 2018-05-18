@@ -1,6 +1,8 @@
 import React from 'react';
 import { PastOrders } from '../../../app/js/components/orderEntry/PastOrders';
 
+const { data } = mockData;
+
 const props={
   getPastOrders:()=>{},
   location:{
@@ -26,16 +28,66 @@ const props={
   },
   careSetting:{
     uuid:{}
-  }
+  },
+  data,
 }
+
+
+let mountedComponent;
+const getComponent = () => {
+  if (!mountedComponent) {
+    mountedComponent = shallow(<PastOrders {...props} />);
+  }
+  return mountedComponent;
+};
 
 describe('Test for Past orders', () => {
   it('should render component', () => {
-    const wrapper = shallow(<PastOrders {...props}/>  );
-    expect(wrapper).toMatchSnapshot();
+    expect(getComponent()).toMatchSnapshot();
   });
   it('should render a table with past orders', () => {
-    const wrapper = shallow(<PastOrders {...props}/>  );
-    expect(wrapper.find('table')).toHaveLength(1);
+    expect(getComponent().find('table')).toHaveLength(1);
+  });
+});
+
+describe('onPageChange() method', () => {
+  it('should call onPageChange()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'onPageChange');
+    renderedComponent.onPageChange(data);
+    expect(renderedComponent.onPageChange.calledOnce).toEqual(true);
+  });
+});
+
+describe('componentWillReceiveProps()', () => {
+  it('should update state', () => {
+    const renderedComponent = getComponent().instance();
+    getComponent().setProps({ tabName: 'inpatient' })
+    getComponent().setProps({ pageCount: 2 })
+    getComponent().setState({ pageCount: 9 })
+    expect(getComponent().state().pageCount).toEqual(9);
+  });
+});
+
+describe('behaviour when there is no past orders and page is loading', () => {
+  it('should display <img src={imageLoader} alt="loader" />', () => {
+    const props={
+      getPastOrders:()=>{},
+      location:{
+        hash:{
+          replace:()=>{}
+        }
+      },
+      pastOrders:{
+        loading:true,
+        pastOrders:[]
+      },
+      careSetting:{
+        uuid:{}
+      },
+      data,
+    }
+    const wrapper = shallow(<PastOrders {...props} />);
+    expect(wrapper.find('img').length).toEqual(1);
   });
 });
