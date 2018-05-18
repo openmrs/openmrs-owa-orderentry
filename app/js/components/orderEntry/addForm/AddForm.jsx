@@ -71,6 +71,7 @@ export class AddForm extends React.Component {
       reason,
       drugInstructions,
     } = this.state.fields;
+
     this.setState({
       draftOrder: {
         drugName: this.props.drugName,
@@ -93,11 +94,16 @@ export class AddForm extends React.Component {
           'org.openmrs.SimpleDosingInstructions' :
           'org.openmrs.FreeTextDosingInstructions',
         type: "drugorder",
-        orderNumber: this.props.draftOrders.length,
+        orderNumber: (this.state.action === 'NEW') ? this.props.draftOrders.length :
+          this.props.orderNumber,
       },
     }, () => {
       this.props.addDraftOrder(this.state.draftOrder);
-      this.props.setOrderAction('DRAFT', this.props.orderNumber);
+      if (this.state.draftOrder.action === 'NEW') {
+        this.props.setOrderAction('DRAFT', this.state.orderNumber);
+      } else {
+        this.props.setOrderAction('DRAFT_EDIT', this.props.orderNumber);
+      }
     });
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
