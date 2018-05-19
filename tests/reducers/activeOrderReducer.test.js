@@ -1,5 +1,5 @@
 import activeOrderReducer from '../../app/js/reducers/activeOrderReducer';
-import { 
+import {
   FETCH_ACTIVE_ORDER_SUCCESS,
   SET_ORDER_ACTION,
   FETCH_ACTIVE_ORDER_ERROR,
@@ -26,7 +26,7 @@ describe('Active Order Reducer', () => {
     const initialState = {};
     const action = {
       type: FETCH_ACTIVE_ORDER_ERROR,
-      error:'An error occured',
+      error: 'An error occured',
       activeOrders: [],
     };
     const newState = activeOrderReducer(initialState, action);
@@ -38,7 +38,7 @@ describe('Active Order Reducer', () => {
     const initialState = {};
     const action = {
       type: FETCH_ACTIVE_ORDER_LOADING,
-      status:true
+      status: true
     };
     const newState = activeOrderReducer(initialState, action);
     expect(newState.loading).toEqual(action.status);
@@ -73,7 +73,7 @@ describe('Active Order Reducer', () => {
     const action = {
       type: SET_ORDER_ACTION,
       action: 'EDIT',
-      orderNumber:'3',
+      orderNumber: '3',
     };
     const newState = activeOrderReducer(initialState, action);
     expect(newState.activeOrders[0].status).toEqual(action.action);
@@ -90,12 +90,28 @@ describe('Active Order Reducer', () => {
 
     const action = {
       type: SET_ORDER_ACTION,
-      action: 'DRAFT',
+      action: 'EDIT',
     };
     const newState = activeOrderReducer(initialState, action);
     expect(newState.activeOrders[0].status).toEqual('NONE');
   });
 
+  it('should set order status to DRAFT', () => {
+    const initialState = {
+      activeOrders: [{
+        status: 'EDIT',
+        drugName: 'panadol',
+        orderNumber: '3'
+      }]
+    };
+
+    const action = {
+      type: SET_ORDER_ACTION,
+      action: 'DRAFT',
+    };
+    const newState = activeOrderReducer(initialState, action);
+    expect(newState.activeOrders[0].status).toEqual(action.action);
+  });
 
   it('should set the DISCARD_ONE order action', () => {
     const initialState = {
@@ -108,7 +124,7 @@ describe('Active Order Reducer', () => {
     const action = {
       type: SET_ORDER_ACTION,
       action: 'DISCARD_ONE',
-      orderNumber:'3',
+      orderNumber: '3',
     };
     const newState = activeOrderReducer(initialState, action);
     expect(newState.activeOrders[0].status).toEqual(action.action);
@@ -118,7 +134,7 @@ describe('Active Order Reducer', () => {
     const initialState = {
       activeOrders: [{
         drugName: 'panadol',
-        status:'EDIT'
+        status: 'EDIT'
       }]
     };
 
@@ -134,7 +150,7 @@ describe('Active Order Reducer', () => {
     const initialState = {
       activeOrders: [{
         drugName: 'panadol',
-        status:'DISCONTINUE'
+        status: 'DISCONTINUE'
       }]
     };
 
@@ -150,7 +166,7 @@ describe('Active Order Reducer', () => {
     const initialState = {
       activeOrders: [{
         drugName: 'panadol',
-        status:'DISCONTINUE'
+        status: 'DISCONTINUE'
       }]
     };
 
@@ -166,7 +182,7 @@ describe('Active Order Reducer', () => {
     const initialState = {
       activeOrders: [{
         drugName: 'panadol',
-        status:'EDIT'
+        status: 'EDIT'
       }]
     };
 
@@ -182,14 +198,16 @@ describe('Active Order Reducer', () => {
     const initialState = {
       activeOrders: [{
         drugName: 'panadol',
-        status:'EDIT'
+        status: 'EDIT'
       }]
     };
 
     const action = {
       type: SET_ORDER_ACTION,
-    };
+    }
     const newState = activeOrderReducer(initialState, action);
     expect(newState.activeOrders).toEqual(initialState.activeOrders);
   });
+
+
 });
