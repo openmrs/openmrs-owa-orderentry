@@ -35,7 +35,7 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
               return { ...order, status: 'EDIT' };
             }
             return { ...order, status: action.action };
-          } else if (action.action === 'EDIT' || 'DRAFT_EDIT') {
+          } else if (action.action === 'EDIT' || action.action === 'DRAFT_EDIT') {
             if (order.orderNumber === action.orderNumber) {
               return { ...order, status: action.action };
             } else if (order.status === 'EDIT') {
