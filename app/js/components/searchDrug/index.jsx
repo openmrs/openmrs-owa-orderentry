@@ -38,7 +38,7 @@ export class SearchDrug extends React.Component {
         results={this.props.drugSearch.drugs}
         loading={this.props.drugSearch.loading}
         error={this.props.drugSearch.error}
-        value={this.props.value}
+        value={this.props.drugSearch.selected.display || this.props.value}
       />
     );
   }

@@ -23,8 +23,10 @@ describe('Component: SearchDrug: Container', () => {
   beforeEach(() => {
     props = {
       drugSearch: {
+        selected: {},
         drugs: []
       },
+      value: 'paracetamol',
       searchDrug: jest.fn(),
       onChange: jest.fn(),
       onOptionSelected: jest.fn(),
