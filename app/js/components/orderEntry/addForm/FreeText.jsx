@@ -16,8 +16,8 @@ const FreeText = ({
   return (
     <div>
       <form className="simple-form-ui">
-        <div className="grid-row">
-          <div className="column-6">
+        <div className="flex-row">
+          <div>
             <label name="notes">Complete Instructions</label>
             <textarea
               rows="4"
@@ -30,8 +30,8 @@ const FreeText = ({
           </div>
         </div>
         {(careSetting.display === "Outpatient") &&
-          <div className="grid-row">
-            <div className="column-7">
+          <div className="flex-row">
+            <div>
               <label>For outpatient orders </label>
               <p className="left label-margin">
                 <label>Dispense:</label>
@@ -60,7 +60,7 @@ const FreeText = ({
                   name="dispensingUnit"
                   id="drugDispensingUnits"
                   list="dispensingUnits"
-                  size="8"
+                  size="20"
                   value={fields.dispensingUnit}
                   onBlur={handleValidation}
                   onChange={handleChange} />
@@ -81,8 +81,8 @@ const FreeText = ({
             </div>
           </div>}
         <br />
-        <div className="grid-row">
-          <div className="column-1">
+        <div className="flex-row">
+          <div>
             <button
               type="button"
               className="cancel"
