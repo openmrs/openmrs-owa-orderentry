@@ -129,55 +129,56 @@ export class SearchAndAddOrder extends React.Component {
   )
 
   render() {
+    const { outpatientCareSetting, inpatientCareSetting, location } = this.props;
     return (
       <div className="body-wrapper">
         <Tabs>
           <Tab
-            tabName="OutPatient">
+            tabName={outpatientCareSetting.display}>
             {this.renderSearchDrug()}
-            {this.renderAddForm(this.props.outpatientCareSetting)}
-            {this.renderDraftDataTable(this.props.outpatientCareSetting)}
+            {this.renderAddForm(outpatientCareSetting)}
+            {this.renderDraftDataTable(outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 isDelete={this.state.isDelete}
                 onDelete={this.onDelete}
-                tabName="OutPatient"
-                careSetting={this.props.outpatientCareSetting}
-                location={this.props.location}
+                tabName={outpatientCareSetting.display}
+                careSetting={outpatientCareSetting}
+                location={location}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
               />
             </Accordion>
 
             <Accordion title="Past Drug Orders">
               <PastOrders
-                tabName="OutPatient"
-                careSetting={this.props.outpatientCareSetting}
-                location={this.props.location} />
+                tabName="Outpatient"
+                careSetting={outpatientCareSetting}
+                location={location} />
 
               <br />
             </Accordion>
           </Tab>
           <Tab
-            tabName="InPatient">
+            tabName={inpatientCareSetting.display}>
             {this.renderSearchDrug()}
-            {this.renderAddForm(this.props.inpatientCareSetting)}
+            {this.renderAddForm(inpatientCareSetting)}
             {this.renderDraftDataTable(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
                 isDelete={this.state.isDelete}
                 onDelete={this.onDelete}
-                tabName="InPatient"
-                careSetting={this.props.inpatientCareSetting}
-                location={this.props.location}
+                tabName={inpatientCareSetting.display}
+                careSetting={inpatientCareSetting}
+                location={location}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
               />
             </Accordion>
 
             <Accordion title="Past Drug Orders">
               <PastOrders
-                tabName="InPatient"
-                careSetting={this.props.inpatientCareSetting}
-                location={this.props.location} />
+                tabName="Inpatient"
+                careSetting={inpatientCareSetting}
+                location={location} />
             </Accordion>
 
           </Tab>

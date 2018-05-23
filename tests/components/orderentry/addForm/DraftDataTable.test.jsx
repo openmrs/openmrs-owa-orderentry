@@ -15,6 +15,8 @@ const {
   addedOrderError,
   items,
   itemName,
+  freeTextOrder,
+  standardDoseOrder,
 } = mockData;
 
 const props = {
@@ -133,5 +135,26 @@ describe('behaviour when adding an order fails', () => {
     sinon.spy(renderedComponent, 'addDrugOrder');
     renderedComponent.addDrugOrder(event);
     expect(renderedComponent.addDrugOrder.calledOnce).toEqual(true);
+  });
+});
+
+describe('details rendered by draft table', () => {
+  it('should render standard dose draft order details', () => {
+    const newProps = {...props, draftOrders: [standardDoseOrder]};
+    const { drugName, dosingUnit, dose, frequency, route, drugInstructions } = standardDoseOrder;
+    const wrapper = shallow(<DraftDataTable {...newProps} store={store} />);
+    wrapper.instance().showOrders(props.draftOrders);
+    expect(wrapper.find('div').text()).toContain(
+      `${drugName}: ${dose} ${dosingUnit}, ${frequency}, ${route} (${drugInstructions})`
+    );
+  });
+  it('should render free text dose draft order details', () => {
+    const newProps = {...props, draftOrders: [freeTextOrder]};
+    const { drugName, drugInstructions } = standardDoseOrder;
+    const wrapper = shallow(<DraftDataTable {...newProps} store={store} />);
+    wrapper.instance().showOrders(props.draftOrders);
+    expect(wrapper.find('div').text()).toContain(
+      `${drugName}: "${drugInstructions}"`
+    );
   });
 });

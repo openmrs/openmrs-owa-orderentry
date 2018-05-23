@@ -274,7 +274,7 @@ const StandardDose = ({
               className="confirm"
               onClick={handleSubmit}
               disabled={activateSaveButton()}>
-                Save
+                Add
             </button>
           </div>
         </div>
