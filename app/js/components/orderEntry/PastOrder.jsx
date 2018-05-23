@@ -37,7 +37,7 @@ export const PastOrder = (props) => {
   return (
     <tr>
       <td>
-        {format(auditInfo.dateCreated, 'DD-MM-YYYY HH:MM')} {autoExpireDate && `- ${format(autoExpireDate, 'DD-MM-YYYY HH:MM')}`}
+        {format(auditInfo.dateCreated, 'DD-MMM-YYYY HH:MM')} {autoExpireDate && `- ${format(autoExpireDate, 'DD-MMM-YYYY HH:MM')}`}
       </td>
       <td>
         {details}

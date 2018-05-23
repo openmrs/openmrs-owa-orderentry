@@ -191,7 +191,7 @@ export class ActiveOrders extends React.Component {
       return (
         <tr key={uuid} >
           <td>
-            {format(dateActivated, 'MM-DD-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'MM-DD-YYYY HH:mm')}`)}
+            {format(dateActivated, 'DD-MMM-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'DD-MMM-YYYY HH:mm')}`)}
           </td>
           {details}
           <td className="text-center action-padding" >
