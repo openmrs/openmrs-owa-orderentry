@@ -6,7 +6,7 @@ const StandardDose = ({
   fields,
   fieldErrors,
   careSetting,
-  allConfigurations,
+  options,
   handleChange,
   handleValidation,
   activateSaveButton,
@@ -14,8 +14,8 @@ const StandardDose = ({
   handleCancel,
 }) => {
   const {
-    drugDosingUnits, orderFrequencies, drugRoutes, durationUnits, drugDispensingUnits,
-  } = allConfigurations;
+    dosingUnit, frequency, route, durationUnit, dispensingUnit,
+  } = options;
   return (
     <div>
       <form className="simple-form-ui">
@@ -54,12 +54,11 @@ const StandardDose = ({
                 required />
               <datalist id="dosingUnits" >
                 {
-                  drugDosingUnits
-                && drugDosingUnits.map(unit => (
-                  <option
-                    key={unit.uuid}
-                    value={unit.display}
-                  />))
+                  dosingUnit && dosingUnit.map(unit => (
+                    <option
+                      key={unit.uuid}
+                      value={unit.display}
+                    />))
                 }
               </datalist>
               {
@@ -81,13 +80,12 @@ const StandardDose = ({
                 onChange={handleChange} />
               <datalist id="orderFrequencies" >
                 {
-                  orderFrequencies &&
-                orderFrequencies.map(frequency => (
-                  <option
-                    key={frequency.uuid}
-                    value={frequency.display}
-                  />
-                ))
+                  frequency && frequency.map(frequencyOption => (
+                    <option
+                      key={frequencyOption.uuid}
+                      value={frequencyOption.display}
+                    />
+                  ))
                 }
               </datalist>
               {
@@ -109,12 +107,11 @@ const StandardDose = ({
                 onChange={handleChange} />
               <datalist id="routes" >
                 {
-                  drugRoutes &&
-                drugRoutes.map(route => (
-                  <option
-                    key={route.uuid}
-                    value={route.display}
-                  />))
+                  route && route.map(routeOption => (
+                    <option
+                      key={routeOption.uuid}
+                      value={routeOption.display}
+                    />))
                 }
               </datalist>
               {
@@ -171,13 +168,12 @@ const StandardDose = ({
                 onChange={handleChange} />
               <datalist id="durationUnits" >
                 {
-                  durationUnits &&
-                durationUnits.map(unit => (
-                  <option
-                    key={unit.uuid}
-                    value={unit.display}
-                  />
-                ))
+                  durationUnit && durationUnit.map(unit => (
+                    <option
+                      key={unit.uuid}
+                      value={unit.display}
+                    />
+                  ))
                 }
               </datalist>
               {
@@ -240,12 +236,11 @@ const StandardDose = ({
                   onChange={handleChange} />
                 <datalist id="dispensingUnits" >
                   {
-                    drugDispensingUnits &&
-                  drugDispensingUnits.map(unit => (
-                    <option
-                      key={unit.uuid}
-                      value={unit.display}
-                    />))
+                    dispensingUnit && dispensingUnit.map(unit => (
+                      <option
+                        key={unit.uuid}
+                        value={unit.display}
+                      />))
                   }
                 </datalist>
                 {
@@ -287,7 +282,7 @@ StandardDose.propTypes = {
   fields: PropTypes.object.isRequired,
   fieldErrors: PropTypes.object.isRequired,
   careSetting: PropTypes.object.isRequired,
-  allConfigurations: PropTypes.object.isRequired,
+  options: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleValidation: PropTypes.func.isRequired,
   activateSaveButton: PropTypes.func.isRequired,
