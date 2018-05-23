@@ -77,31 +77,34 @@ export class PastOrders extends React.Component {
                   <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
               </tbody>
             </table>
-            <div className="clear">
-              <div className="float-left-padding">
-                {this.props.showResultCount}
-              </div>
-              <div className="dataTables_paginate">
-                <ReactPaginate
-                  pageCount={this.state.pageCount}
-                  pageRangeDisplayed={5}
-                  marginPagesDisplayed={3}
-                  previousLabel="Previous"
-                  nextLabel="Next"
-                  breakClassName="text-align-center"
-                  initialPage={0}
-                  containerClassName="react-paginate-container"
-                  pageLinkClassName="page-link"
-                  activeClassName="active-link"
-                  disabledClassName="active-link"
-                  nextLinkClassName="page-link"
-                  previousLinkClassName="page-link"
-                  onPageChange={this.onPageChange}
-                  forcePage={this.state.pageNumber}
+            {
+              this.props.pageCount !== 1 &&
+                <div className="clear">
+                  <div className="float-left-padding">
+                    {this.props.showResultCount}
+                  </div>
+                  <div className="dataTables_paginate">
+                    <ReactPaginate
+                      pageCount={this.state.pageCount}
+                      pageRangeDisplayed={5}
+                      marginPagesDisplayed={3}
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      breakClassName="text-align-center"
+                      initialPage={0}
+                      containerClassName="react-paginate-container"
+                      pageLinkClassName="page-link"
+                      activeClassName="active-link"
+                      disabledClassName="active-link"
+                      nextLinkClassName="page-link"
+                      previousLinkClassName="page-link"
+                      onPageChange={this.onPageChange}
+                      forcePage={this.state.pageNumber}
                   disableInitialCallback={true} // eslint-disable-line
-                />
-              </div>
-            </div>
+                    />
+                  </div>
+                </div>
+            }
           </div>
           : <p id="no_past_orders">No Past Orders</p>}
         <div />
