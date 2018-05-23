@@ -155,9 +155,14 @@ export class DraftDataTable extends React.Component {
       </p>
     );
 
+    let formattedDetails = details.props.children.join("");
+    if (formattedDetails.length > 155) {
+      formattedDetails = `${formattedDetails.substring(0, 155)}...`;
+    }
+
     const discontinueForm = (
       <div>
-        <p> Discontinue {drugName} </p>
+        <p className="discontinue-drug"><em>{formattedDetails}</em></p>
         <p className="left label-margin">
           <label name="reason">For</label>
         </p>
@@ -197,22 +202,23 @@ export class DraftDataTable extends React.Component {
 
   render() {
     const { draftOrders, handleDiscardAllOrders } = this.props;
-
     return (
       <div className="draft-spacing">
         <h2>Unsaved Draft Orders ({draftOrders.length})</h2>
-        <table className="table bordered mw-958-px">
-          <thead>
-            <tr>
-              <th className="w-120-px">Status</th>
-              <th>Details</th>
-              <th className="w-81-px">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.showOrders(draftOrders)}
-          </tbody>
-        </table>
+        <div className="table-container">
+          <table className="table bordered mw-958-px">
+            <thead>
+              <tr>
+                <th className="w-120-px">Status</th>
+                <th>Details</th>
+                <th className="w-81-px">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.showOrders(draftOrders)}
+            </tbody>
+          </table>
+        </div>
         <br />
         <input
           type="button"
@@ -296,7 +302,7 @@ DraftDataTable.propTypes = {
 };
 
 DraftDataTable.defaultProps = {
-  handleEditDraftOrder: () => {},
+  handleEditDraftOrder: () => { },
   addOrderError: {},
   encounterRole: {},
 };

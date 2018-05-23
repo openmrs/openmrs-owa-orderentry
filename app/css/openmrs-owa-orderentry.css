@@ -324,3 +324,7 @@ body {
     float: left;
     padding-top: 5px;
 }
+
+.table-container {
+    overflow-x: auto;
+}
