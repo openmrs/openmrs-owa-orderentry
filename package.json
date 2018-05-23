@@ -91,24 +91,16 @@
     "yargs": "^4.3.1"
   },
   "scripts": {
-    "coverage": "nyc -all -e .jsx && jest -u",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "rimraf dist && rimraf coverage*",
     "build": "npm run clean && webpack --progress --colors --mode=production --target=web",
     "build:dev": "npm run clean && webpack --progress --colors --mode=dev --target=web",
     "build:prod": "npm run test && npm run build",
     "build:deploy": "webpack --progress --colors --mode=deploy --target=web",
     "watch": "webpack --progress --colors --watch --mode=deploy --target=web",
-    "test": "npm run lint",
-    "test:dev": "npm run lint && jest -u",
+    "test": "npm run lint && jest -u --coverage",
     "test:debug": "karma start",
     "lint": "node_modules/.bin/eslint . --ext .js,.jsx"
-  },
-  "nyc": {
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ]
   },
   "keywords": [
     "OpenMRS",
