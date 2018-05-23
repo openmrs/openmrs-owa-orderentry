@@ -232,7 +232,7 @@ export class AddForm extends React.Component {
     const { editOrder, draftOrder } = this.props;
     this.setState({
       activeTabIndex: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
-      action: editOrder ? 'REVISE' : 'NEW',
+      action: draftOrder.action || editOrder.action,
       previousOrder: editOrder ? editOrder.uuid : null,
       formType: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
       dosingType: draftOrder.dosingType || editOrder.dosingType,
