@@ -5,7 +5,7 @@ const FreeText = ({
   fieldErrors,
   careSetting,
   fields,
-  allConfigurations,
+  options,
   handleChange,
   handleSubmit,
   handleCancel,
@@ -66,14 +66,11 @@ const FreeText = ({
                   onChange={handleChange} />
                 <datalist id="dispensingUnits" >
                   {
-                    allConfigurations &&
-                    (
-                      allConfigurations.drugDispensingUnits &&
-                    allConfigurations.drugDispensingUnits.map(unit =>
-                      (
-                        <option key={unit.uuid} value={unit.display} />
-                      ))
-                    )
+                    options.dispensingUnit &&
+                      options.dispensingUnit.map(unit =>
+                        (
+                          <option key={unit.uuid} value={unit.display} />
+                        ))
                   }
                 </datalist>
                 {
@@ -115,9 +112,7 @@ FreeText.propTypes = {
   handleValidation: PropTypes.func.isRequired,
   activateSaveButton: PropTypes.func.isRequired,
   fields: PropTypes.object.isRequired,
-  allConfigurations: PropTypes.shape({
-    drugDispensingUnits: PropTypes.array,
-  }),
+  options: PropTypes.object,
   handleCancel: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -127,7 +122,7 @@ FreeText.propTypes = {
 };
 
 FreeText.defaultProps = {
-  allConfigurations: {},
+  options: {},
 };
 
 export default FreeText;

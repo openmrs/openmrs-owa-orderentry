@@ -35,6 +35,13 @@ export class AddForm extends React.Component {
     formType: 'Standard Dosage',
     dosingType: '',
     activeTabIndex: 0,
+    options: {
+      dosingUnit: [],
+      frequency: [],
+      route: [],
+      durationUnit: [],
+      dispensingUnit: [],
+    },
   };
 
   componentDidMount() {
@@ -120,6 +127,7 @@ export class AddForm extends React.Component {
     } = this.props.allConfigurations;
     const { name, value } = event.target;
     let item = false;
+    const options = [];
     switch (name) {
       case 'dosingUnit':
         item = drugDosingUnits.filter(unit => unit.display === value).length > 0;
@@ -148,13 +156,49 @@ export class AddForm extends React.Component {
       fieldErrors: {
         ...this.state.fieldErrors, [name]: !item,
       },
+      options: {
+        ...this.state.options, [name]: options,
+      },
     }); }
   }
 
   handleChange = (event) => {
+    const { name, value } = event.target;
+    const {
+      drugDosingUnits, orderFrequencies, drugRoutes, durationUnits, drugDispensingUnits,
+    } = this.props.allConfigurations;
+    let options;
+    if (value) {
+      switch (name) {
+        case 'dosingUnit':
+          options = drugDosingUnits.filter(unit => (
+            unit.display.toLowerCase().indexOf(value.toLowerCase()) === 0));
+          break;
+        case 'frequency':
+          options = orderFrequencies.filter(frequency => (
+            frequency.display.toLowerCase().indexOf(value.toLowerCase()) === 0));
+          break;
+        case 'route':
+          options = drugRoutes.filter(route => (
+            route.display.toLowerCase().indexOf(value.toLowerCase()) === 0));
+          break;
+        case 'dispensingUnit':
+          options = drugDispensingUnits.filter(unit => (
+            unit.display.toLowerCase().indexOf(value.toLowerCase()) === 0));
+          break;
+        case 'durationUnit':
+          options = durationUnits.filter(unit => (
+            unit.display.toLowerCase().indexOf(value.toLowerCase()) === 0));
+          break;
+        default:
+          // does nothing
+      }
+    }
+
     this.setState({
       ...this.state,
-      fields: { ...this.state.fields, [event.target.name]: event.target.value },
+      fields: { ...this.state.fields, [name]: value },
+      options: { ...this.state.options, [name]: options },
     });
   }
 
@@ -264,7 +308,7 @@ export class AddForm extends React.Component {
             careSetting={this.props.careSetting}
             fields={this.state.fields}
             fieldErrors={this.state.fieldErrors}
-            allConfigurations={this.props.allConfigurations}
+            options={this.state.options}
             handleValidation={this.handleValidation}
             activateSaveButton={this.activateSaveButton}
             handleChange={this.handleChange}
@@ -276,7 +320,7 @@ export class AddForm extends React.Component {
           <FreeText
             fields={this.state.fields}
             fieldErrors={this.state.fieldErrors}
-            allConfigurations={this.props.allConfigurations}
+            options={this.state.options}
             handleValidation={this.handleValidation}
             activateSaveButton={this.activateSaveButton}
             handleChange={this.handleChange}

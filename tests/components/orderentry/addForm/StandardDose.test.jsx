@@ -6,7 +6,24 @@ const inpatientProps = {
   fields: {},
   fieldErrors: {},
   careSetting: {display: 'Inpatient'},
-  allConfigurations: {},
+  options: {
+    dosingUnit: [{
+      display: 'milligrams',
+      uuid: 'ABC-56Y',
+    }],
+    frequency: [{
+      display: 'once',
+      uuid: 'ABC-56Y',
+    }],
+    route: [{
+      display: 'oral',
+      uuid: 'ABC-56Y',
+    }],
+    durationUnit: [{
+      display: 'weeks',
+      uuid: 'ABC-56Y',
+    }]
+  },
   handleChange: jest.fn(),
   handleValidation: jest.fn(),
   activateSaveButton: jest.fn(),
@@ -41,6 +58,9 @@ describe('Test for Standard dose form', () => {
     });
     it('form should contain a cancel button', () => {
       expect(wrapper.find('button.cancel').length).toBe(1);
+    });
+    it('should render options if they exist in state', () => {
+      expect(wrapper.find('option')).toHaveLength(4);
     });
     it('inpatient caresetting should not render dispense fields but outpatient should', () => {
       const outpatientWrapper = shallow(<StandardDose {...outpatientProps} />);

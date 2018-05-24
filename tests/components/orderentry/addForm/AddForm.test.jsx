@@ -55,6 +55,14 @@ describe('Test for adding a new drug order', () => {
       it('should not have any errors messages initially', () => {
         expect(wrapper.find('span.field-error').length).toBe(0);
       });
+      it('should not have options initially', () => {
+        expect(wrapper.find('option')).toHaveLength(0);
+      });
+      it('should have options once a user inputs a unit that corresponds to configurations', () => {
+        wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'g'}});
+        expect(wrapper.find('option')).toHaveLength(1);
+
+      });
       describe('Activate and deactivate Confirm button', () => {
         beforeEach(() => {
           wrapper.find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 8}});
