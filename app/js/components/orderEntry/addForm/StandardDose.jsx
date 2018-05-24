@@ -19,8 +19,8 @@ const StandardDose = ({
   return (
     <div>
       <form className="simple-form-ui">
-        <div className="grid-row">
-          <div className="column-10">
+        <div className="flex-row">
+          <div>
             <p className="left p-margin">
               <input
                 className={`small-input ${fieldErrors.dose ? "illegalValue" : ""}`}
@@ -47,7 +47,7 @@ const StandardDose = ({
                 id="drugDosingUnits"
                 name="dosingUnit"
                 list="dosingUnits"
-                size="7"
+                size="20"
                 value={fields.dosingUnit}
                 onBlur={handleValidation}
                 onChange={handleChange}
@@ -74,7 +74,7 @@ const StandardDose = ({
                 id="frequency"
                 name="frequency"
                 list="orderFrequencies"
-                size="20"
+                size="40"
                 value={fields.frequency}
                 onBlur={handleValidation}
                 onChange={handleChange} />
@@ -122,8 +122,8 @@ const StandardDose = ({
             </p>
           </div>
         </div>
-        <div className="grid-row">
-          <div className="column-7">
+        <div className="flex-row">
+          <div>
             <p className="left label-margin">
               <label name="reason">As needed for</label>
             </p>
@@ -133,14 +133,14 @@ const StandardDose = ({
                 placeholder="reason(optional)"
                 id="reason"
                 type="text"
-                size="30"
+                size="35"
                 onChange={handleChange}
                 value={fields.reason} />
             </p>
           </div>
         </div>
-        <div className="grid-row">
-          <div className="column-7">
+        <div className="flex-row">
+          <div>
             <p className="left label-margin">
               <label>For</label>
             </p>
@@ -162,7 +162,7 @@ const StandardDose = ({
                 name="durationUnit"
                 id="drugDurationUnits"
                 list="durationUnits"
-                size="8"
+                size="20"
                 value={fields.durationUnit}
                 onBlur={handleValidation}
                 onChange={handleChange} />
@@ -187,8 +187,8 @@ const StandardDose = ({
             </p>
           </div>
         </div>
-        <div className="grid-row">
-          <div className="column-6">
+        <div className="flex-row">
+          <div>
             <textarea
               rows="2"
               cols="60"
@@ -199,9 +199,9 @@ const StandardDose = ({
               value={fields.drugInstructions} />
           </div>
         </div>
-        { careSetting.display === 'Outpatient' ?
-          <div className="grid-row">
-            <div className="column-7">
+        {careSetting.display === 'Outpatient' ?
+          <div className="flex-row">
+            <div>
               <label>For outpatient orders </label>
               <p className="left label-margin">
                 <label>Dispense:</label>
@@ -230,7 +230,7 @@ const StandardDose = ({
                   name="dispensingUnit"
                   id="drugDispensingUnits"
                   list="dispensingUnits"
-                  size="8"
+                  size="20"
                   value={fields.dispensingUnit}
                   onBlur={handleValidation}
                   onChange={handleChange} />
@@ -253,8 +253,8 @@ const StandardDose = ({
           </div> :
           <br />
         }
-        <div className="grid-row">
-          <div className="column-1">
+        <div className="flex-row">
+          <div>
             <button
               type="button"
               className="cancel"
@@ -263,13 +263,13 @@ const StandardDose = ({
               Cancel
             </button>
           </div>
-          <div className="column-1 pull-right-8">
+          <div className="-1 pull-right-8">
             <button
               type="button"
               className="confirm"
               onClick={handleSubmit}
               disabled={activateSaveButton()}>
-                Add
+              Add
             </button>
           </div>
         </div>
