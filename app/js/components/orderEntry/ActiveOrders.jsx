@@ -177,7 +177,7 @@ export class ActiveOrders extends React.Component {
             </a>
             <a > <i
               className="icon-remove icon-color"
-              title="Delete"
+              title="Discontinue"
               id="delete"
               role="button"
               tabIndex="0"
