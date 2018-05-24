@@ -78,11 +78,13 @@ export class SearchAndAddOrder extends React.Component {
     if (formattedDetails.length > 250) {
       formattedDetails = `${formattedDetails.substring(0, 250)}...`;
     }
+    const editOrder = order;
+    editOrder.action = "REVISE";
     this.setState({
       formattedDetails,
       editDrugUuid: order.drug.uuid,
       editDrugName: order.drug.display,
-      editOrder: order,
+      editOrder,
       orderNumber: order.orderNumber,
     }, () => {
       this.props.setOrderAction('EDIT', order.orderNumber);
