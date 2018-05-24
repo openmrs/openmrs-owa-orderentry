@@ -328,3 +328,16 @@ body {
 .table-container {
     overflow-x: auto;
 }
+
+.revise-order-padding{
+    padding-bottom: 10px
+}
+
+.current-order-color{
+    color: gray
+}
+
+.revised-order-text{
+    color:#02473f;
+    font-size: 20px
+}

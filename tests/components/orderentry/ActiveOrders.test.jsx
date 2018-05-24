@@ -169,6 +169,7 @@ describe('behaviour when status is edit', () => {
             quantityUnits:{display:'drops'},
             durationUnits:{display:'weeks'},
             dosingType: "org.openmrs.FreeTextInstructions",
+            status:'EDIT'
             }
         ],
         loading: false
@@ -184,13 +185,100 @@ describe('behaviour when status is edit', () => {
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
-    wrapper.find('a').find('#edit-drug-orders').simulate('click');
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'showOrders');
+    renderedComponent.showOrders(props.drugOrder.activeOrders);
+    expect(renderedComponent.showOrders.calledOnce).toEqual(true);
     expect(wrapper.find('table').length).toEqual(1);
+  });
+
+  it('should call edit', () => {
+    const props = {
+      handleEditActiveDrugOrder: jest.fn(),
+      activeOrderAction: jest.fn(),
+      addDraftOrder: jest.fn(),
+      onDelete: jest.fn(),
+      setOrderAction: jest.fn(),
+      isDelete: false,
+      drugOrder: {
+        activeOrders: [
+          {
+            drug: { display: 'Morphine'},
+            uuid:'024b1459-f31d-46cb-8ad3-2a624c894e2c',
+            dose:1,
+            quantity:2,
+            duration:2,
+            auditInfo:{dateCreated:'2018-03-20 10:59:22'},
+            drug:{display:'new drug'},
+            doseUnits:{display:'drops'},
+            frequency:{display:'twice a week'},
+            route:{display:'reactally'},
+            quantityUnits:{display:'drops'},
+            durationUnits:{display:'weeks'},
+            dosingType: "org.openmrs.FreeTextInstructions",
+            }
+        ],
+        loading: false
+      },
+      location: {
+        search: {}
+      },
+      careSetting,
+      data,
+    }
+    const mockCallBack = jest.fn();
+    const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
+    wrapper.find('a').find('#edit-drug-orders').simulate('click');
   });
 });
 
 describe('behaviour when status is DISCONTINUE', () => {
   it('should display  <p> will DISCONTINUE </p>', () => {
+    const props = {
+      handleEditActiveDrugOrder: jest.fn(),
+      activeOrderAction: jest.fn(),
+      addDraftOrder: jest.fn(),
+      onDelete: jest.fn(),
+      setOrderAction: jest.fn(),
+      isDelete: true,
+      drugOrder: {
+        activeOrders: [
+          {
+            drug: { display: 'Morphine'},
+            uuid:'024b1459-f31d-46cb-8ad3-2a624c894e2c',
+            dose:1,
+            quantity:2,
+            duration:2,
+            auditInfo:{dateCreated:'2018-03-20 10:59:22'},
+            drug:{display:'new drug'},
+            doseUnits:{display:'drops'},
+            frequency:{display:'twice a week'},
+            route:{display:'reactally'},
+            quantityUnits:{display:'drops'},
+            durationUnits:{display:'weeks'},
+            dosingType: "org.openmrs.FreeTextInstructions",
+            careSetting: {uuid: ''},
+            orderer: {uuid: ''},
+            status:"DISCONTINUE"
+            }
+        ],
+        loading: false
+      },
+      location: {
+        search: {}
+      },
+      careSetting,
+      data,
+      order: {
+        status: 'DISCONTINUE'
+      },
+    }
+    const mockCallBack = jest.fn();
+    const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
+    expect(wrapper.find('table').length).toEqual(1);
+  });
+
+  it('should call delete', () => {
     const props = {
       handleEditActiveDrugOrder: jest.fn(),
       activeOrderAction: jest.fn(),
@@ -224,16 +312,12 @@ describe('behaviour when status is DISCONTINUE', () => {
         search: {}
       },
       careSetting,
-      data,
-      order: {
-        status: 'DISCONTINUE'
-      },
+      data
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
     wrapper.find('a').find('#delete').simulate('click');
-    expect(wrapper.find('table').length).toEqual(1);
-  });
+  })
 });
 
 

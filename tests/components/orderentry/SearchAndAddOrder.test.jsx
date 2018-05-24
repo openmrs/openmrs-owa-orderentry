@@ -74,10 +74,22 @@ describe('clearSearchField() method', () => {
 });
 
 describe('handleEditActiveDrugOrder() method', () => {
+  const details = {
+    props:{
+      children:[
+        `New Drug: (This is a free text edit order This is a free text edit order
+        This is a free text test order This is a free text test order This is a free text test order
+        This is a free text test order This is a free text test order This is a free text test order 
+        This is a free text test order This is a free text test order
+        This is a free text test order This is a free text test order) (Dispense: 1 Nebulizer)`
+      ]
+    }
+  }
   it('should call handleEditActiveDrugOrder()', () => {
     const renderedComponent = getComponent().instance();
     sinon.spy(renderedComponent, 'handleEditActiveDrugOrder');
-    renderedComponent.handleEditActiveDrugOrder(order);
+    renderedComponent.handleEditActiveDrugOrder(order,details);
+    expect(getComponent().state('formattedDetails').length).toBeGreaterThan(250)
     expect(renderedComponent.handleEditActiveDrugOrder.calledOnce).toEqual(true);
     expect(getComponent().state('editDrugUuid')).toEqual("");
     expect(getComponent().state('editDrugName')).toEqual("");
