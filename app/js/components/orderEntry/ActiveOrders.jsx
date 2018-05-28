@@ -189,10 +189,13 @@ export class ActiveOrders extends React.Component {
         );
       }
 
+      const { dateFormat } = this.props;
+
       return (
         <tr key={uuid} >
-          <td className={editClass}>
-            {format(dateActivated, 'DD-MMM-YYYY HH:mm')} {autoExpireDate && (`- ${format(autoExpireDate, 'DD-MMM-YYYY HH:mm')}`)}
+          <td id="table-font" className={editClass}>
+            {format(dateActivated, dateFormat)}
+            {autoExpireDate && (`- ${format(autoExpireDate, dateFormat)}`)}
           </td>
           {details}
           <td className="text-center action-padding" >
@@ -289,6 +292,7 @@ ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
   activeOrderAction: PropTypes.func.isRequired,
+  dateFormat: PropTypes.string.isRequired,
   addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

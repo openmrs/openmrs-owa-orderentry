@@ -6,6 +6,7 @@ import SearchAndAddOrder from './SearchAndAddOrder';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
+import { getDateFormat } from '../../actions/dateFormat';
 import imageLoader from '../../../img/loading.gif';
 
 export class OrderEntryPage extends React.Component {
@@ -13,12 +14,18 @@ export class OrderEntryPage extends React.Component {
     this.props.fetchPatientCareSetting();
     this.props.getSettingEncounterType();
     this.props.getSettingEncounterRole();
+    this.props.getDateFormat('default');
   }
 
   render() {
-    const { settingEncounterRoleReducer, settingEncounterTypeReducer } = this.props;
+    const {
+      settingEncounterRoleReducer,
+      settingEncounterTypeReducer,
+      dateFormatReducer,
+    } = this.props;
     const { settingEncounterType, error } = settingEncounterTypeReducer;
     const { settingEncounterRole, roleError } = settingEncounterRoleReducer;
+    const { dateFormat, error: dateError } = dateFormatReducer;
 
     if (!(this.props.outpatientCareSetting && this.props.inpatientCareSetting)) {
       return (
@@ -78,6 +85,33 @@ export class OrderEntryPage extends React.Component {
       );
     }
 
+    if (dateFormat === null || dateError) {
+      return (
+        <div className="error-notice">
+          <p>
+            Configuration for <strong>orderentryowa.dateAndTimeFormat</strong> {dateError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Please contact your administrator for more information.
+          </p>
+          <p>
+            As an Administrator,&nbsp;
+            {
+              dateError === 'incomplete config' ?
+                <span>
+                  please ensure that you have created a valid <strong>date and time format</strong>.
+                </span> :
+                <span>
+                  ensure that you have created a setting called
+                  <strong>orderentryowa.dateAndTimeFormat</strong>
+                  &nbsp;
+                  with a corresponding value of the date format,
+                   e.g. <strong>DD-MM-YYYY HH:mm</strong>.
+                </span>
+            }
+          </p>
+        </div>
+      );
+    }
+
     return (
       <div>
         <PatientDashboard {...this.props} />
@@ -114,8 +148,13 @@ OrderEntryPage.propTypes = {
     isLoading: PropTypes.bool,
     settingEncounterRole: PropTypes.string,
   }),
+  dateFormatReducer: PropTypes.shape({
+    dateFormat: PropTypes.string,
+    error: PropTypes.string,
+  }),
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
+  getDateFormat: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -123,14 +162,17 @@ OrderEntryPage.defaultProps = {
   outpatientCareSetting: null,
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
+  dateFormatReducer: null,
 };
 
 const mapStateToProps = ({
   careSettingReducer: { outpatientCareSetting, inpatientCareSetting },
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
+  dateFormatReducer,
 }) => ({
   outpatientCareSetting,
+  dateFormatReducer,
   inpatientCareSetting,
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
@@ -140,6 +182,7 @@ const actionCreators = {
   fetchPatientCareSetting,
   getSettingEncounterType,
   getSettingEncounterRole,
+  getDateFormat,
 };
 
 export default connect(mapStateToProps, actionCreators)(OrderEntryPage);
