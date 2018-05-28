@@ -14,6 +14,7 @@ export class PastOrders extends React.Component {
       limit: 10,
       startIndex: 0,
       pageNumber: 0,
+      sort: 'desc',
     };
     this.onPageChange = this.onPageChange.bind(this);
   }
@@ -47,7 +48,13 @@ export class PastOrders extends React.Component {
 
     const query = new URLSearchParams(this.props.location.search);
     const patientUuid = query.get('patient');
-    this.props.getPastOrders(limit, startIndex, patientUuid, props.careSetting.uuid);
+    this.props.getPastOrders(
+      limit,
+      startIndex,
+      patientUuid,
+      props.careSetting.uuid,
+      this.state.sort,
+    );
   }
 
   render() {
