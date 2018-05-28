@@ -101,10 +101,10 @@ export class OrderEntryPage extends React.Component {
                 </span> :
                 <span>
                   ensure that you have created a setting called
-                  <strong>orderentryowa.dateAndTimeFormat</strong>
+                  <strong> orderentryowa.dateAndTimeFormat</strong>
                   &nbsp;
                   with a corresponding value of the date format,
-                   e.g. <strong>DD-MM-YYYY HH:mm</strong>.
+                   e.g. <strong>DD-MMM-YYYY HH:mm</strong>.
                 </span>
             }
           </p>
