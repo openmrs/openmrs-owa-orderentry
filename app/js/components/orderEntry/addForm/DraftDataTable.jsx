@@ -188,9 +188,16 @@ export class DraftDataTable extends React.Component {
           }
         </td>
         <td>
-          <a id="edit-draft-order" href="#" onClick={() => handleEditDraftOrder(order)}>
-            <i className="icon-edit" title="Edit" />
-          </a>
+          {action === "DISCONTINUE" ?
+            <a href="#" className="disabled">
+              <i className="icon-edit" />
+            </a>
+            :
+            <a id="edit-draft-order" href="#" onClick={() => handleEditDraftOrder(order)}>
+              <i className="icon-edit" title="Edit" />
+            </a>
+          }
+         
           <a id="discard-draft-order" href="#" onClick={() => handleDiscardOneOrder(order)}>
             <i className="icon-remove" title="Discard" />
           </a>
