@@ -26,8 +26,12 @@ describe('`Tabs` component', () => {
     });
 
     it('should change the content when active index changes', () => {
-        const careSetting = jest.fn();
-        const wrapper = mount(<Tabs defaultActiveTabIndex={1} careSetting={careSetting}>
+        const props = {
+            careSetting : jest.fn(),
+            closeFormsOnTabChange: jest.fn(),
+            clearSearchField: jest.fn(),
+        }
+        const wrapper = mount(<Tabs defaultActiveTabIndex={1} {...props}>
             <div tabName="tab 1"><p>Content 1</p></div>
             <div tabName="tab 2"><p>Content 2</p></div>
             <div tabname="tab 3"><p>Content 3</p></div>

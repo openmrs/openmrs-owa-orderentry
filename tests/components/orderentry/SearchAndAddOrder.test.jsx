@@ -118,6 +118,15 @@ describe('handleEditDraftOrder() method', () => {
   });
 });
 
+describe('closeFormsOnTabChange() method', () => {
+  it('should call closeFormsOnTabChange()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'closeFormsOnTabChange');
+    renderedComponent.closeFormsOnTabChange();
+    expect(renderedComponent.closeFormsOnTabChange.calledOnce).toEqual(true);
+  });
+});
+
 
 const setup = () => {
   const wrapper = shallow(<SearchAndAddOrder {...props} store={store} />);
@@ -137,7 +146,7 @@ describe('handleDiscardAllOrders', () => {
     const { wrapper } = setup();
 
     wrapper.instance().handleDiscardAllOrders();
-    expect(props.deleteAllDraftOrders.mock.calls.length).toEqual(1);
+    expect(props.deleteAllDraftOrders.mock.calls.length).toEqual(2);
   });
 });
 

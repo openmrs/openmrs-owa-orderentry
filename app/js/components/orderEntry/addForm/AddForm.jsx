@@ -48,7 +48,10 @@ export class AddForm extends React.Component {
     this.props.getOrderEntryConfigurations();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.careSetting.display !== this.props.careSetting.display) {
+      this.clearDrugForms();
+    }
     return (
       Object.keys(this.props.draftOrder).length ||
       Object.keys(this.props.editOrder).length
@@ -208,9 +211,9 @@ export class AddForm extends React.Component {
     this.props.clearSearchField();
     this.props.setOrderAction('DISCARD_ONE', this.props.orderNumber);
   }
-
   clearDrugForms = () => {
     this.setState({
+      action: 'NEW',
       fields: {
         dose: '',
         dosingUnit: '',
@@ -218,13 +221,25 @@ export class AddForm extends React.Component {
         route: '',
         duration: '',
         durationUnit: '',
-        dispensingUnit: '',
         dispensingQuantity: '',
+        dispensingUnit: '',
         reason: '',
         drugInstructions: '',
       },
-      action: 'NEW',
       previousOrder: null,
+      fieldErrors: {
+      },
+      orderNumber: 0,
+      formType: 'Standard Dosage',
+      dosingType: '',
+      activeTabIndex: 0,
+      options: {
+        dosingUnit: [],
+        frequency: [],
+        route: [],
+        durationUnit: [],
+        dispensingUnit: [],
+      },
     });
   }
 

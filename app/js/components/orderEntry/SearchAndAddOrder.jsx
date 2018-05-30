@@ -91,6 +91,12 @@ export class SearchAndAddOrder extends React.Component {
     });
   }
 
+  closeFormsOnTabChange = () => {
+    this.clearSearchField();
+    this.props.selectDrugSuccess();
+    this.props.deleteAllDraftOrders();
+  }
+
   renderSearchDrug = () => (
     this.state.editDrugName ?
       <p className="revise-order-padding">
@@ -136,7 +142,9 @@ export class SearchAndAddOrder extends React.Component {
     const { outpatientCareSetting, inpatientCareSetting, location } = this.props;
     return (
       <div className="body-wrapper">
-        <Tabs>
+        <Tabs
+          closeFormsOnTabChange={this.closeFormsOnTabChange}
+        >
           <Tab
             tabName={outpatientCareSetting.display}>
             {this.renderSearchDrug()}
