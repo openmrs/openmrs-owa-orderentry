@@ -20,7 +20,6 @@ export class SearchAndAddOrder extends React.Component {
     editDrugUuid: '',
     editDrugName: '',
     editOrder: {},
-    isDelete: false,
     draftOrder: {},
   };
 
@@ -38,10 +37,6 @@ export class SearchAndAddOrder extends React.Component {
     }));
   }
 
-  onDelete = (event) => {
-    this.setState({ isDelete: event });
-  }
-
   handleDiscardOneOrder = (order) => {
     this.props.deleteDraftOrder(order);
     if (order.action === 'REVISE') {
@@ -52,10 +47,8 @@ export class SearchAndAddOrder extends React.Component {
   }
 
   handleDiscardAllOrders = () => {
-    this.setState({ isDelete: false }, () => {
-      this.props.deleteAllDraftOrders();
-      this.props.setOrderAction('DISCARD_ALL', '0');
-    });
+    this.props.deleteAllDraftOrders();
+    this.props.setOrderAction('DISCARD_ALL', '0');
   }
 
   clearSearchField = () => {
@@ -129,7 +122,7 @@ export class SearchAndAddOrder extends React.Component {
   );
 
   renderDraftDataTable = careSetting => (
-    (this.state.isDelete || this.props.draftOrders.length > 0) &&
+    (this.props.draftOrders.length > 0) &&
     <DraftDataTable
       draftOrders={this.props.draftOrders}
       handleDiscardOneOrder={this.handleDiscardOneOrder}
@@ -151,8 +144,6 @@ export class SearchAndAddOrder extends React.Component {
             {this.renderDraftDataTable(outpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
-                isDelete={this.state.isDelete}
-                onDelete={this.onDelete}
                 tabName={outpatientCareSetting.display}
                 careSetting={outpatientCareSetting}
                 location={location}
@@ -176,8 +167,6 @@ export class SearchAndAddOrder extends React.Component {
             {this.renderDraftDataTable(this.props.inpatientCareSetting)}
             <Accordion open title="Active Drug Orders">
               <ActiveOrders
-                isDelete={this.state.isDelete}
-                onDelete={this.onDelete}
                 tabName={inpatientCareSetting.display}
                 careSetting={inpatientCareSetting}
                 location={location}

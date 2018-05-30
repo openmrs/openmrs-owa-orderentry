@@ -1,6 +1,7 @@
 import React from 'react';
 
 import connectedSearchAndAddOrder, {SearchAndAddOrder} from '../../../app/js/components/orderEntry/SearchAndAddOrder';
+import ConnectedDraftTable from '../../../app/js/components/orderEntry/addForm/DraftDataTable';
 
 const { order } = mockData;
 const props = {
@@ -123,15 +124,6 @@ const setup = () => {
   return { wrapper }
 }
 
-describe('onDelete', () => {
-  it('should change event', () => {
-    const event = true
-    const { wrapper } = setup();
-
-    wrapper.instance().onDelete(event);
-  });
-});
-
 describe('handleDiscardOneOrder', () => {
   it('should be called on discarding one draft order', () => {
     const { wrapper } = setup();
@@ -153,5 +145,58 @@ describe('Test for Searching and Adding an order', () => {
   it('should render component', () => {
     const wrapper = setup();
     expect(wrapper).toMatchSnapshot();
+  });
+});
+
+describe('behaviour when the length of the unsaved draft orders table is more than zero', () => {
+  it('should render a DraftDataTable if length of draftOrders is not zero ', () => {
+    const propsOne = {
+      outpatientCareSetting:{
+        uuid:{}
+      },
+      inpatientCareSetting: {
+        uuid: {}
+      },
+      getPastOrders: jest.fn(),
+      draftOrders: [],
+      setOrderAction: jest.fn(),
+      location:{
+        search:()=>{}
+      },
+      order,
+      selectDrugSuccess: jest.fn(),
+      fetchInpatientCareSetting: jest.fn(),
+      fetchOutpatientCareSetting: jest.fn(),
+      deleteDraftOrder: jest.fn(),
+      deleteAllDraftOrders: jest.fn(),
+      drug: "abc-e345-thed-uuid2345",
+    };
+    const wrapperOne = shallow(<SearchAndAddOrder {...propsOne} store={store} />);
+    const propsTwo = {
+      outpatientCareSetting:{
+        uuid:{}
+      },
+      inpatientCareSetting: {
+        uuid: {}
+      },
+      getPastOrders: jest.fn(),
+      draftOrders: [
+        {dose: '', doseUnits: ''}
+      ],
+      setOrderAction: jest.fn(),
+      location:{
+        search:()=>{}
+      },
+      order,
+      selectDrugSuccess: jest.fn(),
+      fetchInpatientCareSetting: jest.fn(),
+      fetchOutpatientCareSetting: jest.fn(),
+      deleteDraftOrder: jest.fn(),
+      deleteAllDraftOrders: jest.fn(),
+      drug: "abc-e345-thed-uuid2345",
+    };
+    const wrapperTwo = shallow(<SearchAndAddOrder {...propsTwo} store={store} />);
+    expect(wrapperOne.find(ConnectedDraftTable) === wrapperTwo.find(ConnectedDraftTable)).toEqual(false);
+
   });
 });
