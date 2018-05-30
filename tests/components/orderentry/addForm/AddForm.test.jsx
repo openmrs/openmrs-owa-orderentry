@@ -247,7 +247,7 @@ describe('handleSubmitDrugForm() method', () => {
     expect(getComponent().state('draftOrder')).toEqual({
       action: "NEW",
       careSetting: undefined,
-      dosingType: "org.openmrs.FreeTextDosingInstructions",
+      dosingType: "org.openmrs.SimpleDosingInstructions",
       drug: "AJJJKW7378JHJ",
       drugName: "Paracentamol",
       orderNumber: 1,
@@ -265,5 +265,19 @@ describe('handleSubmitDrugForm() method', () => {
       reason: "",
       route: "",
     });
+  });
+});
+
+describe('componentWillReceiveProps()', () => {
+  it('does not call clearDrugForms when props is the same', () => {
+      const renderedComponent = getComponent().instance();
+      getComponent().setProps({ careSetting: { display: 'Inpatient' } })
+      expect(renderedComponent.clearDrugForms.calledOnce).toEqual(false);
+
+      getComponent().setProps({ careSetting: { display: 'Inpatient' } })
+      const props1 = getComponent().props();
+      getComponent().setProps({ careSetting: { display: 'Outpatient' } })
+      const props2 = getComponent().props();
+      expect(props1 !== props2).toEqual(true);
   });
 });
