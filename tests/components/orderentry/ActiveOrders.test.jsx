@@ -28,6 +28,7 @@ const props = {
       quantityUnits:{display:'drops'},
       durationUnits:{display:'weeks'},
       dosingType: "org.openmrs.SimpleDosingInstructions",
+      dosingInstructions: '3 tabs'
       }
     ],
     loading: false

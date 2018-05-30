@@ -76,7 +76,6 @@ export class ActiveOrders extends React.Component {
         orderNumber,
       },
     }, () => {
-      this.props.onDelete(true);
       this.props.setOrderAction('DISCONTINUE', orderNumber);
       this.props.addDraftOrder(this.state.draftOrder);
     });
@@ -163,7 +162,7 @@ export class ActiveOrders extends React.Component {
         showStatus = (
           <p> will REVISE </p>
         );
-      } else if (this.props.isDelete && status === 'DISCONTINUE') {
+      } else if (status === 'DISCONTINUE') {
         showStatus = (
           <p> will DISCONTINUE </p>
         );
@@ -291,8 +290,6 @@ ActiveOrders.propTypes = {
   activeOrderAction: PropTypes.func.isRequired,
   addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  isDelete: PropTypes.bool.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
     activeOrders: PropTypes.arrayOf(PropTypes.shape({})),
