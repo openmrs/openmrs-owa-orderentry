@@ -155,6 +155,7 @@ export default {
   },
   drug: {},
   auditInfo: {},
+  dateActivated: '',
   order: {
     uuid: '',
     drugName: { drug: { display: '' } },

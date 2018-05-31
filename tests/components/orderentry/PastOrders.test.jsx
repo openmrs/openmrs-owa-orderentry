@@ -18,7 +18,7 @@ const props={
       dose:1,
       quantity:2,
       duration:2,
-      auditInfo:{dateCreated:'2018-03-20 10:59:22'},
+      dateActivated:'2018-May-20 10:59',
       drug:{display:'new drug'},
       doseUnits:{display:'drops'},
       frequency:{display:'twice a week'},
