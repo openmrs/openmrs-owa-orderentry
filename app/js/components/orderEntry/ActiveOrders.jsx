@@ -223,7 +223,7 @@ export class ActiveOrders extends React.Component {
         <table className="table bordered mw-958-px">
           <thead>
             <tr>
-              <th className="w-145-px">Date</th>
+              <th className="w-155-px">Date</th>
               <th>Details</th>
               <th className="w-81-px">Actions</th>
             </tr>
