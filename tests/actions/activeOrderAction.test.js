@@ -22,7 +22,8 @@ describe('Active order actions', () => {
   it('should fetch active orders successfully', async (done) => {
     const { defaultpatientActiveOrder } = mockData;
     let request = moxios.requests.mostRecent();
-    moxios.stubRequest(`${apiBaseUrl}/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
+
+    moxios.stubRequest(`${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
       status: 200,
       response: defaultpatientActiveOrder
     });
@@ -41,7 +42,7 @@ describe('Active order actions', () => {
 
   it('should dispatch FETCH_ACTIVE_ORDER_ERROR', async (done) => {
     const store = mockStore({});
-    moxios.stubRequest(`${apiBaseUrl}/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
+    moxios.stubRequest(`${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
         status: 404,
         error: {
             response: "Not found"

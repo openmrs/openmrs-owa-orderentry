@@ -30,9 +30,9 @@ const pastOrderResultCount = pastOrdersResultCount => ({
   pastOrdersResultCount,
 });
 
-export const getPastOrders = (limit, startIndex, patientUuid, careSetting) => (dispatch) => {
+export const getPastOrders = (limit, startIndex, patientUuid, careSetting, sort = 'desc') => (dispatch) => {
   dispatch(loading('LOAD_PAST_ORDERS', true));
-  return axiosInstance.get(`/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&status=inactive&t=drugorder&v=full`)
+  return axiosInstance.get(`/order?totalCount=true&sort=${sort}&status=inactive&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`)
     .then((response) => {
       const { results, totalCount } = response.data;
       const pageCount = Math.ceil(totalCount / limit);

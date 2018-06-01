@@ -18,9 +18,9 @@ export const activeOrderActionError = error => ({
   error,
 });
 
-export const activeOrderAction = (limit, startIndex, patientUuid, careSetting) => (dispatch) => {
+export const activeOrderAction = (limit, startIndex, patientUuid, careSetting, sort = 'desc') => (dispatch) => {
   dispatch(loading('FETCH_ACTIVE_ORDER', true));
-  return axiosInstance.get(`/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
+  return axiosInstance.get(`/order?totalCount=true&sort=${sort}&status=active&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`, {
   })
     .then((response) => {
       const { results, totalCount } = response.data;

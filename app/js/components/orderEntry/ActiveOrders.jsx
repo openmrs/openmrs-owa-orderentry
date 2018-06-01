@@ -18,6 +18,7 @@ export class ActiveOrders extends React.Component {
       limit: 10,
       startIndex: 0,
       pageNumber: 0,
+      sort: 'desc',
     };
     this.onPageChange = this.onPageChange.bind(this);
   }
@@ -97,7 +98,7 @@ export class ActiveOrders extends React.Component {
     const query = new URLSearchParams(location.search);
     const patientUuid = query.get('patient');
     const caresettingUuid = careSetting.uuid;
-    this.props.activeOrderAction(limit, startIndex, patientUuid, caresettingUuid);
+    this.props.activeOrderAction(limit, startIndex, patientUuid, caresettingUuid, this.state.sort);
   }
 
   showOrders = activeOrders => activeOrders

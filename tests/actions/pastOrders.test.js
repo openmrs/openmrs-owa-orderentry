@@ -16,7 +16,8 @@ describe('Past order actions', () => {
 
   it('should fetch past orders successfully', async (done) => {
     const { pastOrders } = mockData;
-    const url = `${apiBaseUrl}/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&status=inactive&t=drugorder&v=full`;
+    const url = `${apiBaseUrl}/order?totalCount=true&sort=desc&status=inactive&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`;
+
     let request = moxios.requests.mostRecent();
     moxios.stubRequest(url,
       {
@@ -36,7 +37,7 @@ describe('Past order actions', () => {
 
   it('should respond to an error from the api call', async (done) => {
     const { pastOrders } = mockData;
-    const url = `${apiBaseUrl}/order?totalCount=true&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&status=inactive&t=drugorder&v=full`;
+    const url = `${apiBaseUrl}/order?totalCount=true&sort=desc&status=inactive&limit=${limit}&startIndex=${startIndex}&careSetting=${careSetting}&patient=${patientUuid}&t=drugorder&v=full`;
     let request = moxios.requests.mostRecent();
     moxios.stubRequest(url,
       {
