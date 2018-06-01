@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 export const PastOrder = (props) => {
   const {
-    drug, dosingType, action, auditInfo, dose, doseUnits, frequency,
+    drug, dosingType, action, dose, doseUnits, frequency,
     route, duration, durationUnits, dosingInstructions,
-    quantityUnits, autoExpireDate, quantity, dateFormat,
+    quantityUnits, dateStopped, autoExpireDate, quantity, dateActivated, dateFormat,
   } = props;
 
   let details;
@@ -37,8 +37,8 @@ export const PastOrder = (props) => {
   return (
     <tr>
       <td>
-        {format(auditInfo.dateCreated, dateFormat)} {autoExpireDate &&
-           `- ${format(autoExpireDate, dateFormat)}`}
+        {format(dateActivated, dateFormat)}
+        {(dateStopped || autoExpireDate) && `- ${format((dateStopped || autoExpireDate), dateFormat)}`}
       </td>
       <td>
         {details}
@@ -50,7 +50,6 @@ export const PastOrder = (props) => {
 PastOrder.propTypes = {
   drug: PropTypes.shape({}).isRequired,
   action: PropTypes.string.isRequired,
-  auditInfo: PropTypes.shape({}).isRequired,
   dateFormat: PropTypes.string.isRequired,
   dosingType: PropTypes.string,
   dose: PropTypes.number,
@@ -62,6 +61,8 @@ PastOrder.propTypes = {
   dosingInstructions: PropTypes.string,
   quantityUnits: PropTypes.shape({}),
   autoExpireDate: PropTypes.string,
+  dateActivated: PropTypes.string,
+  dateStopped: PropTypes.string,
   quantity: PropTypes.number,
 };
 
@@ -76,6 +77,8 @@ PastOrder.defaultProps = {
   dosingInstructions: '',
   quantityUnits: null,
   autoExpireDate: '',
+  dateActivated: '',
+  dateStopped: '',
   quantity: null,
 };
 
