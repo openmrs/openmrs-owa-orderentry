@@ -101,4 +101,8 @@ export default {
     encounterRole: {},
     error: null,
   },
+  dateFormatReducer: {
+    dateFormat: '',
+    error: null,
+  },
 };

@@ -139,7 +139,9 @@ export class SearchAndAddOrder extends React.Component {
   )
 
   render() {
-    const { outpatientCareSetting, inpatientCareSetting, location } = this.props;
+    const {
+      outpatientCareSetting, inpatientCareSetting, location, dateFormat,
+    } = this.props;
     return (
       <div className="body-wrapper">
         <Tabs
@@ -155,6 +157,7 @@ export class SearchAndAddOrder extends React.Component {
                 tabName={outpatientCareSetting.display}
                 careSetting={outpatientCareSetting}
                 location={location}
+                dateFormat={dateFormat}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
               />
             </Accordion>
@@ -163,6 +166,7 @@ export class SearchAndAddOrder extends React.Component {
               <PastOrders
                 tabName="Outpatient"
                 careSetting={outpatientCareSetting}
+                dateFormat={dateFormat}
                 location={location} />
 
               <br />
@@ -178,6 +182,7 @@ export class SearchAndAddOrder extends React.Component {
                 tabName={inpatientCareSetting.display}
                 careSetting={inpatientCareSetting}
                 location={location}
+                dateFormat={dateFormat}
                 handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
               />
             </Accordion>
@@ -186,6 +191,7 @@ export class SearchAndAddOrder extends React.Component {
               <PastOrders
                 tabName="Inpatient"
                 careSetting={inpatientCareSetting}
+                dateFormat={dateFormat}
                 location={location} />
             </Accordion>
 
@@ -201,11 +207,13 @@ const mapStateToProps = ({
   { inpatientCareSetting, outpatientCareSetting },
   drugSearchReducer,
   draftTableReducer: { draftOrders },
+  dateFormatReducer: { dateFormat },
 }) => ({
   inpatientCareSetting,
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders,
+  dateFormat,
 });
 
 SearchAndAddOrder.defaultProps = {
@@ -222,6 +230,7 @@ SearchAndAddOrder.propTypes = {
     PropTypes.string,
   ]),
   draftOrders: PropTypes.arrayOf(PropTypes.any),
+  dateFormat: PropTypes.string.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,

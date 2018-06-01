@@ -10,6 +10,7 @@ const props={
       replace:()=>{}
     }
   },
+  dateFormat: 'DD-MMM-YYYY HH:mm',
   pastOrders:{
     loading:false,
     pastOrders:[{

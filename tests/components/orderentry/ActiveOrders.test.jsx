@@ -33,6 +33,7 @@ const props = {
     ],
     loading: false
   },
+  dateFormat: 'DD-MMM-YYYY HH:mm',
   location: {
     search: {}
   },

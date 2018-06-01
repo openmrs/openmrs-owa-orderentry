@@ -17,6 +17,7 @@ const props = {
   location:{
     search:()=>{}
   },
+  dateFormat: 'DD-MMM-YYYY HH:mm',
   order,
   selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
@@ -80,7 +81,7 @@ describe('handleEditActiveDrugOrder() method', () => {
       children:[
         `New Drug: (This is a free text edit order This is a free text edit order
         This is a free text test order This is a free text test order This is a free text test order
-        This is a free text test order This is a free text test order This is a free text test order 
+        This is a free text test order This is a free text test order This is a free text test order
         This is a free text test order This is a free text test order
         This is a free text test order This is a free text test order) (Dispense: 1 Nebulizer)`
       ]
@@ -135,9 +136,17 @@ const setup = () => {
 
 describe('handleDiscardOneOrder', () => {
   it('should be called on discarding one draft order', () => {
+    const order2 = {
+      uuid: '',
+      drugName: { drug: { display: '' } },
+      action: 'DISCONTINUE',
+      dose: '',
+      dosingUnit: '',
+      orderNumber: '',
+    };
     const { wrapper } = setup();
-    
-    wrapper.instance().handleDiscardOneOrder(order);
+
+    wrapper.instance().handleDiscardOneOrder(order2);
   });
 });
 

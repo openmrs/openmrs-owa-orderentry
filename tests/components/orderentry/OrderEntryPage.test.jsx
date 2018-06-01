@@ -19,6 +19,7 @@ describe('Test for Order entry page when order.encounterType is set', () => {
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -26,6 +27,10 @@ describe('Test for Order entry page when order.encounterType is set', () => {
       settingEncounterRoleReducer: {
         settingEncounterRole: 'Admin role',
         roleError: '',
+      },
+      dateFormatReducer: {
+        dateFormat: 'DD-MMM-YYYY HH:mm',
+        error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' }
@@ -59,6 +64,7 @@ describe('Test for Order entry page when order.encounterType is not set', () => 
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -66,6 +72,10 @@ describe('Test for Order entry page when order.encounterType is not set', () => 
       settingEncounterRoleReducer: {
         settingEncounterRole: 'Admin role',
         roleError: '',
+      },
+      dateFormatReducer: {
+        dateFormat: 'DD-MMM-YYYY HH:mm',
+        error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' }
@@ -96,6 +106,7 @@ describe('Test for Order entry page when order.encounterRole is set', () => {
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -103,6 +114,10 @@ describe('Test for Order entry page when order.encounterRole is set', () => {
       settingEncounterRoleReducer: {
         settingEncounterRole: 'Admin role',
         roleError: '',
+      },
+      dateFormatReducer: {
+        dateFormat: 'DD-MMM-YYYY HH:mm',
+        error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' }
@@ -126,6 +141,7 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -133,6 +149,10 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
       settingEncounterRoleReducer: {
         settingEncounterRole: '',
         roleError: 'error error',
+      },
+      dateFormatReducer: {
+        dateFormat: 'DD-MMM-YYYY HH:mm',
+        error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' }
@@ -149,6 +169,77 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
     expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
+
+describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set', () => {
+  beforeEach(() => {
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: 'Admin role',
+        roleError: '',
+      },
+      dateFormatReducer: {
+        dateFormat: 'DD-MMM-YYYY HH:mm',
+        error: '',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
+  });
+
+  it('should render SearchAndAddOrder Component ', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
+  });
+  it('should not show error', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(0);
+  });
+});
+
+describe('Test for Order entry page when order.encounterRole is not set', () => {
+  beforeEach(() => {
+    props = {
+      fetchPatientCareSetting: jest.fn(),
+      getSettingEncounterType: jest.fn(),
+      getSettingEncounterRole: jest.fn(),
+      getDateFormat: jest.fn(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: 'order type',
+        error: '',
+      },
+      settingEncounterRoleReducer: {
+        settingEncounterRole: 'Admin role',
+        roleError: '',
+      },
+      dateFormatReducer: {
+        dateFormat: '',
+        error: 'incomplete config',
+      },
+      outpatientCareSetting: { uuid: '5677666' },
+      inpatientCareSetting: { uuid: '6766667' }
+    };
+    mountedComponent = undefined;
+  });
+
+  it('should not render SearchAndAddOrder Component ', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
+  });
+  it('should show error', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    expect(mountedComponent.find('div.error-notice').length).toBe(1);
+  });
+});
+
 
 describe('Connected OrderEntryPage component', () => {
   it('component successfully rendered', () => {

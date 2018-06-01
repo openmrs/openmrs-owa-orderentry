@@ -6,7 +6,7 @@ export const PastOrder = (props) => {
   const {
     drug, dosingType, action, auditInfo, dose, doseUnits, frequency,
     route, duration, durationUnits, dosingInstructions,
-    quantityUnits, autoExpireDate, quantity,
+    quantityUnits, autoExpireDate, quantity, dateFormat,
   } = props;
 
   let details;
@@ -37,7 +37,8 @@ export const PastOrder = (props) => {
   return (
     <tr>
       <td>
-        {format(auditInfo.dateCreated, 'DD-MMM-YYYY HH:MM')} {autoExpireDate && `- ${format(autoExpireDate, 'DD-MMM-YYYY HH:MM')}`}
+        {format(auditInfo.dateCreated, dateFormat)} {autoExpireDate &&
+           `- ${format(autoExpireDate, dateFormat)}`}
       </td>
       <td>
         {details}
@@ -50,6 +51,7 @@ PastOrder.propTypes = {
   drug: PropTypes.shape({}).isRequired,
   action: PropTypes.string.isRequired,
   auditInfo: PropTypes.shape({}).isRequired,
+  dateFormat: PropTypes.string.isRequired,
   dosingType: PropTypes.string,
   dose: PropTypes.number,
   doseUnits: PropTypes.shape({}),

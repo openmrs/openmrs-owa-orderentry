@@ -74,7 +74,11 @@ export class PastOrders extends React.Component {
               </thead>
               <tbody>
                 {pastOrders.map(pastOrder =>
-                  <PastOrder key={pastOrder.uuid} {...pastOrder} />)}
+                  (<PastOrder
+                    dateFormat={this.props.dateFormat}
+                    key={pastOrder.uuid}
+                    {...pastOrder}
+                  />))}
               </tbody>
             </table>
             {
@@ -129,6 +133,7 @@ PastOrders.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+  dateFormat: PropTypes.string.isRequired,
   showResultCount: PropTypes.string,
   tabName: PropTypes.string.isRequired,
   pageCount: PropTypes.number,
