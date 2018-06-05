@@ -1,0 +1,18 @@
+{
+  "package": {
+    "name": "openmrs-owa-orderentryui",
+    "repo": "owa",
+    "subject": "openmrs"
+  },
+  "version": {
+    "name": "1.0.0-beta",
+    "released": "2018-06-05"
+  },
+  "files": [
+    {
+      "includePattern": "./(.*\\.zip)",
+      "uploadPattern": "$1"
+    }
+  ],
+  "publish": true
+}
