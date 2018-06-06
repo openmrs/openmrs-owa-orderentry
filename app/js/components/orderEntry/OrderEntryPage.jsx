@@ -17,6 +17,18 @@ export class OrderEntryPage extends React.Component {
     this.props.getDateFormat('default');
   }
 
+  moreInformation = () => (
+    <p>Please click&nbsp;
+      <a
+        href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide"
+        rel="noopener noreferrer"
+        target="_blank"
+      >here
+      </a>
+      &nbsp;for more information
+    </p>
+  )
+
   render() {
     const {
       settingEncounterRoleReducer,
@@ -47,14 +59,16 @@ export class OrderEntryPage extends React.Component {
             {
               error === 'incomplete config' ?
                 <span>
-                  please ensure that you have created a valid <strong>encounter type</strong>.
+                  please ensure that you have created a valid<strong> encounter type </strong>.
                 </span> :
                 <span>
-                  ensure that you have created a setting called<strong>order.encounterType</strong>
+                  ensure that you have created a setting called
+                  <strong> order.encounterType</strong>
                   &nbsp;
-                  with a value corresponding to a valid encounter type.
+                  with a value corresponding to a valid encounter type. e.g <em>order entry</em>
                 </span>
             }
+            {this.moreInformation()}
           </p>
         </div>
       );
@@ -64,7 +78,7 @@ export class OrderEntryPage extends React.Component {
       return (
         <div className="error-notice">
           <p>
-            Configuration for <strong>order.encounterRole</strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Configuration for<strong> order.encounterRole </strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
             Please contact your administrator for more information.
           </p>
           <p>
@@ -72,14 +86,16 @@ export class OrderEntryPage extends React.Component {
             {
               roleError === 'incomplete config' ?
                 <span>
-                  please ensure that you have created a valid <strong>encounter role</strong>.
+                  please ensure that you have created a valid<strong> encounter role </strong>.
                 </span> :
                 <span>
-                  ensure that you have created a setting called<strong>order.encounterRole</strong>
+                  ensure that you have created a setting called
+                  <strong> order.encounterRole</strong>
                   &nbsp;
-                  with a value corresponding to the encounter type above.
+                  with a value corresponding to the encounter role above. e.g <em>Clinician</em>
                 </span>
             }
+            {this.moreInformation()}
           </p>
         </div>
       );
