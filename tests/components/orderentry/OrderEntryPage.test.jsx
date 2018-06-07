@@ -33,7 +33,8 @@ describe('Test for Order entry page when order.encounterType is set', () => {
         error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });
@@ -78,7 +79,8 @@ describe('Test for Order entry page when order.encounterType is not set', () => 
         error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });
@@ -120,7 +122,8 @@ describe('Test for Order entry page when order.encounterRole is set', () => {
         error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });
@@ -155,7 +158,8 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
         error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });
@@ -190,7 +194,8 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
         error: '',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });
@@ -225,7 +230,8 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
         error: 'incomplete config',
       },
       outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' }
+      inpatientCareSetting: { uuid: '6766667' },
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
   });

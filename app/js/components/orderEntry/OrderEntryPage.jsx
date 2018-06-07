@@ -30,6 +30,9 @@ export class OrderEntryPage extends React.Component {
   )
 
   render() {
+    const query = new URLSearchParams(this.props.location.search);
+    const patientUuid = query.get('patient');
+
     const {
       settingEncounterRoleReducer,
       settingEncounterTypeReducer,
@@ -130,13 +133,32 @@ export class OrderEntryPage extends React.Component {
 
     return (
       <div>
-        <PatientDashboard {...this.props} />
-        <SearchAndAddOrder
-          outpatientCareSetting={this.props.outpatientCareSetting}
-          inpatientCareSetting={this.props.inpatientCareSetting}
-          location={this.props.location}
-        />
-      </div >
+        {
+          patientUuid ?
+            <div>
+              <PatientDashboard {...this.props} />
+              <SearchAndAddOrder
+                outpatientCareSetting={this.props.outpatientCareSetting}
+                inpatientCareSetting={this.props.inpatientCareSetting}
+                location={this.props.location}
+              />
+            </div> :
+            <div className="error-notice">
+              {`A valid patient uuid is required to view this page,
+              please navigate to this page from the Clinician facing dashboard page 
+              or append a valid patient id "?patient=patient_uuid" to your url.`}
+              <p>Please click&nbsp;
+                <a
+                  href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >here
+                </a>
+                &nbsp;for more information
+              </p>
+            </div>
+        }
+      </div>
     );
   }
 }
