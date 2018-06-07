@@ -42,6 +42,9 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
               return { ...order, status: 'NONE' };
             }
           } else if (action.action === 'DRAFT') {
+            if (order.status === 'DRAFT_EDIT' || order.status === 'DISCONTINUE') {
+              return { ...order, status: order.status };
+            }
             return { ...order, status: action.action };
           } else if (action.action === 'DISCONTINUE') {
             if (order.orderNumber === action.orderNumber) {
@@ -54,8 +57,9 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
           } else if (action.action === 'DISCARD_EDIT') {
             if (order.status === 'DISCONTINUE') {
               return { ...order, status: 'DISCONTINUE' };
+            } if (order.orderNumber === action.orderNumber) {
+              return { ...order, status: action.action };
             }
-            return { ...order, status: action.action };
           }
           return order;
         }),

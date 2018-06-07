@@ -113,6 +113,23 @@ describe('Active Order Reducer', () => {
     expect(newState.activeOrders[0].status).toEqual(action.action);
   });
 
+  it('should set order status to DRAFT_EDIT', () => {
+    const initialState = {
+      activeOrders: [{
+        status: 'DRAFT_EDIT',
+        drugName: 'panadol',
+        orderNumber: '3'
+      }]
+    };
+
+    const action = {
+      type: SET_ORDER_ACTION,
+      action: 'DRAFT',
+    };
+    const newState = activeOrderReducer(initialState, action);
+    expect(newState.activeOrders[0].status).toEqual(initialState.activeOrders[0].status);
+  });
+
   it('should set the DISCARD_ONE order action', () => {
     const initialState = {
       activeOrders: [{
