@@ -47,7 +47,7 @@ export class OrderEntryPage extends React.Component {
       );
     }
 
-    if (settingEncounterType.length === 0 || error) {
+    if (!settingEncounterType || settingEncounterType.length === 0 || error) {
       return (
         <div className="error-notice">
           <p>
@@ -74,7 +74,7 @@ export class OrderEntryPage extends React.Component {
       );
     }
 
-    if (settingEncounterRole.length === 0 || roleError) {
+    if (!settingEncounterRole || settingEncounterRole.length === 0 || roleError) {
       return (
         <div className="error-notice">
           <p>
