@@ -48,6 +48,27 @@ describe('Get date and time format actions', () => {
     done();
   });
 
+  it('should dispatch a default date and time format successfuly', async (done) => {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+      status: 200,
+      response: {
+        results: []
+      }
+    });
+
+    const expectedActions = {
+      GET_DATE_SUCCESS,
+      dateFormat: 'DD-MMM-YYYY HH:mm',
+    }
+
+    const store = mockStore({});
+
+    await store.dispatch(getDateFormat(value), () => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+    done();
+  });
+
   it('should dispatch getting date and time format successfuly with empty value', async (done) => {
     moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
       status: 200,

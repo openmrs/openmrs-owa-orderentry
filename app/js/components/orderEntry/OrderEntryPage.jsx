@@ -105,24 +105,14 @@ export class OrderEntryPage extends React.Component {
       return (
         <div className="error-notice">
           <p>
-            Configuration for <strong>orderentryowa.dateAndTimeFormat</strong> {dateError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
-            Please contact your administrator for more information.
+            Configuration for <strong>orderentryowa.dateAndTimeFormat</strong> is incomplete.
           </p>
           <p>
             As an Administrator,&nbsp;
-            {
-              dateError === 'incomplete config' ?
-                <span>
-                  please ensure that you have created a valid <strong>date and time format</strong>.
-                </span> :
-                <span>
-                  ensure that you have created a setting called
-                  <strong> orderentryowa.dateAndTimeFormat</strong>
-                  &nbsp;
-                  with a corresponding value of the date format,
-                   e.g. <strong>DD-MMM-YYYY HH:mm</strong>.
-                </span>
-            }
+            <span>
+              please ensure that you have created a valid <strong>date and time format</strong>,
+              with a corresponding value, for example: <strong>DD-MMM-YYYY HH:mm</strong>.
+            </span>
           </p>
         </div>
       );
