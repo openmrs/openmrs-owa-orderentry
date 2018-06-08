@@ -61,6 +61,7 @@ export class AddForm extends React.Component {
   handleFormTabs = (tabIndex) => {
     this.setState({
       activeTabIndex: tabIndex,
+      fieldErrors: {},
     });
   }
 
