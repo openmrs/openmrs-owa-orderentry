@@ -8,9 +8,10 @@
 
 This repository contains the openmrs-owa-orderentry OpenMRS Open Web App.
 
-> The OpenMRS Order Entry UI is an application to support drug orders through UI
+> The OpenMRS Order Entry UI is an application to support (drug) orders through UI
 For further documentation about OpenMRS Open Web Apps see
-[the wiki page](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module).
+[Open Web App Wiki](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module)
+[Order Entry UI OWA wiki](https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide?src=contextnavchildmode).
 
 ## Development
 
@@ -67,21 +68,21 @@ npm run watch
 ```
 ### Production Build
 
-You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
+You will need NodeJS 6+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
 
 Once you have NodeJS installed, install the dependencies (first time only):
 
-```sh
+```
 npm install
 ```
 
 Build the distributable using [Webpack](https://webpack.github.io/) as follows:
 
-````sh
+````
 npm run build:prod
 ````
 
-This will create a file called `openmrs-owa-orderentry.zip` file in the `dist` directory,
+This will create a file called `openmrs-owa-orderentry.zip` file in the root directory,
 which can be uploaded to the OpenMRS Open Web Apps module.
 
 ### Local Deploy
@@ -92,22 +93,21 @@ To deploy directly to your local Open Web Apps directory, run:
 npm run build:deploy
 ````
 
-This will build and deploy the app to the `/Users/name/openmrs-standalone-2.4/appdata/owa`
-directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` entry in
-`config.json`. If this file does not exists, create one in the root directory
-that looks like:
+This will build and deploy the app to the `/Users/name/openmrs-standalone-2.4/appdata/owa` directory.  
+To change the deploy directory, edit the `LOCAL_OWA_FOLDER` entry in `config.json`. 
+If this file does not exists, create one in the root directory that looks like:
 
 ```js
 {
   "LOCAL_OWA_FOLDER": "/Users/name/openmrs-standalone-2.4/appdata/owa"
 }
 ```
+Note: This could be different depending on your installed version and install location.
 
 ### Live Reload
 
 To use [Browersync](https://www.browsersync.io/) to watch your files and reload
-the page, inject CSS or synchronize user actions across browser instances, you
-will need the `APP_ENTRY_POINT` entry in your `config.json` file:
+the page, inject CSS or synchronize user actions across browser instances, you will need the `APP_ENTRY_POINT` entry in your `config.json` file:
 
 ```js
 {
@@ -125,7 +125,7 @@ npm run watch
 
 Install [npm](http://npmjs.com/) packages dependencies as follows:
 
-````sh
+````
 npm install --save <package>
 ````
 
@@ -169,8 +169,7 @@ Before using the Order Entry Open Web Application, the administrator should make
 4. Create a setting `order.encounterRole` whose value should correspond to the name given to the encounter role created in 3 above.
 5. Create a date format, setting `orderentryowa.dateAndTimeFormat` as the name, with a value of the date format, e.g. `DD-MMM-YYYY HH:mm`, in the global properties
 
-
-**NB:** Not having any of the above configurations will result into an error notice.
+**NB:** Not having any of the above configurations will result into an error notice. Please check more information [here](https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide)
 
 ## Releasing
 
