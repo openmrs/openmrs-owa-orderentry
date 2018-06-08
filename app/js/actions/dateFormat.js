@@ -17,11 +17,14 @@ export const getDateFormatFailure = error => ({
 export const getDateFormat = value => dispatch =>
   axiosInstance.get(`systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`)
     .then(({ data: { results } }) => {
-      if (results.length > 0 && results[0].value === null) {
-        throw Error("incomplete config");
+      if (!results.length) {
+        const DATE_FORMAT = 'DD-MMM-YYYY HH:mm';
+        dispatch(getDateFormatSuccess(DATE_FORMAT));
+      } else if (results.length && results[0].value === null) {
+        throw Error('incomplete config');
+      } else {
+        dispatch(getDateFormatSuccess(results[0].value));
       }
-
-      dispatch(getDateFormatSuccess(results[0].value));
     })
     .catch((error) => {
       dispatch(getDateFormatFailure(error.message));
