@@ -62,8 +62,15 @@ export class SearchAndAddOrder extends React.Component {
 
   handleEditDraftOrder = (order) => {
     this.props.selectDrugSuccess(order.drug);
-    this.setState({ draftOrder: order });
-    this.handleDiscardOneOrder(order);
+    this.setState({
+      draftOrder: order,
+      editDrugUuid: order.drug,
+      editDrugName: order.drugName,
+      orderNumber: order.orderNumber,
+    }, () => {
+      this.props.setOrderAction('EDIT', order.orderNumber);
+    });
+    this.props.deleteDraftOrder(order);
   }
 
   handleEditActiveDrugOrder = (order, details) => {
