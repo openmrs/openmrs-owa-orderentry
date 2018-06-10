@@ -108,7 +108,7 @@ export class OrderEntryPage extends React.Component {
       return (
         <div className="error-notice">
           <p>
-            Configuration for <strong>orderentryowa.dateAndTimeFormat</strong> is incomplete.
+            Configuration for <strong>order.dateTimeFormat</strong> is incomplete.
           </p>
           <p>
             As an Administrator,&nbsp;

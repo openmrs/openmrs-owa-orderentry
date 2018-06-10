@@ -167,7 +167,7 @@ Before using the Order Entry Open Web Application, the administrator should make
 2. Create a setting `order.encounterType` whose value should correspond to the name given to the Encounter Type created above.
 3. Create an Encounter Role called `Clinician` or any other name.
 4. Create a setting `order.encounterRole` whose value should correspond to the name given to the encounter role created in 3 above.
-5. Create a date format, setting `orderentryowa.dateAndTimeFormat` as the name, with a value of the date format, e.g. `DD-MMM-YYYY HH:mm`, in the global properties
+5. Create a date format, setting `order.dateTimeFormat` as the name, with a value of the date format, e.g. `DD-MMM-YYYY HH:mm`, in the global properties
 
 **NB:** Not having any of the above configurations will result into an error notice. Please check more information [here](https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide)
 

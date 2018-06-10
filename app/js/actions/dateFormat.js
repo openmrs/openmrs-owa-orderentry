@@ -15,7 +15,7 @@ export const getDateFormatFailure = error => ({
 });
 
 export const getDateFormat = value => dispatch =>
-  axiosInstance.get(`systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`)
+  axiosInstance.get(`systemsetting?v=${value}&q=order.dateTimeFormat`)
     .then(({ data: { results } }) => {
       if (!results.length) {
         const DATE_FORMAT = 'DD-MMM-YYYY HH:mm';

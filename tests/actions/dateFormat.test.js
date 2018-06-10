@@ -23,7 +23,7 @@ describe('Get date and time format actions', () => {
   const value = 'default';
 
   it('should dispatch getting date and time format successfuly', async (done) => {
-    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=order.dateTimeFormat`, {
       status: 200,
       response: {
         results: [
@@ -49,7 +49,7 @@ describe('Get date and time format actions', () => {
   });
 
   it('should dispatch a default date and time format successfuly', async (done) => {
-    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=order.dateTimeFormat`, {
       status: 200,
       response: {
         results: []
@@ -70,7 +70,7 @@ describe('Get date and time format actions', () => {
   });
 
   it('should dispatch getting date and time format successfuly with empty value', async (done) => {
-    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=order.dateTimeFormat`, {
       status: 200,
       response: {
         results: [
@@ -97,7 +97,7 @@ describe('Get date and time format actions', () => {
   });
 
   it('should throw an error when given an empty value', async (done) => {
-    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=order.dateTimeFormat`, {
       status: 200,
       response: {
         results: [
@@ -118,7 +118,7 @@ describe('Get date and time format actions', () => {
   });
 
   it('should dispatch error when gettig fate and time format fails', async (done) => {
-    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=orderentryowa.dateAndTimeFormat`, {
+    moxios.stubRequest(`${apiBaseUrl}/systemsetting?v=${value}&q=order.dateTimeFormat`, {
       status: 401,
       error: {
         message: "User not logged in"
