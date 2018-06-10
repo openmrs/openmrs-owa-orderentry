@@ -174,7 +174,7 @@ describe('Test for Order entry page when order.encounterRole is not set', () => 
   });
 });
 
-describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set', () => {
+describe('Test for Order entry page when order.dateTimeFormat is set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
