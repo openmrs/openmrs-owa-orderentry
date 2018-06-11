@@ -54,7 +54,7 @@ export class OrderEntryPage extends React.Component {
       return (
         <div className="error-notice">
           <p>
-            Configuration for <strong>order.encounterType</strong> {error === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Configuration for <strong>orderentryowa.encounterType</strong> {error === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
             Please contact your administrator for more information.
           </p>
           <p>
@@ -66,7 +66,7 @@ export class OrderEntryPage extends React.Component {
                 </span> :
                 <span>
                   ensure that you have created a setting called
-                  <strong> order.encounterType</strong>
+                  <strong> orderentryowa.encounterType</strong>
                   &nbsp;
                   with a value corresponding to a valid encounter type. e.g <em>order entry</em>
                 </span>
@@ -81,7 +81,7 @@ export class OrderEntryPage extends React.Component {
       return (
         <div className="error-notice">
           <p>
-            Configuration for<strong> order.encounterRole </strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
+            Configuration for<strong> orderentryowa.encounterRole </strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
             Please contact your administrator for more information.
           </p>
           <p>
@@ -93,7 +93,7 @@ export class OrderEntryPage extends React.Component {
                 </span> :
                 <span>
                   ensure that you have created a setting called
-                  <strong> order.encounterRole</strong>
+                  <strong> orderentryowa.encounterRole</strong>
                   &nbsp;
                   with a value corresponding to the encounter role above. e.g <em>Clinician</em>
                 </span>

@@ -20,7 +20,7 @@ export const settingEncounterTypeFailure = error => ({
 
 export const getSettingEncounterType = () => (dispatch) => {
   dispatch(loading('SETTING_ENCOUNTER_TYPE', true));
-  return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterType`)
+  return axiosInstance.get(`systemsetting?v=custom:(value)&q=orderentryowa.encounterType`)
     .then((response) => {
       if (response.data.results.length === 0) {
         throw Error("config not found");

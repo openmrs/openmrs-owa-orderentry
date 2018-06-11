@@ -24,7 +24,7 @@ const NotFoundException = message => ({
 
 export const getSettingEncounterRole = () => (dispatch) => {
   dispatch(loading('SETTING_ENCOUNTER_ROLE', true));
-  return axiosInstance.get(`systemsetting?v=custom:(value)&q=order.encounterRole`)
+  return axiosInstance.get(`systemsetting?v=custom:(value)&q=orderentryowa.encounterRole`)
     .then((response) => {
       if (response.data.results.length > 0) {
         const { value } = response.data.results[0];
