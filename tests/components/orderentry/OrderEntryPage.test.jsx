@@ -13,7 +13,7 @@ const getComponent = () => {
   return mountedComponent;
 };
 
-describe('Test for Order entry page when order.encounterType is set', () => {
+describe('Test for Order entry page when orderentryowa.encounterType is set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
@@ -59,7 +59,7 @@ describe('Test for Order entry page when order.encounterType is set', () => {
   });
 });
 
-describe('Test for Order entry page when order.encounterType is not set', () => {
+describe('Test for Order entry page when orderentryowa.encounterType is not set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
@@ -102,7 +102,7 @@ describe('Test for Order entry page when order.encounterType is not set', () => 
   });
 });
 
-describe('Test for Order entry page when order.encounterRole is set', () => {
+describe('Test for Order entry page when orderentryowa.encounterRole is set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
@@ -138,7 +138,7 @@ describe('Test for Order entry page when order.encounterRole is set', () => {
   });
 });
 
-describe('Test for Order entry page when order.encounterRole is not set', () => {
+describe('Test for Order entry page when orderentryowa.encounterRole is not set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
@@ -210,7 +210,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
   });
 });
 
-describe('Test for Order entry page when order.encounterRole is not set', () => {
+describe('Test for Order entry page when orderentryowa.encounterRole is not set', () => {
   beforeEach(() => {
     props = {
       fetchPatientCareSetting: jest.fn(),
