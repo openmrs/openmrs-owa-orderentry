@@ -18,12 +18,13 @@ const BreadCrumb = props => (
     </li>
     <li>
       <i className="icon-chevron-right link" />
-      Drug Orders
+      {props.currentOrderTypeText}
     </li>
   </ul>
 );
 
 BreadCrumb.propTypes = {
+  currentOrderTypeText: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   patientId: PropTypes.number,
 };

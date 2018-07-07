@@ -1,5 +1,5 @@
 import React from 'react';
-import { PastOrders } from '../../../app/js/components/orderEntry/PastOrders';
+import { PastOrders } from '../../../app/js/components/drugOrderEntry/PastOrders';
 
 const { data } = mockData;
 

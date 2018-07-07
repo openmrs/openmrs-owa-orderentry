@@ -1,5 +1,5 @@
 import React from 'react';
-import PastOrder from '../../../app/js/components/orderEntry/PastOrder';
+import PastOrder from '../../../app/js/components/drugOrderEntry/PastOrder';
 
 const { drug, dateActivated } = mockData;
 const props = {
