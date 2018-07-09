@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DrugOrderEntry from '../drugOrderEntry';
 import * as orderTypes from './orderTypes';
+import LabEntryForm from '../labOrderEntry/LabEntryForm';
 
 const RenderOrderType = (props) => {
   switch (props.currentOrderTypeID) {
     case orderTypes.LAB_ORDER.id: {
-      return (<h1>The Lab Order entry should appear here</h1>);
+      return (
+        <div className="body-wrapper">
+          <LabEntryForm />
+        </div>
+      );
     }
     case orderTypes.DRUG_ORDER.id: {
       return (
