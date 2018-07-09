@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FreeText from '../../../../app/js/components/orderEntry/addForm/FreeText';
+import FreeText from '../../../../app/js/components/drugOrderEntry/addForm/FreeText';
 
 const props = {
   activateSaveButton: jest.fn(),

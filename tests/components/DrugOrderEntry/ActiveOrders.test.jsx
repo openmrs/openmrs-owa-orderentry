@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ActiveOrders } from '../../../app/js/components/orderEntry/ActiveOrders';
-import { AddForm } from '../../../app/js/components/orderEntry/addForm/AddForm';
+import { ActiveOrders } from '../../../app/js/components/drugOrderEntry/ActiveOrders';
+import { AddForm } from '../../../app/js/components/drugOrderEntry/addForm/AddForm';
 
 const { data, careSetting, order } = mockData;
 

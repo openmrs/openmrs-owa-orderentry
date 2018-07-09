@@ -1,7 +1,7 @@
 import React from 'react';
 import DosageTab from '../../../app/js/components/tabs/DosageTab'
-import StandardDose from '../../../app/js/components/orderEntry/addForm/StandardDose'
-import FreeText from '../../../app/js/components/orderEntry/addForm/FreeText'
+import StandardDose from '../../../app/js/components/drugOrderEntry/addForm/StandardDose'
+import FreeText from '../../../app/js/components/drugOrderEntry/addForm/FreeText'
 
 describe('Dosage Tab component', () => {
     const props = {

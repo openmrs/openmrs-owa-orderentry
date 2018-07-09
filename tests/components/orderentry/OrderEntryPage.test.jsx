@@ -1,6 +1,7 @@
 import React from 'react';
 import ConnectedOrderEntryPage, { OrderEntryPage } from '../../../app/js/components/orderEntry/OrderEntryPage';
-import SearchAndAddOrder from '../../../app/js/components/orderEntry/SearchAndAddOrder';
+import * as orderTypes from '../../../app/js/components/orderEntry/orderTypes';
+import DrugOrderEntry from '../../../app/js/components/drugOrderEntry';
 
 let props;
 
@@ -48,14 +49,17 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div img').length).toBe(1);
   });
-
-  it('should render SearchAndAddOrder Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
-  });
   it('should not show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
+  });
+  it('should switch the order type in the state', () => {
+    const component =  shallow(<OrderEntryPage {...props} />);
+    const componentInstance = component.instance();
+    const orderTypesAsArray = Object.values(orderTypes);
+    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
+    componentInstance.switchOrderType(orderTypesAsArray[1]);
+    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[1]);
   });
 });
 
@@ -84,13 +88,13 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
     };
     mountedComponent = undefined;
   });
-  it('should not render SearchAndAddOrder Component ', () => {
+  it('should not render DrugOrderEntry Component ', () => {
     props.settingEncounterTypeReducer = {
       settingEncounterType: '',
       error: 'Property can not be found',
     }
     mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
+    expect(mountedComponent.find(DrugOrderEntry).length).toBe(0);
   });
   it('should show error', () => {
     props.settingEncounterTypeReducer = {
@@ -128,10 +132,6 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
     mountedComponent = undefined;
   });
 
-  it('should render SearchAndAddOrder Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
-  });
   it('should not show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
@@ -164,9 +164,9 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
     mountedComponent = undefined;
   });
 
-  it('should not render SearchAndAddOrder Component ', () => {
+  it('should not render DrugOrderEntry Component ', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
+    expect(mountedComponent.find(DrugOrderEntry).length).toBe(0);
   });
   it('should show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
@@ -198,11 +198,6 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       location: {search: '?patient=esere_shbfidfb_343ffd'}
     };
     mountedComponent = undefined;
-  });
-
-  it('should render SearchAndAddOrder Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(1);
   });
   it('should not show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
@@ -236,9 +231,9 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
     mountedComponent = undefined;
   });
 
-  it('should not render SearchAndAddOrder Component ', () => {
+  it('should not render DrugOrderEntry Component ', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
-    expect(mountedComponent.find(SearchAndAddOrder).length).toBe(0);
+    expect(mountedComponent.find(DrugOrderEntry).length).toBe(0);
   });
   it('should show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);

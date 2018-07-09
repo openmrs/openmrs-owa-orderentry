@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddForm from './addForm/AddForm';
-import PastOrders from '../orderEntry/PastOrders';
+import PastOrders from './PastOrders';
 import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
 import Accordion from '../accordion';

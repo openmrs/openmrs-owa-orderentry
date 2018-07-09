@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AddForm } from '../../../../app/js/components/orderEntry/addForm/AddForm';
+import { AddForm } from '../../../../app/js/components/drugOrderEntry/addForm/AddForm';
 
 const { draftOrders, draftOrder, editOrder, formType, session } = mockData;
 

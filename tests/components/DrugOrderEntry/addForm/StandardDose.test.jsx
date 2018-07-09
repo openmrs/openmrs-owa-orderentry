@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StandardDose from '../../../../app/js/components/orderEntry/addForm/StandardDose';
+import StandardDose from '../../../../app/js/components/drugOrderEntry/addForm/StandardDose';
 
 const inpatientProps = {
   fields: {},

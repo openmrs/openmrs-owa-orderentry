@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ConnectedDraftTable, { DraftDataTable } from '../../../../app/js/components/orderEntry/addForm/DraftDataTable';
+import ConnectedDraftTable, { DraftDataTable } from '../../../../app/js/components/drugOrderEntry/addForm/DraftDataTable';
 
 const {
   encounterRole,

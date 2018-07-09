@@ -33,6 +33,7 @@ export class Dashboard extends React.Component {
         <BreadCrumb
           name={`${this.props.patient.person.personName.familyName}. ${this.props.patient.person.personName.givenName}`}
           patientId={this.props.patient.patientId}
+          currentOrderTypeText={this.props.currentOrderTypeText}
         />
         <View
           patient={this.props.patient}
@@ -56,6 +57,7 @@ const actionCreators = {
 };
 
 Dashboard.propTypes = {
+  currentOrderTypeText: PropTypes.string.isRequired,
   fetchPatientNote: PropTypes.func.isRequired,
   fetchPatientRecord: PropTypes.func.isRequired,
   location: PropTypes.shape().isRequired,
