@@ -367,6 +367,84 @@ a.disabled {
     outline: none;
 }
 
-.order-type-button.active {
-    border: 2px solid #009384;
+.active {
+    border: 2px solid #009384 !important;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+a.button:hover {
+  background-color: #D3D3D3 !important;
+}
+
+.button, button{
+    outline: none;
+}
+
+.lab-form-wrapper{
+  display: flex
+}
+
+.lab-category{
+  display: inline;
+}
+
+.lab-category > ul li a{
+  text-transform: capitalize;
+  width: 150px;
+  display: block;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+  padding: .5rem 2rem;
+  background: rgb(255, 255, 255);
+  border-top: 1px solid #EBEBEB;
+  border-left: 1px solid #EBEBEB;
+  border-right: 1px solid #EBEBEB;
+  position: relative;
+  outline: none;
+}
+
+.lab-category > ul li:last-child a{
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.lab-category > ul li a:hover{
+  background: #D3D3D3;
+  transition: all 200ms ease-in-out;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+}
+
+.lab-form{
+  padding: 0rem 2rem;
+}
+
+.active-category{
+  background: #D3D3D3 !important;
+}
+
+.active-category:before{
+  content: ' ';
+  position: absolute;
+  right: -1px;
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #FFF;
+}
+
+.fieldset{
+    margin-bottom: 10px;
+}
+
+.lab-tests-btn{
+    width: 150px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }

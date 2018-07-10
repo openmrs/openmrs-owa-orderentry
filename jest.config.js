@@ -5,7 +5,7 @@ module.exports = {
     '/templates/',
     '/tests/mocks',
     '/tests/setup.js',
-    '/app/js/openmrs-owa-orderemtry.jsx'
+    'app/js/openmrs-owa-orderentry.jsx'
   ],
   collectCoverage: true,
   collectCoverageFrom: [
