@@ -7,8 +7,8 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 import { combineReducers } from 'redux';
-import { reducers as openmrsReducers } from '@openmrs/react-components';
-import { reducer as reduxFormReducer } from 'redux-form';
+import { reducers as openmrsReducers } from '@openmrs/react-components'; // eslint-disable-line
+import { reducer as reduxFormReducer } from 'redux-form'; // eslint-disable-line
 import pastOrdersReducer from "./pastOrdersReducer";
 import locationReducer from './locationReducer';
 import noteReducer from './noteReducer';
@@ -28,6 +28,7 @@ import draftLabOrderReducer from './draftLabOrderReducer';
 import labOrderableReducer from './labOrders/labOrderableReducer';
 import labConceptsReducer from './labOrders/labConceptsReducer';
 import fetchLabOrderReducer from './labOrders/fetchLabOrderReducer';
+import createLabOrderReducer from './createLabOrderReducer';
 
 export default combineReducers({
   openmrs: openmrsReducers,
@@ -51,4 +52,5 @@ export default combineReducers({
   labOrderableReducer,
   labConceptsReducer,
   fetchLabOrderReducer,
+  createLabOrderReducer,
 });

@@ -9,6 +9,9 @@ props = {
   ],
   panelTests: [],
   toggleDraftLabOrdersUgency: jest.fn(),
+  disableCancelButton: true,
+  disableSaveButton: true,
+  handleSubmit: jest.fn(),
 };
 
 const getComponent = () => {

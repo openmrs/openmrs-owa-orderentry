@@ -12,14 +12,19 @@ let mountedComponent;
 
 props = {
   draftLabOrders: [
-    { id: 1, test: 'Hemoglobin' },
-    { id: 2, test: 'Hematocrit' },
-    { id: 3, test: 'blood' },
+    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
+    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
+    { id: 3, test: 'blood', concept: '12746hfgjff' },
   ],
   defaultTests: [
-    { id: 1, test: 'Hemoglobin' },
-    { id: 2, test: 'Hematocrit' },
-    { id: 3, test: 'blood' },
+    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
+    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
+    { id: 3, test: 'blood', concept: '12746hfgjff' },
+  ],
+  selectedTests: [
+    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
+    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
+    { id: 3, test: 'blood', concept: '12746hfgjff' },
   ],
   selectedLabPanels: [panelData[0]],
   dispatch: jest.fn(),
@@ -36,23 +41,49 @@ props = {
         }
       },
     ],
-  }
+  },
+  createLabOrder: jest.fn(() => {}),
+  createLabOrderReducer: {
+    status: {
+      error: false,
+      added: true,
+    },
+    labOrderData: {},
+  },
+  session: {
+    currentProvider: {
+      uuid: 'jfhfhiu77474',
+    },
+  },
+  patient: {
+    uuid: 'jfgfhfgf',
+  },
+  encounterType: {
+    uuid: 'fhhfgfh9998',
+  },
+  inpatientCareSetting: {
+    uuid: 'ifffy9847464',
+  },
+  encounterRole: {
+    uuid: '1234trrrrr',
+  },
 };
 
 const mockTest = testsData[0];
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<LabEntryForm {...props} />);
+    mountedComponent = mount(<LabEntryForm {...props} />);
   }
   return mountedComponent;
 };
 
-const mockPanel = { id: 1, tests: [
-  { id: 4, test: 'liver' },
-  { id: 5, test: 'sickling' },
-  { id: 6, test: 'prothrombin' },
-] };
+const mockPanel = {
+  id: 1,
+  tests: [{ id: 4, test: 'liver' }, { id: 5, test: 'sickling' }, { id: 6, test: 'prothrombin' }],
+};
+
+const mockSingleTest = mockTest[0];
 
 describe('Component: LabEntryForm', () => {
   beforeEach(() => {
@@ -65,6 +96,10 @@ describe('Component: LabEntryForm', () => {
       draftLabOrderReducer: { draftLabOrders: {} },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
+      openmrs: { session: {} },
+      encounterRoleReducer: { encounterRole: {} },
+      encounterReducer: { encounterType: {} },
+      careSettingReducer: { inpatientCareSetting: {} },
     })
     expect(component).toMatchSnapshot();
   });
@@ -73,7 +108,7 @@ describe('Component: LabEntryForm', () => {
     const component = getComponent();
     const categoryButton = component.find('#category-button').at(1); // click on the second category iwth id of 2
     categoryButton.simulate('click', {
-      target: {}
+      target: {},
     });
     expect(component.state().categoryId).toEqual(2);
   });
@@ -100,8 +135,47 @@ describe('Component: LabEntryForm', () => {
     const component = getComponent();
     const instance = component.instance();
     const defaultCategory = instance.state.categoryId;
-    component.find('#category-button').at(2).simulate('click', {});
-    expect(instance.state.categoryId !== defaultCategory)
+    component
+      .find('#category-button')
+      .at(2)
+      .simulate('click', {});
+    expect(instance.state.categoryId !== defaultCategory);
+  });
+
+  it('shows a toast prompt when test is submitted successfully', () => {
+    const component = getComponent();
+    const addButton = component.find('.confirm');
+    addButton.simulate('click', {});
+
+    component.setProps({
+      ...component.props(),
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
+      },
+    });
+    expect(global.toastrMessage).toEqual('lab order successfully created');
+  });
+
+  it('shows a toast prompt when there is an error in submission', () => {
+    const component = getComponent();
+    const addButton = component.find('.confirm').at(0);
+    addButton.simulate('click', {});
+    component.setProps({
+      ...component.props(),
+      createLabOrderReducer: {
+        status: {
+          error: true,
+          added: false,
+        },
+        labOrderData: {},
+        errorMessage: 'an error occured',
+      },
+    });
+    expect(global.toastrMessage).toEqual('an error occured');
   });
 
   it(`does not render the past order component if the
@@ -111,7 +185,6 @@ describe('Component: LabEntryForm', () => {
       ...component.props(),
       labOrders: { results: [] },
     });
-    const nullPastOrders = <p>No past orders</p>
-    expect(component.find('Accordion').at(1).props().children).toEqual(nullPastOrders);
+    expect(component.find('PastOrders').exists()).toBeFalsy();
   });
 });
