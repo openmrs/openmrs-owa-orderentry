@@ -1,22 +1,78 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import Accordion from '../accordion';
+import createLabOrder from '../../actions/createLabOrder';
+import { successToast, errorToast } from './utils/toast';
 import { labCategories } from './labData';
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
 import '../../../css/grid.scss';
 
 export class LabEntryForm extends React.Component {
+  static propTypes = {
+    createLabOrderReducer: PropTypes.shape({
+      status: PropTypes.objectOf(PropTypes.bool),
+      errorMessage: PropTypes.string,
+    }),
+    patientReducer: PropTypes.shape({
+      patient: PropTypes.shape({
+        uuid: PropTypes.string,
+      }),
+    }),
+    sessionReducer: PropTypes.shape({
+      currentProvider: PropTypes.shape({
+        person: PropTypes.shape({
+          uuid: PropTypes.string,
+        }),
+      }),
+    }),
+    createLabOrder: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    createLabOrderReducer: {
+      status: {},
+      errorMessage: '',
+    },
+    patientReducer: {
+      patient: {
+        person: '',
+      },
+    },
+    sessionReducer: {
+      currentProvider: {
+        person: {
+          uuid: '',
+        },
+      },
+    },
+  }
+
   state = {
     categoryId: 1,
     selectedTests: [],
     selectedPanel: null,
     disableSaveButton: true,
     disableCancelButton: true,
+    patient: this.props.patientReducer.patient.uuid,
+    orderer: this.props.sessionReducer.currentProvider.person.uuid,
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { added, error } = nextProps.createLabOrderReducer.status;
+    const { errorMessage } = nextProps.createLabOrderReducer;
+    if (added) {
+      successToast('order successfully created');
+      this.handleCancel();
+    }
+    if (error) {
+      errorToast(errorMessage);
+    }
+  }
 
   selectTests = (tests) => {
     this.activateSaveButton();
@@ -68,11 +124,15 @@ export class LabEntryForm extends React.Component {
   };
 
   handleSubmit = () => {
-    /**
-     * this should contain data to be submitted
-     * * */
-    this.handleCancel();
-  };
+    const {
+      patient,
+      orderer,
+      categoryId,
+      selectedTests,
+      selectedPanel,
+    } = this.state;
+    this.props.createLabOrder();
+  }
 
   activateCancelButton = () => {
     this.setState({
@@ -158,4 +218,14 @@ export class LabEntryForm extends React.Component {
   }
 }
 
-export default LabEntryForm;
+export const mapStateToProps = ({
+  patientReducer,
+  sessionReducer,
+  createLabOrderReducer,
+}) => ({
+  patientReducer,
+  sessionReducer,
+  createLabOrderReducer,
+});
+
+export default connect(mapStateToProps, { createLabOrder })(LabEntryForm);

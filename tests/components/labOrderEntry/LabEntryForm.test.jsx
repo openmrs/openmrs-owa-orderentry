@@ -1,12 +1,12 @@
 import React from 'react';
-import LabEntryForm from '../../../app/js/components/labOrderEntry/LabEntryForm';
+import { LabEntryForm, mapStateToProps } from '../../../app/js/components/labOrderEntry/LabEntryForm';
 
 let props;
 let mountedComponent;
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<LabEntryForm />);
+    mountedComponent = shallow(<LabEntryForm createLabOrder={jest.fn(() => {})} />);
   }
   return mountedComponent;
 };
@@ -21,6 +21,7 @@ describe('Component: LabEntryForm', () => {
 
   it('should render on initial setup', () => {
     const component = getComponent();
+    mapStateToProps({});
     expect(component).toMatchSnapshot();
   });
 
@@ -67,5 +68,37 @@ describe('Component: LabEntryForm', () => {
     expect(component.state().selectedTests).toEqual([]);
     expect(component.state().disableSaveButton).toBeTruthy();
     expect(component.state().disableCancelButton).toBeTruthy();
+  });
+
+  it('shows a toast prompt when test is submitted successfully', () => {
+    const component = getComponent();
+    const addButton = component.find('#add-lab-order').at(0);
+    addButton.simulate('click', {});
+    component.setProps({
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+      },
+    });
+    const toastPromptDiv = component.find('.toast-message')
+    expect(toastPromptDiv.exists());
+  });
+
+  it('shows a toast prompt when there is an error in submission', () => {
+    const component = getComponent();
+    const addButton = component.find('#add-lab-order').at(0);
+    addButton.simulate('click', {});
+    component.setProps({
+      createLabOrderReducer: {
+        status: {
+          error: true,
+          added: false,
+        },
+      },
+    });
+    const toastPromptDiv = component.find('.toast-message')
+    expect(toastPromptDiv.exists());
   });
 });
