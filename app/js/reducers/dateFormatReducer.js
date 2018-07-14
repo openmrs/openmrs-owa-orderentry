@@ -18,4 +18,4 @@ export default (state = initialState.dateFormatReducer, action) => {
       };
     default: return state;
   }
-}
+};
