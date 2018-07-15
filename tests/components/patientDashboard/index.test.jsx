@@ -53,7 +53,8 @@ describe('Component: PatientDashboard', () => {
       toggleDetailsView: jest.fn(),
       showContactInfo: true,
       fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn()
+      fetchPatientNote: jest.fn(),
+      currentOrderTypeText: '',
     };
     mountedComponent = undefined;
   });
@@ -82,7 +83,7 @@ describe('Component: PatientDashboard', () => {
           note: []
         },
       });
-      const wrapper = shallow(<ConnectedPatientDashboard store={store} />);
+      const wrapper = shallow(<ConnectedPatientDashboard store={store} {...props}/>);
       expect(wrapper.length).toBe(1);
     });
   });
