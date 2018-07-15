@@ -31,8 +31,8 @@ describe('Component: SearchDrug: Container', () => {
       onChange: jest.fn(),
       onOptionSelected: jest.fn(),
       selectDrug: jest.fn(),
-      onChange: jest.fn(),
       onSelectDrug: jest.fn(),
+      focused: false,
     };
     mountedComponent = undefined;
   });
@@ -101,7 +101,12 @@ describe('Component: SearchDrug: Container', () => {
           error: null
         }
       });
-      const wrapper = shallow(<ConnectedSearchDrug store={store} />);
+      const props = {
+        onChange: jest.fn(),
+        onSelectDrug: jest.fn(),
+        focused: false,
+      };
+      const wrapper = shallow(<ConnectedSearchDrug store={store} {...props}/>);
       expect(wrapper.length).toBe(1);
     });
   });

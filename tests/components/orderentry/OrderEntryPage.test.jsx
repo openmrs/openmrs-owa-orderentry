@@ -254,7 +254,10 @@ describe('Connected OrderEntryPage component', () => {
         error: ''
       },
     });
-    const wrapper = shallow(<ConnectedOrderEntryPage store={store} />);
+    const props = {
+      location: {search: '?patient=esere_shbfidfb_343ffd'}
+    }
+    const wrapper = shallow(<ConnectedOrderEntryPage store={store} {...props}/>);
     expect(wrapper.length).toBe(1);
   });
 });

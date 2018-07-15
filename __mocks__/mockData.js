@@ -53,12 +53,10 @@ export default {
     results: [],
   },
   encounterRole: {
-    results: [
-      {
-        uuid: '',
-        display: 'Order Signer',
-      },
-    ],
+    results: {
+      uuid: '',
+      display: 'Order Signer',
+    },
   },
   defaultpatientActiveOrder: {
     activeOrders: [],
@@ -116,11 +114,11 @@ export default {
     data: {},
   },
   allConfigurations: {
-    drugDispensingUnits: {},
-    drugDosingUnits: {},
-    drugRoutes: {},
-    durationUnits: {},
-    orderFrequencies: {},
+    drugDispensingUnits: [],
+    drugDosingUnits: [],
+    drugRoutes: [],
+    durationUnits: [],
+    orderFrequencies: [],
   },
   sessionReducer: {
     currentProvider: {
