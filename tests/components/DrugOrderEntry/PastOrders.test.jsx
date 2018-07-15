@@ -18,6 +18,7 @@ const props={
       dose:1,
       quantity:2,
       duration:2,
+      action: '',
       dateActivated:'2018-May-20 10:59',
       drug:{display:'new drug'},
       doseUnits:{display:'drops'},
@@ -31,6 +32,7 @@ const props={
     uuid:{}
   },
   data,
+  tabName: '',
 }
 
 
@@ -87,6 +89,8 @@ describe('behaviour when there is no past orders and page is loading', () => {
         uuid:{}
       },
       data,
+      tabName: '',
+      dateFormat: 'DD-MMM-YYYY HH:mm',
     }
     const wrapper = shallow(<PastOrders {...props} />);
     expect(wrapper.find('img').length).toEqual(1);

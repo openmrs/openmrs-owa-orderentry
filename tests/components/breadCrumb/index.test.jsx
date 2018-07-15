@@ -15,7 +15,8 @@ describe('Component: BreadCrumb', () => {
   beforeEach(() => {
     props = {
       patientId: 123,
-      name:  'John.Doe'
+      name:  'John.Doe',
+      currentOrderTypeText: '',
     };
     mountedComponent = undefined;
   });

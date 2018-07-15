@@ -152,7 +152,7 @@ describe('Test for adding a new drug order', () => {
           wrapper.find('[name="dispensingUnit"]').simulate('blur');
           expect(wrapper.find('button.confirm').props().disabled).toBe(true);
         });
-    });
+      });
   });
 });
 
