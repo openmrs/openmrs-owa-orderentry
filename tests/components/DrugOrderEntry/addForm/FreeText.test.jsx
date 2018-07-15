@@ -12,7 +12,11 @@ const props = {
       display: 'kits',
       uuid: 'ABC-56Y',
     }]
-  }
+  },
+  handleValidation: jest.fn(),
+  handleChange: jest.fn(),
+  handleCancel: jest.fn(),
+  handleSubmit: jest.fn(),
 };
 
 describe('Test for Free text form', () => {

@@ -13,6 +13,8 @@ const props = {
   dateActivated: '2018-May-20 10:59',
   dateStopped: '2018-May-20 10:59',
   autoExpireDate: '2018-May-20 10:59',
+  action: '',
+  dateFormat: '',
 }
 
 describe('<PastOrder />', () => {
@@ -33,6 +35,8 @@ describe('<PastOrder />', () => {
       dateActivated: '2018-May-20 10:59',
       dateStopped: '2018-May-20 10:59',
       autoExpireDate: '2018-May-20 10:59',
+      dateFormat: '',
+      action: '',
     }
 
     const wrapper = shallow(<PastOrder {...props} />);
