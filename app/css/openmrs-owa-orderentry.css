@@ -204,6 +204,10 @@ body {
  * Accordion CSS
 */
 
+  .accordion-link {
+    color: black
+  }
+
 .accordion.border {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;

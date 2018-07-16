@@ -12,6 +12,7 @@ class Accordion extends React.Component {
         <div className="header">
           <a
             role="button"
+            className="accordion-link"
             tabIndex={0}
             onClick={() => {
               this.setState(() => ({ isVisible: !this.state.isVisible }));
