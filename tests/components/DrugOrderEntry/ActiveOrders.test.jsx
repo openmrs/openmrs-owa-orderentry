@@ -40,6 +40,8 @@ const props = {
   careSetting,
   data,
   order,
+  tabName: '',
+  activeOrders: {}
 }
 
 let mountedComponent;
@@ -139,7 +141,10 @@ describe('behaviour when dosing type is free text', () => {
       },
       careSetting,
       data,
-      order: {}
+      order: {},
+      tabName: '',
+      activeOrders: {},
+      dateFormat: ''
     }
     const wrapper = shallow(<ActiveOrders {...props} />);
     expect(wrapper.find('table').length).toEqual(1);
@@ -184,6 +189,9 @@ describe('behaviour when status is edit', () => {
       order: {
         status: 'EDIT'
       },
+      tabName: '',
+      activeOrders: {},
+      dateFormat: '',
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
@@ -227,6 +235,9 @@ describe('behaviour when status is edit', () => {
       },
       careSetting,
       data,
+      tabName: '',
+      activeOrders: {},
+      dateFormat: '',
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
@@ -274,6 +285,9 @@ describe('behaviour when status is DISCONTINUE', () => {
       order: {
         status: 'DISCONTINUE'
       },
+      tabName: '',
+      activeOrders: {},
+      dateFormat: '',
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
@@ -314,7 +328,10 @@ describe('behaviour when status is DISCONTINUE', () => {
         search: {}
       },
       careSetting,
-      data
+      data,
+      tabName: '',
+      activeOrders: {},
+      dateFormat: ''
     }
     const mockCallBack = jest.fn();
     const wrapper = shallow(<ActiveOrders onClick={mockCallBack} {...props} />);
@@ -342,6 +359,9 @@ describe('behaviour when there is no active orders', () => {
       careSetting,
       data,
       order,
+      tabName: '',
+      activeOrders: {},
+      dateFormat: ''
     }
     const wrapper = shallow(<ActiveOrders {...props} />);
     expect(wrapper.find('p').text()).toEqual('No Active Orders');
@@ -368,6 +388,8 @@ describe('behaviour when there is no active orders and page is loading', () => {
       data,
       order,
       tabName: '',
+      activeOrders: {},
+      dateFormat: ''
     }
     const wrapper = shallow(<ActiveOrders {...props} />);
     expect(wrapper.find('img').length).toEqual(1);

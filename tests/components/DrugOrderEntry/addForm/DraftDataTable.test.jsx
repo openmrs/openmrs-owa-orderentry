@@ -221,9 +221,14 @@ describe('Connected DraftDataTable component', () => {
       encounterRoleReducer: { encounterRole },
       addDrugOrderReducer: { addedOrder, error: addedOrderError },
       sessionReducer: {},
-      allConfigurations: {}
+      allConfigurations: {},
     });
-    const wrapper = shallow(<ConnectedDraftTable store={store} />);
+    const props = {
+      careSetting,
+      handleDiscardAllOrders: jest.fn(),
+      handleDiscardOneOrder: jest.fn(),
+    }
+    const wrapper = shallow(<ConnectedDraftTable store={store} {...props}/>);
     expect(wrapper.length).toBe(1);
   });
 });

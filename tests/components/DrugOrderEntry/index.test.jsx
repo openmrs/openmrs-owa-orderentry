@@ -6,16 +6,18 @@ import ConnectedDraftTable from '../../../app/js/components/drugOrderEntry/addFo
 const { order } = mockData;
 const props = {
   outpatientCareSetting:{
-    uuid:{}
+    uuid: '',
+    display: '',
   },
   inpatientCareSetting: {
-    uuid: {}
+    uuid: '',
+    display: '',
   },
   getPastOrders: jest.fn(),
   draftOrders: [],
   setOrderAction: jest.fn(),
   location:{
-    search:()=>{}
+    search: '',
   },
   dateFormat: 'DD-MMM-YYYY HH:mm',
   order,
@@ -170,16 +172,18 @@ describe('behaviour when the length of the unsaved draft orders table is more th
   it('should render a DraftDataTable if length of draftOrders is not zero ', () => {
     const propsOne = {
       outpatientCareSetting:{
-        uuid:{}
+        uuid: '',
+        display: '',
       },
       inpatientCareSetting: {
-        uuid: {}
+        uuid: '',
+        display: '',
       },
       getPastOrders: jest.fn(),
       draftOrders: [],
       setOrderAction: jest.fn(),
       location:{
-        search:()=>{}
+        search: '',
       },
       order,
       selectDrugSuccess: jest.fn(),
@@ -188,14 +192,17 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       deleteDraftOrder: jest.fn(),
       deleteAllDraftOrders: jest.fn(),
       drug: "abc-e345-thed-uuid2345",
+      dateFormat: 'DD-MMM-YYYY HH:mm',
     };
     const wrapperOne = shallow(<SearchAndAddOrder {...propsOne} store={store} />);
     const propsTwo = {
       outpatientCareSetting:{
-        uuid:{}
+        uuid: '',
+        display: '',
       },
       inpatientCareSetting: {
-        uuid: {}
+        uuid: '',
+        display: '',
       },
       getPastOrders: jest.fn(),
       draftOrders: [
@@ -203,7 +210,7 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       ],
       setOrderAction: jest.fn(),
       location:{
-        search:()=>{}
+        search: '',
       },
       order,
       selectDrugSuccess: jest.fn(),
@@ -212,6 +219,7 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       deleteDraftOrder: jest.fn(),
       deleteAllDraftOrders: jest.fn(),
       drug: "abc-e345-thed-uuid2345",
+      dateFormat: 'DD-MMM-YYYY HH:mm',
     };
     const wrapperTwo = shallow(<SearchAndAddOrder {...propsTwo} store={store} />);
     expect(wrapperOne.find(ConnectedDraftTable) === wrapperTwo.find(ConnectedDraftTable)).toEqual(false);
