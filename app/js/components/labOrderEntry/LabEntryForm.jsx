@@ -12,46 +12,53 @@ import '../../../css/grid.scss';
 export class LabEntryForm extends React.Component {
   state = {
     categoryId: 1,
+    defaultTests: [],
     selectedTests: [],
     selectedPanel: null,
     disableSaveButton: true,
     disableCancelButton: true,
   };
 
-  selectTests = (tests) => {
-    this.activateSaveButton();
-    this.activateCancelButton();
-    this.setState({
-      selectedTests: tests,
-    });
-  };
-
   selectTest = (testId) => {
-    if (!this.state.selectedTests.includes(testId)) {
+    if (!this.state.selectedTests.includes(testId) && !this.state.defaultTests.includes(testId)) {
       this.setState({
         selectedTests: [...this.state.selectedTests, testId],
       });
     } else {
       const { selectedTests } = this.state;
-      const newSelectedTests = selectedTests.filter(test => test !== testId);
-      this.setState({ selectedTests: newSelectedTests });
+      this.setState({
+        selectedTests: selectedTests.filter(test => test !== testId),
+      });
     }
   };
 
-  selectPanel = (panel) => {
-    this.setState({
-      selectedPanel: panel.id,
-    });
+  selectPanelTests = (panel) => {
+    if (this.state.selectedPanel === panel.id) {
+      const { defaultTests } = this.state;
+      this.setState({
+        selectedPanel: null,
+        defaultTests: defaultTests.filter(test => !panel.testsId.includes(test)),
+      });
+    } else {
+      this.activateSaveButton();
+      this.activateCancelButton();
+      this.setState({
+        selectedPanel: panel.id,
+        defaultTests: [...panel.testsId],
+      });
+    }
   };
 
   showFieldSet = () => (
     <div>
       <LabPanelFieldSet
-        selectTests={this.selectTests}
-        selectPanel={this.selectPanel}
+        selectPanelTests={this.selectPanelTests}
         selectedPanel={this.state.selectedPanel}
       />
-      <LabTestFieldSet selectedTests={this.state.selectedTests} selectTest={this.selectTest} />
+      <LabTestFieldSet
+        selectTest={this.selectTest}
+        selectedTests={[...this.state.selectedTests, ...this.state.defaultTests]}
+      />
     </div>
   );
 
@@ -70,7 +77,7 @@ export class LabEntryForm extends React.Component {
   handleSubmit = () => {
     /**
      * this should contain data to be submitted
-     * * */
+     * */
     this.handleCancel();
   };
 

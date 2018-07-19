@@ -12,7 +12,7 @@ const getComponent = () => {
 };
 
 const mockTest = [1, 2, 3];
-const mockPanel = { id: 1 };
+const mockPanel = { id: 1, testsId: [4, 5, 6] };
 
 describe('Component: LabEntryForm', () => {
   beforeEach(() => {
@@ -33,11 +33,13 @@ describe('Component: LabEntryForm', () => {
     expect(component.state().categoryId).toEqual(2);
   });
 
-  it('should set the seleted tests state of the component', () => {
+  it('should add and remove all the tests belonging to a panel as default tests', () => {
     const component = getComponent();
     const instance = component.instance();
-    instance.selectTests(mockTest);
-    expect(component.state().selectedTests.includes(1)).toBeTruthy();
+    instance.selectPanelTests(mockPanel);
+    expect(component.state().defaultTests.includes(4)).toBeTruthy();
+    instance.selectPanelTests(mockPanel);
+    expect(component.state().defaultTests.includes(4)).toBeFalsy();
   });
 
   it('should add and remove test options when selected and deselected', () => {
@@ -51,13 +53,6 @@ describe('Component: LabEntryForm', () => {
     expect(component.state().selectedTests.includes(4)).toBeTruthy();
     instance.selectTest(newTestId);
     expect(component.state().selectedTests.includes(4)).toBeFalsy();
-  });
-
-  it('should set the id of the selected panel when the selectPanel is called', () => {
-    const component = getComponent();
-    const instance = component.instance();
-    instance.selectPanel(mockPanel);
-    expect(component.state().selectedPanel).toEqual(1);
   });
 
   it('should submit the form', () => {
