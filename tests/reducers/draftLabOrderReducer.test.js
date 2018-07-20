@@ -5,6 +5,7 @@ import {
   TOGGLE_DRAFT_LAB_ORDER_URGENCY,
   DELETE_PANEL_FROM_DRAFT_LAB_ORDER,
   DELETE_TEST_FROM_DRAFT_LAB_ORDER,
+  DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER,
 } from '../../app/js/actions/actionTypes';
 
 import { panelData, testsData } from '../../app/js/components/labOrderEntry/labData';
@@ -89,6 +90,26 @@ describe('Draft Lab Order Reducer', () => {
 
     const mockedDraft = [...selectTests(mockLabDataPanel[1].tests, 'tests')];
     expect(newState.draftLabOrders.length).toEqual(1);
+  });
+
+  it('should delete all tests from the draftOrder at once', () => {
+    const firstAction = {
+      type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
+      orders: mockLabDataPanel[0],
+    };
+
+    const secondAction = {
+      type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
+      orders: mockLabDataPanel[1],
+    };
+
+    const lastAction = { type: DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER };
+
+    const firstState = draftLabOrderReducer(initialState, firstAction);
+    const secondState = draftLabOrderReducer(firstState, secondAction);
+    const newState = draftLabOrderReducer(secondState, lastAction);
+
+    expect(newState.draftLabOrders.length).toEqual(0);
   });
 
   it('should add single tests not part of the panel to the draftorder', () => {
