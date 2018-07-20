@@ -1,15 +1,15 @@
 import draftTableReducer from '../../app/js/reducers/draftTableReducer';
 import {
-  ADD_DRAFT_ORDER_SUCCESS,
-  DELETE_DRAFT_ORDER_SUCCESS,
-  DELETE_ALL_DRAFT_ORDERS_SUCCESS,
+  ADD_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
 } from '../../app/js/actions/actionTypes';
 
 
 describe('Draft Table Reducer', () => {
   it('should set the state of a successful added draft order', () => {
     const initialState = {
-      draftOrders: []
+      draftDrugOrders: []
     };
 
     const order = {
@@ -19,19 +19,19 @@ describe('Draft Table Reducer', () => {
     };
 
     const action = {
-      type: ADD_DRAFT_ORDER_SUCCESS,
+      type: ADD_DRAFT_DRUG_ORDER_SUCCESS,
       order,
     }
 
     const newState = draftTableReducer(initialState, action);
-    expect(newState.draftOrders).toEqual(
+    expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([action.order])
     );
   });
 
   it('should set the state of a successful deleted draft order', () => {
     const initialState = {
-      draftOrders: [{
+      draftDrugOrders: [{
         action: 'DISCONTINUE',
         drugName: 'panadol',
         orderNumber: 3
@@ -45,19 +45,19 @@ describe('Draft Table Reducer', () => {
     };
 
     const action = {
-      type: DELETE_DRAFT_ORDER_SUCCESS,
+      type: DELETE_DRAFT_DRUG_ORDER_SUCCESS,
       order,
     }
 
     const newState = draftTableReducer(initialState, action);
-    expect(newState.draftOrders).toEqual(
+    expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([])
     )
   });
 
   it('should set the state of successful deleted draft orders', () => {
     const initialState = {
-      draftOrders: [{
+      draftDrugOrders: [{
         action: 'DISCONTINUE',
         drugName: 'panadol',
         orderNumber: 3
@@ -65,11 +65,11 @@ describe('Draft Table Reducer', () => {
     };
 
     const action = {
-      type: DELETE_ALL_DRAFT_ORDERS_SUCCESS,
+      type: DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
     }
 
     const newState = draftTableReducer(initialState, action);
-    expect(newState.draftOrders).toEqual(
+    expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([])
     )
   });

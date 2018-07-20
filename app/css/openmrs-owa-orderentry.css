@@ -60,7 +60,7 @@ body {
 .draft-spacing {
     padding-top: 1em;
     padding-bottom: 2em;
-    background-color: #fffdf7;
+    background-color: #fff;
 }
 
 .hide {
@@ -448,7 +448,59 @@ a.button:hover {
 }
 
 .lab-tests-btn{
-    width: 150px;
+    width: 145px;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.draft-lab-wrapper{
+    width: 250px;
+}
+
+.draft-lab-layout{
+    width: 100%;
+}
+
+.h5-draft-header{
+    font-size: 0.8rem;
+}
+
+.small-font{
+    font-size: 0.8rem;
+}
+
+.small-font-l{
+    font-size: .9rem;
+}
+
+.order-form-wrapper{
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+.modified-btn{
+    padding: 5px 10px !important;
+}
+
+.draft-list-container .draft-list{
+    display: block;
+    background: #EBEBEB;
+    padding: 10px 10px;
+    margin: 5px 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+}
+
+.draft-list-container .draft-list:hover{
+    background: #D3D3D3;
+    transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+}
+
+.stay-right{
+    position: absolute;
+    right: 10px;
 }

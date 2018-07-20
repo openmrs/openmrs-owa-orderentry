@@ -6,6 +6,7 @@ import '../../../css/grid.scss';
 class LabTestFieldSet extends React.Component {
   render() {
     const { selectedTests, selectTest } = this.props;
+    const selectedTestIds = selectedTests.map(test => test.id);
     return (
       <fieldset className="fieldset">
         <legend>Tests</legend>
@@ -16,8 +17,8 @@ class LabTestFieldSet extends React.Component {
                 type="button"
                 id="category-test-button"
                 key={`${item.id}`}
-                className={`lab-tests-btn ${(selectedTests.includes(item.id)) ? 'active' : ''}`}
-                onClick={() => selectTest(item.id)}
+                className={`lab-tests-btn ${(selectedTestIds.includes(item.id)) ? 'active' : ''}`}
+                onClick={() => selectTest(item)}
               >
                 {item.test}
               </button>

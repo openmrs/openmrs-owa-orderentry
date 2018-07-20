@@ -27,6 +27,7 @@
     "redux": "^3.6.0",
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.12",
     "sinon": "^4.4.6",
     "toastr": "^2.1.4"
   },

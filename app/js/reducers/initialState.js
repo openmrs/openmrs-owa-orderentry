@@ -83,7 +83,10 @@ export default {
     loading: false,
   },
   draftTableReducer: {
-    draftOrders: [],
+    draftDrugOrders: [],
+  },
+  draftLabOrderReducer: {
+    draftLabOrders: [],
   },
   drugSearchReducer: {
     drugs: [],

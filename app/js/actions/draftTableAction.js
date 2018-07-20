@@ -1,21 +1,21 @@
 import {
-  ADD_DRAFT_ORDER_SUCCESS,
-  DELETE_DRAFT_ORDER_SUCCESS,
-  DELETE_ALL_DRAFT_ORDERS_SUCCESS,
+  ADD_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
 } from './actionTypes';
 
 export const addDraftOrderSuccess = order => ({
-  type: ADD_DRAFT_ORDER_SUCCESS,
+  type: ADD_DRAFT_DRUG_ORDER_SUCCESS,
   order,
 });
 
 export const deleteDraftOrderSuccess = order => ({
-  type: DELETE_DRAFT_ORDER_SUCCESS,
+  type: DELETE_DRAFT_DRUG_ORDER_SUCCESS,
   order,
 });
 
 export const deleteAllDraftOrdersSuccess = () => ({
-  type: DELETE_ALL_DRAFT_ORDERS_SUCCESS,
+  type: DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
 });
 
 export const addDraftOrder = order => (dispatch) => {
