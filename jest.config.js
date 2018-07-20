@@ -1,5 +1,6 @@
 module.exports = {
   verbose: true,
+  testURL: 'http://localhost',
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/templates/',
