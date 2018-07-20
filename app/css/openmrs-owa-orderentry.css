@@ -482,10 +482,9 @@ a.button:hover {
     padding: 5px 10px !important;
 }
 
-.draft-list-container .draft-list{
+.draft-list-container .draft-item{
     display: block;
     background: #EBEBEB;
-    padding: 10px 10px;
     margin: 5px 0px;
     display: flex;
     align-items: center;
@@ -493,11 +492,21 @@ a.button:hover {
     border-radius: 5px;
 }
 
-.draft-list-container .draft-list:hover{
+.draft-list-container .draft-item > span:hover{
     background: #D3D3D3;
     transition: all 200ms ease-in-out;
     -webkit-transition: all 200ms ease-in-out;
     -moz-transition: all 200ms ease-in-out;
+}
+
+.right:hover {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px
+}
+
+.draft-name {
+    padding: 10px 10px;
+    width: 60%;
 }
 
 .stay-right{
@@ -507,14 +516,19 @@ a.button:hover {
 
 .action-btn {
     cursor: pointer;
+    width: 30px;
+    border-left: 1px #d0d0d0 solid;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
-.action-btn:hover > i.scale  {
+.action-btn:hover > a > i.scale  {
     text-decoration: none;
     color: #007fff;
-    transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
+    transform: scale(1.7);
+    -webkit-transform: scale(1.7);
+    -moz-transform: scale(1.7);
 }
 
 /* Icon styles */
