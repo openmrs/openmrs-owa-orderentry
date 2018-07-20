@@ -4,11 +4,6 @@ import { panelData } from './labData';
 import '../../../css/grid.scss';
 
 class LabPanelFieldSet extends React.Component {
-  setPanel = (panel) => {
-    this.props.selectPanel(panel);
-    this.props.selectTests(panel.testsId);
-  }
-
   render() {
     const { selectedPanel } = this.props;
     return (
@@ -21,7 +16,7 @@ class LabPanelFieldSet extends React.Component {
               className={(selectedPanel === panel.id) ? 'active' : ''}
               type="button"
               key={`${panel.id}`}
-              onClick={() => this.setPanel(panel)}
+              onClick={() => this.props.selectPanelTests(panel)}
             >
               {panel.name}
             </button>
@@ -37,8 +32,7 @@ LabPanelFieldSet.defaultProps = {
 };
 
 LabPanelFieldSet.propTypes = {
-  selectTests: PropTypes.func.isRequired,
-  selectPanel: PropTypes.func.isRequired,
+  selectPanelTests: PropTypes.func.isRequired,
   selectedPanel: PropTypes.number,
 };
 
