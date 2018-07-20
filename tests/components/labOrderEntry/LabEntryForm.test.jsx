@@ -5,13 +5,27 @@ import {
   deleteDraftLabOrder
 } from '../../../app/js/actions/draftLabOrderAction';
 
+import { panelData, testsData } from '../../../app/js/components/labOrderEntry/labData';
+
 let props;
 let mountedComponent;
-const dispatch = jest.fn();
+
 props = {
-  addDraftLabOrdersToStore: addDraftLabOrders,
-  deleteDraftLabOrderFromStore: deleteDraftLabOrder,
+  draftLabOrders: [
+    { id: 1, test: 'Hemoglobin' },
+    { id: 2, test: 'Hematocrit' },
+    { id: 3, test: 'blood' },
+  ],
+  defaultTests: [
+    { id: 1, test: 'Hemoglobin' },
+    { id: 2, test: 'Hematocrit' },
+    { id: 3, test: 'blood' },
+  ],
+  selectedLabPanels: [panelData[0]],
+  dispatch: jest.fn(),
 };
+
+const mockTest = testsData[0];
 
 const getComponent = () => {
   if (!mountedComponent) {
@@ -19,14 +33,6 @@ const getComponent = () => {
   }
   return mountedComponent;
 };
-
-const mockTest = [
-  { id: 1, test: 'Hemoglobin' },
-  { id: 2, test: 'Hematocrit' },
-  { id: 3, test: 'blood' },
-];
-
-const mockSingleTest = mockTest[0];
 
 const mockPanel = { id: 1, tests: [
   { id: 4, test: 'liver' },
@@ -53,31 +59,29 @@ describe('Component: LabEntryForm', () => {
     expect(component.state().categoryId).toEqual(2);
   });
 
-  it('should add and remove all the tests belonging to a panel as default tests', () => {
-    const component = getComponent();
-    const instance = component.instance();
-    instance.selectPanelTests(mockPanel);
-    expect(component.state().defaultTests.length).toEqual(3);
-    instance.selectPanelTests(mockPanel);
-    expect(component.state().defaultTests.length).toEqual(0);
+  it('should dispatch an action to handle test panel selection', () => {
+    const instance = getComponent().instance();
+    instance.state.selectedPanelIds = [1];
+
+    const dipatch = jest.spyOn(props, 'dispatch');
+    instance.handleTestSelection(mockPanel, 'panel');
+    expect(dipatch).toBeCalled();
   });
 
-  it('should add and remove test options when selected and deselected', () => {
-    const component = getComponent();
-    const instance = component.instance();
-    instance.setState({
-      selectedTests: mockTest
-    });
-    instance.selectTest(mockSingleTest); // Remove an already existing test
-    expect(component.state().selectedTests.length).toEqual(2);
-    instance.selectTest(mockSingleTest);
-    expect(component.state().selectedTests.length).toEqual(3);
+  it('should dispatch an action to handle single test selection', () => {
+    const instance = getComponent().instance();
+    instance.state.selectedPanelIds = [1];
+
+    const dipatch = jest.spyOn(props, 'dispatch');
+    instance.handleTestSelection(mockTest, 'single');
+    expect(dipatch).toBeCalled();
   });
 
-  it('should submit the form', () => {
+  it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
     const instance = component.instance();
-    instance.handleSubmit();
-    expect(component.state().selectedTests).toEqual([]);
+    const defaultCategory = instance.state.categoryId;
+    component.find('#category-button').at(2).simulate('click', {});
+    expect(instance.state.categoryId !== defaultCategory)
   });
 });
