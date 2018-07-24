@@ -213,13 +213,13 @@ const mapStateToProps = ({
   careSettingReducer:
   { inpatientCareSetting, outpatientCareSetting },
   drugSearchReducer,
-  draftTableReducer: { draftOrders },
+  draftTableReducer: { draftDrugOrders },
   dateFormatReducer: { dateFormat },
 }) => ({
   inpatientCareSetting,
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
-  draftOrders,
+  draftOrders: draftDrugOrders,
   dateFormat,
 });
 

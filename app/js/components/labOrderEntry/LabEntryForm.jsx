@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
+import LabDraftOrder from './DraftOrder';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import Accordion from '../accordion';
 import { labCategories } from './labData';
+import { addDraftLabOrders, deleteDraftLabOrder } from '../../actions/draftLabOrderAction';
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
 import '../../../css/grid.scss';
 
@@ -14,38 +18,41 @@ export class LabEntryForm extends React.Component {
     categoryId: 1,
     defaultTests: [],
     selectedTests: [],
-    selectedPanel: null,
-    disableSaveButton: true,
-    disableCancelButton: true,
+    selectedPanelIds: [],
   };
 
-  selectTest = (testId) => {
-    if (!this.state.selectedTests.includes(testId) && !this.state.defaultTests.includes(testId)) {
+  selectTest = (test) => {
+    const { addDraftLabOrdersToStore, deleteDraftLabOrderFromStore } = this.props;
+    const selectedIds = this.state.selectedTests.map(currentTest => currentTest.id);
+    const defaultTestIds = this.state.defaultTests.map(currentTest => currentTest.id);
+    if (selectedIds.includes(test.id)) {
       this.setState({
-        selectedTests: [...this.state.selectedTests, testId],
+        selectedTests: this.state.selectedTests.filter(currentTest => currentTest.id !== test.id),
       });
-    } else {
-      const { selectedTests } = this.state;
-      this.setState({
-        selectedTests: selectedTests.filter(test => test !== testId),
-      });
+      deleteDraftLabOrderFromStore([test]);
+    } else if (!defaultTestIds.includes(test.id)) {
+      this.setState({ selectedTests: [...this.state.selectedTests, test] });
+      addDraftLabOrdersToStore([test]);
     }
   };
 
   selectPanelTests = (panel) => {
-    if (this.state.selectedPanel === panel.id) {
+    const { addDraftLabOrdersToStore, deleteDraftLabOrderFromStore } = this.props;
+    if (this.state.selectedPanelIds.includes(panel.id)) {
       const { defaultTests } = this.state;
+      const panelTestIds = panel.tests.map(test => test.id);
       this.setState({
-        selectedPanel: null,
-        defaultTests: defaultTests.filter(test => !panel.testsId.includes(test)),
+        selectedPanelIds: this.state.selectedPanelIds.filter(panelId =>
+          panelId !== panel.id),
+        defaultTests: defaultTests.filter(test => !panelTestIds.includes(test.id)),
       });
+      deleteDraftLabOrderFromStore(panel.tests);
     } else {
-      this.activateSaveButton();
-      this.activateCancelButton();
       this.setState({
-        selectedPanel: panel.id,
-        defaultTests: [...panel.testsId],
+        selectedPanelIds: [...this.state.selectedPanelIds, panel.id],
+        defaultTests: [...this.state.defaultTests, ...panel.tests],
       });
+      addDraftLabOrdersToStore(panel.tests);
     }
   };
 
@@ -53,11 +60,11 @@ export class LabEntryForm extends React.Component {
     <div>
       <LabPanelFieldSet
         selectPanelTests={this.selectPanelTests}
-        selectedPanel={this.state.selectedPanel}
+        selectedPanelIds={this.state.selectedPanelIds}
       />
       <LabTestFieldSet
         selectTest={this.selectTest}
-        selectedTests={[...this.state.selectedTests, ...this.state.defaultTests]}
+        selectedTests={this.props.draftLabOrders}
       />
     </div>
   );
@@ -68,12 +75,6 @@ export class LabEntryForm extends React.Component {
     });
   };
 
-  activateSaveButton = () => {
-    this.setState({
-      disableSaveButton: false,
-    });
-  };
-
   handleSubmit = () => {
     /**
      * this should contain data to be submitted
@@ -81,18 +82,10 @@ export class LabEntryForm extends React.Component {
     this.handleCancel();
   };
 
-  activateCancelButton = () => {
-    this.setState({
-      disableCancelButton: false,
-    });
-  };
-
   handleCancel = () => {
     this.setState({
       selectedTests: [],
-      selectedPanel: null,
-      disableSaveButton: true,
-      disableCancelButton: true,
+      selectedPanelIds: [],
     });
   };
 
@@ -107,6 +100,14 @@ export class LabEntryForm extends React.Component {
       <PastOrders orders={pastOrders} />
     </Accordion>
   );
+
+  renderLabDraftOrder = () => (
+    <div className="draft-lab-wrapper">
+      <LabDraftOrder
+        draftLabOrders={this.props.draftLabOrders}
+      />
+    </div>
+  )
 
   render() {
     const {
@@ -131,29 +132,13 @@ export class LabEntryForm extends React.Component {
                 </li>
               ))}
             </ul>
+            {this.renderLabDraftOrder()}
           </div>
-          <form className="lab-form simple-form-ui">
-            {this.showFieldSet()}
-            <div className="flex-row">
-              <button
-                type="button"
-                className="cancel"
-                onClick={handleCancel}
-                disabled={this.state.disableCancelButton}>
-                Cancel
-              </button>
-              <div className="-1">
-                <button
-                  type="button"
-                  id="add-lab-order"
-                  className="confirm"
-                  onClick={handleSubmit}
-                  disabled={this.state.disableSaveButton}>
-                  Add
-                </button>
-              </div>
-            </div>
-          </form>
+          <div className="order-form-wrapper">
+            <form className="lab-form simple-form-ui">
+              {this.showFieldSet()}
+            </form>
+          </div>
         </div>
         <br />
         {renderActiveOrders()}
@@ -165,4 +150,21 @@ export class LabEntryForm extends React.Component {
   }
 }
 
-export default LabEntryForm;
+LabEntryForm.propTypes = {
+  addDraftLabOrdersToStore: PropTypes.func.isRequired,
+  deleteDraftLabOrderFromStore: PropTypes.func.isRequired,
+  draftLabOrders: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = ({
+  draftLabOrderReducer: { draftLabOrders },
+}) => ({
+  draftLabOrders,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addDraftLabOrdersToStore: addDraftLabOrders,
+  deleteDraftLabOrderFromStore: deleteDraftLabOrder,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LabEntryForm);

@@ -7,7 +7,21 @@ export const panelData = [
     id: 1,
     name: 'Hemogram',
     labCategory: 1,
-    testsId: [1, 3, 6],
+    tests: [
+      { id: 1, test: 'Hemoglobin' },
+      { id: 3, test: 'blood' },
+      { id: 6, test: 'prothrombin' },
+    ],
+  },
+  {
+    id: 2,
+    name: 'DLC',
+    labCategory: 1,
+    tests: [
+      { id: 2, test: 'Hematocrit' },
+      { id: 4, test: 'liver' },
+      { id: 5, test: 'sickling' },
+    ],
   },
 ];
 export const testsData = [

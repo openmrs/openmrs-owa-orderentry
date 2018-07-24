@@ -1,27 +1,27 @@
 import {
-  ADD_DRAFT_ORDER_SUCCESS,
-  DELETE_DRAFT_ORDER_SUCCESS,
-  DELETE_ALL_DRAFT_ORDERS_SUCCESS,
+  ADD_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
 } from '../actions/actionTypes';
 import initialState from './initialState';
 
 export default (state = initialState.draftTableReducer, action) => {
   switch (action.type) {
-    case ADD_DRAFT_ORDER_SUCCESS:
+    case ADD_DRAFT_DRUG_ORDER_SUCCESS:
       return {
         ...state,
-        draftOrders: [...state.draftOrders, action.order],
+        draftDrugOrders: [...state.draftDrugOrders, action.order],
       };
-    case DELETE_DRAFT_ORDER_SUCCESS:
+    case DELETE_DRAFT_DRUG_ORDER_SUCCESS:
       return {
         ...state,
-        draftOrders: state.draftOrders.filter((_, index) =>
-          index !== state.draftOrders.indexOf(action.order)),
+        draftDrugOrders: state.draftDrugOrders.filter((_, index) =>
+          index !== state.draftDrugOrders.indexOf(action.order)),
       };
-    case DELETE_ALL_DRAFT_ORDERS_SUCCESS:
+    case DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS:
       return {
         ...state,
-        draftOrders: [],
+        draftDrugOrders: [],
       };
     default: return state;
   }

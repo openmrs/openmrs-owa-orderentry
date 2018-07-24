@@ -247,7 +247,7 @@ export class DraftDataTable extends React.Component {
 const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
-  draftTableReducer: { draftOrders },
+  draftTableReducer: { draftDrugOrders },
   sessionReducer,
   patientReducer: { patient },
   encounterReducer: { encounterType },
@@ -255,7 +255,7 @@ const mapStateToProps = ({
   encounterRoleReducer: { encounterRole },
 }) => ({
   drug: drugSearchReducer.selected,
-  draftOrders,
+  draftOrders: draftDrugOrders,
   allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
   sessionReducer,
   encounterRole,
