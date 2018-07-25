@@ -2,6 +2,7 @@ import {
   ADD_DRAFT_LAB_ORDER,
   DELETE_DRAFT_LAB_ORDER,
   DELETE_ALL_DRAFT_LAB_ORDERS,
+  TOGGLE_DRAFT_LAB_ORDER_URGENCY,
 } from '../actions/actionTypes';
 import initialState from './initialState';
 
@@ -30,6 +31,16 @@ export default (state = initialState.draftLabOrderReducer, action) => {
         ...state,
         draftLabOrders: state.draftLabOrders.filter((draftOrder, index) =>
           !isOrderIds.includes(draftOrder.id)),
+      };
+    }
+
+    case TOGGLE_DRAFT_LAB_ORDER_URGENCY: {
+      const { orderId, orderUrgency } = action.order;
+      return {
+        ...state,
+        draftLabOrders: state.draftLabOrders.map(draftOrder => (draftOrder.id === orderId ?
+          { ...draftOrder, urgency: orderUrgency }
+          : draftOrder)),
       };
     }
     default: return state;
