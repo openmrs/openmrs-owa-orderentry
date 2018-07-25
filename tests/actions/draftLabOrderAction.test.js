@@ -1,10 +1,12 @@
 import {
   ADD_DRAFT_LAB_ORDER,
   DELETE_DRAFT_LAB_ORDER,
+  TOGGLE_DRAFT_LAB_ORDER_URGENCY
 } from '../../app/js/actions/actionTypes';
 import {
   addDraftLabOrders,
   deleteDraftLabOrder,
+  toggleDraftLabOrdersUgency,
 } from '../../app/js/actions/draftLabOrderAction';
 
 describe('Lab Order Actions', () => {
@@ -13,7 +15,7 @@ describe('Lab Order Actions', () => {
 
   it('should dispatch a draft lab order successfuly', async (done) => {
     const orders = [
-      { id: 1, test: 'Hemoglobin' },
+      { id: 1, test: 'Hemoglobin', urgency: 'routine'},
       { id: 2, test: 'Hematocrit' },
       { id: 3, test: 'blood' },
     ];
@@ -43,6 +45,22 @@ describe('Lab Order Actions', () => {
     const store = mockStore({});
 
     await store.dispatch(deleteDraftLabOrder(order), () => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+    done();
+  });
+
+  it('should dispatch toggling a draft lab order urgency successfuly', async (done) => {
+    const order = { orderId: 1, orderUrgency: 'SWAT' };
+
+    const expectedActions = {
+      TOGGLE_DRAFT_LAB_ORDER_URGENCY,
+      order
+    }
+
+    const store = mockStore({});
+
+    await store.dispatch(toggleDraftLabOrdersUgency(order), () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
     done();

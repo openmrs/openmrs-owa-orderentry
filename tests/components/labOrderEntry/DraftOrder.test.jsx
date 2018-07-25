@@ -1,5 +1,5 @@
 import React from 'react';
-import { LabDraftOrder } from '../../../app/js/components/labOrderEntry/DraftOrder';
+import { LabDraftOrder } from '../../../app/js/components/labOrderEntry/DraftOrder/LabDraftOrder';
 
 let props;
 let mountedComponent;

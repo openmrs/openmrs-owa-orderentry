@@ -8,9 +8,9 @@ export const panelData = [
     name: 'Hemogram',
     labCategory: 1,
     tests: [
-      { id: 1, test: 'Hemoglobin' },
-      { id: 3, test: 'blood' },
-      { id: 6, test: 'prothrombin' },
+      { id: 1, test: 'Hemoglobin', urgency: 'routine' },
+      { id: 3, test: 'blood', urgency: 'routine' },
+      { id: 6, test: 'prothrombin', urgency: 'routine' },
     ],
   },
   {
@@ -18,21 +18,21 @@ export const panelData = [
     name: 'DLC',
     labCategory: 1,
     tests: [
-      { id: 2, test: 'Hematocrit' },
-      { id: 4, test: 'liver' },
-      { id: 5, test: 'sickling' },
+      { id: 2, test: 'Hematocrit', urgency: 'routine' },
+      { id: 4, test: 'liver', urgency: 'routine' },
+      { id: 5, test: 'sickling', urgency: 'routine' },
     ],
   },
 ];
 export const testsData = [
-  { id: 1, test: 'Hemoglobin' },
-  { id: 2, test: 'Hematocrit' },
-  { id: 3, test: 'blood' },
-  { id: 4, test: 'liver' },
-  { id: 5, test: 'sickling' },
-  { id: 6, test: 'prothrombin' },
-  { id: 7, test: 'Electrophore' },
-  { id: 8, test: 'HbA1c' },
+  { id: 1, test: 'Hemoglobin', urgency: 'routine' },
+  { id: 2, test: 'Hematocrit', urgency: 'routine' },
+  { id: 3, test: 'blood', urgency: 'routine' },
+  { id: 4, test: 'liver', urgency: 'routine' },
+  { id: 5, test: 'sickling', urgency: 'routine' },
+  { id: 6, test: 'prothrombin', urgency: 'routine' },
+  { id: 7, test: 'Electrophore', urgency: 'routine' },
+  { id: 8, test: 'HbA1c', urgency: 'routine' },
 ];
 export const labCategories = [
   { id: 1, name: 'blood' },

@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
-import LabDraftOrder from './DraftOrder';
+import LabDraftOrder from './DraftOrder/LabDraftOrder';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import Accordion from '../accordion';
 import { labCategories } from './labData';
-import { addDraftLabOrders, deleteDraftLabOrder } from '../../actions/draftLabOrderAction';
+import { addDraftLabOrders, deleteDraftLabOrder, toggleDraftLabOrdersUgency } from '../../actions/draftLabOrderAction';
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
 import '../../../css/grid.scss';
 
@@ -104,6 +104,7 @@ export class LabEntryForm extends React.Component {
   renderLabDraftOrder = () => (
     <div className="draft-lab-wrapper">
       <LabDraftOrder
+        toggleDraftLabOrdersUgency={this.props.toggleDraftLabOrdersUgency}
         draftLabOrders={this.props.draftLabOrders}
       />
     </div>
@@ -153,6 +154,7 @@ export class LabEntryForm extends React.Component {
 LabEntryForm.propTypes = {
   addDraftLabOrdersToStore: PropTypes.func.isRequired,
   deleteDraftLabOrderFromStore: PropTypes.func.isRequired,
+  toggleDraftLabOrdersUgency: PropTypes.func.isRequired,
   draftLabOrders: PropTypes.array.isRequired,
 };
 
@@ -165,6 +167,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   addDraftLabOrdersToStore: addDraftLabOrders,
   deleteDraftLabOrderFromStore: deleteDraftLabOrder,
+  toggleDraftLabOrdersUgency,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabEntryForm);
