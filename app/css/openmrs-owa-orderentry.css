@@ -504,3 +504,16 @@ a.button:hover {
     position: absolute;
     right: 10px;
 }
+
+.action-btn {
+    cursor: pointer;
+}
+
+.action-btn:hover > i.scale  {
+    text-decoration: none;
+    color: #007fff;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+}
+

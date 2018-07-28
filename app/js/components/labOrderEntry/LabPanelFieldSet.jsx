@@ -5,18 +5,18 @@ import '../../../css/grid.scss';
 
 class LabPanelFieldSet extends React.Component {
   render() {
-    const { selectedPanelIds } = this.props;
+    const { selectedPanelIds, handleTestSelection } = this.props;
     return (
       <fieldset className="fieldset">
         <legend>Panels</legend>
         {
-          panelData.map((panel, index) => (
+          panelData.map(panel => (
             <button
               id="panel-button"
               className={(selectedPanelIds.includes(panel.id)) ? 'active lab-tests-btn' : 'lab-tests-btn'}
               type="button"
               key={`${panel.id}`}
-              onClick={() => this.props.selectPanelTests(panel)}
+              onClick={() => handleTestSelection(panel, 'panel')}
             >
               {panel.name}
             </button>
@@ -32,7 +32,7 @@ LabPanelFieldSet.defaultProps = {
 };
 
 LabPanelFieldSet.propTypes = {
-  selectPanelTests: PropTypes.func.isRequired,
+  handleTestSelection: PropTypes.func.isRequired,
   selectedPanelIds: PropTypes.array,
 };
 

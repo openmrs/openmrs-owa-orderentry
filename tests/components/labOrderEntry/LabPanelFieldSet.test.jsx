@@ -4,7 +4,8 @@ import LabPanelFieldSet from '../../../app/js/components/labOrderEntry/LabPanelF
 let props;
 let mountedComponent;
 props = {
-  selectPanelTests: jest.fn(),
+  handleTestSelection: jest.fn(),
+  selectedPanelIds: [1, 2],
 };
 
 const getComponent = () => {
@@ -26,8 +27,9 @@ describe('Component: LabPanelFieldSet', () => {
 
   it('should support click for each button rendered', () => {
     const component = getComponent();
+    const handleTestSelection = jest.spyOn(props, 'handleTestSelection');
     const panelButton = component.find('#panel-button').at(0); // click the second button
     panelButton.simulate('click', {});
-    expect(props.selectPanelTests).toBeCalled();
+    expect(handleTestSelection).toBeCalled();
   });
 });
