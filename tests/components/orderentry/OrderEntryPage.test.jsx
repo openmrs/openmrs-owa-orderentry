@@ -20,6 +20,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
+      getLabOrderable: jest.fn(),
       getDateFormat: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
@@ -70,6 +71,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
+      getLabOrderable: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -113,6 +115,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
+      getLabOrderable: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -145,6 +148,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
+      getLabOrderable: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -181,6 +185,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
+      getLabOrderable: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -212,6 +217,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
+      getLabOrderable: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
