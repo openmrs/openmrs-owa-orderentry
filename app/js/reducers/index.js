@@ -25,6 +25,7 @@ import addDrugOrderReducer from './addDrugOrderReducer';
 import dateFormatReducer from './dateFormatReducer';
 import draftLabOrderReducer from './draftLabOrderReducer';
 import labOrderableReducer from './labOrders/labOrderableReducer';
+import labConceptsReducer from './labOrders/labConceptsReducer';
 
 export default combineReducers({
   locationReducer,
@@ -45,4 +46,5 @@ export default combineReducers({
   dateFormatReducer,
   draftLabOrderReducer,
   labOrderableReducer,
+  labConceptsReducer,
 });

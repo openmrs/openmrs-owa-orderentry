@@ -117,4 +117,9 @@ export default {
     loading: false,
     orderables: [],
   },
+  labConcepts: {
+    error: null,
+    loading: false,
+    concepts: [],
+  },
 };
