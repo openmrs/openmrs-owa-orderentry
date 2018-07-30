@@ -1,8 +1,8 @@
 import React from 'react';
-import { LabEntryForm } from '../../../app/js/components/labOrderEntry/LabEntryForm';
+import { LabEntryForm, mapStateToProps } from '../../../app/js/components/labOrderEntry/LabEntryForm';
 import {
   addDraftLabOrders,
-  deleteDraftLabOrder
+  deleteDraftLabOrder,
 } from '../../../app/js/actions/draftLabOrderAction';
 
 import { panelData, testsData } from '../../../app/js/components/labOrderEntry/labData';
@@ -23,6 +23,20 @@ props = {
   ],
   selectedLabPanels: [panelData[0]],
   dispatch: jest.fn(),
+  addDraftLabOrdersToStore: addDraftLabOrders,
+  deleteDraftLabOrderFromStore: deleteDraftLabOrder,
+  fetchLabOrders: jest.fn(),
+  labOrders: {
+    results: [
+      {
+        uuid: '1',
+        dateActivated: new Date(),
+        concept: {
+          display: 'Hemoglobin blood test',
+        }
+      },
+    ],
+  }
 };
 
 const mockTest = testsData[0];
@@ -47,6 +61,11 @@ describe('Component: LabEntryForm', () => {
 
   it('should render on initial setup', () => {
     const component = getComponent();
+    mapStateToProps({
+      draftLabOrderReducer: { draftLabOrders: {} },
+      patientReducer: { patient: {} },
+      fetchLabOrderReducer: { labOrders: [] },
+    })
     expect(component).toMatchSnapshot();
   });
 
@@ -83,5 +102,16 @@ describe('Component: LabEntryForm', () => {
     const defaultCategory = instance.state.categoryId;
     component.find('#category-button').at(2).simulate('click', {});
     expect(instance.state.categoryId !== defaultCategory)
+  });
+
+  it(`does not render the past order component if the
+  length of the results props is less than 1`, () => {
+    const component = getComponent();
+    component.setProps({
+      ...component.props(),
+      labOrders: { results: [] },
+    });
+    const nullPastOrders = <p>No past orders</p>
+    expect(component.find('Accordion').at(1).props().children).toEqual(nullPastOrders);
   });
 });
