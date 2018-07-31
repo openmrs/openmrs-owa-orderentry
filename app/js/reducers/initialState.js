@@ -87,6 +87,10 @@ export default {
   },
   draftLabOrderReducer: {
     draftLabOrders: [],
+    selectedLabPanels: [],
+    defaultTests: [],
+    selectedTests: [],
+    singleTests: [],
   },
   drugSearchReducer: {
     drugs: [],

@@ -4,12 +4,12 @@ import LabTestFieldSet from '../../../app/js/components/labOrderEntry/LabTestFie
 let props;
 let mountedComponent;
 props = {
+  handleTestSelection: jest.fn(),
   selectedTests: [
     { id: 1, test: 'Hemoglobin' },
     { id: 2, test: 'Hematocrit' },
     { id: 3, test: 'blood' },
   ],
-  selectTest: () => jest.fn()
 };
 
 const getComponent = () => {
@@ -31,8 +31,10 @@ describe('Component: LabTestFieldSet', () => {
 
   it('should support click for each button rendered', () => {
     const component = getComponent();
+    const handleTestSelection = jest.spyOn(props, 'handleTestSelection');
     const testButton = component.find('#category-test-button').at(0); // click the second button
     testButton.simulate('click', {});
+    expect(handleTestSelection).toBeCalled();
     expect(component).toMatchSnapshot();
   });
 });

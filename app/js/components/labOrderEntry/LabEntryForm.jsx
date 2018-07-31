@@ -1,70 +1,81 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
-import LabDraftOrder from './DraftOrder/LabDraftOrder';
+import LabDraftOrder from './LabDraftOrder';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import Accordion from '../accordion';
 import { labCategories } from './labData';
-import { addDraftLabOrders, deleteDraftLabOrder, toggleDraftLabOrdersUgency } from '../../actions/draftLabOrderAction';
+
+import {
+  addTestPanelToDraft,
+  removeTestPanelFromDraft,
+  removeTestFromDraft,
+  addTestToDraft,
+  toggleDraftLabOrdersUgency,
+} from '../../actions/draftLabOrderAction';
+
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
 import '../../../css/grid.scss';
 
-export class LabEntryForm extends React.Component {
+export class LabEntryForm extends PureComponent {
   state = {
     categoryId: 1,
-    defaultTests: [],
-    selectedTests: [],
     selectedPanelIds: [],
+    selectedPanelTestIds: [],
   };
 
-  selectTest = (test) => {
-    const { addDraftLabOrdersToStore, deleteDraftLabOrderFromStore } = this.props;
-    const selectedIds = this.state.selectedTests.map(currentTest => currentTest.id);
-    const defaultTestIds = this.state.defaultTests.map(currentTest => currentTest.id);
-    if (selectedIds.includes(test.id)) {
-      this.setState({
-        selectedTests: this.state.selectedTests.filter(currentTest => currentTest.id !== test.id),
-      });
-      deleteDraftLabOrderFromStore([test]);
-    } else if (!defaultTestIds.includes(test.id)) {
-      this.setState({ selectedTests: [...this.state.selectedTests, test] });
-      addDraftLabOrdersToStore([test]);
+  componentWillReceiveProps(nextProps) {
+    const {
+      selectedLabPanels,
+      defaultTests,
+    } = nextProps;
+    this.setState({
+      selectedPanelIds: selectedLabPanels.map(panel => panel.id),
+      selectedPanelTestIds: defaultTests.map(test => test.id),
+    });
+  }
+
+  handleTestSelection = (item, type) => {
+    const {
+      props: {
+        draftLabOrders,
+        dispatch,
+      },
+      state: {
+        selectedPanelIds,
+        selectedPanelTestIds,
+      },
+    } = this;
+    const isSelected = !!draftLabOrders.filter(order => order.id === item.id).length;
+
+    if ((type === 'panel')) {
+      const isSelectedPanel = selectedPanelIds.includes(item.id);
+      if (isSelectedPanel) {
+        dispatch(removeTestPanelFromDraft(item));
+      } else {
+        dispatch(addTestPanelToDraft(item));
+      }
     }
-  };
-
-  selectPanelTests = (panel) => {
-    const { addDraftLabOrdersToStore, deleteDraftLabOrderFromStore } = this.props;
-    if (this.state.selectedPanelIds.includes(panel.id)) {
-      const { defaultTests } = this.state;
-      const panelTestIds = panel.tests.map(test => test.id);
-      this.setState({
-        selectedPanelIds: this.state.selectedPanelIds.filter(panelId =>
-          panelId !== panel.id),
-        defaultTests: defaultTests.filter(test => !panelTestIds.includes(test.id)),
-      });
-      deleteDraftLabOrderFromStore(panel.tests);
-    } else {
-      this.setState({
-        selectedPanelIds: [...this.state.selectedPanelIds, panel.id],
-        defaultTests: [...this.state.defaultTests, ...panel.tests],
-      });
-      addDraftLabOrdersToStore(panel.tests);
+    if (type === 'single') {
+      const isSelectedPanelTest = selectedPanelTestIds.includes(item.id);
+      if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
+      if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
   };
 
   showFieldSet = () => (
     <div>
       <LabPanelFieldSet
-        selectPanelTests={this.selectPanelTests}
+        handleTestSelection={this.handleTestSelection}
         selectedPanelIds={this.state.selectedPanelIds}
       />
       <LabTestFieldSet
-        selectTest={this.selectTest}
-        selectedTests={this.props.draftLabOrders}
+        handleTestSelection={this.handleTestSelection}
+        selectedTests={this.props.selectedTests}
+        draftLabOrders={this.props.draftLabOrders}
       />
     </div>
   );
@@ -84,7 +95,6 @@ export class LabEntryForm extends React.Component {
 
   handleCancel = () => {
     this.setState({
-      selectedTests: [],
       selectedPanelIds: [],
     });
   };
@@ -104,15 +114,17 @@ export class LabEntryForm extends React.Component {
   renderLabDraftOrder = () => (
     <div className="draft-lab-wrapper">
       <LabDraftOrder
-        toggleDraftLabOrdersUgency={this.props.toggleDraftLabOrdersUgency}
+        toggleDraftLabOrdersUgency={order => this.props.dispatch(toggleDraftLabOrdersUgency(order))}
         draftLabOrders={this.props.draftLabOrders}
+        panelTests={this.state.selectedPanelTestIds}
       />
     </div>
   )
 
   render() {
     const {
-      handleCancel, handleSubmit, renderActiveOrders, renderPastOrders,
+      renderActiveOrders,
+      renderPastOrders,
     } = this;
     return (
       <React.Fragment>
@@ -152,22 +164,27 @@ export class LabEntryForm extends React.Component {
 }
 
 LabEntryForm.propTypes = {
-  addDraftLabOrdersToStore: PropTypes.func.isRequired,
-  deleteDraftLabOrderFromStore: PropTypes.func.isRequired,
-  toggleDraftLabOrdersUgency: PropTypes.func.isRequired,
-  draftLabOrders: PropTypes.array.isRequired,
+
+  draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
+  selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
+  defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
+  selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
-  draftLabOrderReducer: { draftLabOrders },
+  draftLabOrderReducer: {
+    draftLabOrders,
+    selectedLabPanels,
+    defaultTests,
+    selectedTests,
+  },
 }) => ({
   draftLabOrders,
+  selectedLabPanels,
+  defaultTests,
+  selectedTests,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  addDraftLabOrdersToStore: addDraftLabOrders,
-  deleteDraftLabOrderFromStore: deleteDraftLabOrder,
-  toggleDraftLabOrdersUgency,
-}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LabEntryForm);
+export default connect(mapStateToProps)(LabEntryForm);

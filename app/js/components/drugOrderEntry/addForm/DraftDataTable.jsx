@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchEncounterRole } from '../../../actions/encounterRole';
 import { postDrugOrder } from '../../../actions/addDrugOrder';
-import activeOrderAction from '../../../actions/activeOrderAction';
 
 export class DraftDataTable extends React.Component {
   state = {

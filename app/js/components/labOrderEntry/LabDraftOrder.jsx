@@ -1,17 +1,10 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
 
-export class LabDraftOrder extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleToggleDraftOrderUgency = this.handleToggleDraftOrderUgency.bind(this);
-  }
-
-
-  handleToggleDraftOrderUgency(order) {
+export class LabDraftOrder extends PureComponent {
+  handleToggleDraftOrderUgency = (order) => {
     const orderId = order.id;
     let orderUrgency;
     if (order.urgency && order.urgency === 'routine') {
@@ -26,23 +19,28 @@ export class LabDraftOrder extends React.Component {
     this.props.toggleDraftLabOrdersUgency(draftOrder);
   }
 
-  renderDraftList = () => this.props.draftLabOrders.map((order) => {
-    const iconClass = classNames({
-      'icon-check': order.urgency === 'routine',
-      'icon-exclamation-sign': order.urgency === 'STAT',
+  renderDraftList = () => {
+    const { panelTests, draftLabOrders } = this.props;
+    return draftLabOrders.map((order) => {
+      const isPanel = !!order.labCategory;
+      const orderName = isPanel ? order.name : order.test;
+      const iconClass = classNames({
+        'icon-check': order.urgency === 'routine',
+        'icon-exclamation-sign': order.urgency === 'STAT',
+      });
+      return (
+        <li className="draft-list small-font" key={shortid.generate()}>
+          <span>{orderName}</span>
+          <span className="stay-right">
+            <a className="action-btn" id="draft-toggle-btn" href="#" onClick={() => this.handleToggleDraftOrderUgency(order)}>
+              <i className={iconClass} title="Urgency" />
+            </a>
+          </span>
+        </li>);
     });
-    return (
-      <li className="draft-list small-font" key={shortid.generate()}>
-        <span>{order.test}</span>
-        <span className="stay-right">
-          <a className="action-btn" href="#" onClick={() => this.handleToggleDraftOrderUgency(order)}>
-            <i className={iconClass} title="Urgency" />
-          </a>
-        </span>
-      </li>);
-  })
+  }
   render() {
-    const { draftLabOrders, toggleDraftLabOrdersUgency } = this.props;
+    const { draftLabOrders } = this.props;
     const numberOfDraftOrders = draftLabOrders.length;
     const isDisabled = !numberOfDraftOrders;
     return (
@@ -78,6 +76,7 @@ export class LabDraftOrder extends React.Component {
 LabDraftOrder.propTypes = {
   draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrdersUgency: PropTypes.func.isRequired,
+  panelTests: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default LabDraftOrder;
