@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import PatientDashboard from '../patientDashboard';
+import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
 import * as orderTypes from './orderTypes';
@@ -10,6 +10,7 @@ import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderable } from '../../actions/labOrders/labOrderableAction';
 import { getDateFormat } from '../../actions/dateFormat';
+import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import imageLoader from '../../../img/loading.gif';
 
 export class OrderEntryPage extends React.Component {
@@ -20,11 +21,15 @@ export class OrderEntryPage extends React.Component {
     };
   }
   componentDidMount() {
+    const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
+
     this.props.fetchPatientCareSetting();
     this.props.getSettingEncounterType();
     this.props.getSettingEncounterRole();
     this.props.getDateFormat('default');
     this.props.getLabOrderable();
+    this.props.fetchPatientRecord(patientUuid);
+    this.props.fetchPatientNote(patientUuid);
   }
 
   moreInformation = () => (
@@ -45,7 +50,7 @@ export class OrderEntryPage extends React.Component {
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
-    const patientUuid = query.get('patient');
+    const patientUuid = !!query.get('patient');
 
     const {
       settingEncounterRoleReducer,
@@ -140,9 +145,9 @@ export class OrderEntryPage extends React.Component {
         {
           patientUuid ?
             <div>
-              <PatientDashboard
-                {...this.props}
-                currentOrderTypeText={this.state.currentOrderType.text}
+              <PatientHeader
+                patient={this.props.patient}
+                note={this.props.note}
               />
               <SelectOrderType
                 switchOrderType={this.switchOrderType}
@@ -200,10 +205,14 @@ OrderEntryPage.propTypes = {
     dateFormat: PropTypes.string,
     error: PropTypes.string,
   }),
+  patient: PropTypes.shape({}).isRequired,
+  note: PropTypes.arrayOf(PropTypes.any).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
   getDateFormat: PropTypes.func.isRequired,
   getLabOrderable: PropTypes.func.isRequired,
+  fetchPatientRecord: PropTypes.func.isRequired,
+  fetchPatientNote: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -219,12 +228,16 @@ const mapStateToProps = ({
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
   dateFormatReducer,
+  patientReducer: { patient },
+  noteReducer: { note },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
   inpatientCareSetting,
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
+  patient,
+  note,
 });
 
 const actionCreators = {
@@ -233,6 +246,8 @@ const actionCreators = {
   getSettingEncounterRole,
   getDateFormat,
   getLabOrderable,
+  fetchPatientRecord,
+  fetchPatientNote,
 };
 
 export default connect(mapStateToProps, actionCreators)(OrderEntryPage);
