@@ -112,4 +112,9 @@ export default {
     dateFormat: '',
     error: null,
   },
+  labOrderables: {
+    error: false,
+    loading: false,
+    orderables: [],
+  },
 };

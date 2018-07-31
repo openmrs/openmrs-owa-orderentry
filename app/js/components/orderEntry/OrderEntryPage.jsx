@@ -8,6 +8,7 @@ import * as orderTypes from './orderTypes';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
+import { getLabOrderable } from '../../actions/labOrders/labOrderableAction';
 import { getDateFormat } from '../../actions/dateFormat';
 import imageLoader from '../../../img/loading.gif';
 
@@ -23,6 +24,7 @@ export class OrderEntryPage extends React.Component {
     this.props.getSettingEncounterType();
     this.props.getSettingEncounterRole();
     this.props.getDateFormat('default');
+    this.props.getLabOrderable();
   }
 
   moreInformation = () => (
@@ -201,6 +203,7 @@ OrderEntryPage.propTypes = {
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
   getDateFormat: PropTypes.func.isRequired,
+  getLabOrderable: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -229,6 +232,7 @@ const actionCreators = {
   getSettingEncounterType,
   getSettingEncounterRole,
   getDateFormat,
+  getLabOrderable,
 };
 
 export default connect(mapStateToProps, actionCreators)(OrderEntryPage);
