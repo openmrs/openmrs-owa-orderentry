@@ -22,6 +22,8 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       getSettingEncounterRole: jest.fn(),
       getLabOrderable: jest.fn(),
       getDateFormat: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -72,6 +74,8 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderable: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -116,6 +120,8 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderable: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -149,6 +155,8 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderable: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -186,6 +194,8 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderable: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -218,6 +228,8 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderable: jest.fn(),
+      fetchPatientRecord: jest.fn(),
+      fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -259,6 +271,15 @@ describe('Connected OrderEntryPage component', () => {
         settingEncounterType: 'order entry',
         error: ''
       },
+      patientReducer: {
+        patient: {
+          patientId: 'some-random-id',
+          patientIdentiier: { uuid: 'some-random-uuid'},
+          person:{ gender:'M', age: 12, birthdate: '2006-08-08T00:00:00.000+0100'},
+          personName: { display: 'joey bart'}
+        }
+      },
+      noteReducer: { note: []}
     });
     const props = {
       location: {search: '?patient=esere_shbfidfb_343ffd'}
