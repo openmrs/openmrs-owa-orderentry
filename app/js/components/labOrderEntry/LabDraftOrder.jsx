@@ -43,7 +43,7 @@ export class LabDraftOrder extends PureComponent {
     });
   }
   render() {
-    const { draftLabOrders } = this.props;
+    const { draftLabOrders, handleSubmit } = this.props;
     const numberOfDraftOrders = draftLabOrders.length;
     const isDisabled = !numberOfDraftOrders;
     return (
@@ -66,7 +66,7 @@ export class LabDraftOrder extends PureComponent {
         />
         <input
           type="submit"
-          onClick={() => {}}
+          onClick={handleSubmit}
           className="button confirm right modified-btn"
           value="Sign and Save"
           disabled={isDisabled}
@@ -80,6 +80,7 @@ LabDraftOrder.propTypes = {
   draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrdersUgency: PropTypes.func.isRequired,
   panelTests: PropTypes.arrayOf(PropTypes.any).isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default LabDraftOrder;

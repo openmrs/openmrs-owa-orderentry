@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ActiveOrders = ({ orders }) => (
+const ActiveOrders = ({ labOrderData, tests }) => (
   <div>
     <table className="table bordered mw-958-px">
       <thead>
         <tr>
-          <th className="w-155-px">Date</th>
-          <th>Details</th>
-          <th className="w-81-px">Status</th>
+          <th>Name</th>
+          <th>tests</th>
+          <th>status</th>
         </tr>
       </thead>
       <tbody>
-        {orders.map(order => (
-          <tr key={order.id}>
-            <td>{order.date}</td>
-            <td>{order.details}</td>
-            <td>{order.status}</td>
-          </tr>
-        ))}
+        <tr key={labOrderData.uuid}>
+          <td>{labOrderData.display}</td>
+          <td>{tests.join(', ')}</td>
+          <td>awaiting-results</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -27,21 +25,17 @@ const ActiveOrders = ({ orders }) => (
 export default ActiveOrders;
 
 ActiveOrders.defaultProps = {
-  orders: [
-    {
-      date: '5-May-2018',
-      type: 'Hemoglobin Test',
-      status: 'awaiting-results',
-      id: 1,
-    },
-  ],
+  labOrderData: {
+    uuid: '',
+    display: '',
+  },
+  tests: [''],
 };
 
 ActiveOrders.propTypes = {
-  orders: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.string,
-    type: PropTypes.string,
-    status: PropTypes.string,
-    id: PropTypes.number,
-  })),
+  labOrderData: PropTypes.shape({
+    uuid: PropTypes.string,
+    display: PropTypes.string,
+  }),
+  tests: PropTypes.arrayOf(PropTypes.string),
 };

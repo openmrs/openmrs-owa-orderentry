@@ -1,29 +1,92 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import Accordion from '../accordion';
+import createLabOrder from '../../actions/createLabOrder';
+import { successToast, errorToast } from '../../utils/toast';
 import { labCategories } from './labData';
-
 import {
   addTestPanelToDraft,
   removeTestPanelFromDraft,
   removeTestFromDraft,
   addTestToDraft,
   toggleDraftLabOrdersUgency,
-  addDraftLabOrders,
-  deleteDraftLabOrder,
 } from '../../actions/draftLabOrderAction';
+import '../../../css/grid.scss';
 
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
-import '../../../css/grid.scss';
 
 export class LabEntryForm extends PureComponent {
+  static propTypes = {
+    createLabOrderReducer: PropTypes.shape({
+      status: PropTypes.objectOf(PropTypes.bool),
+      errorMessage: PropTypes.string,
+      labOrderData: PropTypes.object,
+    }),
+    draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
+    selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
+    defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
+    selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    labOrders: PropTypes.shape({
+      results: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+    }),
+    patient: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+    encounterType: PropTypes.shape({
+      uuid: PropTypes.string,
+    }).isRequired,
+    encounterRole: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+    inpatientCareSetting: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+    session: PropTypes.shape({
+      currentProvider: PropTypes.shape({
+        person: PropTypes.shape({
+          uuid: PropTypes.string,
+        }),
+        uuid: PropTypes.string,
+      }),
+      currentLocation: PropTypes.object,
+    }),
+  };
+
+  static defaultProps = {
+    createLabOrderReducer: {
+      status: {},
+      errorMessage: '',
+    },
+    encounterRole: {
+      uuid: '',
+    },
+    patient: {
+      uuid: '',
+    },
+    inpatientCareSetting: {
+      uuid: '',
+    },
+    session: {
+      currentProvider: {
+        person: {
+          uuid: '',
+        },
+      },
+    },
+    labOrders: {
+      results: [],
+    },
+  };
+
   state = {
     categoryId: 1,
     selectedPanelIds: [],
@@ -43,6 +106,21 @@ export class LabEntryForm extends PureComponent {
       selectedPanelIds: selectedLabPanels.map(panel => panel.id),
       selectedPanelTestIds: defaultTests.map(test => test.id),
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      status: { added, error },
+      errorMessage,
+      labOrderData,
+    } = this.props.createLabOrderReducer;
+    if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
+      successToast('lab order successfully created');
+      this.handleCancel();
+    }
+    if (error) {
+      errorToast(errorMessage);
+    }
   }
 
   handleTestSelection = (item, type) => {
@@ -94,10 +172,30 @@ export class LabEntryForm extends PureComponent {
   };
 
   handleSubmit = () => {
-    /**
-     * this should contain data to be submitted
-     * */
-    this.handleCancel();
+    const orders = this.props.draftLabOrders.map(labOrder => (
+      {
+        concept: labOrder.concept,
+        careSetting: this.props.inpatientCareSetting.uuid,
+        encounter: this.props.encounterType.uuid,
+        orderer: this.props.session.currentProvider.uuid,
+        patient: this.props.patient.uuid,
+        type: 'testorder',
+      }
+    ));
+
+    const encounterPayload = {
+      encounterProviders: [
+        {
+          encounterRole: this.props.encounterRole.uuid,
+          provider: this.props.session.currentProvider.uuid,
+        },
+      ],
+      encounterType: this.props.encounterType.uuid,
+      location: this.props.session.currentLocation,
+      orders,
+      patient: this.props.patient.uuid,
+    };
+    this.props.dispatch(createLabOrder(encounterPayload));
   };
 
   handleCancel = () => {
@@ -106,11 +204,22 @@ export class LabEntryForm extends PureComponent {
     });
   };
 
-  renderActiveOrders = () => (
-    <Accordion title="Active Lab Orders">
-      <ActiveOrders orders={activeOrders} />
-    </Accordion>
-  );
+  renderPendingOrders = () => {
+    const { labOrderData } = this.props.createLabOrderReducer;
+    if (labOrderData.orders) {
+      const tests = labOrderData.orders.map(order => order.display);
+      return (
+        <Accordion open title="Pending Lab Orders">
+          <ActiveOrders labOrderData={labOrderData} tests={tests} />
+        </Accordion>
+      );
+    }
+    return (
+      <Accordion open title="Pending Lab Orders">
+        <p>No pending orders</p>
+      </Accordion>
+    );
+  };
 
   renderPastOrders = () => {
     const { results } = this.props.labOrders;
@@ -134,14 +243,14 @@ export class LabEntryForm extends PureComponent {
         toggleDraftLabOrdersUgency={order => this.props.dispatch(toggleDraftLabOrdersUgency(order))}
         draftLabOrders={this.props.draftLabOrders}
         panelTests={this.state.selectedPanelTestIds}
+        handleSubmit={this.handleSubmit}
       />
     </div>
   );
 
   render() {
     const {
-      renderActiveOrders,
-      renderPastOrders,
+      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
     } = this;
     return (
       <React.Fragment>
@@ -169,7 +278,7 @@ export class LabEntryForm extends PureComponent {
           </div>
         </div>
         <br />
-        {renderActiveOrders()}
+        {renderPendingOrders()}
         <br />
         {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
         <br />
@@ -178,30 +287,6 @@ export class LabEntryForm extends PureComponent {
   }
 }
 
-LabEntryForm.defaultProps = {
-  labOrders: {
-    results: [],
-  },
-  patient: {
-    uuid: '',
-  },
-};
-
-LabEntryForm.propTypes = {
-
-  draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
-  selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
-  defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
-  selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.func.isRequired,
-  labOrders: PropTypes.shape({
-    results: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
-  }),
-  patient: PropTypes.shape({
-    uuid: PropTypes.string,
-  }),
-};
-
 export const mapStateToProps = ({
   draftLabOrderReducer: {
     draftLabOrders,
@@ -209,15 +294,25 @@ export const mapStateToProps = ({
     defaultTests,
     selectedTests,
   },
+  openmrs: { session },
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
+  encounterRoleReducer: { encounterRole },
+  encounterReducer: { encounterType },
+  careSettingReducer: { inpatientCareSetting },
+  createLabOrderReducer,
 }) => ({
   draftLabOrders,
   selectedLabPanels,
   defaultTests,
   selectedTests,
   labOrders,
+  encounterType,
+  inpatientCareSetting,
+  createLabOrderReducer,
+  encounterRole,
   patient,
+  session,
 });
 
 export default connect(mapStateToProps)(LabEntryForm);
