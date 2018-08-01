@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Accordion } from '@openmrs/react-components';
 import AddForm from './addForm/AddForm';
 import PastOrders from './PastOrders';
 import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
-import Accordion from '../accordion';
 import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
 import { setOrderAction } from '../../actions/orderAction';
