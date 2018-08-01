@@ -517,3 +517,11 @@ a.button:hover {
     -moz-transform: scale(1.5);
 }
 
+/* Icon styles */
+.iGray {
+    color: gray
+}
+
+.iRed {
+    color: red
+}
