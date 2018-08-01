@@ -24,10 +24,13 @@ export class LabDraftOrder extends PureComponent {
     return draftLabOrders.map((order) => {
       const isPanel = !!order.labCategory;
       const orderName = isPanel ? order.name : order.test;
-      const iconClass = classNames({
-        'icon-check': order.urgency === 'routine',
-        'icon-exclamation-sign': order.urgency === 'STAT',
-      });
+      const iconClass = classNames(
+        'icon-warning-sign',
+        {
+          iGray: order.urgency === 'routine',
+          iRed: order.urgency === 'STAT',
+        },
+      );
       return (
         <li className="draft-list small-font" key={shortid.generate()}>
           <span>{orderName}</span>

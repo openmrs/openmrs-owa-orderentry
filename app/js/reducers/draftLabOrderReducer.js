@@ -82,11 +82,28 @@ export default (state = initialState.draftLabOrderReducer, action) => {
       const { orderId, orderUrgency } = action.order;
       return {
         ...state,
-        draftLabOrders: state.draftLabOrders.map(draftOrder => (draftOrder.id === orderId ?
-          { ...draftOrder, urgency: orderUrgency }
-          : draftOrder)),
+        draftLabOrders: state.draftLabOrders.map((draftOrder) => {
+          let order;
+          if (draftOrder.id === orderId) {
+            if (draftOrder.tests) {
+              order = {
+                ...draftOrder,
+                urgency: orderUrgency,
+                tests: draftOrder.tests.map(test => ({
+                  ...test, urgency: orderUrgency,
+                })),
+              };
+            } else {
+              order = { ...draftOrder, urgency: orderUrgency };
+            }
+          } else {
+            order = draftOrder;
+          }
+          return order;
+        }),
       };
     }
+
     case DELETE_PANEL_FROM_DRAFT_LAB_ORDER: {
       let selectedTests;
       let defaultTests;

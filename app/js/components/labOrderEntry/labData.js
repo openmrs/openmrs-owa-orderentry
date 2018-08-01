@@ -7,6 +7,7 @@ export const panelData = [
     id: 1,
     name: 'Hemogram',
     labCategory: 1,
+    urgency: 'routine',
     tests: [
       { id: 1, test: 'Hemoglobin', urgency: 'routine' },
       { id: 3, test: 'blood', urgency: 'routine' },
@@ -17,6 +18,7 @@ export const panelData = [
     id: 2,
     name: 'DLC',
     labCategory: 1,
+    urgency: 'routine',
     tests: [
       { id: 2, test: 'Hematocrit', urgency: 'routine' },
       { id: 4, test: 'liver', urgency: 'routine' },
