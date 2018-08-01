@@ -27,6 +27,7 @@ import dateFormatReducer from './dateFormatReducer';
 import draftLabOrderReducer from './draftLabOrderReducer';
 import labOrderableReducer from './labOrders/labOrderableReducer';
 import labConceptsReducer from './labOrders/labConceptsReducer';
+import fetchLabOrderReducer from './labOrders/fetchLabOrderReducer';
 
 export default combineReducers({
   openmrs: openmrsReducers,
@@ -49,4 +50,5 @@ export default combineReducers({
   draftLabOrderReducer,
   labOrderableReducer,
   labConceptsReducer,
+  fetchLabOrderReducer,
 });

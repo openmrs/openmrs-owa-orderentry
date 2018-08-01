@@ -15,8 +15,11 @@ import {
   removeTestFromDraft,
   addTestToDraft,
   toggleDraftLabOrdersUgency,
+  addDraftLabOrders,
+  deleteDraftLabOrder,
 } from '../../actions/draftLabOrderAction';
 
+import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import { activeOrders, pastOrders } from './ordersHistoryMockData';
 import '../../../css/grid.scss';
 
@@ -26,6 +29,10 @@ export class LabEntryForm extends PureComponent {
     selectedPanelIds: [],
     selectedPanelTestIds: [],
   };
+
+  componentDidMount() {
+    this.props.dispatch(fetchLabOrders(null, 5, this.props.patient.uuid));
+  }
 
   componentWillReceiveProps(nextProps) {
     const {
@@ -64,7 +71,7 @@ export class LabEntryForm extends PureComponent {
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
       if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
-  };
+  }
 
   showFieldSet = () => (
     <div>
@@ -74,8 +81,8 @@ export class LabEntryForm extends PureComponent {
       />
       <LabTestFieldSet
         handleTestSelection={this.handleTestSelection}
-        selectedTests={this.props.selectedTests}
         draftLabOrders={this.props.draftLabOrders}
+        selectedTests={this.props.selectedTests}
       />
     </div>
   );
@@ -105,11 +112,21 @@ export class LabEntryForm extends PureComponent {
     </Accordion>
   );
 
-  renderPastOrders = () => (
-    <Accordion title="Past Lab Orders">
-      <PastOrders orders={pastOrders} />
-    </Accordion>
-  );
+  renderPastOrders = () => {
+    const { results } = this.props.labOrders;
+    if (results.length > 0) {
+      return (
+        <Accordion open title="Past Lab Orders">
+          <PastOrders orders={results} />
+        </Accordion>
+      );
+    }
+    return (
+      <Accordion title="Past Lab Orders">
+        <p>No past orders</p>
+      </Accordion>
+    );
+  };
 
   renderLabDraftOrder = () => (
     <div className="draft-lab-wrapper">
@@ -119,7 +136,7 @@ export class LabEntryForm extends PureComponent {
         panelTests={this.state.selectedPanelTestIds}
       />
     </div>
-  )
+  );
 
   render() {
     const {
@@ -148,20 +165,27 @@ export class LabEntryForm extends PureComponent {
             {this.renderLabDraftOrder()}
           </div>
           <div className="order-form-wrapper">
-            <form className="lab-form simple-form-ui">
-              {this.showFieldSet()}
-            </form>
+            <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
           </div>
         </div>
         <br />
         {renderActiveOrders()}
         <br />
-        {renderPastOrders()}
+        {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
         <br />
       </React.Fragment>
     );
   }
 }
+
+LabEntryForm.defaultProps = {
+  labOrders: {
+    results: [],
+  },
+  patient: {
+    uuid: '',
+  },
+};
 
 LabEntryForm.propTypes = {
 
@@ -170,21 +194,30 @@ LabEntryForm.propTypes = {
   defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
   selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
+  labOrders: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  }),
+  patient: PropTypes.shape({
+    uuid: PropTypes.string,
+  }),
 };
 
-const mapStateToProps = ({
+export const mapStateToProps = ({
   draftLabOrderReducer: {
     draftLabOrders,
     selectedLabPanels,
     defaultTests,
     selectedTests,
   },
+  fetchLabOrderReducer: { labOrders },
+  patientReducer: { patient },
 }) => ({
   draftLabOrders,
   selectedLabPanels,
   defaultTests,
   selectedTests,
+  labOrders,
+  patient,
 });
-
 
 export default connect(mapStateToProps)(LabEntryForm);

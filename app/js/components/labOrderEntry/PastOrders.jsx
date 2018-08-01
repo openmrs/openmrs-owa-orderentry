@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const PastOrders = ({
   orders,
@@ -14,9 +15,9 @@ const PastOrders = ({
       </thead>
       <tbody>
         {orders.map(order => (
-          <tr key={order.id}>
-            <td>{order.date}</td>
-            <td>{order.details}</td>
+          <tr key={order.uuid}>
+            <td>{moment(order.dateActivated).format('DD MMM YYYY')}</td>
+            <td>{order.concept.display}</td>
           </tr>
         ))}
       </tbody>

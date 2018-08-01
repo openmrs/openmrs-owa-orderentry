@@ -8,6 +8,7 @@ module.exports = {
     '/tests/setup.js',
     'app/js/openmrs-owa-orderentry.jsx'
   ],
+  testURL: 'http://localhost',
   collectCoverage: true,
   collectCoverageFrom: [
     'app/js/**/*.{js,jsx}'
