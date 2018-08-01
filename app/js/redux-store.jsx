@@ -11,9 +11,14 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+import { sagas as openmrsSagas } from '@openmrs/react-components'; // eslint-disable-line 
+
 import reducers from './reducers';
 
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [thunk, sagaMiddleware];
 
 if (process.env.NODE_ENV !== 'production') {
   middlewares.push(logger);
@@ -25,5 +30,6 @@ export default () => {
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));
+  sagaMiddleware.run(openmrsSagas);
   return store;
 };
