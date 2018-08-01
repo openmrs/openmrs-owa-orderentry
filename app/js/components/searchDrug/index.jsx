@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { searchDrug, selectDrug } from '../../actions/drug';
 import View from './View';
+import './styles.scss';
 
 export class SearchDrug extends React.Component {
   onOptionSelected = (drugUuid, drugName) => {

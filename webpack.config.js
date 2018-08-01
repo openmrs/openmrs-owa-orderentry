@@ -160,7 +160,7 @@ var webpackConfig = {
 	quiet: false,
 	entry: {
 		app: `${__dirname}/app/js/openmrs-owa-orderentry`,
-		css: `${__dirname}/app/css/openmrs-owa-orderentry.css`,
+		css: `${__dirname}/app/css/openmrs-owa-orderentry.scss`,
 		vendor: [
 
 

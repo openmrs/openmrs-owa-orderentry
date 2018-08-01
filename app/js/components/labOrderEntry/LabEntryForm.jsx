@@ -19,6 +19,7 @@ import {
   toggleDraftLabOrdersUgency,
 } from '../../actions/draftLabOrderAction';
 import '../../../css/grid.scss';
+import './styles.scss';
 
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 
@@ -145,7 +146,7 @@ export class LabEntryForm extends PureComponent {
     if (type === 'single') {
       const isSelectedPanelTest = selectedPanelTestIds.includes(item.id);
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
-      if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
+      if (!isSelectedPanelTest && !isSelected) dispatch(addTestToDraft(item));
     }
   }
 
@@ -259,34 +260,36 @@ export class LabEntryForm extends PureComponent {
     } = this;
     return (
       <React.Fragment>
-        <p>New Lab Order</p>
-        <br />
-        <div className="lab-form-wrapper">
-          <div className="lab-category">
-            <ul>
-              {labCategories.map((category, index) => (
-                <li key={`${category.name}-${category.id}`}>
-                  <a
-                    className={this.state.categoryId === category.id ? 'active-category' : ''}
-                    href="#"
-                    id="category-button"
-                    onClick={() => this.changeLabForm(category.id)}>
-                    {category.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {this.renderLabDraftOrder()}
+        <div className="lab-order-entry">
+          <p>New Lab Order</p>
+          <br />
+          <div className="lab-form-wrapper">
+            <div className="lab-category">
+              <ul>
+                {labCategories.map((category, index) => (
+                  <li key={`${category.name}-${category.id}`}>
+                    <a
+                      className={this.state.categoryId === category.id ? 'active-category' : ''}
+                      href="#"
+                      id="category-button"
+                      onClick={() => this.changeLabForm(category.id)}>
+                      {category.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              {this.renderLabDraftOrder()}
+            </div>
+            <div className="order-form-wrapper">
+              <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
+            </div>
           </div>
-          <div className="order-form-wrapper">
-            <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
-          </div>
+          <br />
+          {renderPendingOrders()}
+          <br />
+          {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
+          <br />
         </div>
-        <br />
-        {renderPendingOrders()}
-        <br />
-        {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
-        <br />
       </React.Fragment>
     );
   }

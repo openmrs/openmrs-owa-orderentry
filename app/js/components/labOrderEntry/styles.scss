@@ -1,0 +1,146 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+ 
+.lab-order-entry {
+  .button:hover,
+  button:hover,
+  input[type="submit"]:hover,
+  input[type="button"]:hover,
+  input[type="submit"]:hover,
+  a.button:hover {
+    background-color: #D3D3D3 !important;
+  }
+
+  .button, button{
+    outline: none;
+  }
+
+
+  .active {
+    border: 2px solid #009384 !important;
+  }
+
+  .lab-form-wrapper{
+  display: flex
+  }
+
+  .lab-category{
+  display: inline;
+  }
+
+  .lab-category > ul li a{
+    text-transform: capitalize;
+    width: 150px;
+    display: block;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    padding: .5rem 2rem;
+    background: rgb(255, 255, 255);
+    border-top: 1px solid #EBEBEB;
+    border-left: 1px solid #EBEBEB;
+    border-right: 1px solid #EBEBEB;
+    position: relative;
+    outline: none;
+  }
+
+  .lab-category > ul li:last-child a{
+    border-bottom: 1px solid #EBEBEB;
+  }
+
+  .lab-category > ul li a:hover{
+    background: #D3D3D3;
+    transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+  }
+
+  .lab-form{
+    padding: 0rem 2rem;
+  }
+
+  .active-category{
+    background: #D3D3D3 !important;
+  }
+
+  .active-category:before{
+    content: ' ';
+    position: absolute;
+    right: -1px;
+    width: 0px;
+    height: 0px;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #FFF;
+  }
+
+  .fieldset{
+    margin-bottom: 10px;
+  }
+
+  .lab-tests-btn{
+    width: 145px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .draft-lab-wrapper{
+    width: 250px;
+  }
+
+  .draft-lab-layout{
+    width: 100%;
+  }
+
+  .h5-draft-header{
+    font-size: 0.8rem;
+  }
+
+  .small-font{
+    font-size: 0.8rem;
+  }
+
+  .small-font-l{
+    font-size: .9rem;
+  }
+
+  .order-form-wrapper{
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+
+  .modified-btn{
+    padding: 5px 10px !important;
+  }
+
+  .draft-list-container{
+    .draft-list {
+      display: block;
+      background: #EBEBEB;
+      padding: 10px 10px;
+      margin: 5px 0px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-radius: 5px;
+      &:hover{
+        background: #D3D3D3;
+        transition: all 200ms ease-in-out;
+        -webkit-transition: all 200ms ease-in-out;
+        -moz-transition: all 200ms ease-in-out;
+      }
+    }
+  }
+
+  .stay-right{
+    position: absolute;
+    right: 10px;
+  }
+}

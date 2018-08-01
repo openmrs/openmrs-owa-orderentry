@@ -12,6 +12,7 @@ import { getLabOrderable } from '../../actions/labOrders/labOrderableAction';
 import { getDateFormat } from '../../actions/dateFormat';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import imageLoader from '../../../img/loading.gif';
+import './styles.scss';
 
 export class OrderEntryPage extends React.Component {
   constructor(props) {
@@ -141,7 +142,7 @@ export class OrderEntryPage extends React.Component {
     }
 
     return (
-      <div>
+      <div className="order-entry-page">
         {
           patientUuid ?
             <div>
