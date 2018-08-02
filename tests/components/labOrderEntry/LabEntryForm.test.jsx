@@ -67,6 +67,11 @@ props = {
   encounterRole: {
     uuid: '1234trrrrr',
   },
+  orderables: [
+    { uuid: 'ifffy9847464', display: 'Hemoglobin', concept: '12746hfgjff' },
+    { uuid: 'iewue7wyu64', display: 'Hematocrit', concept: '12746hfgjff' },
+    { uuid: 'iuweihiYWGD64', display: 'blood', concept: '12746hfgjff' },
+  ],
 };
 
 let mockPanel = panelData[0];
@@ -101,6 +106,7 @@ describe('Component: LabEntryForm', () => {
       encounterRoleReducer: { encounterRole: {} },
       encounterReducer: { encounterType: {} },
       careSettingReducer: { inpatientCareSetting: {} },
+      labOrderableReducer: { orderables: [] },
     })
     expect(component).toMatchSnapshot();
   });
@@ -111,7 +117,7 @@ describe('Component: LabEntryForm', () => {
     categoryButton.simulate('click', {
       target: {},
     });
-    expect(component.state().categoryId).toEqual(2);
+    expect(component.state().categoryUUID).toEqual('iewue7wyu64');
   });
 
   it('should dispatch an action to remove a test panel from the draft', () => {
@@ -170,12 +176,12 @@ describe('Component: LabEntryForm', () => {
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
     const instance = component.instance();
-    const defaultCategory = instance.state.categoryId;
+    const defaultCategory = instance.state.categoryUUID;
     component
       .find('#category-button')
       .at(2)
       .simulate('click', {});
-    expect(instance.state.categoryId !== defaultCategory);
+    expect(instance.state.categoryUUID !== defaultCategory);
   });
 
   it('shows a toast prompt when test is submitted successfully', () => {
@@ -222,5 +228,11 @@ describe('Component: LabEntryForm', () => {
       labOrders: { results: [] },
     });
     expect(component.find('PastOrders').exists()).toBeFalsy();
+  });
+
+  it('should have lab orderables displayed in the category list', () => {
+    const component = getComponent();
+    const addButton = component.find('#category-button');
+    expect(addButton.length).toEqual(3);
   });
 });

@@ -398,12 +398,11 @@ a.button:hover {
 
 .lab-category > ul li a{
   text-transform: capitalize;
-  width: 150px;
+  width: 200px;
   display: block;
-  text-align: center;
   color: #333;
   text-decoration: none;
-  padding: .5rem 2rem;
+  padding: .5rem 1rem;
   background: rgb(255, 255, 255);
   border-top: 1px solid #EBEBEB;
   border-left: 1px solid #EBEBEB;
