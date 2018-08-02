@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Accordion } from '@openmrs/react-components';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
 import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
-import Accordion from '../accordion';
 import createLabOrder from '../../actions/createLabOrder';
 import { successToast, errorToast } from '../../utils/toast';
 import { labCategories } from './labData';
