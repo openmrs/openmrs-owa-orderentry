@@ -4,6 +4,7 @@ import {
   ADD_TEST_TO_DRAFT_LAB_ORDER,
   DELETE_TEST_FROM_DRAFT_LAB_ORDER,
   DELETE_PANEL_FROM_DRAFT_LAB_ORDER,
+  DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER,
 } from '../actions/actionTypes';
 import initialState from './initialState';
 
@@ -127,6 +128,9 @@ export default (state = initialState.draftLabOrderReducer, action) => {
         selectedLabPanels,
         draftLabOrders: [...selectedLabPanels, ...state.singleTests],
       };
+    }
+    case DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER: {
+      return initialState.draftLabOrderReducer;
     }
     default: return state;
   }

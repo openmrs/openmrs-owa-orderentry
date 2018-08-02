@@ -15,12 +15,12 @@ import {
   removeTestPanelFromDraft,
   removeTestFromDraft,
   addTestToDraft,
+  deleteDraftLabOrder,
   toggleDraftLabOrdersUgency,
 } from '../../actions/draftLabOrderAction';
 import '../../../css/grid.scss';
 
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
-import { activeOrders, pastOrders } from './ordersHistoryMockData';
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
@@ -115,7 +115,6 @@ export class LabEntryForm extends PureComponent {
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
       successToast('lab order successfully created');
-      this.handleCancel();
     }
     if (error) {
       errorToast(errorMessage);
@@ -150,6 +149,13 @@ export class LabEntryForm extends PureComponent {
     }
   }
 
+  discardTestsInDraft = (test, action) => {
+    const { dispatch } = this.props;
+    if (action === 'single') return dispatch(removeTestFromDraft(test));
+    if (action === 'panel') return dispatch(removeTestPanelFromDraft(test));
+    return dispatch(deleteDraftLabOrder());
+  }
+
   showFieldSet = () => (
     <div>
       <LabPanelFieldSet
@@ -171,7 +177,10 @@ export class LabEntryForm extends PureComponent {
   };
 
   handleSubmit = () => {
-    const orders = this.props.draftLabOrders.map(labOrder => (
+    const { draftLabOrders } = this.props;
+    const isEmpty = !draftLabOrders.length;
+    if (isEmpty) return;
+    const orders = draftLabOrders.map(labOrder => (
       {
         concept: labOrder.concept,
         careSetting: this.props.inpatientCareSetting.uuid,
@@ -195,13 +204,9 @@ export class LabEntryForm extends PureComponent {
       patient: this.props.patient.uuid,
     };
     this.props.dispatch(createLabOrder(encounterPayload));
+    this.props.dispatch(deleteDraftLabOrder());
   };
 
-  handleCancel = () => {
-    this.setState({
-      selectedPanelIds: [],
-    });
-  };
 
   renderPendingOrders = () => {
     const { labOrderData } = this.props.createLabOrderReducer;
@@ -240,16 +245,17 @@ export class LabEntryForm extends PureComponent {
     <div className="draft-lab-wrapper">
       <LabDraftOrder
         toggleDraftLabOrdersUgency={order => this.props.dispatch(toggleDraftLabOrdersUgency(order))}
+        handleDraftDiscard={this.discardTestsInDraft}
         draftLabOrders={this.props.draftLabOrders}
         panelTests={this.state.selectedPanelTestIds}
-        handleSubmit={this.handleSubmit}
+        handleSubmit={() => this.handleSubmit()}
       />
     </div>
   );
 
   render() {
     const {
-      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
+      renderPendingOrders, renderPastOrders,
     } = this;
     return (
       <React.Fragment>
