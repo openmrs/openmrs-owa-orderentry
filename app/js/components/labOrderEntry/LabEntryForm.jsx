@@ -53,6 +53,7 @@ export class LabEntryForm extends PureComponent {
       uuid: PropTypes.string,
     }),
     conceptsAsTests: PropTypes.array,
+    conceptsAsPanels: PropTypes.array,
     session: PropTypes.shape({
       currentProvider: PropTypes.shape({
         person: PropTypes.shape({
@@ -80,6 +81,7 @@ export class LabEntryForm extends PureComponent {
       uuid: '',
     },
     conceptsAsTests: [],
+    conceptsAsPanels: [],
     session: {
       currentProvider: {
         person: {
@@ -177,6 +179,7 @@ export class LabEntryForm extends PureComponent {
     <div>
       <LabPanelFieldSet
         handleTestSelection={this.handleTestSelection}
+        panels={this.props.conceptsAsPanels}
         selectedPanelIds={this.state.selectedPanelIds}
       />
       <LabTestFieldSet
@@ -321,6 +324,7 @@ export const mapStateToProps = ({
   dateFormatReducer: { dateFormat },
   labConceptsReducer: {
     conceptsAsTests,
+    conceptsAsPanels,
   },
   openmrs: { session },
   fetchLabOrderReducer: { labOrders },
@@ -334,6 +338,7 @@ export const mapStateToProps = ({
   draftLabOrders,
   dateFormat,
   conceptsAsTests,
+  conceptsAsPanels,
   selectedLabPanels,
   defaultTests,
   selectedTests,

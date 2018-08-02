@@ -60,6 +60,7 @@ props = {
     uuid: 'jfgfhfgf',
   },
   conceptsAsTests: [],
+  conceptsAsPanels: [],
   encounterType: {
     uuid: 'fhhfgfh9998',
   },
@@ -105,7 +106,7 @@ describe('Component: LabEntryForm', () => {
       dateFormatReducer: { dateFormat: 'DD-MM-YYYY HH:mm' },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
-      labConceptsReducer: { conceptsAsTests:[] },
+      labConceptsReducer: { conceptsAsTests:[], conceptsAsPanels:[] },
       openmrs: { session: {} },
       encounterRoleReducer: { encounterRole: {} },
       encounterReducer: { encounterType: {} },

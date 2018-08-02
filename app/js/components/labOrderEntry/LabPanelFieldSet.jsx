@@ -1,21 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { panelData } from './labData';
 import '../../../css/grid.scss';
 
-const LabPanelFieldSet = ({ selectedPanelIds, handleTestSelection }) => (
+
+const formatPanelName = (panelName) => {
+  const name = panelName;
+  return name.replace(/panel/i, '').trim();
+};
+
+const LabPanelFieldSet = ({ selectedPanelIds, handleTestSelection, panels }) => (
   <fieldset className="fieldset">
     <legend>Panels</legend>
-    {panelData.map(panel => (
-      <button
-        id="panel-button"
-        className={selectedPanelIds.includes(panel.id) ? 'active lab-tests-btn' : 'lab-tests-btn'}
-        type="button"
-        key={`${panel.id}`}
-        onClick={() => handleTestSelection(panel, 'panel')}>
-        {panel.name}
-      </button>
-    ))}
+    <div className="panel-box">
+      {
+        panels.map(panel => (
+          <button
+            id="panel-button"
+            className={(selectedPanelIds.includes(panel.uuid)) ? 'active lab-tests-btn' : 'lab-tests-btn'}
+            type="button"
+            key={`${panel.uuid}`}
+            onClick={() => handleTestSelection(panel, 'panel')}
+          >
+            {formatPanelName(panel.display.toLowerCase())}
+          </button>
+        ))
+      }
+    </div>
   </fieldset>
 );
 
@@ -25,6 +35,7 @@ LabPanelFieldSet.defaultProps = {
 
 LabPanelFieldSet.propTypes = {
   handleTestSelection: PropTypes.func.isRequired,
+  panels: PropTypes.array.isRequired,
   selectedPanelIds: PropTypes.array,
 };
 

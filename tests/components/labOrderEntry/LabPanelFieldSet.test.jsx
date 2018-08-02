@@ -3,10 +3,6 @@ import LabPanelFieldSet from '../../../app/js/components/labOrderEntry/LabPanelF
 
 let props;
 let mountedComponent;
-props = {
-  handleTestSelection: jest.fn(),
-  selectedPanelIds: [1, 2],
-};
 
 const getComponent = () => {
   if (!mountedComponent) {
@@ -18,6 +14,14 @@ const getComponent = () => {
 describe('Component: LabPanelFieldSet', () => {
   beforeEach(() => {
     mountedComponent = undefined;
+    props = {
+      handleTestSelection: jest.fn(),
+      selectedPanelIds: [],
+      panels: [{
+        uuid: 'asampleduuid1234',
+        display: 'sample'
+      }]
+    };
   });
 
   it('should mount initially', () => {
@@ -31,5 +35,12 @@ describe('Component: LabPanelFieldSet', () => {
     const panelButton = component.find('#panel-button').at(0); // click the second button
     panelButton.simulate('click', {});
     expect(handleTestSelection).toBeCalled();
+  });
+
+  it('should add class `active` to the slected panels', () => {
+    props.selectedPanelIds = ['asampleduuid1234'];
+    const component = getComponent();
+    const activePanelButton = component.find('.active.lab-tests-btn');
+    expect(activePanelButton.length).toEqual(1);
   });
 });
