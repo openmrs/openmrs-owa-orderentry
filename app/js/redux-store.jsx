@@ -12,7 +12,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { sagas as openmrsSagas } from '@openmrs/react-components'; // eslint-disable-line 
+import { sagas as openmrsSagas } from '@openmrs/react-components';
 
 import reducers from './reducers';
 
