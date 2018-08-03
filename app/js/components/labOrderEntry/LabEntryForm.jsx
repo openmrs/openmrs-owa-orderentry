@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Accordion } from '@openmrs/react-components';
+import shortid from 'shortid';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
@@ -9,7 +10,6 @@ import ActiveOrders from './ActiveOrders';
 import PastOrders from './PastOrders';
 import createLabOrder from '../../actions/createLabOrder';
 import { successToast, errorToast } from '../../utils/toast';
-import { labCategories } from './labData';
 import {
   addTestPanelToDraft,
   removeTestPanelFromDraft,
@@ -59,6 +59,7 @@ export class LabEntryForm extends PureComponent {
       }),
       currentLocation: PropTypes.object,
     }),
+    orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   static defaultProps = {
@@ -88,7 +89,7 @@ export class LabEntryForm extends PureComponent {
   };
 
   state = {
-    categoryId: 1,
+    categoryUUID: this.props.orderables[0].uuid,
     selectedPanelIds: [],
     selectedPanelTestIds: [],
   };
@@ -146,7 +147,7 @@ export class LabEntryForm extends PureComponent {
     if (type === 'single') {
       const isSelectedPanelTest = selectedPanelTestIds.includes(item.id);
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
-      if (!isSelectedPanelTest && !isSelected) dispatch(addTestToDraft(item));
+      if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
   }
 
@@ -173,7 +174,7 @@ export class LabEntryForm extends PureComponent {
 
   changeLabForm = (id) => {
     this.setState({
-      categoryId: id,
+      categoryUUID: id,
     });
   };
 
@@ -256,7 +257,7 @@ export class LabEntryForm extends PureComponent {
 
   render() {
     const {
-      renderPendingOrders, renderPastOrders,
+      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders, props: { orderables },
     } = this;
     return (
       <React.Fragment>
@@ -266,14 +267,14 @@ export class LabEntryForm extends PureComponent {
           <div className="lab-form-wrapper">
             <div className="lab-category">
               <ul>
-                {labCategories.map((category, index) => (
-                  <li key={`${category.name}-${category.id}`}>
+                {orderables.map(orderable => (
+                  <li key={shortid.generate()}>
                     <a
-                      className={this.state.categoryId === category.id ? 'active-category' : ''}
+                      className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
                       href="#"
                       id="category-button"
-                      onClick={() => this.changeLabForm(category.id)}>
-                      {category.name}
+                      onClick={() => this.changeLabForm(orderable.uuid)}>
+                      {orderable.display}
                     </a>
                   </li>
                 ))}
@@ -309,6 +310,7 @@ export const mapStateToProps = ({
   encounterReducer: { encounterType },
   careSettingReducer: { inpatientCareSetting },
   createLabOrderReducer,
+  labOrderableReducer: { orderables },
 }) => ({
   draftLabOrders,
   selectedLabPanels,
@@ -321,6 +323,7 @@ export const mapStateToProps = ({
   encounterRole,
   patient,
   session,
+  orderables,
 });
 
 export default connect(mapStateToProps)(LabEntryForm);

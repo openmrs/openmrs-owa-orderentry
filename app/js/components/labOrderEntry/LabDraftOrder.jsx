@@ -34,27 +34,29 @@ export class LabDraftOrder extends PureComponent {
       const iconClass = classNames(
         'icon-warning-sign',
         {
-          iGray: order.urgency === 'routine',
-          iRed: order.urgency === 'STAT',
+          'i-gray': order.urgency === 'routine',
+          'i-black': order.urgency === 'STAT',
         },
       );
       return (
-        <li className="draft-item small-font" key={shortid.generate()}>
+        <li className="draft-list small-font" key={shortid.generate()}>
           <span className="draft-name">{orderName}</span>
-          <span className="action-btn">
-            <a
-              id="draft-toggle-btn" href="#" onClick={event => this.handleToggleDraftOrderUgency(event, order)}
-            >
-              <i className={iconClass} title="Urgency" />
-            </a>
-          </span>
-          <span className="action-btn right">
-            <a
-              id="draft-discard-btn" href="#" onClick={event => this.handleDraftItemDiscard(event, order, draftType)}
-            >
-              <i className="icon-remove scale" title="Discard" />
-            </a>
-          </span>
+          <div className="action-btn-wrapper">
+            <span className="action-btn">
+              <a
+                id="draft-toggle-btn" href="#" onClick={event => this.handleToggleDraftOrderUgency(event, order)}
+              >
+                <i className={iconClass} title="Urgency" />
+              </a>
+            </span>
+            <span className="action-btn right">
+              <a
+                id="draft-discard-btn" href="#" onClick={event => this.handleDraftItemDiscard(event, order, draftType)}
+              >
+                <i className="icon-remove scale" title="Discard" />
+              </a>
+            </span>
+          </div>
         </li>);
     });
   }
