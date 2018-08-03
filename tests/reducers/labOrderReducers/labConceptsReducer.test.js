@@ -6,6 +6,21 @@ import {
 import initialState from '../../../app/js/reducers/initialState';
 import labConceptsReducer from '../../../app/js/reducers/labOrders/labConceptsReducer';
 
+const mockConcepts = [
+  { uuid: '123Abc-456', name: 'Concept A', set: false },
+  {
+    name: 'Concept B',
+    set: true,
+    setMembers: [
+      { uuid: '456Abc-123', name: 'Concept D', set: false },
+      { uuid: '138Abc-466', name: 'Concept E', set: false  },
+      { uuid: '123Def-456', name: 'Concept F', set: false  },
+    ]
+  },
+  { uuid: '321Abc-146', name: 'Concept C', set: false },
+  { uuid: '456Abc-123', name: 'Concept D', set: false },
+];
+
 describe('Lab Concepts reducer', () => {
   it('should return the initial state', () => {
     const expectedState = labConceptsReducer(initialState.labConcepts, {});
@@ -15,12 +30,20 @@ describe('Lab Concepts reducer', () => {
   it('should handle `FETCH_LAB_CONCEPTS_SUCCESS`', () => {
     const mockAction = {
       type: FETCH_LAB_CONCEPTS_SUCCESS,
-      payload: { data: { setMembers: [{ name: 'I am not a true concept' }] } }
+      payload: { data: { setMembers: mockConcepts } }
     }
     const expectedState = {
+      ...initialState.labConcepts,
       error: null,
       loading: false,
-      concepts: [{ name: 'I am not a true concept' }],
+      concepts: mockConcepts,
+      conceptsAsTests: [
+        { uuid: '123Abc-456', name: 'Concept A', set: false },
+        { uuid: '321Abc-146', name: 'Concept C', set: false },
+        { uuid: '456Abc-123', name: 'Concept D', set: false },
+        { uuid: '138Abc-466', name: 'Concept E', set: false  },
+        { uuid: '123Def-456', name: 'Concept F', set: false  },
+      ],
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);
@@ -29,9 +52,11 @@ describe('Lab Concepts reducer', () => {
   it('should handle `FETCH_LAB_CONCEPTS_LOADING`', () => {
     const mockAction = { type: FETCH_LAB_CONCEPTS_LOADING };
     const expectedState = {
+      ...initialState.labConcepts,
       error: null,
       loading: true,
       concepts: [],
+      conceptsAsTests: [],
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);
@@ -44,9 +69,11 @@ describe('Lab Concepts reducer', () => {
       payload: error
     };
     const expectedState = {
+      ...initialState.labConcepts,
       error: error,
       loading: false,
       concepts: [],
+      conceptsAsTests: [],
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);

@@ -59,6 +59,7 @@ props = {
   patient: {
     uuid: 'jfgfhfgf',
   },
+  conceptsAsTests: [],
   encounterType: {
     uuid: 'fhhfgfh9998',
   },
@@ -104,6 +105,7 @@ describe('Component: LabEntryForm', () => {
       dateFormatReducer: { dateFormat: 'DD-MM-YYYY HH:mm' },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
+      labConceptsReducer: { conceptsAsTests:[] },
       openmrs: { session: {} },
       encounterRoleReducer: { encounterRole: {} },
       encounterReducer: { encounterType: {} },
@@ -174,6 +176,13 @@ describe('Component: LabEntryForm', () => {
     instance.discardTestsInDraft();
     expect(dispatch).toBeCalled();
   });
+
+  it('should toggle the urgency state of a test', () => {
+    const instance = getComponent().instance();
+    const dispatch = jest.spyOn(props, 'dispatch');
+    instance.handleUrgencyChange();
+    expect(dispatch).toBeCalled();
+  }) 
 
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();

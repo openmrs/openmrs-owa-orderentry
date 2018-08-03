@@ -22,6 +22,7 @@ import '../../../css/grid.scss';
 import './styles.scss';
 
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
+import { fetchLabConcepts } from '../../actions/labOrders/labConceptsAction';
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
@@ -51,6 +52,7 @@ export class LabEntryForm extends PureComponent {
     inpatientCareSetting: PropTypes.shape({
       uuid: PropTypes.string,
     }),
+    conceptsAsTests: PropTypes.array,
     session: PropTypes.shape({
       currentProvider: PropTypes.shape({
         person: PropTypes.shape({
@@ -77,6 +79,7 @@ export class LabEntryForm extends PureComponent {
     inpatientCareSetting: {
       uuid: '',
     },
+    conceptsAsTests: [],
     session: {
       currentProvider: {
         person: {
@@ -97,6 +100,9 @@ export class LabEntryForm extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch(fetchLabOrders(null, 5, this.props.patient.uuid));
+    if (this.state.categoryUUID) {
+      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,7 +116,7 @@ export class LabEntryForm extends PureComponent {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       status: { added, error },
       errorMessage,
@@ -122,6 +128,9 @@ export class LabEntryForm extends PureComponent {
     }
     if (error) {
       errorToast(errorMessage);
+    }
+    if (this.state.categoryUUID !== prevState.categoryUUID) {
+      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
     }
   }
 
@@ -153,6 +162,10 @@ export class LabEntryForm extends PureComponent {
     }
   }
 
+  handleUrgencyChange = (order) => {
+    this.props.dispatch(toggleDraftLabOrdersUgency(order));
+  }
+
   discardTestsInDraft = (test, action) => {
     const { dispatch } = this.props;
     if (action === 'single') return dispatch(removeTestFromDraft(test));
@@ -170,6 +183,7 @@ export class LabEntryForm extends PureComponent {
         handleTestSelection={this.handleTestSelection}
         draftLabOrders={this.props.draftLabOrders}
         selectedTests={this.props.selectedTests}
+        tests={this.props.conceptsAsTests}
       />
     </div>
   );
@@ -247,7 +261,7 @@ export class LabEntryForm extends PureComponent {
   renderLabDraftOrder = () => (
     <div className="draft-lab-wrapper">
       <LabDraftOrder
-        toggleDraftLabOrdersUgency={order => this.props.dispatch(toggleDraftLabOrdersUgency(order))}
+        toggleDraftLabOrdersUgency={this.handleUrgencyChange}
         handleDraftDiscard={this.discardTestsInDraft}
         draftLabOrders={this.props.draftLabOrders}
         panelTests={this.state.selectedPanelTestIds}
@@ -305,6 +319,9 @@ export const mapStateToProps = ({
     selectedTests,
   },
   dateFormatReducer: { dateFormat },
+  labConceptsReducer: {
+    conceptsAsTests,
+  },
   openmrs: { session },
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
@@ -316,6 +333,7 @@ export const mapStateToProps = ({
 }) => ({
   draftLabOrders,
   dateFormat,
+  conceptsAsTests,
   selectedLabPanels,
   defaultTests,
   selectedTests,

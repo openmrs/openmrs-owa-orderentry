@@ -85,10 +85,19 @@
     margin-bottom: 10px;
   }
 
-  .lab-tests-btn{
+  .panel-box, .tests-box{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .lab-tests-btn {	  
     width: 145px;
+    font-size: 13px;
+    font-weight: bold;
     margin-right: 10px;
     margin-bottom: 10px;
+    flex-basis: 31.7%;
+    text-transform: capitalize;
   }
 
   .draft-lab-wrapper{

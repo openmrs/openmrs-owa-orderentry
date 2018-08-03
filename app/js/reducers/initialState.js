@@ -121,5 +121,6 @@ export default {
     error: null,
     loading: false,
     concepts: [],
+    conceptsAsTests: [],
   },
 };
