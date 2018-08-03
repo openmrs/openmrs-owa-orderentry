@@ -1,0 +1,84 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+ 
+.drug-order-entry {  
+  .page-link {
+    color: #007fff !important;
+    cursor: pointer;
+  }
+  
+  .active-link a {
+    color: #bcd7fd !important;
+  }
+  
+  .float-left-padding {
+    float: left;
+    padding-top: 5px;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .revise-order-padding{
+    padding-bottom: 10px
+  }
+  
+  .current-order-color{
+    color: gray
+  }
+  
+  .revised-order-text{
+    color:#02473f;
+    font-size: 20px
+  }
+  .flex-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  a {
+    &.disabled {
+      pointer-events: none;
+      cursor: default;
+      color: gray;
+    }
+  }
+  
+  .p-margin {
+    margin-right: 1em;
+  }
+  
+  .label-margin {
+    margin-right: 0.5em;
+  }
+  
+  .small-input {
+    width: 4em;
+  }
+  
+  .medium-input {
+    width: 5em;
+  }  
+
+  .react-paginate-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  
+    li {
+      float: left;
+      a {
+        display: block;
+        padding: 5px;
+        text-decoration: none;
+      }
+    }
+  }
+}

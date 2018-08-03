@@ -12,6 +12,7 @@ import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
 import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
+import './styles.scss';
 
 export class SearchAndAddOrder extends React.Component {
   state = {
@@ -150,7 +151,7 @@ export class SearchAndAddOrder extends React.Component {
       outpatientCareSetting, inpatientCareSetting, location, dateFormat,
     } = this.props;
     return (
-      <div className="body-wrapper">
+      <div className="body-wrapper drug-order-entry">
         <Tabs
           closeFormsOnTabChange={this.closeFormsOnTabChange}
         >

@@ -1,0 +1,112 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+
+ @import '~@openmrs/style-referenceapplication/lib/referenceapplication.css';
+
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 1000px;
+    margin: 10px auto;
+    background: #eeeeee;
+    color: #363463;
+    font-size: 16px;
+}
+
+.body-wrapper {
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 0px 0px 5px 5px;
+    min-height: 500px;
+    justify-content: center;
+}
+
+.app-title {
+    display: block;
+    float: right;
+    color: #eeeeee;
+    font-size: 32px;
+    margin: 4px;
+    height: 100%;
+    padding-top: 12px;
+    padding-right: 5px;
+}
+
+.instructions {
+    align-self: center;
+}
+
+.show {
+    display: block;
+}
+
+.icon-color {
+    color: #007fff;
+}
+
+.draft-spacing {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    background-color: #fff;
+}
+
+.hide {
+    display: none;
+}
+
+.text-align-center {
+    text-align: center
+}
+
+.fs-14-px {
+    font-size: 14px
+}
+
+.w-18-percent {
+    width: 18%
+}
+
+.w-10-percent {
+    width: 10%
+}
+
+.w-44-percent {
+    width: 44%
+}
+
+.mw-958-px {
+    min-width: 958px;
+}
+
+.w-155-px {
+    width: 155px;
+}
+
+.w-81-px {
+    width: 81px;
+}
+
+.w-120-px {
+    width: 120px;
+}
+
+.pl-39-px {
+    padding-left: 39px;
+}
+
+.action-padding {
+    padding: 10px 10px 10px 25px;
+}
