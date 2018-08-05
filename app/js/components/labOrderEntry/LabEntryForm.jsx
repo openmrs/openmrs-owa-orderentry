@@ -116,6 +116,7 @@ export class LabEntryForm extends PureComponent {
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
       successToast('lab order successfully created');
+      this.props.dispatch(fetchLabOrders(null, 5, this.props.patient.uuid));
     }
     if (error) {
       errorToast(errorMessage);
@@ -207,7 +208,6 @@ export class LabEntryForm extends PureComponent {
     this.props.dispatch(createLabOrder(encounterPayload));
     this.props.dispatch(deleteDraftLabOrder());
   };
-
 
   renderPendingOrders = () => {
     const { labOrderData } = this.props.createLabOrderReducer;
