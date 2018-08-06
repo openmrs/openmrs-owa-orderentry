@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import format from 'date-fns/format';
 
 const PastOrders = ({
-  orders,
+  orders, dateFormat,
 }) => (
   <div>
     <table className="table bordered mw-958-px">
@@ -16,7 +16,7 @@ const PastOrders = ({
       <tbody>
         {orders.map(order => (
           <tr key={order.uuid}>
-            <td>{moment(order.dateActivated).format('DD MMM YYYY')}</td>
+            <td>{format(order.dateActivated, dateFormat)}</td>
             <td>{order.concept.display}</td>
           </tr>
         ))}
@@ -39,6 +39,7 @@ PastOrders.defaultProps = {
 };
 
 PastOrders.propTypes = {
+  dateFormat: PropTypes.string.isRequired,
   orders: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string,
     type: PropTypes.string,
