@@ -11,21 +11,19 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const env = require('yargs').argv.mode;
 const target = require('yargs').argv.target;
 const targetPort = require('yargs').argv.targetPort;
 
 const UglifyPlugin = webpack.optimize.UglifyJsPlugin;
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const DedupePlugin = webpack.optimize.DedupePlugin;
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackOnBuildPlugin = require('on-build-webpack');
 
+const autoprefixer = require('autoprefixer');
 
-const nodeModulesDir = path.resolve(__dirname, '../node_modules');
+const env = process.env.NODE_ENV;
 
 const THIS_APP_ID = 'openmrs-owa-orderentry';
 
@@ -35,10 +33,6 @@ const nodeModules = {};
 let outputFile = `.bundle`;
 let vendorOutputFile;
 let outputPath;
-
-var configJson;
-let appEntryPoint;
-let localOwaFolder;
 
 let devtool;
 
@@ -75,6 +69,42 @@ var resolveBrowserSyncTarget = function () {
 };
 var browserSyncTarget = resolveBrowserSyncTarget();
 
+const rules = [
+	{
+		test: /\.jsx?$/,
+		loader: 'babel-loader',
+		exclude: /node_modules/,
+		query: {
+			presets: ['env', 'react'],
+			cacheDirectory: true,
+			plugins: ['transform-class-properties', 'transform-object-rest-spread']
+	}
+}, {
+		test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
+		loader: 'url-loader'
+}, {
+		test: /\.s?css$/,
+		include: [/node_modules/],
+		use: [
+		'style-loader',
+		'css-loader'
+		]
+}, {
+		test: /\.html$/,
+		loader: 'html-loader'
+}, {
+		test: /\.s?css$/,
+		exclude: [/node_modules/],
+		use: [
+			'style-loader?sourceMap',
+			{
+				loader: 'css-loader',
+			},
+			'postcss-loader',
+			'sass-loader?sourcemap&sourceMapContents&outputStyle=expanded'
+		]
+}];
+
 /** Minify for production */
 if (env === 'production') {
 
@@ -91,7 +121,6 @@ if (env === 'production') {
 			warnings: false
 		}
 	}));
-	plugins.push(new DedupePlugin());
 	outputFile = `${outputFile}.min.[chunkhash].js`;
 	vendorOutputFile = "vendor.bundle.[chunkhash].js";
 	outputPath = `${__dirname}/dist/`;
@@ -114,25 +143,27 @@ if (env === 'production') {
 		archive.directory(`${outputPath}`, '');
 
 		archive.finalize();
-	}))
-
-} else if (env === 'deploy') {
+	}));
+}
+if (env === 'deploy') {
 	outputFile = `${outputFile}.js`;
 	vendorOutputFile = "vendor.bundle.js";
 	outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
 	devtool = 'source-map';
+}
 
-} else if (env === 'dev') {
-	outputFile = `${outputFile}.js`;
-	vendorOutputFile = "vendor.bundle.js";
-	outputPath = `${__dirname}/dist/`;
-	devtool = 'source-map';
+if (env === 'development') {	
+	outputFile = `${outputFile}.js`;	
+	vendorOutputFile = "vendor.bundle.js";	
+	outputPath = `${__dirname}/dist/`;	
+	devtool = 'eval-source-map';	
 }
 
 plugins.push(new BrowserSyncPlugin({
 	proxy: {
 		target: browserSyncTarget
-	}
+	},
+	reload: true
 }));
 
 plugins.push(new CommonsChunkPlugin({
@@ -154,22 +185,33 @@ plugins.push(new CopyWebpackPlugin([{
 	to: 'img/omrs-button.png'
 }]));
 
+plugins.push(new webpack.ProvidePlugin({
+    React: 'react',
+}));
 
+plugins.push(new webpack.LoaderOptionsPlugin({
+    options: {
+      postcss: [
+        autoprefixer({
+          browsers: ['last 3 version', 'ie >= 11']
+        })
+      ]
+    }
+}));
+
+console.log('outputPath', outputPath);
 
 var webpackConfig = {
-	quiet: false,
 	entry: {
 		app: `${__dirname}/app/js/openmrs-owa-orderentry`,
 		css: `${__dirname}/app/css/openmrs-owa-orderentry.scss`,
 		vendor: [
-
-
-
-			'react'
-
-			, 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
-
-
+			'react',
+			'redux',
+			'redux-promise-middleware',
+			'redux-thunk',
+			'react-redux',
+			'redux-saga'
 		]
 	},
 	devtool: devtool,
@@ -178,33 +220,13 @@ var webpackConfig = {
 		path: outputPath,
 		filename: '[name]' + outputFile,
 	},
+	target: 'web',
 	module: {
-		loaders: [{
-			test: /\.jsx?$/,
-			loader: 'babel-loader',
-			exclude: /node_modules/,
-			query: {
-				presets: ['env', 'react'],
-				cacheDirectory: true,
-				plugins: ['transform-class-properties', 'transform-object-rest-spread']
-			}
-		}, {
-			test: /\.css$/,
-			loader: 'style-loader!css-loader'
-		}, {
-			  test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|woff|woff2)$/,
-			loader: 'url'
-		}, {
-			test: /\.html$/,
-			loader: 'html'
-		}, {
-			test: /\.scss$/,
-			loaders: ["style-loader", "css-loader", "sass-loader"]
-	}],
+		rules
 	},
 	resolve: {
-		root: path.resolve('./src'),
-		extensions: ['', '.js', '.jsx'],
+		modules: [path.resolve(__dirname), 'node_modules'],
+		extensions: ['.js', '.jsx', '.css', '.scss'],
 	},
 	plugins,
 	externals: nodeModules,
