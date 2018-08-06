@@ -31,6 +31,7 @@ export class LabEntryForm extends PureComponent {
       labOrderData: PropTypes.object,
     }),
     draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
+    dateFormat: PropTypes.string.isRequired,
     selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
     defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -228,11 +229,11 @@ export class LabEntryForm extends PureComponent {
   };
 
   renderPastOrders = () => {
-    const { results } = this.props.labOrders;
+    const { labOrders: { results }, dateFormat } = this.props;
     if (results.length > 0) {
       return (
         <Accordion open title="Past Lab Orders">
-          <PastOrders orders={results} />
+          <PastOrders orders={results} dateFormat={dateFormat} />
         </Accordion>
       );
     }
@@ -303,6 +304,7 @@ export const mapStateToProps = ({
     defaultTests,
     selectedTests,
   },
+  dateFormatReducer: { dateFormat },
   openmrs: { session },
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
@@ -313,6 +315,7 @@ export const mapStateToProps = ({
   labOrderableReducer: { orderables },
 }) => ({
   draftLabOrders,
+  dateFormat,
   selectedLabPanels,
   defaultTests,
   selectedTests,

@@ -21,6 +21,7 @@ props = {
     { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
     { id: 3, test: 'blood', concept: '12746hfgjff' },
   ],
+  dateFormat: 'DD-MM-YYYY HH:mm',
   selectedTests: [
     { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
     { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
@@ -100,6 +101,7 @@ describe('Component: LabEntryForm', () => {
     const component = getComponent();
     mapStateToProps({
       draftLabOrderReducer: { draftLabOrders: {} },
+      dateFormatReducer: { dateFormat: 'DD-MM-YYYY HH:mm' },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
       openmrs: { session: {} },
