@@ -6,10 +6,14 @@ let mountedComponent;
 props = {
   handleTestSelection: jest.fn(),
   selectedTests: [
-    { id: 1, test: 'Hemoglobin' },
-    { id: 2, test: 'Hematocrit' },
-    { id: 3, test: 'blood' },
+    { uuid: 'asampleduuid1-234', display: 'sampleA' },
+    { uuid: 'defmpleduuid1-566', display: 'sampleB' },
   ],
+  tests: [
+    { uuid: 'asampleduuid1-234', display: 'sampleA' },
+    { uuid: 'defmpleduuid1-566', display: 'sampleB' },
+    { uuid: '5sampleduuid2-788', display: 'sampleC' }
+  ]
 };
 
 const getComponent = () => {
@@ -37,4 +41,9 @@ describe('Component: LabTestFieldSet', () => {
     expect(handleTestSelection).toBeCalled();
     expect(component).toMatchSnapshot();
   });
+
+  it('should add a class of `active` to the selected test', () => {
+    const component = getComponent();
+    expect(component.find('.lab-tests-btn.active').length).toEqual(2); // 2 tests are in the selectedTests array
+  })
 });
