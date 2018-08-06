@@ -64,6 +64,15 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     componentInstance.switchOrderType(orderTypesAsArray[1]);
     expect(component.state('currentOrderType')).toBe(orderTypesAsArray[1]);
   });
+  it(`does not switch order type page if the current
+  orderType is same as the new orderType`, () => {
+    const component =  shallow(<OrderEntryPage {...props} />);
+    const componentInstance = component.instance();
+    const orderTypesAsArray = Object.values(orderTypes);
+    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
+    componentInstance.switchOrderType(orderTypesAsArray[0]);
+    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
+  })
 });
 
 describe('Test for Order entry page when orderentryowa.encounterType is not set', () => {

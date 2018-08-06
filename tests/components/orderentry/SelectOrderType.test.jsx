@@ -11,7 +11,6 @@ const getComponent = () => {
   return mountedComponent;
 };
 
-
 describe('Component: orderentry: SelectOrderType', () => {
   beforeEach(() => {
     props = { 

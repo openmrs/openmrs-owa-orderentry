@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PatientHeader } from '@openmrs/react-components';
@@ -14,7 +14,7 @@ import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';
 
-export class OrderEntryPage extends React.Component {
+export class OrderEntryPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,6 +46,8 @@ export class OrderEntryPage extends React.Component {
   )
 
   switchOrderType = (newOrderType) => {
+    const { id } = this.state.currentOrderType;
+    if (id === newOrderType.id) return;
     this.setState({ currentOrderType: newOrderType });
   }
 
