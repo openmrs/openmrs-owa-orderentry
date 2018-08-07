@@ -8,7 +8,7 @@ import initialState from '../initialState';
 
 const removeDuplicateTests = (tests) => {
   const uniqueTestIds = Array.from(new Set(tests.map(test => test.uuid)));
-  const uniqueTests = []; 
+  const uniqueTests = [];
   tests.forEach((test) => {
     const testIndex = uniqueTestIds.indexOf(test.uuid);
     if (testIndex !== -1) {

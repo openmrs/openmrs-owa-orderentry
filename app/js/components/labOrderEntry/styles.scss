@@ -147,6 +147,9 @@
         -moz-transition: all 200ms ease-in-out;
       }
     }
+    .draft-name {
+      text-transform: capitalize;
+    }
   }
 
   .stay-right{

@@ -5,7 +5,7 @@ let props;
 let mountedComponent;
 props = {
   draftLabOrders: [
-    { id: 6, test: 'prothrombin', urgency: 'routine' }
+    { uuid: 6, display: 'prothrombin', urgency: 'routine' }
   ],
   panelTests: [],
   toggleDraftLabOrdersUgency: jest.fn(),

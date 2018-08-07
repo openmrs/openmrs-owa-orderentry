@@ -28,9 +28,9 @@ export class LabDraftOrder extends PureComponent {
   renderDraftList = () => {
     const { draftLabOrders } = this.props;
     return draftLabOrders.map((order) => {
-      const isPanel = !!order.labCategory;
+      const isPanel = !!order.set;
       const draftType = !isPanel ? 'single' : 'panel';
-      const orderName = isPanel ? order.name : order.test;
+      const orderName = order.display;
       const iconClass = classNames(
         'icon-warning-sign',
         {
@@ -40,7 +40,7 @@ export class LabDraftOrder extends PureComponent {
       );
       return (
         <li className="draft-list small-font" key={shortid.generate()}>
-          <span className="draft-name">{orderName}</span>
+          <span className="draft-name">{orderName.toLowerCase()}</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">
               <a
