@@ -117,7 +117,8 @@
     "watch": "NODE_ENV=\"deploy\" webpack --progress --colors --watch --cache=false",
     "test": "npm run lint && jest -u --coverage --maxWorkers=4",
     "test:debug": "karma start",
-    "lint": "node_modules/.bin/eslint . --ext .js,.jsx"
+    "lint": "node_modules/.bin/eslint . --ext .js,.jsx",
+    "ci-publish": "ci-publish"
   },
   "keywords": [
     "OpenMRS",
