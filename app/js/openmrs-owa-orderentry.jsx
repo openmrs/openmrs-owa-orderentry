@@ -11,6 +11,8 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import 'babel-polyfill';
+import '@openmrs/style-referenceapplication/lib/referenceapplication.css';
+import '../css/openmrs-owa-orderentry.scss';
 
 import createStore from './redux-store';
 import routes from './routes';
