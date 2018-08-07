@@ -9,6 +9,7 @@ import labConceptsReducer from '../../../app/js/reducers/labOrders/labConceptsRe
 const mockConcepts = [
   { uuid: '123Abc-456', name: 'Concept A', set: false },
   {
+    uuid: '888ya-kkk',
     name: 'Concept B',
     set: true,
     setMembers: [
@@ -44,6 +45,18 @@ describe('Lab Concepts reducer', () => {
         { uuid: '138Abc-466', name: 'Concept E', set: false  },
         { uuid: '123Def-456', name: 'Concept F', set: false  },
       ],
+      conceptsAsPanels: [
+        {
+          uuid: '888ya-kkk',
+          name: 'Concept B',
+          set: true,
+          setMembers: [
+            { uuid: '456Abc-123', name: 'Concept D', set: false },
+            { uuid: '138Abc-466', name: 'Concept E', set: false  },
+            { uuid: '123Def-456', name: 'Concept F', set: false  },
+          ]
+        }
+      ]
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);
@@ -57,6 +70,7 @@ describe('Lab Concepts reducer', () => {
       loading: true,
       concepts: [],
       conceptsAsTests: [],
+      conceptsAsPanels: [],
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);
@@ -74,6 +88,7 @@ describe('Lab Concepts reducer', () => {
       loading: false,
       concepts: [],
       conceptsAsTests: [],
+      conceptsAsPanels: [],
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);
     expect(actualState).toEqual(expectedState);

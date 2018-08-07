@@ -83,6 +83,7 @@
 
   .fieldset{
     margin-bottom: 10px;
+    min-width: 92%;
   }
 
   .panel-box, .tests-box{
@@ -90,11 +91,11 @@
     flex-wrap: wrap;
   }
 
-  .lab-tests-btn {	  
+  .lab-tests-btn{
     width: 145px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
-    margin-right: 10px;
+    margin-right: 10px;	    
     margin-bottom: 10px;
     flex-basis: 31.7%;
     text-transform: capitalize;

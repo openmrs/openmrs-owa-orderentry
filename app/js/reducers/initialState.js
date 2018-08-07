@@ -122,5 +122,6 @@ export default {
     loading: false,
     concepts: [],
     conceptsAsTests: [],
+    conceptsAsPanels: [],
   },
 };
