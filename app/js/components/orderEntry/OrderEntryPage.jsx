@@ -9,7 +9,7 @@ import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderables } from "../../actions/labOrders/settingLabOrderableAction";
-import { getDateFormat } from '../../actions/dateFormat';
+import getDateFormat from '../../actions/dateFormat';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';

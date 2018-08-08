@@ -2,7 +2,7 @@ import activeOrderReducer from '../../app/js/reducers/activeOrderReducer';
 import {
   FETCH_ACTIVE_ORDER_SUCCESS,
   SET_ORDER_ACTION,
-  FETCH_ACTIVE_ORDER_ERROR,
+  FETCH_ACTIVE_ORDER_FAILURE,
   FETCH_ACTIVE_ORDER_LOADING
 } from '../../app/js/actions/actionTypes';
 
@@ -11,37 +11,39 @@ const activeOrders = mockData.defaultpatientActiveOrder;
 describe('Active Order Reducer', () => {
   it('should set the state for active order', () => {
     const initialState = {};
+    const results = [{}, {}];
     const action = {
       type: FETCH_ACTIVE_ORDER_SUCCESS,
-      results: [],
-      pageCount: 1,
-      showResultCount: '',
+      data: {
+        results,
+        totalCount: 2,
+      },
+      meta: {
+        limit: 5,
+        startIndex: 0
+      }
     };
     const newState = activeOrderReducer(initialState, action);
-    expect(newState.activeOrders).toEqual(action.results);
-    expect(newState.pageCount).toEqual(action.pageCount);
-    expect(newState.showResultCount).toEqual(action.showResultCount);
+    expect(newState.activeOrders).toEqual(results);
   });
   it('should set active order fetch error', () => {
     const initialState = {};
     const action = {
-      type: FETCH_ACTIVE_ORDER_ERROR,
-      error: 'An error occured',
-      activeOrders: [],
+      type: FETCH_ACTIVE_ORDER_FAILURE,
+      payload: 'An error occured',
     };
     const newState = activeOrderReducer(initialState, action);
-    expect(newState.activeOrders).toEqual(action.activeOrders);
-    expect(newState.error).toEqual(action.error);
+    expect(newState.status.error).toEqual(true);
+    expect(newState.errorMessage).toEqual('An error occured');
   });
 
   it('should set active order loading status', () => {
     const initialState = {};
     const action = {
       type: FETCH_ACTIVE_ORDER_LOADING,
-      status: true
     };
     const newState = activeOrderReducer(initialState, action);
-    expect(newState.loading).toEqual(action.status);
+    expect(newState.status.loading).toEqual(true);
   });
 
   it('should set the DISCONTINUE action for an order', () => {

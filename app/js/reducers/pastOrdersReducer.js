@@ -13,7 +13,7 @@ export default (state = initialState.pastOrders, action) => {
     case LOAD_PAST_ORDERS_LOADING:
       return {
         ...state,
-        loading: action.status,
+        loading: true,
       };
     case LOAD_PAST_ORDERS_SUCCESS:
       return {
@@ -23,7 +23,7 @@ export default (state = initialState.pastOrders, action) => {
     case LOAD_PAST_ORDERS_FAILURE:
       return {
         ...state,
-        error: action.error,
+        error: action.payload,
       };
     case PAST_ORDERS_PAGE_COUNT:
       return {

@@ -5,7 +5,7 @@ import {
 import axiosInstance from '../../config';
 import loading from '../loading';
 import networkError from '../networkError';
-import { getLabOrderablesConceptSet } from './labOrderableAction';
+import getLabOrderablesConceptSet from './labOrderableAction';
 
 export const getLabOrderablesSuccess = value => ({
   type: GET_LAB_ORDERABLES_SUCCESS,

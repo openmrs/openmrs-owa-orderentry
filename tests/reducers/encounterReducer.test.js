@@ -18,10 +18,11 @@ describe('encounter reducer for get actions', () => {
         const initialState = {};
         const action = {
             type: FETCH_ENCOUNTER_TYPE_LOADING,
-            status: true
         }
         const expected = {
-            isLoading: true,
+            status: {
+                loading: true
+            },
         };
         const newSate = encounterReducer(initialState, action);
         expect(newSate).toEqual(expected);
@@ -29,7 +30,7 @@ describe('encounter reducer for get actions', () => {
     it('should return encounterType', () => {
         const action = {
             type: FETCH_ENCOUNTER_TYPE_SUCCESS,
-            encounterType
+            data: encounterType
         }
         const expected = {
             isLoading: false,
@@ -42,12 +43,13 @@ describe('encounter reducer for get actions', () => {
     it('should return an error', () => {
         const action = {
             type: FETCH_ENCOUNTER_TYPE_FAILURE,
-            error: "User not logged in"
+            payload: "User not logged in"
         }
         const expected = {
-            isLoading: false,
             encounterType: {},
-            error: "User not logged in"
+            errorMessage: "User not logged in",
+            error: true,
+            isLoading: false,
         };
         const newSate = encounterReducer(initialState, action);
         expect(newSate).toEqual(expected);

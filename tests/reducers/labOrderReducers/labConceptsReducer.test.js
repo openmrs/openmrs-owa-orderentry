@@ -31,7 +31,7 @@ describe('Lab Concepts reducer', () => {
   it('should handle `FETCH_LAB_CONCEPTS_SUCCESS`', () => {
     const mockAction = {
       type: FETCH_LAB_CONCEPTS_SUCCESS,
-      payload: { data: { setMembers: mockConcepts } }
+      data: { setMembers: mockConcepts }
     }
     const expectedState = {
       ...initialState.labConcepts,
@@ -89,7 +89,8 @@ describe('Lab Concepts reducer', () => {
     };
     const expectedState = {
       ...initialState.labConcepts,
-      error: error,
+      errorMessage: error,
+      error: true,
       loading: false,
       concepts: [],
       conceptsAsTests: [],

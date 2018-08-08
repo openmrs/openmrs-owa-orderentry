@@ -1,38 +1,20 @@
-import {
-  POST_DRUG_ORDER_LOADING,
-  POST_DRUG_ORDER_SUCCESS,
-  POST_DRUG_ORDER_FAILURE,
-} from './actionTypes';
 import axiosInstance from '../config';
-import networkError from './networkError';
-import loading from './loading';
 import activeOrderAction from './activeOrderAction';
-import { getPastOrders } from '../actions/pastOrders';
+import getPastOrders from './pastOrders';
 
-export const postDrugOrderSuccess = response => ({
-  type: POST_DRUG_ORDER_SUCCESS,
-  response,
-});
+const addDrugOrder = (actions, dispatch) => actions.map(action => dispatch(action));
 
-export const postDrugOrderFailure = error => ({
-  type: POST_DRUG_ORDER_FAILURE,
-  error,
+export const postDrugOrders = ordersPayload => ({
+  type: 'POST_DRUG_ORDER',
+  payload: axiosInstance.post(`encounter`, ordersPayload),
 });
 
 export const postDrugOrder = (ordersPayload, limit, startIndex, patientUuid, careSetting) =>
-  (dispatch) => {
-    dispatch(loading('POST_DRUG_ORDER', true));
-    return axiosInstance.post(`encounter`, ordersPayload)
-      .then((response) => {
-        dispatch(postDrugOrderSuccess(response));
-        dispatch(activeOrderAction(limit, startIndex, patientUuid, careSetting));
-        dispatch(getPastOrders(limit, startIndex, patientUuid, careSetting));
-      }).catch((error) => {
-        dispatch(loading('POST_DRUG_ORDER', false));
-        if (error.response) {
-          dispatch(postDrugOrderFailure(error));
-        } else {
-          dispatch(networkError('Network error occurred'));
-        }
-      });
-  };
+  dispatch => addDrugOrder(
+    [
+      postDrugOrders(ordersPayload),
+      activeOrderAction(limit, startIndex, patientUuid, careSetting),
+      getPastOrders(limit, startIndex, patientUuid, careSetting),
+    ],
+    dispatch,
+  );

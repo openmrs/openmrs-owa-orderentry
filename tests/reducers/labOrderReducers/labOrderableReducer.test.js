@@ -4,7 +4,7 @@ import {
 } from "../../../app/js/actions/actionTypes";
 import labOrderableReducer from '../../../app/js/reducers/labOrders/labOrderableReducer';
 
-describe('Lab order reducer', () => {
+describe('laborderable reducer', () => {
   let initialState;
   beforeEach(() => {
     initialState = {
@@ -15,17 +15,17 @@ describe('Lab order reducer', () => {
   });
 
   it('should handle `FETCH_LAB_ORDERABLES_SUCCESS`', () => {
-    const orderables = {
-      setMembers: [{ id: 1, display: 'outpatient' }]
+    const data = {
+        setMembers: [{ id: 1, display: 'outpatient' }]
     };
     const expectedState = {
       orderables: [{ id: 1, display: 'outpatient' }],
       loading: false,
-      error: '',
+      error: "",
     };
     const mockAction = {
       type: FETCH_LAB_ORDERABLES_SUCCESS,
-      orderables
+      data
     };
     const actualState = labOrderableReducer(initialState, mockAction);
     expect(actualState).toEqual(expectedState);
@@ -36,17 +36,23 @@ describe('Lab order reducer', () => {
       message: 'Error in connections',
     };
     const expectedState = {
+      errorMessage: 'Error in connections',
       orderables: [],
       loading: false,
-      error: {
-        message: 'Error in connections',
-      },
+      error: true,
     };
     const mockAction = {
       type: FETCH_LAB_ORDERABLES_FAILURE,
-      error
+      payload: 'Error in connections',
     };
     const actualState = labOrderableReducer(initialState, mockAction);
     expect(actualState).toEqual(expectedState);
+  });
+  it('should handle FETCH_LAB_ORDERABLES_LOADING', () => {
+    const action = {
+      type: 'FETCH_LAB_ORDERABLES_LOADING',
+    };
+    const mockState = labOrderableReducer(initialState, action)
+    expect(mockState.status.loading).toEqual(true);
   });
 });

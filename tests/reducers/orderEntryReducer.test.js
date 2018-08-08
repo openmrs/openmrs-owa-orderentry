@@ -34,7 +34,11 @@ describe('Order Entry Configurations reducer', () => {
             isLoading: false,
             hasError: ''
         };
-        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsSuccess(configurations));
+        const action = {
+            type: 'FETCH_ORDER_CONFIG_SUCCESS',
+            data: configurations,
+        };
+        const actualState = orderEntryConfigurations(initialState, action);
         expect(actualState).toEqual(expectedState);
     });
 
@@ -44,7 +48,11 @@ describe('Order Entry Configurations reducer', () => {
             isLoading: false,
             hasError: 'Bad request'
         };
-        const actualState = orderEntryConfigurations(initialState, fetchConfigurationsFailure('Bad request'));
+        const action = {
+            type: 'FETCH_ORDER_CONFIG_FAILURE',
+            payload: 'Bad request'
+        };
+        const actualState = orderEntryConfigurations(initialState, action);
         expect(actualState).toEqual(expectedState);
     });
 

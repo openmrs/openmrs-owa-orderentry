@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { getPastOrders } from '../../actions/pastOrders';
+import getPastOrders from '../../actions/pastOrders';
 import PastOrder from './PastOrder';
 import imageLoder from '../../../img/loading.gif';
 

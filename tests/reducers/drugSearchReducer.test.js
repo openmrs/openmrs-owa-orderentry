@@ -11,7 +11,9 @@ describe('drugSearch Reducer', () => {
     it('set the patient with provided data', () => {
       const action = {
         type: 'SEARCH_DRUGS_SUCCESS',
-        drugs: defaultDrugs,
+        data: {
+          results: defaultDrugs,
+        },
       };
       const newState = drugSearchReducer(initialState, action);
       expect(newState.drugs).toEqual(defaultDrugs);
@@ -25,12 +27,12 @@ describe('drugSearch Reducer', () => {
     it('set the patient with provided data', () => {
       const action = {
         type: 'SEARCH_DRUGS_FAILURE',
-        error: 'Network error',
+        payload: 'Network error',
       };
       const newState = drugSearchReducer(initialState, action);
       expect(newState.drugs).toEqual([]);
       expect(newState.selected).toEqual({});
-      expect(newState.error).toEqual('Network error');
+      expect(newState.errorMessage).toEqual('Network error');
       expect(newState.loading).toEqual(false);
     });
   });
@@ -39,13 +41,12 @@ describe('drugSearch Reducer', () => {
     it('set the patient with provided data', () => {
       const action = {
         type: 'SEARCH_DRUGS_LOADING',
-        status: true,
       };
       const newState = drugSearchReducer(initialState, action);
       expect(newState.drugs).toEqual([]);
       expect(newState.selected).toEqual({});
       expect(newState.error).toEqual(null);
-      expect(newState.loading).toEqual(true);
+      expect(newState.status.loading).toEqual(true);
     });
   });
 

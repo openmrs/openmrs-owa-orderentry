@@ -6,6 +6,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
 import moxios from 'moxios';
 import axios from 'axios'
+import promiseMiddleware from 'redux-promise-middleware'
 import axiosInstance from '../app/js/config'
 
 import mockData from '../__mocks__/mockData';
@@ -17,7 +18,9 @@ process.env.NODE_ENV = 'test';
 // React 16 Enzyme adapter
 configure({ adapter: new Adapter() });
 
-const middlewares = [thunk];
+const promiseTypeSuffixes = ['LOADING', 'SUCCESS', 'FAILURE'];
+
+const middlewares = [thunk, promiseMiddleware({promiseTypeSuffixes})];
 const mockStore = configureMockStore(middlewares);
 const reader = new FileReader();
 moxios.install(axiosInstance)

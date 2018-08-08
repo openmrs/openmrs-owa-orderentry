@@ -1,6 +1,6 @@
 import {
   FETCH_ACTIVE_ORDER_SUCCESS,
-  FETCH_ACTIVE_ORDER_ERROR,
+  FETCH_ACTIVE_ORDER_FAILURE,
   FETCH_ACTIVE_ORDER_LOADING,
   SET_ORDER_ACTION,
 } from '../actions/actionTypes';
@@ -11,20 +11,37 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
     case FETCH_ACTIVE_ORDER_LOADING:
       return {
         ...state,
-        loading: action.status,
+        status: {
+          ...state.status,
+          loading: true,
+        },
       };
-    case FETCH_ACTIVE_ORDER_SUCCESS:
+    case FETCH_ACTIVE_ORDER_SUCCESS: {
+      const { results, totalCount } = action.data;
+      const { limit, startIndex } = action.meta;
+      const pageCount = Math.ceil(totalCount / limit);
+      const startIndexLimit = startIndex + limit;
+      const from = startIndex + 1;
+      const to = startIndexLimit > totalCount ? totalCount : startIndexLimit;
+      const showResultCount = `Showing ${from} to ${to} of ${totalCount} entries`;
+
       return {
         ...state,
-        activeOrders: action.results,
-        pageCount: action.pageCount,
-        showResultCount: action.showResultCount,
+        activeOrders: results,
+        pageCount,
+        showResultCount,
       };
-    case FETCH_ACTIVE_ORDER_ERROR:
+    }
+    case FETCH_ACTIVE_ORDER_FAILURE:
       return {
         ...state,
-        error: action.error,
         activeOrders: [],
+        errorMessage: action.payload,
+        status: {
+          ...state.status,
+          error: true,
+          loading: false,
+        },
       };
     case SET_ORDER_ACTION:
       return {

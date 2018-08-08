@@ -2,7 +2,7 @@ import {
   FETCH_ENCOUNTER_ROLE_LOADING,
   FETCH_ENCOUNTER_ROLE_SUCCESS,
   FETCH_ENCOUNTER_ROLE_FAILURE,
-} from '../../../app/js/actions/actionTypes';
+} from '../actions/actionTypes';
 import initialState from './initialState';
 
 const encounterRole = (state = initialState.encounterRoleReducer, action) => {
@@ -10,12 +10,27 @@ const encounterRole = (state = initialState.encounterRoleReducer, action) => {
     case FETCH_ENCOUNTER_ROLE_LOADING:
       return {
         ...state,
-        isLoading: action.status,
+        status: {
+          ...state.status,
+          loading: true,
+        },
       };
     case FETCH_ENCOUNTER_ROLE_SUCCESS:
       return {
         ...state,
-        encounterRole: action.encounterRole,
+        isLoading: false,
+        encounterRole: action.data,
+        error: null,
+      };
+    case FETCH_ENCOUNTER_ROLE_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        status: {
+          ...state.status,
+          error: true,
+          loading: false,
+        },
       };
     default:
       return state;
