@@ -56,6 +56,11 @@ describe('Lab Concepts reducer', () => {
             { uuid: '123Def-456', name: 'Concept F', set: false  },
           ]
         }
+      ],
+      standAloneTests: [
+        { uuid: '123Abc-456', name: 'Concept A', set: false },
+        { uuid: '321Abc-146', name: 'Concept C', set: false },
+        { uuid: '456Abc-123', name: 'Concept D', set: false },
       ]
     };
     const actualState = labConceptsReducer(initialState.labConcepts, mockAction);

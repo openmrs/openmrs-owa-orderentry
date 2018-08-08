@@ -32,6 +32,7 @@ export default (state = initialState.labConcepts, action) => {
         concepts,
         conceptsAsTests: removeDuplicateTests(allTests),
         conceptsAsPanels: panels,
+        standAloneTests,
         loading: false,
         error: null,
       };
