@@ -113,8 +113,8 @@ export class LabEntryForm extends PureComponent {
       defaultTests,
     } = nextProps;
     this.setState({
-      selectedPanelIds: selectedLabPanels.map(panel => panel.id),
-      selectedPanelTestIds: defaultTests.map(test => test.id),
+      selectedPanelIds: selectedLabPanels.map(panel => panel.uuid),
+      selectedPanelTestIds: defaultTests.map(test => test.uuid),
     });
   }
 
@@ -147,10 +147,10 @@ export class LabEntryForm extends PureComponent {
         selectedPanelTestIds,
       },
     } = this;
-    const isSelected = !!draftLabOrders.filter(order => order.id === item.id).length;
+    const isSelected = !!draftLabOrders.filter(order => order.uuid === item.uuid).length;
 
     if ((type === 'panel')) {
-      const isSelectedPanel = selectedPanelIds.includes(item.id);
+      const isSelectedPanel = selectedPanelIds.includes(item.uuid);
       if (isSelectedPanel) {
         dispatch(removeTestPanelFromDraft(item));
       } else {
@@ -158,7 +158,7 @@ export class LabEntryForm extends PureComponent {
       }
     }
     if (type === 'single') {
-      const isSelectedPanelTest = selectedPanelTestIds.includes(item.id);
+      const isSelectedPanelTest = selectedPanelTestIds.includes(item.uuid);
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
       if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
@@ -203,7 +203,7 @@ export class LabEntryForm extends PureComponent {
     if (isEmpty) return;
     const orders = draftLabOrders.map(labOrder => (
       {
-        concept: labOrder.concept,
+        concept: labOrder.uuid,
         careSetting: this.props.inpatientCareSetting.uuid,
         encounter: this.props.encounterType.uuid,
         orderer: this.props.session.currentProvider.uuid,

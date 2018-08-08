@@ -12,20 +12,20 @@ let mountedComponent;
 
 props = {
   draftLabOrders: [
-    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
-    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
-    { id: 3, test: 'blood', concept: '12746hfgjff' },
+    { display: 'Hemoglobin', uuid: '12746hfgjff' },
+    { display: 'Hematocrit', uuid: '12746hfgjff' },
+    { display: 'blood', uuid: '12746hfgjff' },
   ],
   defaultTests: [
-    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
-    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
-    { id: 3, test: 'blood', concept: '12746hfgjff' },
+    { display: 'Hemoglobin', uuid: '12746hfgjff' },
+    { display: 'Hematocrit', uuid: '12746hfgjff' },
+    { display: 'blood', uuid: '12746hfgjff' },
   ],
   dateFormat: 'DD-MM-YYYY HH:mm',
   selectedTests: [
-    { id: 1, test: 'Hemoglobin', concept: '12746hfgjff' },
-    { id: 2, test: 'Hematocrit', concept: '12746hfgjff' },
-    { id: 3, test: 'blood', concept: '12746hfgjff' },
+    { display: 'Hemoglobin', uuid: '12746hfgjff' },
+    { display: 'Hematocrit', uuid: '12746hfgjff' },
+    { display: 'blood', uuid: '12746hfgjff' },
   ],
   selectedLabPanels: [panelData[0]],
   dispatch: jest.fn(),
@@ -88,11 +88,16 @@ const getComponent = () => {
   return mountedComponent;
 };
 
-mockPanel = { id: 1, tests: [
-    { id: 4, test: 'liver' },
-    { id: 5, test: 'sickling' },
-    { id: 6, test: 'prothrombin' },
-  ] };
+mockPanel = {
+  uuid: '888ya-kkk',
+  display: 'Concept B',
+  set: true,
+  setMembers: [
+    { uuid: '456Abc-123', name: 'Concept D', set: false },
+    { uuid: '138Abc-466', name: 'Concept E', set: false },
+    { uuid: '123Def-456', name: 'Concept F', set: false },
+  ]
+},
 
 describe('Component: LabEntryForm', () => {
   beforeEach(() => {
@@ -127,7 +132,7 @@ describe('Component: LabEntryForm', () => {
 
   it('should dispatch an action to remove a test panel from the draft', () => {
     const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
+    instance.state.selectedPanelIds = [mockPanel.uuid];
 
     const dipatch = jest.spyOn(props, 'dispatch');
     instance.handleTestSelection(mockPanel, 'panel');
