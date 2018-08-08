@@ -75,6 +75,7 @@ props = {
     { uuid: 'iewue7wyu64', display: 'Hematocrit', concept: '12746hfgjff' },
     { uuid: 'iuweihiYWGD64', display: 'blood', concept: '12746hfgjff' },
   ],
+  getLabOrderables: 'buo434873euhwiqeroq',
 };
 
 let mockPanel = panelData[0];
@@ -117,6 +118,7 @@ describe('Component: LabEntryForm', () => {
       encounterReducer: { encounterType: {} },
       careSettingReducer: { inpatientCareSetting: {} },
       labOrderableReducer: { orderables: [] },
+      getLabOrderablesReducer: { getLabOrderables: '' },
     })
     expect(component).toMatchSnapshot();
   });

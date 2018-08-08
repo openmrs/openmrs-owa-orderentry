@@ -64,6 +64,7 @@ export class LabEntryForm extends PureComponent {
       currentLocation: PropTypes.object,
     }),
     orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getLabOrderables: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -95,7 +96,7 @@ export class LabEntryForm extends PureComponent {
   };
 
   state = {
-    categoryUUID: this.props.orderables[0].uuid,
+    categoryUUID: this.props.orderables[0].uuid || 0,
     selectedPanelIds: [],
     selectedPanelTestIds: [],
   };
@@ -275,40 +276,46 @@ export class LabEntryForm extends PureComponent {
 
   render() {
     const {
-      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders, props: { orderables },
+      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
+      props: { orderables, getLabOrderables },
     } = this;
     return (
       <React.Fragment>
-        <div className="lab-order-entry">
-          <p>New Lab Order</p>
-          <br />
-          <div className="lab-form-wrapper">
-            <div className="lab-category">
-              <ul>
-                {orderables.map(orderable => (
-                  <li key={shortid.generate()}>
-                    <a
-                      className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
-                      href="#"
-                      id="category-button"
-                      onClick={() => this.changeLabForm(orderable.uuid)}>
-                      {orderable.display}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              {this.renderLabDraftOrder()}
+        {
+          getLabOrderables ?
+            <div className="lab-order-entry">
+              <p>New Lab Order</p>
+              <br />
+              <div className="lab-form-wrapper">
+                <div className="lab-category">
+                  <ul>
+                    {orderables.map(orderable => (
+                      <li key={shortid.generate()}>
+                        <a
+                          className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
+                          href="#"
+                          id="category-button"
+                          onClick={() => this.changeLabForm(orderable.uuid)}>
+                          {orderable.display}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  {this.renderLabDraftOrder()}
+                </div>
+                <div className="order-form-wrapper">
+                  <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
+                </div>
+              </div>
+              <br />
+              {renderPendingOrders()}
+              <br />
+              {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
+              <br />
             </div>
-            <div className="order-form-wrapper">
-              <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
-            </div>
-          </div>
-          <br />
-          {renderPendingOrders()}
-          <br />
-          {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
-          <br />
-        </div>
+            :
+            <p>No Lab Orderables was found</p>
+        }
       </React.Fragment>
     );
   }
@@ -334,6 +341,7 @@ export const mapStateToProps = ({
   careSettingReducer: { inpatientCareSetting },
   createLabOrderReducer,
   labOrderableReducer: { orderables },
+  getLabOrderablesReducer: { getLabOrderables },
 }) => ({
   draftLabOrders,
   dateFormat,
@@ -350,6 +358,7 @@ export const mapStateToProps = ({
   patient,
   session,
   orderables,
+  getLabOrderables,
 });
 
 export default connect(mapStateToProps)(LabEntryForm);

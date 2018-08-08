@@ -115,7 +115,7 @@ export default {
   labOrderables: {
     error: false,
     loading: false,
-    orderables: [],
+    orderables: [{}],
   },
   labConcepts: {
     error: null,
@@ -123,5 +123,10 @@ export default {
     concepts: [],
     conceptsAsTests: [],
     conceptsAsPanels: [],
+  },
+  defaultLabOrderable: {
+    getLabOrderables: '',
+    isLoading: false,
+    error: '',
   },
 };

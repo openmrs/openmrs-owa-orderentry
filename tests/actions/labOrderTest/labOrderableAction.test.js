@@ -1,6 +1,6 @@
 import {
-  getLabOrderable,
-  fetchLabOrderablesFailure
+  getLabOrderablesConceptSet,
+  labOrderablesConceptSetFailure
 } from '../../../app/js/actions/labOrders/labOrderableAction';
 import {
   FETCH_LAB_ORDERABLES_SUCCESS,
@@ -15,7 +15,7 @@ describe ('Getting Lab orderables action', () => {
       type: FETCH_LAB_ORDERABLES_FAILURE,
       error
     };
-    expect(fetchLabOrderablesFailure(error)).toEqual(expectedAction);
+    expect(labOrderablesConceptSetFailure(error)).toEqual(expectedAction);
   });
 
   describe ('Lab Orderable API call', () => {
@@ -42,7 +42,7 @@ describe ('Getting Lab orderables action', () => {
 
       const store = mockStore({ configurations: []});
 
-      return store.dispatch(getLabOrderable()).then(() => {
+      return store.dispatch(getLabOrderablesConceptSet()).then(() => {
         const dispatchedActions = store.getActions();
         const dispatchedActionTypes = dispatchedActions.map(action => action.type);
         expect(dispatchedActionTypes).toEqual(expectedActions);
@@ -69,7 +69,7 @@ describe ('Getting Lab orderables action', () => {
 
         const store = mockStore({ configurations: []});
 
-        return store.dispatch(getLabOrderable()).then(() => {
+        return store.dispatch(getLabOrderablesConceptSet()).then(() => {
           const dispatchedActions = store.getActions();
           const dispatchedActionTypes = dispatchedActions.map(action => action.type);
           expect(dispatchedActionTypes).toEqual(expectedActions);
@@ -96,7 +96,7 @@ describe ('Getting Lab orderables action', () => {
 
       const store = mockStore({ configurations: []});
 
-      return store.dispatch(getLabOrderable()).then(() => {
+      return store.dispatch(getLabOrderablesConceptSet()).then(() => {
         const dispatchedActions = store.getActions();
         const dispatchedActionTypes = dispatchedActions.map(action => action.type);
         expect(dispatchedActionTypes).toEqual(expectedActions);
