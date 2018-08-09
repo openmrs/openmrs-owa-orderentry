@@ -209,6 +209,7 @@ export class LabEntryForm extends PureComponent {
         orderer: this.props.session.currentProvider.uuid,
         patient: this.props.patient.uuid,
         type: 'testorder',
+        urgency: labOrder.urgency || null,
       }
     ));
 

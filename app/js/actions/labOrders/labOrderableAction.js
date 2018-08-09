@@ -1,7 +1,6 @@
 import * as types from '../actionTypes';
 import axiosInstance from '../../config';
 import loading from '../loading';
-import constants from '../../constants';
 
 export const fetchLabOrderablesSuccess = orderables => ({
   type: types.FETCH_LAB_ORDERABLES_SUCCESS,

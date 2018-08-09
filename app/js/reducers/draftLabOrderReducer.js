@@ -7,6 +7,7 @@ import {
   DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER,
 } from '../actions/actionTypes';
 import initialState from './initialState';
+import constants from '../utils/constants';
 
 /* *Utility -> TODO: Move to utility folder */
 const isValidList = list => (Array.isArray(list) && !!(list.length));
@@ -28,6 +29,11 @@ export default (state = initialState.draftLabOrderReducer, action) => {
 
       const hasSingleTests = isValidList(state.singleTests);
       const hasDefaultTests = isValidList(state.defaultTests);
+
+      const hasUrgencyProperty = Object.prototype.hasOwnProperty.call(action.orders, 'urgency');
+      if (!hasUrgencyProperty) {
+        action.orders.urgency = constants.ROUTINE; //eslint-disable-line
+      }
 
       const selectedLabPanels = [...state.selectedLabPanels, action.orders];
 
@@ -58,6 +64,12 @@ export default (state = initialState.draftLabOrderReducer, action) => {
         isSelectedTest = state.selectedTests.includes(action.order.uuid);
         if (isDefaultTest && isSelectedTest) return state;
       }
+
+      const hasUrgencyProperty = Object.prototype.hasOwnProperty.call(action.order, 'urgency');
+      if (!hasUrgencyProperty) {
+        action.order.urgency = constants.ROUTINE; //eslint-disable-line
+      }
+
       return {
         ...state,
         draftLabOrders: [...state.draftLabOrders, action.order],
@@ -79,23 +91,14 @@ export default (state = initialState.draftLabOrderReducer, action) => {
     }
 
     case TOGGLE_DRAFT_LAB_ORDER_URGENCY: {
-      const { orderId, orderUrgency } = action.order;
+      const { orderUuid, orderUrgency } = action.order;
       return {
         ...state,
         draftLabOrders: state.draftLabOrders.map((draftOrder) => {
           let order;
-          if (draftOrder.id === orderId) {
-            if (draftOrder.tests) {
-              order = {
-                ...draftOrder,
-                urgency: orderUrgency,
-                tests: draftOrder.tests.map(test => ({
-                  ...test, urgency: orderUrgency,
-                })),
-              };
-            } else {
-              order = { ...draftOrder, urgency: orderUrgency };
-            }
+
+          if (draftOrder.uuid === orderUuid) {
+            order = { ...draftOrder, urgency: orderUrgency };
           } else {
             order = draftOrder;
           }
