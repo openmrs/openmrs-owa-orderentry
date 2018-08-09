@@ -52,8 +52,8 @@ export class LabEntryForm extends PureComponent {
     inpatientCareSetting: PropTypes.shape({
       uuid: PropTypes.string,
     }),
-    conceptsAsTests: PropTypes.array,
     conceptsAsPanels: PropTypes.array,
+    standAloneTests: PropTypes.array,
     session: PropTypes.shape({
       currentProvider: PropTypes.shape({
         person: PropTypes.shape({
@@ -81,8 +81,8 @@ export class LabEntryForm extends PureComponent {
     inpatientCareSetting: {
       uuid: '',
     },
-    conceptsAsTests: [],
     conceptsAsPanels: [],
+    standAloneTests: [],
     session: {
       currentProvider: {
         person: {
@@ -97,6 +97,7 @@ export class LabEntryForm extends PureComponent {
 
   state = {
     categoryUUID: this.props.orderables[0].uuid || 0,
+    categoryName: this.props.orderables[0].display,
     selectedPanelIds: [],
     selectedPanelTestIds: [],
   };
@@ -179,22 +180,24 @@ export class LabEntryForm extends PureComponent {
   showFieldSet = () => (
     <div>
       <LabPanelFieldSet
+        labCategoryName={this.state.categoryName}
         handleTestSelection={this.handleTestSelection}
         panels={this.props.conceptsAsPanels}
         selectedPanelIds={this.state.selectedPanelIds}
       />
       <LabTestFieldSet
+        labCategoryName={this.state.categoryName}
         handleTestSelection={this.handleTestSelection}
-        draftLabOrders={this.props.draftLabOrders}
         selectedTests={this.props.selectedTests}
-        tests={this.props.conceptsAsTests}
+        tests={this.props.standAloneTests}
       />
     </div>
   );
 
-  changeLabForm = (id) => {
+  changeLabForm = (id, name) => {
     this.setState({
       categoryUUID: id,
+      categoryName: name,
     });
   };
 
@@ -295,7 +298,7 @@ export class LabEntryForm extends PureComponent {
                           className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
                           href="#"
                           id="category-button"
-                          onClick={() => this.changeLabForm(orderable.uuid)}>
+                          onClick={() => this.changeLabForm(orderable.uuid, orderable.display)}>
                           {orderable.display}
                         </a>
                       </li>
@@ -330,8 +333,8 @@ export const mapStateToProps = ({
   },
   dateFormatReducer: { dateFormat },
   labConceptsReducer: {
-    conceptsAsTests,
     conceptsAsPanels,
+    standAloneTests,
   },
   openmrs: { session },
   fetchLabOrderReducer: { labOrders },
@@ -345,8 +348,8 @@ export const mapStateToProps = ({
 }) => ({
   draftLabOrders,
   dateFormat,
-  conceptsAsTests,
   conceptsAsPanels,
+  standAloneTests,
   selectedLabPanels,
   defaultTests,
   selectedTests,

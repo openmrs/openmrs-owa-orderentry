@@ -8,8 +8,6 @@ import {
 } from '../actions/actionTypes';
 import initialState from './initialState';
 
-/* *Utility -> TODO: Move to utility folder */
-const isValidList = list => (Array.isArray(list) && !!(list.length));
 
 /* *Utility -> TODO: Move to utility folder */
 /* Filters through two lists taking the first as a predicate */
@@ -23,23 +21,10 @@ const filterThrough = (from, to) => from.reduce((itemFrom, item) => {
 export default (state = initialState.draftLabOrderReducer, action) => {
   switch (action.type) {
     case ADD_PANEL_TO_DRAFT_LAB_ORDER: {
-      let singleTests = []; /* tests not in panel but in draft anyway */
-      let defaultTests = action.orders.setMembers; /* all tests in selected panel */
-
-      const hasSingleTests = isValidList(state.singleTests);
-      const hasDefaultTests = isValidList(state.defaultTests);
-
+      const panelTests = action.orders.setMembers;
+      const singleTests = filterThrough(state.singleTests, panelTests);
+      const defaultTests = [...state.defaultTests, ...panelTests];
       const selectedLabPanels = [...state.selectedLabPanels, action.orders];
-
-      if (hasSingleTests && !hasDefaultTests) {
-        singleTests = filterThrough(state.draftLabOrders, defaultTests);
-      } else if (hasDefaultTests) {
-        singleTests = filterThrough(
-          state.draftLabOrders,
-          [...state.defaultTests, ...defaultTests, ...selectedLabPanels],
-        );
-        defaultTests = [...state.defaultTests, ...defaultTests];
-      }
       return {
         ...state,
         selectedTests: [...singleTests, ...defaultTests],
@@ -50,14 +35,6 @@ export default (state = initialState.draftLabOrderReducer, action) => {
       };
     }
     case ADD_TEST_TO_DRAFT_LAB_ORDER: {
-      let isDefaultTest;
-      let isSelectedTest;
-      const hasValues = isValidList(state.defaultTests) && isValidList(state.selectedTests);
-      if (hasValues) {
-        isDefaultTest = state.defaultTests.includes(action.order.uuid);
-        isSelectedTest = state.selectedTests.includes(action.order.uuid);
-        if (isDefaultTest && isSelectedTest) return state;
-      }
       return {
         ...state,
         draftLabOrders: [...state.draftLabOrders, action.order],
@@ -105,25 +82,15 @@ export default (state = initialState.draftLabOrderReducer, action) => {
     }
 
     case DELETE_PANEL_FROM_DRAFT_LAB_ORDER: {
-      let selectedTests;
-      let defaultTests;
-      let selectedLabPanels;
-      const draftedPanels = state.selectedLabPanels
-        .filter(panel => panel.uuid !== action.orders.uuid);
-      const hasValues = isValidList(draftedPanels);
-      if (hasValues) {
-        selectedLabPanels = draftedPanels.filter(item => item.uuid !== action.orders.uuid);
-        [defaultTests] = selectedLabPanels.map(item => item.setMembers);
-        selectedTests = [...state.singleTests, ...defaultTests];
-      } else {
-        defaultTests = [];
-        selectedTests = [...state.singleTests];
-        selectedLabPanels = [];
-      }
+      const panel = action.orders;
+      const panelTests = action.orders.setMembers;
+      const selectedTests = filterThrough(state.selectedTests, panelTests);
+      const defaultTests = filterThrough(state.defaultTests, panelTests);
+      const selectedLabPanels = filterThrough(state.selectedLabPanels, [panel]);
       return {
         ...state,
         selectedTests,
-        defaultTests: hasValues ? [...defaultTests] : [],
+        defaultTests,
         selectedLabPanels,
         draftLabOrders: [...selectedLabPanels, ...state.singleTests],
       };

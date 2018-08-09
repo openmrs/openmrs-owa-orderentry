@@ -89,6 +89,9 @@
   .panel-box, .tests-box{
     display: flex;
     flex-wrap: wrap;
+    &>p{
+      text-transform: capitalize;
+    }
   }
 
   .lab-tests-btn{
