@@ -20,7 +20,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       getDateFormat: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
@@ -42,6 +42,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     };
     mountedComponent = undefined;
   });
+
   it('should render component', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent).toMatchSnapshot();
@@ -82,7 +83,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
@@ -128,7 +129,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
@@ -163,7 +164,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
@@ -202,7 +203,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {
@@ -236,7 +237,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getSettingEncounterType: jest.fn(),
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
-      getLabOrderable: jest.fn(),
+      getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       settingEncounterTypeReducer: {

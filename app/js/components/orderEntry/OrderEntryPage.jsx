@@ -8,7 +8,7 @@ import * as orderTypes from './orderTypes';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
-import { getLabOrderable } from '../../actions/labOrders/labOrderableAction';
+import { getLabOrderables } from "../../actions/labOrders/settingLabOrderableAction";
 import { getDateFormat } from '../../actions/dateFormat';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import imageLoader from '../../../img/loading.gif';
@@ -27,8 +27,8 @@ export class OrderEntryPage extends PureComponent {
     this.props.fetchPatientCareSetting();
     this.props.getSettingEncounterType();
     this.props.getSettingEncounterRole();
+    this.props.getLabOrderables();
     this.props.getDateFormat('default');
-    this.props.getLabOrderable();
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
   }
@@ -163,7 +163,7 @@ export class OrderEntryPage extends PureComponent {
             </div> :
             <div className="error-notice">
               {`A valid patient uuid is required to view this page,
-              please navigate to this page from the Clinician facing dashboard page 
+              please navigate to this page from the Clinician facing dashboard page
               or append a valid patient id "?patient=patient_uuid" to your url.`}
               <p>Please click&nbsp;
                 <a
@@ -213,7 +213,7 @@ OrderEntryPage.propTypes = {
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
   getDateFormat: PropTypes.func.isRequired,
-  getLabOrderable: PropTypes.func.isRequired,
+  getLabOrderables: PropTypes.func.isRequired,
   fetchPatientRecord: PropTypes.func.isRequired,
   fetchPatientNote: PropTypes.func.isRequired,
 };
@@ -247,8 +247,8 @@ const actionCreators = {
   fetchPatientCareSetting,
   getSettingEncounterType,
   getSettingEncounterRole,
+  getLabOrderables,
   getDateFormat,
-  getLabOrderable,
   fetchPatientRecord,
   fetchPatientNote,
 };

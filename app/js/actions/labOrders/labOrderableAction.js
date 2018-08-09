@@ -1,14 +1,13 @@
 import * as types from '../actionTypes';
 import axiosInstance from '../../config';
 import loading from '../loading';
-import constants from '../../constants';
 
-export const fetchLabOrderablesSuccess = orderables => ({
+export const labOrderablesConceptSetSuccess = orderables => ({
   type: types.FETCH_LAB_ORDERABLES_SUCCESS,
   orderables,
 });
 
-export const fetchLabOrderablesFailure = error => ({
+export const labOrderablesConceptSetFailure = error => ({
   type: types.FETCH_LAB_ORDERABLES_FAILURE,
   error,
 });
@@ -18,18 +17,18 @@ export const fetchLabOrderablesFailure = error => ({
  * @returns {function} - Object consisting lab orderables from API resource
  * @throws {string} - when an error occurs
  */
-export const getLabOrderable = () => (dispatch) => {
+export const getLabOrderablesConceptSet = value => (dispatch) => {
   dispatch(loading('FETCH_LAB_ORDERABLES', true));
-  return axiosInstance.get(`/concept/${constants.LAB_ORDERABLES_UUID}?v=full`)
+  return axiosInstance.get(`/concept/${value}?v=full`)
     .then((response) => {
       if (response.status !== 200) {
         throw Error(response.statusText);
       }
       dispatch(loading('FETCH_LAB_ORDERABLES', false));
-      return dispatch(fetchLabOrderablesSuccess(response.data));
+      return dispatch(labOrderablesConceptSetSuccess(response.data));
     })
     .catch((error) => {
       dispatch(loading('FETCH_LAB_ORDERABLES', false));
-      dispatch(fetchLabOrderablesFailure(error));
+      dispatch(labOrderablesConceptSetFailure(error));
     });
 };
