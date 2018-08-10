@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { ToolTip } from '@openmrs/react-components';
 import '../../../css/grid.scss';
+import TestsToolTip from './TestsToolTip';
 
 const formatPanelName = (panelName) => {
   const name = panelName;
