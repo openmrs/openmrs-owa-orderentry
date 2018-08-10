@@ -62,7 +62,8 @@
   }
 
   .lab-form{
-    padding: 0rem 2rem;
+      padding: 0rem 2rem;
+      overflow: visible;
   }
 
   .active-category{
@@ -122,11 +123,6 @@
 
   .small-font-l{
     font-size: .9rem;
-  }
-
-  .order-form-wrapper{
-    max-height: 500px;
-    overflow-y: scroll;
   }
 
   .modified-btn{
@@ -205,5 +201,60 @@
 
   .i-black {
     color: #333;
+  }
+
+  .tooltip {
+    position: relative;
+
+    .tooltip-text {
+      visibility: hidden;
+      width: 300px;
+      background-color: white;
+      border: 1px solid grey;
+      border-radius: 6px;
+      text-align: left;
+      position: absolute;
+      bottom: 130%;
+      left: 30%;
+      z-index: 1;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      p {
+        padding: 5px 0 0 8px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      div {
+        display: flex;
+        flex-flow: row wrap;
+        padding: 0px 10px 5px 10px;
+
+        span {
+          margin: 0 5px 7px 0;
+          text-align: left;
+          width: 31.5%;
+          text-transform: capitalize;
+        }
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 10%;
+        margin-left: -5px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+    }
+
+    &:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }

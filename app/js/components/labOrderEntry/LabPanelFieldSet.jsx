@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../../../css/grid.scss';
+import TestsToolTip from './TestsToolTip';
 
 
 const formatPanelName = (panelName) => {
@@ -21,12 +23,15 @@ const LabPanelFieldSet = (props) => {
             panels.map(panel => (
               <button
                 id="panel-button"
-                className={(selectedPanelIds.includes(panel.uuid)) ? 'active lab-tests-btn' : 'lab-tests-btn'}
+                className={classNames('lab-tests-btn tooltip', {
+                  active: selectedPanelIds.includes(panel.uuid),
+                })}
                 type="button"
                 key={`${panel.uuid}`}
                 onClick={() => handleTestSelection(panel, 'panel')}
               >
                 {formatPanelName(panel.display.toLowerCase())}
+                <TestsToolTip tests={panel.setMembers} />
               </button>
             )) : <p>{labCategoryName} has no panels</p>
         }
