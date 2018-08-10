@@ -19,16 +19,16 @@ describe('Component: orderentry: SelectOrderType', () => {
     };
     mountedComponent = undefined;
   });
-  it('should render three buttons', () => {
+  it('should render two dropdown type navs', () => {
     const component = getComponent();
-    expect(component.find('button').length).toBe(2);
+    expect(component.find('.order-type-option').length).toBe(2);
   });
   it('the current order type should have a border styling', () => {
     const component = getComponent();
-    expect(component.find('button').first().hasClass('active')).toBeTruthy();
+    expect(component.find('.order-type-option').first().hasClass('active')).toBeTruthy();
   }); 
   it('clicking the button should call switchOrderType', () => {
-    const component = getComponent().find('button').first();
+    const component = getComponent().find('.order-type-option').first();
     component.simulate('click');
     expect(props.switchOrderType).toHaveBeenCalledTimes(1);
   });

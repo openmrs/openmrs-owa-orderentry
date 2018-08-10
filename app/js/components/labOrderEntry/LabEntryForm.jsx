@@ -287,7 +287,7 @@ export class LabEntryForm extends PureComponent {
         {
           getLabOrderables ?
             <div className="lab-order-entry">
-              <p>New Lab Order</p>
+              <h5>New Lab Order</h5>
               <br />
               <div className="lab-form-wrapper">
                 <div className="lab-category">

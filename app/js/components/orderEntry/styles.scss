@@ -8,17 +8,166 @@
  */
 
 .order-entry-page {
-  .error-notice{
+  .error-notice {
     color: red;
     padding: 0px 8px;
   }
-  
+
   .order-type-button {
     margin: 10px 5px 10px 0px;
     outline: none;
   }
-  
+
   .order-type-button.active {
     border: 2px solid #009384 !important;
+  }
+
+  .header-nav {
+    display: flex;
+  }
+
+  .orders-nav {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .select-nav {
+    display: flex;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    background: none;
+    margin-top: -10px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 10px;
+  }
+
+  .dropdown-content div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content div:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+
+  .order-type-option {
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+  }
+
+  .add-order-nav {
+    height: 15px;
+    margin-top: -10px;
+    cursor: pointer;
+  }
+
+  .header-nav {
+    border-bottom: 1px solid #333;
+  }
+
+  .order-details {
+    background-color: #fff;
+    padding-top: 20px;
+  }
+
+  .details {
+    padding-left: 50px;
+  }
+
+  .drug-form-header {
+    margin-bottom: 30px;
+  }
+
+  .accordion-link {
+    cursor: pointer;
+  }
+
+  .content .open {
+    overflow-y: hidden;
+    max-height: 500px; /* approximate max height */
+
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .t-orders {
+    position: relative;
+  }
+
+  %invisible {
+    border: none;
+    background-color: #fff;
+  }
+
+  .th-invisible {
+    border: none;
+    background-color: #fff;
+    padding: 0px;
+  }
+
+  .th-details {
+    border: none;
+    background: #fff;
+    padding: 0px;
+  }
+
+  .all-orders {
+    background: #fff;
+  }
+
+  .orders-breadcrumb {
+    margin-bottom: 20px;
+  }
+
+  .rotate90 {
+    transform: rotate(90deg);
+  }
+  .rotate180::before {
+    transform: rotate(180deg);
+  }
+
+  .accordion-two.content {
+    padding: 0px 5px;
+    overflow-y: scroll;
+    max-height: 0px;
+    transition: all 0.5s ease;
+  }
+
+  .accordion-two.content.close {
+    max-height: 0;
+  }
+
+  .th-1 {
+    width: 120px;
+  }
+
+  .accordion-two.content.open {
+    max-height: 500px;
   }
 }

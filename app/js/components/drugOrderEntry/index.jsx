@@ -152,6 +152,7 @@ export class SearchAndAddOrder extends React.Component {
     } = this.props;
     return (
       <div className="body-wrapper drug-order-entry">
+        <h5 className="drug-form-header">New Drug Order</h5>
         <Tabs
           closeFormsOnTabChange={this.closeFormsOnTabChange}
         >

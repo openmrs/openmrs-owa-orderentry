@@ -57,11 +57,17 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
+  it('renders the patient-orders component', () => {
+    const component =  shallow(<OrderEntryPage {...props} />);
+    component.find('.orders-nav').simulate('click');
+    expect(component.state('currentOrderType')).toEqual({})
+    expect(component.find('.orders-nav').exists()).toBeTruthy();
+  })
   it('should switch the order type in the state', () => {
     const component =  shallow(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
-    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
+    expect(component.state('currentOrderType')).toEqual({});
     componentInstance.switchOrderType(orderTypesAsArray[1]);
     expect(component.state('currentOrderType')).toBe(orderTypesAsArray[1]);
   });
@@ -70,6 +76,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     const component =  shallow(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
+    componentInstance.switchOrderType(orderTypesAsArray[0]);
     expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
     componentInstance.switchOrderType(orderTypesAsArray[0]);
     expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DrugOrderEntry from '../drugOrderEntry';
 import * as orderTypes from './orderTypes';
 import LabEntryForm from '../labOrderEntry/LabEntryForm';
+import AllOrders from './AllOrders';
 
 const RenderOrderType = (props) => {
   switch (props.currentOrderTypeID) {
@@ -19,15 +20,15 @@ const RenderOrderType = (props) => {
           outpatientCareSetting={props.outpatientCareSetting}
           inpatientCareSetting={props.inpatientCareSetting}
           location={props.location}
-        />);
+        />
+      );
     }
     default: {
       return (
-        <DrugOrderEntry
-          outpatientCareSetting={props.outpatientCareSetting}
-          inpatientCareSetting={props.inpatientCareSetting}
-          location={props.location}
-        />);
+        <div className="body-wrapper">
+          <AllOrders />
+        </div>
+      );
     }
   }
 };

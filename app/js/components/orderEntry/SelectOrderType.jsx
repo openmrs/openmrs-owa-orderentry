@@ -2,26 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as orderTypes from './orderTypes';
 
-const SelectOrderType = (props) => {
+const SelectOrderType = ({ switchOrderType, currentOrderType }) => {
   const orderTypesAsObject = Object.values(orderTypes);
   return (
-    <div>
-      {
-        orderTypesAsObject.map(orderType => (
-          <button
+    <div className="dropdown">
+      <div className="add-order-nav">
+        <button>
+          Add Order
+        </button>
+      </div>
+      <div className="dropdown-content">
+        {orderTypesAsObject.map(orderType => (
+          <div
             key={orderType.id}
-            onClick={() => props.switchOrderType(orderType)}
-            className={`order-type-button ${(props.currentOrderType.id === orderType.id) ? 'active' : ''}`}
-          >{orderType.text}
-          </button>
-        ))
-      }
+            value={orderType.text}
+            role="link"
+            onClick={() => switchOrderType(orderType)}
+            tabIndex={0}
+            className={`order-type-option ${currentOrderType.id === orderType.id ? 'active' : ''}`}>
+            {orderType.text}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 SelectOrderType.propTypes = {
   currentOrderType: PropTypes.object.isRequired,
+  switchOrderType: PropTypes.func.isRequired,
 };
 
 export default SelectOrderType;
