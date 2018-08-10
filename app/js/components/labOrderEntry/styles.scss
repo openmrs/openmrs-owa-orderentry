@@ -134,9 +134,10 @@
     .draft-list {
       display: block;
       background: #EBEBEB;
-      padding: 10px 10px;
+      padding: 0 0 0 10px;
       margin: 5px 0px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       position: relative;
       border-radius: 5px;
@@ -158,9 +159,6 @@
   }
 
   .action-btn-wrapper{
-    position: absolute;
-    top: 0;
-    right: 0;
     display: flex;
     width: 80px;
   }
@@ -200,7 +198,7 @@
     color: gray
   }
 
-  .i-black {
-    color: #333;
+  .i-red {
+    color: red;
   }
 }

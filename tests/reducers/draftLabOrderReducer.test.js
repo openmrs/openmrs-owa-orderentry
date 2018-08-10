@@ -210,34 +210,34 @@ describe('Draft Lab Order Reducer', () => {
     expect(newState.draftLabOrders.length).toEqual(0);
   });
 
-  it('should set the toggle of the urgency of a draft order to "routine" for "lab tests"', () => {
+  it('should set the toggle of the urgency of a draft order to "ROUTINE" for "lab tests"', () => {
     const initialState = {
       draftLabOrders: [
-        { id: 1, test: 'Hemoglobin', urgency: 'STAT'},
-        { id: 2, test: 'Hematocrit', urgency: 'routine'},
-        { id: 3, test: 'blood', urgency: 'routine' },
+        { uuid: 1, test: 'Hemoglobin', urgency: 'STAT'},
+        { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE'},
+        { uuid: 3, test: 'blood', urgency: 'ROUTINE' },
       ]
     };
-    const order = { orderId: 1, orderUrgency: 'routine' };
+    const order = { orderUuid: 1, orderUrgency: 'ROUTINE' };
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[0]).toEqual({ id: 1, test: 'Hemoglobin', urgency: 'routine'})
+    expect(newState.draftLabOrders[0]).toEqual({ uuid: 1, test: 'Hemoglobin', urgency: 'ROUTINE'})
   });
 
   it('should set the toggle of the urgency of a draft order to "STAT" for "lab tests"', () => {
     const initialState = {
       draftLabOrders: [
-        { id: 1, test: 'Hemoglobin', urgency: 'STAT'},
-        { id: 2, test: 'Hematocrit', urgency: 'routine'},
-        { id: 3, test: 'blood' },
+        { uuid: 1, test: 'Hemoglobin', urgency: 'STAT'},
+        { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE'},
+        { uuid: 3, test: 'blood' },
       ]
     };
 
-    const order = { orderId: 2, orderUrgency: 'STAT' };
+    const order = { orderUuid: 2, orderUrgency: 'STAT' };
 
 
     const action = {
@@ -246,37 +246,27 @@ describe('Draft Lab Order Reducer', () => {
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[1]).toEqual({ id: 2, test: 'Hematocrit', urgency: 'STAT'})
+    expect(newState.draftLabOrders[1]).toEqual({ uuid: 2, test: 'Hematocrit', urgency: 'STAT'})
   });
 
   it('should set the toggle of the urgency of a draft order to "STAT" for "lab panels"', () => {
     const initialState = {
       draftLabOrders: [
         {
-          id: 1,
+          uuid: 1,
           name: "Hemogram",
           labCategory: 1,
-          urgency: "routine",
-          tests: [
-            { id: 1, test: 'Hemoglobin', urgency: 'routine'},
-            { id: 2, test: 'Hematocrit', urgency: 'routine'},
-            { id: 3, test: 'blood', urgency: 'routine' },
-          ]
+          urgency: "ROUTINE",
         }
       ]
     };
     const expectedState = {
-      id: 1,
+      uuid: 1,
       name: "Hemogram",
       labCategory: 1,
       urgency: "STAT",
-      tests: [
-        { id: 1, test: 'Hemoglobin', urgency: 'STAT'},
-        { id: 2, test: 'Hematocrit', urgency: 'STAT'},
-        { id: 3, test: 'blood', urgency: 'STAT' },
-      ]
     };
-    const order = { orderId: 1, orderUrgency: 'STAT' };
+    const order = { orderUuid: 1, orderUrgency: 'STAT' };
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
@@ -286,35 +276,54 @@ describe('Draft Lab Order Reducer', () => {
     expect(newState.draftLabOrders[0]).toEqual(expectedState)
   });
 
-  it('should set the toggle of the urgency of a draft order to "routine" for "lab tests"', () => {
+  it('should set the toggle of the urgency of a draft order to "ROUTINE" for "lab tests"', () => {
     const initialState = {
       draftLabOrders: [
         {
-          id: 2,
+          uuid: 2,
           name: "Hemogram",
           labCategory: 1,
           urgency: "STAT",
-          tests: [
-            { id: 1, test: 'Hemoglobin', urgency: 'STAT'},
-            { id: 2, test: 'Hematocrit', urgency: 'STAT'},
-            { id: 3, test: 'blood', urgency: 'STAT' },
-          ]
         }
       ]
     };
     const expectedState = {
-      id: 2,
+      uuid: 2,
       name: "Hemogram",
       labCategory: 1,
-      urgency: "routine",
-      tests: [
-        { id: 1, test: 'Hemoglobin', urgency: 'routine'},
-        { id: 2, test: 'Hematocrit', urgency: 'routine'},
-        { id: 3, test: 'blood', urgency: 'routine' },
-      ]
+      urgency: "ROUTINE"
     };
 
-    const order = { orderId: 2, orderUrgency: 'routine' };
+    const order = { orderUuid: 2, orderUrgency: 'ROUTINE' };
+
+
+    const action = {
+      type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
+      order
+    }
+
+    const newState = draftLabOrderReducer(initialState, action);
+    expect(newState.draftLabOrders[0]).toEqual(expectedState)
+  });
+  it('should not set the toggle of the urgency of a npn-existent draft order', () => {
+    const initialState = {
+      draftLabOrders: [
+        {
+          uuid: 2,
+          name: "Hemogram",
+          labCategory: 1,
+          urgency: "STAT",
+        }
+      ]
+    };
+    const expectedState = {
+      uuid: 2,
+      name: "Hemogram",
+      labCategory: 1,
+      urgency: "STAT"
+    };
+
+    const order = { orderUuid: 1, orderUrgency: 'STAT' };
 
 
     const action = {
