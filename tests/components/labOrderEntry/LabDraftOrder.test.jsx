@@ -1,11 +1,12 @@
 import React from 'react';
 import { LabDraftOrder } from '../../../app/js/components/labOrderEntry/LabDraftOrder';
+import constants from '../../../app/js/utils/constants.js';
 
 let props;
 let mountedComponent;
 props = {
   draftLabOrders: [
-    { uuid: 6, display: 'prothrombin', urgency: 'routine' }
+    { uuid: 6, display: 'prothrombin', urgency: constants.ROUTINE }
   ],
   panelTests: [],
   toggleDraftLabOrdersUgency: jest.fn(),
@@ -43,12 +44,22 @@ describe('Component: LabDraftOrder', () => {
   });
 
   it('should toggle draftOrder Urgency from STAT to routine', () => {
-    props = {
-      draftLabOrders: [
-        { id: 6, test: 'prothrombin', urgency: 'STAT' }
-      ],
-      ...props,
-    }
+    props.draftLabOrders = [
+        { uuid: 6, display: 'prothrombin', urgency: constants.STAT }
+      ]
+    const event = { preventDefault: () => {} };
+    jest.spyOn(event, 'preventDefault');
+    const component = getComponent();
+    const handleToggleDraftOrderUgency = jest.spyOn(props, 'toggleDraftLabOrdersUgency');
+    component.find('#draft-toggle-btn').at(0).simulate('click', event);
+    expect(handleToggleDraftOrderUgency).toBeCalled();
+    expect(event.preventDefault).toBeCalled();
+  });
+
+  it('should toggle draftOrder Urgency from undefined to ROUTINE', () => {
+    props.draftLabOrders = [
+        { uuid: 6, display: 'prothrombin' }
+      ]
     const event = { preventDefault: () => {} };
     jest.spyOn(event, 'preventDefault');
     const component = getComponent();

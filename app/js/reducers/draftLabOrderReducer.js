@@ -56,23 +56,13 @@ export default (state = initialState.draftLabOrderReducer, action) => {
     }
 
     case TOGGLE_DRAFT_LAB_ORDER_URGENCY: {
-      const { orderId, orderUrgency } = action.order;
+      const { orderUuid, orderUrgency } = action.order;
       return {
         ...state,
         draftLabOrders: state.draftLabOrders.map((draftOrder) => {
           let order;
-          if (draftOrder.id === orderId) {
-            if (draftOrder.tests) {
-              order = {
-                ...draftOrder,
-                urgency: orderUrgency,
-                tests: draftOrder.tests.map(test => ({
-                  ...test, urgency: orderUrgency,
-                })),
-              };
-            } else {
-              order = { ...draftOrder, urgency: orderUrgency };
-            }
+          if (draftOrder.uuid === orderUuid) {
+            order = { ...draftOrder, urgency: orderUrgency };
           } else {
             order = draftOrder;
           }
