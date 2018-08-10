@@ -27,9 +27,6 @@ export class ActiveOrders extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.tabName !== this.props.tabName) {
-      this.fetchActiveOrders(nextProps);
-    }
     this.setState({ pageCount: nextProps.pageCount });
   }
 
@@ -290,7 +287,6 @@ const actionCreators = {
 
 ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
-  tabName: PropTypes.string.isRequired,
   activeOrderAction: PropTypes.func.isRequired,
   dateFormat: PropTypes.string.isRequired,
   addDraftOrder: PropTypes.func.isRequired,

@@ -17,9 +17,9 @@ const props = {
     orderFrequencies: [{display: 'daily'}],
     drugRoutes: [{display: 'eye drops'}],
     drugDispensingUnits: [{display: 'kits'}],
-    durationUnits:  [{display: 'months'}],
+    durationUnits:  [{display: 'months' }],
   },
-  careSetting: {display: 'Inpatient'},
+  careSetting: {bdisplay: 'Outpatient', uuid: 'aaa1234' },
   drugName: 'Paracentamol',
   drugUuid: 'AJJJKW7378JHJ',
   draftOrder,
@@ -28,11 +28,6 @@ const props = {
   formType,
   session,
 };
-
-const outpatientprops = {
-  ...props,
-  careSetting: {display: 'Outpatient'},
-}
 
 let mountedComponent;
 const getComponent = () => {
@@ -46,58 +41,16 @@ describe('Test for adding a new drug order', () => {
     it('should render component', () => {
       const wrapper = shallow(<AddForm {...props} />  );
       expect(wrapper).toMatchSnapshot()
-    });
-    describe('inpatient orders', () =>{
-      const wrapper = mount(<AddForm {...props} />  );
-      it('Confirm button is originally disabled', () => {
-        expect(wrapper.find('button.confirm').props().disabled).toBe(true);
-      });
-      it('should not have any errors messages initially', () => {
-        expect(wrapper.find('span.field-error').length).toBe(0);
-      });
-      it('should not have options initially', () => {
-        expect(wrapper.find('option')).toHaveLength(0);
-      });
-      it('should have options once a user inputs a unit that corresponds to configurations', () => {
-        wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'g'}});
-        expect(wrapper.find('option')).toHaveLength(1);
-
-      });
-      describe('Activate and deactivate Confirm button', () => {
-        beforeEach(() => {
-          wrapper.find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 8}});
-          wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'kilogram'}});
-          wrapper.find('[name="route"]').simulate('change', {target: {name: 'route', value: 'oral'}});
-          wrapper.find('[name="frequency"]').simulate('change', {target: {name: 'frequency', value: 'once'}});
-        });
-        it('should activate when the required fields are filled', () => {
-          expect(wrapper.find('button.confirm').props().disabled).toBe(false);
-        });
-        it('should deactivate with duration without units', () => {
-          wrapper.find('[name="duration"]').simulate('change', {target: {name: 'duration', value: 7}});
-          expect(wrapper.find('button.confirm').props().disabled).toBe(true);
-        });
-        it('should activate with both duration and units', () => {
-          wrapper.find('[name="duration"]').simulate('change', {target: {name: 'duration', value: 7}});
-          wrapper.find('[name="durationUnit"]').simulate('change', {target: {name: 'durationUnit', value: 'weeks'}});
-          expect(wrapper.find('button.confirm').props().disabled).toBe(false);
-        });
-        it('should deactivate with both duration and invalid units', () => {
-          wrapper.find('[name="duration"]').simulate('change', {target: {name: 'duration', value: 7}});
-          wrapper.find('[name="durationUnit"]').simulate('change', {target: {name: 'durationUnit', value: 'weeks'}});
-          wrapper.find('[name="durationUnit"]').simulate('blur');
-          expect(wrapper.find('button.confirm').props().disabled).toBe(true);
-        });
-      });
     }); 
    describe('Outpatient orders', () => {
-      const wrapper = mount(<AddForm {...outpatientprops} />);
+      const wrapper = mount(<AddForm {...props} />);
       describe('Activate and deactivate Confirm button under standard dosing form', () => {
         beforeEach(() => {
           wrapper.find('[name="dose"]').simulate('change', {target: {name: 'dose', value: 8}});
           wrapper.find('[name="dosingUnit"]').simulate('change', {target: {name: 'dosingUnit', value: 'kilogram'}});
           wrapper.find('[name="route"]').simulate('change', {target: {name: 'route', value: 'oral'}});
           wrapper.find('[name="frequency"]').simulate('change', {target: {name: 'frequency', value: 'once'}});
+          wrapper.find('[name="durationUnit"]').simulate('change', {target: {name: 'durationUnit', value: 'weeks'}});
         });
         it('should be deactivated without both dispensing quantity and units', () => {
           expect(wrapper.find('button.confirm').props().disabled).toBe(true);
@@ -150,6 +103,11 @@ describe('Test for adding a new drug order', () => {
         });
         it ('should deactivate with invalid dispensing unit', () => {
           wrapper.find('[name="dispensingUnit"]').simulate('blur');
+          expect(wrapper.find('button.confirm').props().disabled).toBe(true);
+        });
+        it('should deactivate if duration is valid but duration unit is invalid', () => {
+          wrapper.find('[name="duration"]').simulate('change', {target: {name: 'duration', value: '1'}});
+          wrapper.find('[name="durationUnit"]').simulate('blur');
           expect(wrapper.find('button.confirm').props().disabled).toBe(true);
         });
       });
@@ -246,7 +204,7 @@ describe('handleSubmitDrugForm() method', () => {
     expect(renderedComponent.handleSubmitDrugForm.calledOnce).toEqual(true);
     expect(getComponent().state('draftOrder')).toEqual({
       action: "NEW",
-      careSetting: undefined,
+      careSetting: "aaa1234",
       dosingType: "org.openmrs.SimpleDosingInstructions",
       drug: "AJJJKW7378JHJ",
       drugName: "Paracentamol",
@@ -266,18 +224,13 @@ describe('handleSubmitDrugForm() method', () => {
       route: "",
     });
   });
-});
-
-describe('componentWillReceiveProps()', () => {
-  it('does not call clearDrugForms when props is the same', () => {
-      const renderedComponent = getComponent().instance();
-      getComponent().setProps({ careSetting: { display: 'Inpatient' } })
-      expect(renderedComponent.clearDrugForms.calledOnce).toEqual(false);
-
-      getComponent().setProps({ careSetting: { display: 'Inpatient' } })
-      const props1 = getComponent().props();
-      getComponent().setProps({ careSetting: { display: 'Outpatient' } })
-      const props2 = getComponent().props();
-      expect(props1 !== props2).toEqual(true);
+  it('should call handleSubmitDrugForm()', () => {
+    const component = getComponent().instance();
+    const hhhSpy = jest.spyOn(component, 'handleSubmitDrugForm');
+    component.setState({ action: 'NOT_NEW' });
+    component.handleSubmitDrugForm();
+    expect(hhhSpy).toHaveBeenCalledTimes(1);
+    expect(component.state.draftOrder).toEqual({ ...component.state.draftOrder, action: 'NOT_NEW', });
   });
 });
+

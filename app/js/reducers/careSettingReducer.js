@@ -12,6 +12,7 @@ export default (state = initialState.defaultCareSetting, action) => {
       return {
         ...state,
         outpatientCareSetting: patientCareSetting[0],
+        // The inpatientCareSetting is not currently in use.
         inpatientCareSetting: patientCareSetting[1],
       };
     }

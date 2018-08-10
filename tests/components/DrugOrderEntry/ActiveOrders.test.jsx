@@ -142,7 +142,6 @@ describe('behaviour when dosing type is free text', () => {
       careSetting,
       data,
       order: {},
-      tabName: '',
       activeOrders: {},
       dateFormat: ''
     }
@@ -189,7 +188,6 @@ describe('behaviour when status is edit', () => {
       order: {
         status: 'EDIT'
       },
-      tabName: '',
       activeOrders: {},
       dateFormat: '',
     }
@@ -235,7 +233,6 @@ describe('behaviour when status is edit', () => {
       },
       careSetting,
       data,
-      tabName: '',
       activeOrders: {},
       dateFormat: '',
     }
@@ -285,7 +282,6 @@ describe('behaviour when status is DISCONTINUE', () => {
       order: {
         status: 'DISCONTINUE'
       },
-      tabName: '',
       activeOrders: {},
       dateFormat: '',
     }
@@ -329,7 +325,6 @@ describe('behaviour when status is DISCONTINUE', () => {
       },
       careSetting,
       data,
-      tabName: '',
       activeOrders: {},
       dateFormat: ''
     }
@@ -359,7 +354,6 @@ describe('behaviour when there is no active orders', () => {
       careSetting,
       data,
       order,
-      tabName: '',
       activeOrders: {},
       dateFormat: ''
     }
@@ -387,7 +381,6 @@ describe('behaviour when there is no active orders and page is loading', () => {
       careSetting,
       data,
       order,
-      tabName: '',
       activeOrders: {},
       dateFormat: ''
     }
@@ -397,10 +390,8 @@ describe('behaviour when there is no active orders and page is loading', () => {
 });
 
 describe('componentWillReceiveProps()', () => {
-  it('call fetchActiveOrders and udpate state', () => {
+  it('should udpate the state', () => {
       const renderedComponent = getComponent().instance();
-      getComponent().setProps({ tabName: 'outpatient' })
-      expect(renderedComponent.fetchActiveOrders.calledOnce).toEqual(false);
       getComponent().setProps({ pageCount: 9 })
       expect(getComponent().state().pageCount).toEqual(9);
   });

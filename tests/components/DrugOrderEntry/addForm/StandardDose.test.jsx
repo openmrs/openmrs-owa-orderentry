@@ -2,10 +2,10 @@ import React from 'react';
 
 import StandardDose from '../../../../app/js/components/drugOrderEntry/addForm/StandardDose';
 
-const inpatientProps = {
+const props = {
   fields: {},
   fieldErrors: {},
-  careSetting: {display: 'Inpatient'},
+  careSetting: { display: 'Outpatient'},
   options: {
     dosingUnit: [{
       display: 'milligrams',
@@ -31,13 +31,8 @@ const inpatientProps = {
   handleCancel: jest.fn(),
 }
 
-const outpatientProps = {
-  ...inpatientProps, 
-  careSetting: { display: 'Outpatient'},
-}
-
 const errorProps = {
-  ...inpatientProps,
+  ...props,
   fieldErrors: {dose: true},
 }
 
@@ -45,7 +40,7 @@ describe('Test for Standard dose form', () => {
   let wrapper;
   describe('Rendering with initial props', () => {
     beforeEach(() => {
-      wrapper = shallow(<StandardDose {...inpatientProps} />);
+      wrapper = shallow(<StandardDose {...props} />);
     })
     it('should render component', () => {
       expect(wrapper).toMatchSnapshot();
@@ -61,10 +56,6 @@ describe('Test for Standard dose form', () => {
     });
     it('should render options if they exist in state', () => {
       expect(wrapper.find('option')).toHaveLength(4);
-    });
-    it('inpatient caresetting should not render dispense fields but outpatient should', () => {
-      const outpatientWrapper = shallow(<StandardDose {...outpatientProps} />);
-      expect(wrapper.find('input').length).toBeLessThan(outpatientWrapper.find('input').length);
     });
     it('should not have any field errors initially', () => {
       expect(wrapper.find('input.illegalValue').length).toBe(0);
