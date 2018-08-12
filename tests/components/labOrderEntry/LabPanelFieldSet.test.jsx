@@ -19,7 +19,11 @@ describe('Component: LabPanelFieldSet', () => {
       selectedPanelIds: [],
       panels: [{
         uuid: 'asampleduuid1234',
-        display: 'sample'
+        display: 'sample',
+        setMembers: [{
+          uuid: 'asampleduuid1234',
+          display: 'sample'
+        }]
       }]
     };
   });

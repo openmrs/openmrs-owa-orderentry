@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { ToolTip } from '@openmrs/react-components';
 import '../../../css/grid.scss';
-import TestsToolTip from './TestsToolTip';
-
 
 const formatPanelName = (panelName) => {
   const name = panelName;
   return name.replace(/panel/i, '').trim();
+};
+
+const formatToolTipData = (setMembers) => {
+  const testArray = [];
+  setMembers.map(test => testArray.push(test.display));
+  return testArray;
 };
 
 const LabPanelFieldSet = (props) => {
@@ -31,7 +36,9 @@ const LabPanelFieldSet = (props) => {
                 onClick={() => handleTestSelection(panel, 'panel')}
               >
                 {formatPanelName(panel.display.toLowerCase())}
-                <TestsToolTip tests={panel.setMembers} />
+                <ToolTip
+                  toolTipHeader="Tests included in this panel:"
+                  toolTipBody={formatToolTipData(panel.setMembers)} />
               </button>
             )) : <p>{labCategoryName} has no panels</p>
         }
