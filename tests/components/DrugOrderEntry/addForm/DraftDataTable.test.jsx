@@ -28,6 +28,13 @@ let props = {
   handleDiscardAllOrders: jest.fn(),
   encounterRole: encounterRole.results,
   allConfigurations,
+  openmrs: {
+    session: {
+      currentProvider: {
+        uuid: '',
+      },
+    },
+  },
   sessionReducer,
   encounterType,
   orders,
@@ -139,7 +146,15 @@ describe('behaviour when adding an order fails', () => {
       careSetting,
       draftOrders,
       addedOrder: {},
-      addedOrderError: { data: { error: { message: '' } } },
+      addOrderError: {
+        response: {
+          data: {
+            error: {
+              message: ''
+            }
+          }
+        }
+      },
       items,
       itemName,
     };
@@ -220,7 +235,13 @@ describe('Connected DraftDataTable component', () => {
       encounterReducer: { encounterType },
       encounterRoleReducer: { encounterRole },
       addDrugOrderReducer: { addedOrder, error: addedOrderError },
-      sessionReducer: {},
+      openmrs: {
+        session: {
+          currentProvider: {
+            uuid: '',
+          },
+        },
+      },
       allConfigurations: {},
     });
     const props = {

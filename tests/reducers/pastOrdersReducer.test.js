@@ -23,10 +23,10 @@ describe('Past Orders Reducer', () => {
     const initialState = {};
     const action = {
       type: 'LOAD_PAST_ORDERS_FAILURE',
-      error:'An error occured',
+      payload:'An error occured',
     };
     const newState =pastOrdersReducer(initialState, action);
-    expect(newState.error).toEqual(action.error);
+    expect(newState.error).toEqual(action.payload);
   });
 
   it('should set past orders page count',() => {

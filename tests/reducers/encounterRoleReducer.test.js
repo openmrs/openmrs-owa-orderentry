@@ -17,10 +17,11 @@ describe('encounterRole reducer for get actions', () => {
         const initialState = {};
         const action = {
             type: FETCH_ENCOUNTER_ROLE_LOADING,
-            status: true
         }
         const expected = {
-            isLoading: true,
+            status: {
+                loading: true,
+            },
         };
         const newSate = encounterRoleReducer(initialState, action);
         expect(newSate).toEqual(expected);
@@ -28,10 +29,11 @@ describe('encounterRole reducer for get actions', () => {
     it('should return encounterRole', () => {
         const action = {
             type: FETCH_ENCOUNTER_ROLE_SUCCESS,
-            encounterRole
+            data: encounterRole
         }
         const expected = {
             isLoading: false,
+            error: null,
             encounterRole: encounterRole,
         };
         const newSate = encounterRoleReducer(initialState, action);
@@ -40,11 +42,17 @@ describe('encounterRole reducer for get actions', () => {
     it('should return an error', () => {
         const action = {
             type: FETCH_ENCOUNTER_ROLE_FAILURE,
-            error: "User not logged in"
+            payload: "User not logged in"
         }
         const expected = {
             isLoading: false,
             encounterRole: [],
+            errorMessage: "User not logged in",
+            isLoading: false,
+            status: {
+                error: true,
+                loading: false
+            }
         };
         const newSate = encounterRoleReducer(initialState, action);
         expect(newSate).toEqual(expected);

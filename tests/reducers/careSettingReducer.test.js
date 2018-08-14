@@ -1,6 +1,6 @@
 import {
   PATIENT_CARESETTING_SUCCESS,
-  PATIENT_CARESETTING_ERROR,
+  PATIENT_CARESETTING_FAILURE,
   PATIENT_CARESETTING_LOADING,
 } from '../../app/js/actions/actionTypes';
 import careSettingReducer from '../../app/js/reducers/careSettingReducer';
@@ -10,32 +10,33 @@ describe('careSetting reducer', () => {
     const initialState = {};
     const action = {
         type: PATIENT_CARESETTING_SUCCESS,
-        patientCareSetting:[
-          {},{}
-        ],
-    }
+        data:{
+          results: [
+            {},{}
+         ],
+        },
+    };
     const newSate = careSettingReducer(initialState, action);
-    expect(newSate.outpatientCareSetting).toEqual(action.patientCareSetting[0]);
-    expect(newSate.inpatientCareSetting).toEqual(action.patientCareSetting[1]);
+    expect(newSate.outpatientCareSetting).toEqual(action.data.results[0]);
+    expect(newSate.inpatientCareSetting).toEqual(action.data.results[1]);
   });
 
   it('should set the caresetting fetch error', () => {
     const initialState = {};
     const action = {
-        type: PATIENT_CARESETTING_ERROR,
-        error:'An error occured',
+        type: PATIENT_CARESETTING_FAILURE,
+        payload:'An error occured',
     }
     const newSate = careSettingReducer(initialState, action);
-    expect(newSate.error).toEqual(action.error);
+    expect(newSate.errorMessage).toEqual(action.payload);
   });
 
   it('should set the caresetting loading status', () => {
     const initialState = {};
     const action = {
         type: PATIENT_CARESETTING_LOADING,
-        status:true
     }
     const newSate = careSettingReducer(initialState, action);
-    expect(newSate.loading).toEqual(action.status);
+    expect(newSate.status.loading).toEqual(true);
   });
 });

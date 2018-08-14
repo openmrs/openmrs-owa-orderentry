@@ -2,7 +2,7 @@ import {
   FETCH_ENCOUNTER_TYPE_LOADING,
   FETCH_ENCOUNTER_TYPE_SUCCESS,
   FETCH_ENCOUNTER_TYPE_FAILURE,
-} from '../../../app/js/actions/actionTypes';
+} from '../actions/actionTypes';
 import initialState from './initialState';
 
 const encounterType = (state = initialState.encounterReducer, action) => {
@@ -10,21 +10,24 @@ const encounterType = (state = initialState.encounterReducer, action) => {
     case FETCH_ENCOUNTER_TYPE_LOADING:
       return {
         ...state,
-        isLoading: action.status,
+        status: {
+          ...state.status,
+          loading: true,
+        },
       };
     case FETCH_ENCOUNTER_TYPE_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        encounterType: action.encounterType,
+        encounterType: action.data,
         error: null,
       };
     case FETCH_ENCOUNTER_TYPE_FAILURE:
       return {
         ...state,
+        errorMessage: action.payload,
+        error: true,
         isLoading: false,
-        encounterType: {},
-        error: action.error,
       };
     default:
       return state;

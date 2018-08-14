@@ -10,18 +10,29 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"peerDependencies": true}] */
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { sagas as openmrsSagas } from '@openmrs/react-components';
-
+import promiseMiddleware from 'redux-promise-middleware';
 import reducers from './reducers';
+import errorMiddleware from './middlewares/errorMiddleware';
+import responseHandlerMiddleware from './middlewares/responseHandlerMiddleware';
+
+const promiseTypeSuffixes = ['LOADING', 'SUCCESS', 'FAILURE'];
+
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middlewares = [thunk, sagaMiddleware];
+const middlewares = [
+  thunk,
+  sagaMiddleware,
+  errorMiddleware,
+  promiseMiddleware({ promiseTypeSuffixes }),
+  responseHandlerMiddleware,
+];
 
 if (process.env.NODE_ENV !== 'production') {
-  middlewares.push(logger);
+  middlewares.push(createLogger({ collapsed: true }));
 }
 
 export default () => {

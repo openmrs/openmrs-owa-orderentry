@@ -8,20 +8,30 @@ import initialState from './initialState';
 
 export default (state = initialState.drugSearchReducer, action) => {
   switch (action.type) {
-    case SEARCH_DRUGS_SUCCESS:
+    case SEARCH_DRUGS_SUCCESS: {
+      const drugs = action.data.results;
       return {
         ...state,
-        ...action,
+        drugs,
       };
+    }
     case SEARCH_DRUGS_FAILURE:
       return {
         ...state,
-        ...action,
+        errorMessage: action.payload,
+        status: {
+          ...state.status,
+          error: true,
+          loading: false,
+        },
       };
     case SEARCH_DRUGS_LOADING:
       return {
         ...state,
-        loading: action.status,
+        status: {
+          ...state.status,
+          loading: true,
+        },
       };
     case SELECT_DRUG:
       return {

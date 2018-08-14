@@ -22,7 +22,7 @@ const removeDuplicateTests = (tests) => {
 export default (state = initialState.labConcepts, action) => {
   switch (action.type) {
     case FETCH_LAB_CONCEPTS_SUCCESS: {
-      const concepts = [...action.payload.data.setMembers];
+      const concepts = [...action.data.setMembers];
       const panels = concepts.filter(concept => concept.set);
       const panelTests = [].concat(...panels.map(panel => panel.setMembers));
       const standAloneTests = concepts.filter(concept => !concept.set);
@@ -41,13 +41,12 @@ export default (state = initialState.labConcepts, action) => {
       return {
         ...state,
         loading: true,
-        error: null,
       };
     case FETCH_LAB_CONCEPTS_FAILURE: {
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        errorMessage: action.payload,
+        error: true,
       };
     }
     default:

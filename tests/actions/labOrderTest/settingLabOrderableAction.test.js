@@ -8,6 +8,7 @@ import {
   GET_LAB_ORDERABLES_FAILURE,
   FETCH_LAB_ORDERABLES_LOADING,
   GET_LAB_ORDERABLES_LOADING,
+  NETWORK_ERROR
 } from '../../../app/js/actions/actionTypes';
 
 describe ('Get the lab orderable uuid actions', () => {
@@ -50,6 +51,33 @@ describe ('Get the lab orderable uuid actions', () => {
         GET_LAB_ORDERABLES_LOADING,
         GET_LAB_ORDERABLES_SUCCESS,
         FETCH_LAB_ORDERABLES_LOADING,
+        GET_LAB_ORDERABLES_LOADING,
+      ];
+      
+      const store = mockStore({ setting: {}});
+
+      return store.dispatch(getLabOrderables()).then(() => {
+          const dispatchedActions = store.getActions();
+          const dispatchedActionTypes = dispatchedActions.map(action => action.type);
+          expect(dispatchedActionTypes).toEqual(expectedActions);
+      });
+    });
+    it ('should return a network error when reponse result is empty', () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            data: {
+              results: [],
+            },
+          },
+        });
+      });
+
+      const expectedActions = [
+        GET_LAB_ORDERABLES_LOADING,
+        NETWORK_ERROR,
         GET_LAB_ORDERABLES_LOADING,
       ];
       

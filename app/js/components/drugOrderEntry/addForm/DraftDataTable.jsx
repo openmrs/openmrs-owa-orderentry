@@ -106,13 +106,12 @@ export class DraftDataTable extends React.Component {
           this.state.startIndex,
           this.props.patient.uuid,
           this.props.careSetting.uuid,
-        ).then(() => {
-          if (this.props.addedOrder.data) {
-            this.props.handleDiscardAllOrders();
-          } else if (this.props.addOrderError) {
-            toastr.error(this.props.addOrderError.data.error.message);
-          }
-        });
+        );
+        if (this.props.addedOrder.data) {
+          this.props.handleDiscardAllOrders();
+        } else if (this.props.addOrderError) {
+          toastr.error(this.props.addOrderError.response.data.error.message);
+        }
       },
     );
   }
@@ -247,7 +246,7 @@ const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
   draftTableReducer: { draftDrugOrders },
-  sessionReducer,
+  openmrs: { session },
   patientReducer: { patient },
   encounterReducer: { encounterType },
   addDrugOrderReducer: { addedOrder, error },
@@ -256,7 +255,7 @@ const mapStateToProps = ({
   drug: drugSearchReducer.selected,
   draftOrders: draftDrugOrders,
   allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
-  sessionReducer,
+  sessionReducer: session,
   encounterRole,
   encounterType,
   patient,
@@ -299,9 +298,11 @@ DraftDataTable.propTypes = {
     data: PropTypes.shape({}),
   }).isRequired,
   addOrderError: PropTypes.shape({
-    data: PropTypes.shape({
-      error: PropTypes.shape({
-        message: PropTypes.string,
+    response: PropTypes.shape({
+      data: PropTypes.shape({
+        error: PropTypes.shape({
+          message: PropTypes.string,
+        }),
       }),
     }),
   }),

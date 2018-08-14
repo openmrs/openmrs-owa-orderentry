@@ -162,8 +162,7 @@ if (env === 'development') {
 plugins.push(new BrowserSyncPlugin({
 	proxy: {
 		target: browserSyncTarget
-	},
-	reload: true
+	}
 }));
 
 plugins.push(new CommonsChunkPlugin({

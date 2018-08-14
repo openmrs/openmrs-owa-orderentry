@@ -3,7 +3,7 @@ import {
   SETTING_ENCOUNTER_ROLE_FAILURE,
   SETTING_ENCOUNTER_ROLE_LOADING,
   NETWORK_ERROR,
-} from '../../../app/js/actions/actionTypes';
+} from '../actions/actionTypes';
 import initialState from './initialState';
 
 const settingEncounterRoleReducer = (

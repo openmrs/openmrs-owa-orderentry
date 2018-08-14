@@ -14,11 +14,11 @@ describe('createLabOrder reducer test suite', () => {
   error message from payload on action type SAVE_DRAFT_LAB_ORDER_FAILURE `, () => {
     const action = {
       type: 'SAVE_DRAFT_LAB_ORDER_FAILURE',
-      error: 'Invalid data',
+      payload: 'Invalid data',
     };
     expect(createLabOrderReducer(initialState, action)).toEqual({
       ...initialState,
-      errorMessage: action.error,
+      errorMessage: 'Invalid data',
       status: {
         added: false,
         error: true,
@@ -52,5 +52,12 @@ describe('createLabOrder reducer test suite', () => {
       type: 'SAVE_DRAFT_LAB_ORDER',
     };
     expect(createLabOrderReducer(initialState, action)).toEqual(initialState);
+  });
+  it('should handle SAVE_DRAFT_LAB_ORDER_LOADING', () => {
+    const action = {
+      type: 'SAVE_DRAFT_LAB_ORDER_LOADING',
+    };
+    const mockState = createLabOrderReducer(initialState, action)
+    expect(mockState.status.loading).toEqual(true);
   });
 });

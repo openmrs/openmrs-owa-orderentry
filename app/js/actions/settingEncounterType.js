@@ -5,8 +5,7 @@ import {
 } from './actionTypes';
 import axiosInstance from '../config';
 import loading from './loading';
-import networkError from './networkError';
-import { fetchEncounterType } from './encounterType';
+import fetchEncounterType from './encounterType';
 
 export const settingEncounterTypeSuccess = configuration => ({
   type: SETTING_ENCOUNTER_TYPE_SUCCESS,

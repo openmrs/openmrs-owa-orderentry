@@ -1,6 +1,6 @@
 import fetchLabOrders from '../../../app/js/actions/labOrders/fetchLabOrders';
 
-describe('fetch lab order action test-suite', () => {
+describe('fetchLabOrders action', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
   const limit = 10;
@@ -8,7 +8,7 @@ describe('fetch lab order action test-suite', () => {
   const patient = '761d8414-6cb4-4456-be4f-232e6f819e06';
 
   it(`creates FETCH_LAB_ORDERS_LOADING and FETCH_LAB_ORDERS_SUCCESS
-  action types upon success response from server`, async (done) => {
+  action types upon success response from server when nouri ispassed but with given limits`, async (done) => {
     moxios.stubRequest(
       `${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&t=testorder&v=full`,
       {
@@ -16,52 +16,39 @@ describe('fetch lab order action test-suite', () => {
         response: [{}],
       },
     );
-    const expectedAction = [
-      {
-        type: 'FETCH_LAB_ORDERS_LOADING',
-        status: true,
-      },
-      {
-        type: 'FETCH_LAB_ORDERS_SUCCESS',
-        orders: [{}],
-      },
+    const expectedTypes = [
+      'FETCH_LAB_ORDERS_LOADING',
+      'FETCH_LAB_ORDERS_SUCCESS',
     ];
     const store = mockStore({});
-    await store.dispatch(fetchLabOrders(null, limit, patient));
-    expect(store.getActions()).toEqual(expectedAction);
-    done();
+    return store.dispatch(fetchLabOrders(null, patient, limit)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedTypes);
+      done();
+    });
   });
-
-  it(`creates FETCH_LAB_ORDERS_LOADING and FECTH_LAB_ORDERS_FAILURE
-  action types upon error response from server`, async (done) => {
-    const errorData = {
-      error: {
-        message: 'an error occured'
-      }
-    }
+  it(`creates FETCH_LAB_ORDERS_LOADING and FETCH_LAB_ORDERS_SUCCESS
+  action types upon success response from server when uri is passed with no limits`, async (done) => {
+    const uri = `${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&t=testorder&v=full`
     moxios.stubRequest(
-      `${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&t=testorder&v=full`,
+      uri,
       {
-        status: 401,
-        response: errorData,
+        status: 201,
+        response: [{}],
       },
     );
-
-    const expectedAction = [
-      {
-        type: 'FETCH_LAB_ORDERS_LOADING',
-        status: true,
-      },
-      {
-        type: 'FETCH_LAB_ORDERS_FAILURE',
-        error: 'an error occured',
-      },
+    const expectedTypes = [
+      'FETCH_LAB_ORDERS_LOADING',
+      'FETCH_LAB_ORDERS_SUCCESS',
     ];
-
     const store = mockStore({});
-    await store.dispatch(fetchLabOrders(null, limit, patient));
-    expect(store.getActions()).toEqual(expectedAction);
-    done();
-  })
+    return store.dispatch(fetchLabOrders(uri, patient)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedTypes);
+      done();
+    });
+  });
 });
 

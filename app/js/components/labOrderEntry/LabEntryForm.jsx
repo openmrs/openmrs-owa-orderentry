@@ -22,7 +22,7 @@ import '../../../css/grid.scss';
 import './styles.scss';
 
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
-import { fetchLabConcepts } from '../../actions/labOrders/labConceptsAction';
+import fetchLabConcepts from '../../actions/labOrders/labConceptsAction';
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
@@ -103,7 +103,7 @@ export class LabEntryForm extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchLabOrders(null, 5, this.props.patient.uuid));
+    this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
     if (this.state.categoryUUID) {
       this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
     }
@@ -128,7 +128,7 @@ export class LabEntryForm extends PureComponent {
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
       successToast('lab order successfully created');
-      this.props.dispatch(fetchLabOrders(null, 5, this.props.patient.uuid));
+      this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
     }
     if (error) {
       errorToast(errorMessage);

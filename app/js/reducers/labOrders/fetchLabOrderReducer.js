@@ -13,25 +13,23 @@ const fetchLabOrderReducer = (state = initialState, action) => {
     case 'FETCH_LAB_ORDERS_SUCCESS':
       return {
         ...state,
-        labOrders: action.orders,
+        labOrders: action.data,
         status: {
           ...state.status,
           fetched: true,
           loading: false,
         },
       };
-
     case 'FETCH_LAB_ORDERS_FAILURE':
       return {
         ...state,
-        errorMessage: action.error,
+        errorMessage: action.payload,
         status: {
           ...state.status,
           error: true,
           loading: false,
         },
       };
-
     case 'FETCH_LAB_ORDERS_LOADING': {
       return {
         ...state,
@@ -41,7 +39,6 @@ const fetchLabOrderReducer = (state = initialState, action) => {
         },
       };
     }
-
     default:
       return state;
   }

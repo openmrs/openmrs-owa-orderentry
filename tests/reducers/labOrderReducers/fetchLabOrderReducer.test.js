@@ -34,7 +34,7 @@ describe('fetchlaborder reducer test-suite', () => {
       initialState,
       {
         type: 'FETCH_LAB_ORDERS_SUCCESS',
-        orders: [ 1, 2, 3],
+        data: [ 1, 2, 3],
       }
     )).toEqual(
       {
@@ -54,7 +54,7 @@ describe('fetchlaborder reducer test-suite', () => {
       initialState,
       {
         type: 'FETCH_LAB_ORDERS_FAILURE',
-        error: 'an error occured',
+        payload: 'an error occured',
       },
     )).toEqual(
       {
@@ -63,6 +63,7 @@ describe('fetchlaborder reducer test-suite', () => {
         status: {
           ...initialState.status,
           error: true,
+          loading: false,
         }
       }
     )

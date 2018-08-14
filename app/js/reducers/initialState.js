@@ -107,6 +107,7 @@ export default {
     isLoading: false,
     encounterRole: {},
     error: null,
+    errorMessage: '',
   },
   dateFormatReducer: {
     dateFormat: '',

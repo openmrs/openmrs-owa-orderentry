@@ -6,7 +6,7 @@ import StandardDose from './StandardDose';
 import DraftDataTable from './DraftDataTable';
 import DosageTabs from '../../tabs/DosageTabs';
 import DosageTab from '../../tabs/DosageTab';
-import { getOrderEntryConfigurations } from '../../../actions/orderEntryActions';
+import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
 import { setOrderAction } from '../../../actions/orderAction';
@@ -362,13 +362,13 @@ const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
   draftTableReducer: { draftOrders },
-  sessionReducer,
+  openmrs: { session },
 }) =>
   ({
     drug: drugSearchReducer.selected,
     draftOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
-    session: sessionReducer,
+    session,
   });
 
 AddForm.propTypes = {

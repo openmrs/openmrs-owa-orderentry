@@ -1,7 +1,7 @@
 import {
   POST_DRUG_ORDER_SUCCESS,
   POST_DRUG_ORDER_FAILURE,
-} from '../../../app/js/actions/actionTypes';
+} from '../actions/actionTypes';
 
 const initialState = {
   addedOrder: {},
@@ -13,12 +13,12 @@ const addDrugOrderReducer = (state = initialState, action) => {
     case POST_DRUG_ORDER_SUCCESS:
       return {
         ...state,
-        addedOrder: action.response,
+        addedOrder: action.data,
       };
     case POST_DRUG_ORDER_FAILURE:
       return {
         ...state,
-        error: action.error.response,
+        error: action.payload,
       };
     default:
       return state;
