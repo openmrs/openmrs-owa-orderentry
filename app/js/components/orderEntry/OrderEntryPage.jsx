@@ -18,7 +18,7 @@ export class OrderEntryPage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentOrderType: Object.values(orderTypes)[0],
+      currentOrderType: {},
     };
   }
   componentDidMount() {
@@ -34,22 +34,27 @@ export class OrderEntryPage extends PureComponent {
   }
 
   moreInformation = () => (
-    <p>Please click&nbsp;
+    <p>
+      Please click&nbsp;
       <a
         href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide"
         rel="noopener noreferrer"
-        target="_blank"
-      >here
+        target="_blank">
+        here
       </a>
       &nbsp;for more information
     </p>
-  )
+  );
 
   switchOrderType = (newOrderType) => {
+    if (!newOrderType) {
+      this.setState({ currentOrderType: {} });
+      return;
+    }
     const { id } = this.state.currentOrderType;
     if (id === newOrderType.id) return;
     this.setState({ currentOrderType: newOrderType });
-  }
+  };
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
@@ -76,23 +81,24 @@ export class OrderEntryPage extends PureComponent {
       return (
         <div className="error-notice">
           <p>
-            Configuration for <strong>orderentryowa.encounterType</strong> {error === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
-            Please contact your administrator for more information.
+            Configuration for <strong>orderentryowa.encounterType</strong>{' '}
+            {error === 'incomplete config' ? 'is incomplete' : 'does not exist'}. Please contact
+            your administrator for more information.
           </p>
           <p>
             As an Administrator,&nbsp;
-            {
-              error === 'incomplete config' ?
-                <span>
-                  please ensure that you have created a valid<strong> encounter type </strong>.
-                </span> :
-                <span>
-                  ensure that you have created a setting called
-                  <strong> orderentryowa.encounterType</strong>
-                  &nbsp;
-                  with a value corresponding to a valid encounter type. e.g <em>order entry</em>
-                </span>
-            }
+            {error === 'incomplete config' ? (
+              <span>
+                please ensure that you have created a valid<strong> encounter type </strong>.
+              </span>
+            ) : (
+              <span>
+                ensure that you have created a setting called
+                <strong> orderentryowa.encounterType</strong>
+                &nbsp; with a value corresponding to a valid encounter type. e.g{' '}
+                <em>order entry</em>
+              </span>
+            )}
             {this.moreInformation()}
           </p>
         </div>
@@ -103,23 +109,24 @@ export class OrderEntryPage extends PureComponent {
       return (
         <div className="error-notice">
           <p>
-            Configuration for<strong> orderentryowa.encounterRole </strong> {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}.
-            Please contact your administrator for more information.
+            Configuration for<strong> orderentryowa.encounterRole </strong>{' '}
+            {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}. Please contact
+            your administrator for more information.
           </p>
           <p>
             As an Administrator,&nbsp;
-            {
-              roleError === 'incomplete config' ?
-                <span>
-                  please ensure that you have created a valid<strong> encounter role </strong>.
-                </span> :
-                <span>
-                  ensure that you have created a setting called
-                  <strong> orderentryowa.encounterRole</strong>
-                  &nbsp;
-                  with a value corresponding to the encounter role above. e.g <em>Clinician</em>
-                </span>
-            }
+            {roleError === 'incomplete config' ? (
+              <span>
+                please ensure that you have created a valid<strong> encounter role </strong>.
+              </span>
+            ) : (
+              <span>
+                ensure that you have created a setting called
+                <strong> orderentryowa.encounterRole</strong>
+                &nbsp; with a value corresponding to the encounter role above. e.g{' '}
+                <em>Clinician</em>
+              </span>
+            )}
             {this.moreInformation()}
           </p>
         </div>
@@ -145,37 +152,39 @@ export class OrderEntryPage extends PureComponent {
 
     return (
       <div className="order-entry-page">
-        {
-          patientUuid ?
-            <div>
-              <PatientHeader
-                patient={this.props.patient}
-                note={this.props.note}
-              />
+        {patientUuid ? (
+          <div>
+            <PatientHeader patient={this.props.patient} note={this.props.note} />
+            <div className="header-nav">
+              <div>
+                <h3 className="orders-nav" onClick={this.switchOrderType} role="button">
+                  <b>Orders List</b>
+                </h3>
+              </div>
               <SelectOrderType
                 switchOrderType={this.switchOrderType}
                 currentOrderType={this.state.currentOrderType}
               />
-              <RenderOrderType
-                currentOrderTypeID={this.state.currentOrderType.id}
-                {...this.props}
-              />
-            </div> :
-            <div className="error-notice">
-              {`A valid patient uuid is required to view this page,
-              please navigate to this page from the Clinician facing dashboard page
-              or append a valid patient id "?patient=patient_uuid" to your url.`}
-              <p>Please click&nbsp;
-                <a
-                  href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >here
-                </a>
-                &nbsp;for more information
-              </p>
             </div>
-        }
+            <RenderOrderType currentOrderTypeID={this.state.currentOrderType.id} {...this.props} />
+          </div>
+        ) : (
+          <div className="error-notice">
+            {`A valid patient uuid is required to view this page,
+              please navigate to this page from the Clinician facing dashboard page 
+              or append a valid patient id "?patient=patient_uuid" to your url.`}
+            <p>
+              Please click&nbsp;
+              <a
+                href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide"
+                rel="noopener noreferrer"
+                target="_blank">
+                here
+              </a>
+              &nbsp;for more information
+            </p>
+          </div>
+        )}
       </div>
     );
   }
@@ -253,4 +262,7 @@ const actionCreators = {
   fetchPatientNote,
 };
 
-export default connect(mapStateToProps, actionCreators)(OrderEntryPage);
+export default connect(
+  mapStateToProps,
+  actionCreators,
+)(OrderEntryPage);
