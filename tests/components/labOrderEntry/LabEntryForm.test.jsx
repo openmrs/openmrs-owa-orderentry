@@ -108,7 +108,7 @@ describe('Component: LabEntryForm', () => {
   it('should render on initial setup', () => {
     const component = getComponent();
     mapStateToProps({
-      draftLabOrderReducer: { draftLabOrders: {} },
+      draftReducer: { draftLabOrders: { orders: [] } },
       dateFormatReducer: { dateFormat: 'DD-MM-YYYY HH:mm' },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
