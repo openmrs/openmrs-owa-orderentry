@@ -8,7 +8,7 @@ const LabOrderDetails = ({ urgency, orderer }) => (
         <b>Urgency:</b> {urgency}
       </ul>
       <br />
-      Ordered by {orderer}
+      Ordered by: {orderer}
     </div>
   </div>
 );

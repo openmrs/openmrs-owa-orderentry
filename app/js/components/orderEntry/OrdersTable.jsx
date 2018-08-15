@@ -1,30 +1,62 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import format from 'date-fns/format';
 import Accordion from './Accordion';
-import allOrdersMock from './allOrdersMock.json';
 import OrderHeader from './OrderHeader';
 import LabOrderDetails from './LabOrderDetails';
 import DrugOrderDetails from './DrugOrderDetails';
+import fetchOrders from '../../actions/fetchOrders';
 
-const OrdersTable = () => (
-  <React.Fragment>
-    {allOrdersMock.orders.map(order => (
-      <Accordion
-        title={<OrderHeader status={order.status} orderable={order.orderable} />}
-        key={order.id}>
-        {order.type === 'drugorder' ? (
-          <DrugOrderDetails
-            dosingInstructions={order.dosingInstructions}
-            dispense={order.dispense}
-            activeDates={order.activeDates}
-            orderer={order.orderer}
-          />
-        ) : (
-          <LabOrderDetails urgency={order.urgency} orderer={order.orderer} />
-        )}
-      </Accordion>
-    ))}
-  </React.Fragment>
-);
+export class OrdersTable extends PureComponent {
+  componentDidMount() {
+    this.props.dispatch(fetchOrders(null, this.props.patient.uuid));
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.patient.uuid !== prevProps.patient.uuid) {
+      this.props.dispatch(fetchOrders(null, this.props.patient.uuid));
+    }
+  }
+  render() {
+    return (
+      <React.Fragment>
+        {this.props.orders.results && this.props.orders.results.map((order => (
+          <Accordion
+            title={<OrderHeader status="Active" orderable={order.display} />}
+            key={order.uuid}>
+            {order.type === 'drugorder' ? (
+              <DrugOrderDetails
+                dosingInstructions={order.dosingInstructions}
+                dispense={order.dispense}
+                activeDates={format(order.dateActivated, 'MM/DD/YYYY')}
+                orderer={order.orderer.display.split('-')[1]}
+              />
+            ) : (
+              <LabOrderDetails urgency={order.urgency} orderer={order.orderer.display.split('-')[1]} />
+            )}
+          </Accordion>
+        )))}
+      </React.Fragment>
+    );
+  }
+}
 
-export default OrdersTable;
+OrdersTable.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    uuid: PropTypes.string,
+  }).isRequired,
+  orders: PropTypes.shape({
+    results: PropTypes.array,
+  }).isRequired,
+};
+
+const mapStateToProps = ({
+  fetchOrdersReducer: { orders },
+  patientReducer: { patient },
+}) => ({
+  orders,
+  patient,
+});
+
+export default connect(mapStateToProps)(OrdersTable);
