@@ -1,16 +1,24 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
 import * as orderTypes from './orderTypes';
+import LabDraftOrder from '../labOrderEntry/LabDraftOrder';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderables } from "../../actions/labOrders/settingLabOrderableAction";
 import { getDateFormat } from '../../actions/dateFormat';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
+import {
+  removeTestPanelFromDraft,
+  removeTestFromDraft,
+  deleteDraftLabOrder,
+  toggleDraftLabOrdersUgency,
+} from '../../actions/draftLabOrderAction';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';
 
@@ -50,6 +58,27 @@ export class OrderEntryPage extends PureComponent {
     if (id === newOrderType.id) return;
     this.setState({ currentOrderType: newOrderType });
   }
+
+  handleUrgencyChange = (order) => {
+    this.props.toggleDraftLabOrdersUgency(order);
+  }
+
+  discardTestsInDraft = (test, action) => {
+    if (action === 'single') return this.props.removeTestFromDraft(test);
+    if (action === 'panel') return this.props.removeTestPanelFromDraft(test);
+    return this.props.deleteDraftLabOrder();
+  }
+
+  renderLabDraftOrder = () => (
+    <div className="draft-wrapper">
+      <LabDraftOrder
+        toggleDraftLabOrdersUgency={this.handleUrgencyChange}
+        handleDraftDiscard={this.discardTestsInDraft}
+        draftLabOrders={this.props.draftLabOrders}
+        handleSubmit={() => {}}
+      />
+    </div>
+  );
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
@@ -156,10 +185,13 @@ export class OrderEntryPage extends PureComponent {
                 switchOrderType={this.switchOrderType}
                 currentOrderType={this.state.currentOrderType}
               />
-              <RenderOrderType
-                currentOrderTypeID={this.state.currentOrderType.id}
-                {...this.props}
-              />
+              <div className="body-wrapper drug-order-entry">
+                <RenderOrderType
+                  currentOrderTypeID={this.state.currentOrderType.id}
+                  {...this.props}
+                />
+                {this.renderLabDraftOrder()}
+              </div>
             </div> :
             <div className="error-notice">
               {`A valid patient uuid is required to view this page,
@@ -216,6 +248,11 @@ OrderEntryPage.propTypes = {
   getLabOrderables: PropTypes.func.isRequired,
   fetchPatientRecord: PropTypes.func.isRequired,
   fetchPatientNote: PropTypes.func.isRequired,
+  draftLabOrders: PropTypes.array.isRequired,
+  toggleDraftLabOrdersUgency: PropTypes.func.isRequired,
+  removeTestFromDraft: PropTypes.func.isRequired,
+  removeTestPanelFromDraft: PropTypes.func.isRequired,
+  deleteDraftLabOrder: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -233,6 +270,9 @@ const mapStateToProps = ({
   dateFormatReducer,
   patientReducer: { patient },
   noteReducer: { note },
+  draftLabOrderReducer: {
+    draftLabOrders,
+  },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -241,6 +281,7 @@ const mapStateToProps = ({
   settingEncounterRoleReducer,
   patient,
   note,
+  draftLabOrders,
 });
 
 const actionCreators = {
@@ -251,6 +292,12 @@ const actionCreators = {
   getDateFormat,
   fetchPatientRecord,
   fetchPatientNote,
+  toggleDraftLabOrdersUgency,
+  removeTestFromDraft,
+  removeTestPanelFromDraft,
+  deleteDraftLabOrder,
 };
 
-export default connect(mapStateToProps, actionCreators)(OrderEntryPage);
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage);

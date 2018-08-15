@@ -158,40 +158,6 @@ describe('Component: LabEntryForm', () => {
     expect(dispatch).toBeCalled();
   });
 
-  it('should dispatch an action to handle single test deletion', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft(mockTest, 'single');
-    expect(dispatch).toBeCalled();
-  });
-
-  it('should dispatch an action to handle panel deletion', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft(mockPanel, 'panel');
-    expect(dispatch).toBeCalled();
-  });
-
-  it('should dispatch an action to handle deletion of all items from the draft', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft();
-    expect(dispatch).toBeCalled();
-  });
-
-  it('should toggle the urgency state of a test', () => {
-    const instance = getComponent().instance();
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.handleUrgencyChange();
-    expect(dispatch).toBeCalled();
-  }) 
-
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
     const instance = component.instance();
@@ -205,8 +171,8 @@ describe('Component: LabEntryForm', () => {
 
   it('shows a toast prompt when test is submitted successfully', () => {
     const component = getComponent();
-    const addButton = component.find('.confirm');
-    addButton.simulate('click', {});
+    const instance = component.instance();
+    instance.handleSubmit(); // This should be change on the fix ticket for submiting all draft orders
 
     component.setProps({
       ...component.props(),
@@ -223,8 +189,8 @@ describe('Component: LabEntryForm', () => {
 
   it('shows a toast prompt when there is an error in submission', () => {
     const component = getComponent();
-    const addButton = component.find('.confirm').at(0);
-    addButton.simulate('click', {});
+    const instance = component.instance();
+    instance.handleSubmit(); // This should be change on the fix ticket for submiting all draft orders
     component.setProps({
       ...component.props(),
       createLabOrderReducer: {

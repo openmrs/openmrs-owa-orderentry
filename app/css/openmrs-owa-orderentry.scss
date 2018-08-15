@@ -30,7 +30,21 @@ body {
     -khtml-border-radius: 5px;
     border-radius: 0px 0px 5px 5px;
     min-height: 500px;
-    justify-content: center;
+    display: flex;
+
+    .ui-tabs {
+        flex-direction: row;
+        width: 65%;
+    }
+
+    .lab-order-entry {
+        flex-direction: row;
+        width: 65%;
+    }
+
+    .draft-wrapper {
+        margin-left: 2rem;
+    }
 }
 
 .app-title {

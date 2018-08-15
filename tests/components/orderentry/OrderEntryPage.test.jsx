@@ -38,7 +38,12 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+        { display: 'Hematocrit', uuid: '12746hfgjff' },
+        { display: 'blood', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -100,7 +105,10 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -146,7 +154,10 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -181,7 +192,10 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -220,7 +234,10 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -254,7 +271,10 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: [
+        { display: 'Hemoglobin', uuid: '12746hfgjff' },
+      ],
     };
     mountedComponent = undefined;
   });
@@ -289,12 +309,85 @@ describe('Connected OrderEntryPage component', () => {
           personName: { display: 'joey bart'}
         }
       },
-      noteReducer: { note: []}
+      noteReducer: { note: []},
+      draftLabOrderReducer: {
+        draftLabOrders: [],
+      },
     });
     const props = {
       location: {search: '?patient=esere_shbfidfb_343ffd'}
     }
     const wrapper = shallow(<ConnectedOrderEntryPage store={store} {...props}/>);
     expect(wrapper.length).toBe(1);
+  });
+
+  describe('Displaying the draft orders list for all order pages', () => {
+    beforeEach(() => {
+      props = {
+        fetchPatientCareSetting: jest.fn(),
+        getSettingEncounterType: jest.fn(),
+        getSettingEncounterRole: jest.fn(),
+        getDateFormat: jest.fn(),
+        getLabOrderables: jest.fn(),
+        fetchPatientRecord: jest.fn(),
+        fetchPatientNote: jest.fn(),
+        settingEncounterTypeReducer: {
+          settingEncounterType: 'order type',
+          error: '',
+        },
+        settingEncounterRoleReducer: {
+          settingEncounterRole: 'Admin role',
+          roleError: '',
+        },
+        dateFormatReducer: {
+          dateFormat: '',
+          error: 'incomplete config',
+        },
+        outpatientCareSetting: { uuid: '5677666' },
+        inpatientCareSetting: { uuid: '6766667' },
+        location: {search: '?patient=esere_shbfidfb_343ffd'},
+        draftLabOrders: [
+          { display: 'Hemoglobin', uuid: '12746hfgjff' },
+        ],
+        dispatch: jest.fn(),
+        removeTestPanelFromDraft: jest.fn(),
+        removeTestFromDraft: jest.fn(),
+        deleteDraftLabOrder: jest.fn(),
+        toggleDraftLabOrdersUgency: jest.fn(),
+      }
+      mountedComponent = shallow(<OrderEntryPage {...props} />);
+    });
+
+    it('should dispatch an action to handle single test deletion', () => {
+      const instance = mountedComponent.instance();
+      instance.state.selectedPanelIds = [1];
+      const mockTest = { uuid: 'ifffy9847464', display: 'Hemoglobin', concept: '12746hfgjff' };
+
+      instance.discardTestsInDraft(mockTest, 'single');
+      expect(props.removeTestFromDraft).toBeCalled();
+    });
+
+    it('should dispatch an action to handle panel deletion', () => {
+      const instance = mountedComponent.instance();
+      instance.state.selectedPanelIds = [1];
+      const mockPanel = { uuid: 'ifffy9847464', display: 'Hemoglobin', concept: '12746hfgjff' };
+
+      instance.discardTestsInDraft(mockPanel, 'panel');
+      expect(props.removeTestPanelFromDraft).toBeCalled();
+    });
+
+    it('should dispatch an action to handle deletion of all items from the draft', () => {
+      const instance = mountedComponent.instance();
+      instance.state.selectedPanelIds = [1];
+
+      instance.discardTestsInDraft();
+      expect(props.deleteDraftLabOrder).toBeCalled();
+    });
+
+    it('should toggle the urgency state of a test', () => {
+      const instance = mountedComponent.instance();
+      instance.handleUrgencyChange();
+      expect(props.toggleDraftLabOrdersUgency).toBeCalled();
+    });
   });
 });

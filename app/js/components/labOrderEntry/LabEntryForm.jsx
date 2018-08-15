@@ -12,11 +12,10 @@ import createLabOrder from '../../actions/createLabOrder';
 import { successToast, errorToast } from '../../utils/toast';
 import {
   addTestPanelToDraft,
-  removeTestPanelFromDraft,
-  removeTestFromDraft,
   addTestToDraft,
   deleteDraftLabOrder,
-  toggleDraftLabOrdersUgency,
+  removeTestFromDraft,
+  removeTestPanelFromDraft,
 } from '../../actions/draftLabOrderAction';
 import '../../../css/grid.scss';
 import './styles.scss';
@@ -166,17 +165,6 @@ export class LabEntryForm extends PureComponent {
     }
   }
 
-  handleUrgencyChange = (order) => {
-    this.props.dispatch(toggleDraftLabOrdersUgency(order));
-  }
-
-  discardTestsInDraft = (test, action) => {
-    const { dispatch } = this.props;
-    if (action === 'single') return dispatch(removeTestFromDraft(test));
-    if (action === 'panel') return dispatch(removeTestPanelFromDraft(test));
-    return dispatch(deleteDraftLabOrder());
-  }
-
   showFieldSet = () => (
     <div>
       <LabPanelFieldSet
@@ -201,7 +189,7 @@ export class LabEntryForm extends PureComponent {
     });
   };
 
-  handleSubmit = () => {
+  handleSubmit = () => { // handleSubmit method should be moved to the OrderEntryPage.
     const { draftLabOrders } = this.props;
     const isEmpty = !draftLabOrders.length;
     if (isEmpty) return;
@@ -266,18 +254,6 @@ export class LabEntryForm extends PureComponent {
     );
   };
 
-  renderLabDraftOrder = () => (
-    <div className="draft-lab-wrapper">
-      <LabDraftOrder
-        toggleDraftLabOrdersUgency={this.handleUrgencyChange}
-        handleDraftDiscard={this.discardTestsInDraft}
-        draftLabOrders={this.props.draftLabOrders}
-        panelTests={this.state.selectedPanelTestIds}
-        handleSubmit={() => this.handleSubmit()}
-      />
-    </div>
-  );
-
   render() {
     const {
       handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
@@ -305,7 +281,6 @@ export class LabEntryForm extends PureComponent {
                       </li>
                     ))}
                   </ul>
-                  {this.renderLabDraftOrder()}
                 </div>
                 <div className="order-form-wrapper">
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>

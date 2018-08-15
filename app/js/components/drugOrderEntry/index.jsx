@@ -151,61 +151,59 @@ export class SearchAndAddOrder extends React.Component {
       outpatientCareSetting, inpatientCareSetting, location, dateFormat,
     } = this.props;
     return (
-      <div className="body-wrapper drug-order-entry">
-        <Tabs
-          closeFormsOnTabChange={this.closeFormsOnTabChange}
-        >
-          <Tab
-            tabName={outpatientCareSetting.display}>
-            {this.renderSearchDrug()}
-            {this.renderAddForm(outpatientCareSetting)}
-            {this.renderDraftDataTable(outpatientCareSetting)}
-            <Accordion open title="Active Drug Orders">
-              <ActiveOrders
-                tabName={outpatientCareSetting.display}
-                careSetting={outpatientCareSetting}
-                location={location}
-                dateFormat={dateFormat}
-                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-              />
-            </Accordion>
+      <Tabs
+        closeFormsOnTabChange={this.closeFormsOnTabChange}
+      >
+        <Tab
+          tabName={outpatientCareSetting.display}>
+          {this.renderSearchDrug()}
+          {this.renderAddForm(outpatientCareSetting)}
+          {this.renderDraftDataTable(outpatientCareSetting)}
+          <Accordion open title="Active Drug Orders">
+            <ActiveOrders
+              tabName={outpatientCareSetting.display}
+              careSetting={outpatientCareSetting}
+              location={location}
+              dateFormat={dateFormat}
+              handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
+            />
+          </Accordion>
 
-            <Accordion title="Past Drug Orders">
-              <PastOrders
-                tabName="Outpatient"
-                careSetting={outpatientCareSetting}
-                dateFormat={dateFormat}
-                location={location} />
+          <Accordion title="Past Drug Orders">
+            <PastOrders
+              tabName="Outpatient"
+              careSetting={outpatientCareSetting}
+              dateFormat={dateFormat}
+              location={location} />
 
-              <br />
-            </Accordion>
-          </Tab>
-          <Tab
-            tabName={inpatientCareSetting.display}>
-            {this.renderSearchDrug()}
-            {this.renderAddForm(inpatientCareSetting)}
-            {this.renderDraftDataTable(this.props.inpatientCareSetting)}
-            <Accordion open title="Active Drug Orders">
-              <ActiveOrders
-                tabName={inpatientCareSetting.display}
-                careSetting={inpatientCareSetting}
-                location={location}
-                dateFormat={dateFormat}
-                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-              />
-            </Accordion>
+            <br />
+          </Accordion>
+        </Tab>
+        <Tab
+          tabName={inpatientCareSetting.display}>
+          {this.renderSearchDrug()}
+          {this.renderAddForm(inpatientCareSetting)}
+          {this.renderDraftDataTable(this.props.inpatientCareSetting)}
+          <Accordion open title="Active Drug Orders">
+            <ActiveOrders
+              tabName={inpatientCareSetting.display}
+              careSetting={inpatientCareSetting}
+              location={location}
+              dateFormat={dateFormat}
+              handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
+            />
+          </Accordion>
 
-            <Accordion title="Past Drug Orders">
-              <PastOrders
-                tabName="Inpatient"
-                careSetting={inpatientCareSetting}
-                dateFormat={dateFormat}
-                location={location} />
-            </Accordion>
+          <Accordion title="Past Drug Orders">
+            <PastOrders
+              tabName="Inpatient"
+              careSetting={inpatientCareSetting}
+              dateFormat={dateFormat}
+              location={location} />
+          </Accordion>
 
-          </Tab>
-        </Tabs>
-      </div>
+        </Tab>
+      </Tabs>
     );
   }
 }

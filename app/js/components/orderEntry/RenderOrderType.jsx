@@ -7,11 +7,7 @@ import LabEntryForm from '../labOrderEntry/LabEntryForm';
 const RenderOrderType = (props) => {
   switch (props.currentOrderTypeID) {
     case orderTypes.LAB_ORDER.id: {
-      return (
-        <div className="body-wrapper">
-          <LabEntryForm />
-        </div>
-      );
+      return (<LabEntryForm />);
     }
     case orderTypes.DRUG_ORDER.id: {
       return (
