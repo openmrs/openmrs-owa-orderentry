@@ -1,6 +1,5 @@
 module.exports = {
   verbose: true,
-  testURL: 'http://localhost',
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/templates/',
@@ -16,7 +15,7 @@ module.exports = {
   testEnvironment: "jsdom",
   roots: ['<rootDir>'],
   setupFiles: [
-    '<rootDir>/tests/setup.js'
+    '<rootDir>/tests/setup.js',
   ],
   snapshotSerializers: [
     "enzyme-to-json/serializer"

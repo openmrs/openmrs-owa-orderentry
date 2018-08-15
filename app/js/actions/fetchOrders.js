@@ -5,7 +5,7 @@ import { FETCH_ORDERS } from './actionTypes';
 const fetchOrders = (
   uri,
   patient,
-  limit = 5,
+  limit = 10,
 ) => ({
   type: FETCH_ORDERS,
   payload: axiosInstance

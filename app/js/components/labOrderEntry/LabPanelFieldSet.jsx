@@ -11,8 +11,7 @@ const formatPanelName = (panelName) => {
 
 const formatToolTipData = (setMembers) => {
   const testArray = [];
-  setMembers.map(test => testArray.push(test.display));
-  return testArray;
+  return setMembers.map(test => test.display);
 };
 
 const LabPanelFieldSet = (props) => {
@@ -23,25 +22,26 @@ const LabPanelFieldSet = (props) => {
     <fieldset className="fieldset">
       <legend>Panels</legend>
       <div className="panel-box">
-        {
-          panels.length ?
-            panels.map(panel => (
-              <button
-                id="panel-button"
-                className={classNames('lab-tests-btn tooltip', {
-                  active: selectedPanelIds.includes(panel.uuid),
-                })}
-                type="button"
-                key={`${panel.uuid}`}
-                onClick={() => handleTestSelection(panel, 'panel')}
-              >
-                {formatPanelName(panel.display.toLowerCase())}
-                <ToolTip
-                  toolTipHeader="Tests included in this panel:"
-                  toolTipBody={formatToolTipData(panel.setMembers)} />
-              </button>
-            )) : <p>{labCategoryName} has no panels</p>
-        }
+        {panels.length ? (
+          panels.map(panel => (
+            <button
+              id="panel-button"
+              className={classNames('lab-tests-btn tooltip', {
+                active: selectedPanelIds.includes(panel.uuid),
+              })}
+              type="button"
+              key={`${panel.uuid}`}
+              onClick={() => handleTestSelection(panel, 'panel')}>
+              {formatPanelName(panel.display.toLowerCase())}
+              <ToolTip
+                toolTipHeader="Tests included in this panel:"
+                toolTipBody={formatToolTipData(panel.setMembers)}
+              />
+            </button>
+          ))
+        ) : (
+          <p>{labCategoryName} has no panels</p>
+        )}
       </div>
     </fieldset>
   );

@@ -170,6 +170,31 @@
   .accordion-two.content.open {
     max-height: 500px;
   }
+
+  .sort-filter-section {
+    display: flex;
+  }
+
+  .sort-type {
+    padding-right: 15px;
+  }
+
+  .label-sort {
+    padding-right: 5px;
+  }
+
+  .sort-select:focus {
+    border: none !important;
+  }
+
+  .no-results {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .sort-status {
+    display: none;
+  }
 }
 
 .order-actions-btn {
