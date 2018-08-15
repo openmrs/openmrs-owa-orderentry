@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
 import * as orderTypes from './orderTypes';
+import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
@@ -55,6 +57,19 @@ export class OrderEntryPage extends PureComponent {
     if (id === newOrderType.id) return;
     this.setState({ currentOrderType: newOrderType });
   };
+
+  renderDraftOrder = () => {
+    const { draftDrugOrders, draftLabOrders } = this.props;
+    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
+    return (
+      <div className="draft-wrapper">
+        <Draft
+          handleDraftDiscard={() => {}}
+          draftOrders={allDraftOrders}
+          handleSubmit={() => {}}
+        />
+      </div>);
+  }
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
@@ -166,7 +181,13 @@ export class OrderEntryPage extends PureComponent {
                 currentOrderType={this.state.currentOrderType}
               />
             </div>
-            <RenderOrderType currentOrderTypeID={this.state.currentOrderType.id} {...this.props} />
+            <div className="body-wrapper drug-order-entry">
+              <RenderOrderType
+                currentOrderTypeID={this.state.currentOrderType.id}
+                {...this.props}
+              />
+              {this.state.currentOrderType.id && this.renderDraftOrder()}
+            </div>
           </div>
         ) : (
           <div className="error-notice">
@@ -225,6 +246,8 @@ OrderEntryPage.propTypes = {
   getLabOrderables: PropTypes.func.isRequired,
   fetchPatientRecord: PropTypes.func.isRequired,
   fetchPatientNote: PropTypes.func.isRequired,
+  draftLabOrders: PropTypes.array.isRequired,
+  draftDrugOrders: PropTypes.arrayOf(PropTypes.any),
 };
 
 OrderEntryPage.defaultProps = {
@@ -233,6 +256,7 @@ OrderEntryPage.defaultProps = {
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
+  draftDrugOrders: [],
 };
 
 const mapStateToProps = ({
@@ -242,6 +266,10 @@ const mapStateToProps = ({
   dateFormatReducer,
   patientReducer: { patient },
   noteReducer: { note },
+  draftReducer: {
+    draftDrugOrders,
+    draftLabOrders,
+  },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -250,6 +278,8 @@ const mapStateToProps = ({
   settingEncounterRoleReducer,
   patient,
   note,
+  draftDrugOrders,
+  draftLabOrders,
 });
 
 const actionCreators = {
@@ -262,7 +292,6 @@ const actionCreators = {
   fetchPatientNote,
 };
 
-export default connect(
-  mapStateToProps,
-  actionCreators,
-)(OrderEntryPage);
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderEntryPage);

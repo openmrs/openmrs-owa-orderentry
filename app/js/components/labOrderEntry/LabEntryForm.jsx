@@ -266,18 +266,6 @@ export class LabEntryForm extends PureComponent {
     );
   };
 
-  renderLabDraftOrder = () => (
-    <div className="draft-lab-wrapper">
-      <LabDraftOrder
-        toggleDraftLabOrdersUgency={this.handleUrgencyChange}
-        handleDraftDiscard={this.discardTestsInDraft}
-        draftLabOrders={this.props.draftLabOrders}
-        panelTests={this.state.selectedPanelTestIds}
-        handleSubmit={() => this.handleSubmit()}
-      />
-    </div>
-  );
-
   render() {
     const {
       handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
@@ -305,7 +293,6 @@ export class LabEntryForm extends PureComponent {
                       </li>
                     ))}
                   </ul>
-                  {this.renderLabDraftOrder()}
                 </div>
                 <div className="order-form-wrapper">
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>

@@ -87,7 +87,7 @@ const FreeText = ({
             Cancel
             </button>
           </div>
-          <div className="column-1 pull-right-8">
+          <div className="column-1">
             <button
               type="button"
               className="confirm"
