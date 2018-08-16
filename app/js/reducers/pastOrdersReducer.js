@@ -18,11 +18,13 @@ export default (state = initialState.pastOrders, action) => {
     case LOAD_PAST_ORDERS_SUCCESS:
       return {
         ...state,
+        loading: false,
         pastOrders: action.pastOrders,
       };
     case LOAD_PAST_ORDERS_FAILURE:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
     case PAST_ORDERS_PAGE_COUNT:
