@@ -74,4 +74,52 @@ describe('Orders component test-suite', () => {
     const wrapper = mount(<ConnectedOrdersTablePage store={store} {...props} />);
     expect(wrapper.find('.no-result-info').props().children).toEqual('No Orders');
   });
+  it('handles editing of active orders', () => {
+    const mockOrder = {
+      date: "24/12/2018",
+      display: "Paracetamol",
+      type: "drugorder",
+      dosingInstructions: "15mg of Amoxycillin syrup for the next 5 days",
+      dispense: "25",
+      activeDates: "25/08/2018 - 25/08/2019",
+      orderer: {display: "Mark Goodrich"},
+      status: "Active",
+      uuid: 2
+    };
+
+    const props = {
+      filteredOrders: [
+        {
+            activeDates: "24/12/2018",
+            display: "Paracetamol",
+            type: "drugorder",
+            dosingInstructions: "25mg of Amoxycillin syrup for the next 5 days",
+            dispense: "45",
+            orderer: {display: "Mark Goodrich"},
+            urgency: "STAT",
+            uuid: 2
+        },
+        {
+            activeDates: "24/12/2018",
+            display: "Paracetamol",
+            type: "testorder",
+            orderer: {display: "Mark Goodrich"},
+            urgency: "STAT",
+            uuid: 2
+        }
+      ],
+      status: {
+        fetched: true,
+      },
+      patient: {
+        uuid: 'some-random-id',
+      },
+      dispatch: jest.fn()
+    };
+
+    const component = shallow(<OrdersTable {...props}/>);
+    const componentInstance = component.instance();
+    componentInstance.handleActiveOrderEdit(mockOrder);
+    expect(props.dispatch).toBeCalled();
+  });
 });
