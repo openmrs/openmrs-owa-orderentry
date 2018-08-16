@@ -171,3 +171,21 @@
     max-height: 500px;
   }
 }
+
+.order-actions-btn {
+  display: flex;
+  span {
+    width:40%;
+    a {
+      i.scale {
+        text-decoration: none;
+         color: black;
+      }
+    }
+    :hover{
+      transform: scale(1.5);
+      -webkit-transform: scale(1.5);
+      -moz-transform: scale(1.5);
+    }
+  }
+}
