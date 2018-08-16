@@ -27,7 +27,7 @@ export class OrdersTable extends PureComponent {
             {order.type === 'drugorder' ? (
               <DrugOrderDetails
                 dosingInstructions={order.dosingInstructions}
-                dispense={order.dispense}
+                dispense={order.dose}
                 activeDates={format(order.dateActivated, 'MM/DD/YYYY')}
                 orderer={order.orderer.display.split('-')[1]}
               />
