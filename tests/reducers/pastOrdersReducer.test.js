@@ -16,7 +16,7 @@ describe('Past Orders Reducer', () => {
         pastOrders,
       };
       const newState =pastOrdersReducer(undefined, action);
-      expect(newState).toEqual({ pastOrders, loading: false });
+      expect(newState).toEqual({ pastOrders });
     });
 
   it('should set past orders fetch error',() => {

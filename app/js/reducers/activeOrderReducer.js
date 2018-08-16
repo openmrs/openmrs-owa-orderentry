@@ -27,9 +27,6 @@ export default (state = initialState.defaultpatientActiveOrder, action) => {
 
       return {
         ...state,
-        status: {
-          loading: false,
-        },
         activeOrders: results,
         pageCount,
         showResultCount,

@@ -51,7 +51,6 @@ describe('Get the encounterRole configuration actions', () => {
             const expectedActions = [
                 SETTING_ENCOUNTER_ROLE_LOADING,
                 SETTING_ENCOUNTER_ROLE_SUCCESS,
-                NETWORK_ERROR,
                 SETTING_ENCOUNTER_ROLE_LOADING,
             ];
 
