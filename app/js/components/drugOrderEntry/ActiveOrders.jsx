@@ -208,6 +208,14 @@ export class ActiveOrders extends React.Component {
 
   render() {
     const { activeOrders, loading } = this.props.drugOrder;
+    const { activity, selectedOrder } = this.props;
+    let allActiveOrders = activeOrders;
+    if (activity === 'EDIT') {
+      allActiveOrders = [
+        selectedOrder,
+        ...activeOrders.filter(order => order.orderNumber !== selectedOrder.orderNumber),
+      ];
+    }
 
     if (!activeOrders || loading) {
       return (
@@ -233,7 +241,7 @@ export class ActiveOrders extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.showOrders(activeOrders)}
+            {this.showOrders(allActiveOrders)}
           </tbody>
         </table>
         {
@@ -276,10 +284,12 @@ ActiveOrders.defaultProps = {
 };
 
 
-const mapStateToProps = ({ activeOrderReducer }) => ({
+const mapStateToProps = ({ activeOrderReducer, orderSelectionReducer }) => ({
   drugOrder: activeOrderReducer,
   pageCount: activeOrderReducer.pageCount,
   showResultCount: activeOrderReducer.showResultCount,
+  selectedOrder: orderSelectionReducer.selectedOrder,
+  activity: orderSelectionReducer.activity,
 });
 
 const actionCreators = {
@@ -302,6 +312,8 @@ ActiveOrders.propTypes = {
   activeOrders: PropTypes.shape({}).isRequired,
   showResultCount: PropTypes.string,
   pageCount: PropTypes.number,
+  selectedOrder: PropTypes.object,
+  activity: PropTypes.string,
 };
 
 ActiveOrders.defaultProps = {
@@ -309,6 +321,8 @@ ActiveOrders.defaultProps = {
     loading: false,
     activeOrders: [],
   },
+  selectedOrder: {},
+  activity: '',
 };
 
 export default connect(mapStateToProps, actionCreators)(ActiveOrders);

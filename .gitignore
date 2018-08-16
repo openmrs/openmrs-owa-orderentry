@@ -5,7 +5,6 @@ config.json
 *.zip
 coverage
 .nyc_output
-package-lock.json
 *.snap
 .DS_Store
 .idea

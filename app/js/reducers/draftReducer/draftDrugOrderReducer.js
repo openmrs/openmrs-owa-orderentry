@@ -2,10 +2,10 @@ import {
   ADD_DRAFT_DRUG_ORDER_SUCCESS,
   DELETE_DRAFT_DRUG_ORDER_SUCCESS,
   DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
-} from '../actions/actionTypes';
-import initialState from './initialState';
+} from '../../actions/actionTypes';
+import initialState from '../initialState';
 
-export default (state = initialState.draftTableReducer, action) => {
+export default (state = initialState.draftReducer, action) => {
   switch (action.type) {
     case ADD_DRAFT_DRUG_ORDER_SUCCESS:
       return {

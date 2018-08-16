@@ -361,12 +361,12 @@ export class AddForm extends React.Component {
 const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
-  draftTableReducer: { draftOrders },
+  draftReducer: { draftDrugOrders: { orders } },
   openmrs: { session },
 }) =>
   ({
     drug: drugSearchReducer.selected,
-    draftOrders,
+    draftOrders: orders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
     session,
   });

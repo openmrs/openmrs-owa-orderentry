@@ -21,16 +21,16 @@ import activeOrderReducer from './activeOrderReducer';
 import settingEncounterTypeReducer from './settingEncounterTypeReducer';
 import settingEncounterRoleReducer from './settingEncounterRoleReducer';
 import encounterRoleReducer from './encounterRoleReducer';
-import draftTableReducer from './draftTableReducer';
 import addDrugOrderReducer from './addDrugOrderReducer';
 import dateFormatReducer from './dateFormatReducer';
-import draftLabOrderReducer from './draftLabOrderReducer';
 import labOrderableReducer from './labOrders/labOrderableReducer';
 import labConceptsReducer from './labOrders/labConceptsReducer';
 import fetchLabOrderReducer from './labOrders/fetchLabOrderReducer';
 import createLabOrderReducer from './createLabOrderReducer';
 import getLabOrderablesReducer from './labOrders/settingLabOrderableReducer';
 import fetchOrdersReducer from './fetchOrdersReducer';
+import orderSelectionReducer from './orderSelectionReducer';
+import draftReducer from './draftReducer';
 
 export default combineReducers({
   openmrs: openmrsReducers,
@@ -47,14 +47,14 @@ export default combineReducers({
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
   encounterRoleReducer,
-  draftTableReducer,
+  draftReducer,
   addDrugOrderReducer,
   dateFormatReducer,
-  draftLabOrderReducer,
   labOrderableReducer,
   labConceptsReducer,
   fetchLabOrderReducer,
   createLabOrderReducer,
   getLabOrderablesReducer,
   fetchOrdersReducer,
+  orderSelectionReducer,
 });
