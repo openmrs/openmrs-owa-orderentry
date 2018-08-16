@@ -7,6 +7,8 @@ import OrderHeader from './OrderHeader';
 import LabOrderDetails from './LabOrderDetails';
 import DrugOrderDetails from './DrugOrderDetails';
 import fetchOrders from '../../actions/fetchOrders';
+import * as orderTypes from './orderTypes';
+import { setSelectedOrder } from '../../actions/orderAction';
 
 export class OrdersTable extends PureComponent {
   componentDidMount() {
@@ -17,12 +19,22 @@ export class OrdersTable extends PureComponent {
       this.props.dispatch(fetchOrders(null, this.props.patient.uuid));
     }
   }
+  hanldeActiveOrderEdit = (order) => {
+    this.props.dispatch(setSelectedOrder({ order: { ...order, status: 'EDIT' }, currentOrderType: orderTypes.DRUG_ORDER, activity: 'EDIT' }));
+  }
   render() {
     return (
       <React.Fragment>
         {this.props.orders.results && this.props.orders.results.map((order => (
           <Accordion
-            title={<OrderHeader status="Active" orderable={order.display} />}
+            title={
+              <OrderHeader
+                status="Active"
+                orderable={order.display}
+                order={order}
+                handleEdit={this.hanldeActiveOrderEdit}
+              />
+            }
             key={order.uuid}>
             {order.type === 'drugorder' ? (
               <DrugOrderDetails

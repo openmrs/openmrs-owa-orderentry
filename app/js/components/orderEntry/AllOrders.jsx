@@ -11,7 +11,7 @@ const AllOrders = () => (
         <tr>
           <th>Date</th>
           <th>Details</th>
-          <th>status</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
         <OrdersTable />

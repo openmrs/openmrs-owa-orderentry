@@ -326,11 +326,13 @@ export class LabEntryForm extends PureComponent {
 }
 
 export const mapStateToProps = ({
-  draftLabOrderReducer: {
-    draftLabOrders,
-    selectedLabPanels,
-    defaultTests,
-    selectedTests,
+  draftReducer: {
+    draftLabOrders: {
+      orders,
+      selectedLabPanels,
+      defaultTests,
+      selectedTests,
+    },
   },
   dateFormatReducer: { dateFormat },
   labConceptsReducer: {
@@ -347,7 +349,7 @@ export const mapStateToProps = ({
   labOrderableReducer: { orderables },
   getLabOrderablesReducer: { getLabOrderables },
 }) => ({
-  draftLabOrders,
+  draftLabOrders: orders,
   dateFormat,
   conceptsAsPanels,
   standAloneTests,

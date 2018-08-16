@@ -1,4 +1,4 @@
-import draftLabOrderReducer from '../../app/js/reducers/draftLabOrderReducer';
+import draftLabOrderReducer from '../../../app/js/reducers/draftReducer/draftLabOrderReducer';
 import {
   ADD_PANEL_TO_DRAFT_LAB_ORDER,
   ADD_TEST_TO_DRAFT_LAB_ORDER,
@@ -6,16 +6,19 @@ import {
   DELETE_PANEL_FROM_DRAFT_LAB_ORDER,
   DELETE_TEST_FROM_DRAFT_LAB_ORDER,
   DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER,
-} from '../../app/js/actions/actionTypes';
-
-import { panelData, testsData } from '../../app/js/components/labOrderEntry/labData';
+} from '../../../app/js/actions/actionTypes';
 
 const initialState = {
-  draftLabOrders: [],
-  selectedLabPanels: [],
-  defaultTests: [],
-  selectedTests: [],
-  singleTests: [],
+  draftDrugOrders: {
+    orders: [],
+  },
+  draftLabOrders: {
+    orders: [],
+    selectedLabPanels: [],
+    defaultTests: [],
+    selectedTests: [],
+    singleTests: [],
+  },
 };
 
 const mockTests = [
@@ -41,7 +44,7 @@ const mockPanels = [
     set: true,
     setMembers: [
       { uuid: '421Abc-123', name: 'Concept G', set: false },
-    ]
+    ],
   },
 ];
 
@@ -54,7 +57,7 @@ describe('Draft Lab Order Reducer', () => {
       orders: mockPanels[0],
     }
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders.length).toEqual(1);
+    expect(newState.draftLabOrders.orders.length).toEqual(1);
   });
 
   it('should remove a suite of panel tests when panel is unselected', () => {
@@ -65,7 +68,7 @@ describe('Draft Lab Order Reducer', () => {
     const nextAction = { ...previousAction, type: DELETE_PANEL_FROM_DRAFT_LAB_ORDER };
     const previousState = draftLabOrderReducer(initialState, previousAction);
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(0);
+    expect(newState.draftLabOrders.orders.length).toEqual(0);
   });
 
   it('should add multiple test panels to the draftOrder', () => {
@@ -73,11 +76,11 @@ describe('Draft Lab Order Reducer', () => {
       type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
       orders: mockPanels[0],
     };
-    const nextAction = { ...previousAction, orders: mockPanels[1] };
     const previousState = draftLabOrderReducer(initialState, previousAction);
 
+    const nextAction = { ...previousAction, orders: mockPanels[1] };
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(2);
+    expect(newState.draftLabOrders.orders.length).toEqual(2);
   });
 
   it('should delete a test panel from the draftOrder', () => {
@@ -85,11 +88,11 @@ describe('Draft Lab Order Reducer', () => {
       type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
       orders: mockPanels[0],
     };
-    const nextAction = { ...previousAction, type: DELETE_PANEL_FROM_DRAFT_LAB_ORDER };
     const previousState = draftLabOrderReducer(initialState, previousAction);
 
+    const nextAction = { ...previousAction, type: DELETE_PANEL_FROM_DRAFT_LAB_ORDER };
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(0);
+    expect(newState.draftLabOrders.orders.length).toEqual(0);
   });
 
   it('should delete a test panel from the draftOrder if there are already panels present', () => {
@@ -110,7 +113,7 @@ describe('Draft Lab Order Reducer', () => {
     const newState = draftLabOrderReducer(secondState, lastAction);
 
     const mockedDraft = mockPanels[1].setMembers;
-    expect(newState.draftLabOrders.length).toEqual(1);
+    expect(newState.draftLabOrders.orders.length).toEqual(1);
   });
 
   it('should delete all tests from the draftOrder at once', () => {
@@ -130,7 +133,7 @@ describe('Draft Lab Order Reducer', () => {
     const secondState = draftLabOrderReducer(firstState, secondAction);
     const newState = draftLabOrderReducer(secondState, lastAction);
 
-    expect(newState.draftLabOrders.length).toEqual(0);
+    expect(newState.draftLabOrders.orders.length).toEqual(0);
   });
 
   it('should add single tests not part of the panel to the draftorder', () => {
@@ -139,8 +142,8 @@ describe('Draft Lab Order Reducer', () => {
       order: mockTests[0],
     };
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders.length).toEqual(1);
-    expect(newState.draftLabOrders[0].name).toEqual(mockTests[0].name);
+    expect(newState.draftLabOrders.orders.length).toEqual(1);
+    expect(newState.draftLabOrders.orders[0].name).toEqual(mockTests[0].name);
   });
 
   it('should not add a single tests to the draftorder if it is part of the panel and already in draft', () => {
@@ -149,8 +152,8 @@ describe('Draft Lab Order Reducer', () => {
       order: mockTests[0],
     };
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders.length).toEqual(1);
-    expect(newState.draftLabOrders[0].name).toEqual(mockTests[0].name);
+    expect(newState.draftLabOrders.orders.length).toEqual(1);
+    expect(newState.draftLabOrders.orders[0].name).toEqual(mockTests[0].name);
   });
 
   it('should delete single tests from the draft order if they are already selected', () => {
@@ -162,7 +165,7 @@ describe('Draft Lab Order Reducer', () => {
     const previousState = draftLabOrderReducer(initialState, nextAction);
 
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(0);
+    expect(newState.draftLabOrders.orders.length).toEqual(0);
   });
 
   it('should not remove a single test from the draftorder if it was previously selected and also part of the panel of tests', () => {
@@ -177,7 +180,7 @@ describe('Draft Lab Order Reducer', () => {
     };
     const previousState = draftLabOrderReducer(initialState, previousAction);
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(2);
+    expect(newState.draftLabOrders.orders.length).toEqual(2);
   });
 
   it('should not delete a single test from the draftorder when a new panel is added', () => {
@@ -192,7 +195,7 @@ describe('Draft Lab Order Reducer', () => {
     };
     const previousState = draftLabOrderReducer(initialState, previousAction);
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(2);
+    expect(newState.draftLabOrders.orders.length).toEqual(2);
   });
 
   it('should delete a single test from the draft order if it is unchecked', () => {
@@ -207,16 +210,18 @@ describe('Draft Lab Order Reducer', () => {
     };
     const previousState = draftLabOrderReducer(initialState, previousAction);
     const newState = draftLabOrderReducer(previousState, nextAction);
-    expect(newState.draftLabOrders.length).toEqual(0);
+    expect(newState.draftLabOrders.orders.length).toEqual(0);
   });
 
   it('should set the toggle of the urgency of a draft order to "ROUTINE" for "lab tests"', () => {
     const initialState = {
-      draftLabOrders: [
-        { uuid: 1, test: 'Hemoglobin', urgency: 'STAT'},
-        { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE'},
-        { uuid: 3, test: 'blood', urgency: 'ROUTINE' },
-      ]
+      draftLabOrders: {
+        orders: [
+          { uuid: 1, test: 'Hemoglobin', urgency: 'STAT' },
+          { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE' },
+          { uuid: 3, test: 'blood', urgency: 'ROUTINE' },
+        ]
+      }
     };
     const order = { orderUuid: 1, orderUrgency: 'ROUTINE' };
     const action = {
@@ -225,40 +230,43 @@ describe('Draft Lab Order Reducer', () => {
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[0]).toEqual({ uuid: 1, test: 'Hemoglobin', urgency: 'ROUTINE'})
+    expect(newState.draftLabOrders.orders[0]).toEqual({ uuid: 1, test: 'Hemoglobin', urgency: 'ROUTINE' })
   });
 
   it('should set the toggle of the urgency of a draft order to "STAT" for "lab tests"', () => {
     const initialState = {
-      draftLabOrders: [
-        { uuid: 1, test: 'Hemoglobin', urgency: 'STAT'},
-        { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE'},
-        { uuid: 3, test: 'blood' },
-      ]
+      draftLabOrders: {
+        orders: [
+          { uuid: 1, test: 'Hemoglobin', urgency: 'STAT' },
+          { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE' },
+          { uuid: 3, test: 'blood' },
+        ],
+      },
     };
 
     const order = { orderUuid: 2, orderUrgency: 'STAT' };
 
-
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
-    }
+    };
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[1]).toEqual({ uuid: 2, test: 'Hematocrit', urgency: 'STAT'})
+    expect(newState.draftLabOrders.orders[1]).toEqual({ uuid: 2, test: 'Hematocrit', urgency: 'STAT' })
   });
 
   it('should set the toggle of the urgency of a draft order to "STAT" for "lab panels"', () => {
     const initialState = {
-      draftLabOrders: [
-        {
-          uuid: 1,
-          name: "Hemogram",
-          labCategory: 1,
-          urgency: "ROUTINE",
-        }
-      ]
+      draftLabOrders: {
+        orders: [
+          {
+            uuid: 1,
+            name: "Hemogram",
+            labCategory: 1,
+            urgency: "ROUTINE",
+          },
+        ],
+      },
     };
     const expectedState = {
       uuid: 1,
@@ -273,25 +281,27 @@ describe('Draft Lab Order Reducer', () => {
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[0]).toEqual(expectedState)
+    expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
   });
 
   it('should set the toggle of the urgency of a draft order to "ROUTINE" for "lab tests"', () => {
     const initialState = {
-      draftLabOrders: [
-        {
-          uuid: 2,
-          name: "Hemogram",
-          labCategory: 1,
-          urgency: "STAT",
-        }
-      ]
+      draftLabOrders: {
+        orders: [
+          {
+            uuid: 2,
+            name: "Hemogram",
+            labCategory: 1,
+            urgency: "STAT",
+          },
+        ],
+      },
     };
     const expectedState = {
       uuid: 2,
       name: "Hemogram",
       labCategory: 1,
-      urgency: "ROUTINE"
+      urgency: "ROUTINE",
     };
 
     const order = { orderUuid: 2, orderUrgency: 'ROUTINE' };
@@ -303,24 +313,26 @@ describe('Draft Lab Order Reducer', () => {
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[0]).toEqual(expectedState)
+    expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
   });
   it('should not set the toggle of the urgency of a npn-existent draft order', () => {
     const initialState = {
-      draftLabOrders: [
-        {
-          uuid: 2,
-          name: "Hemogram",
-          labCategory: 1,
-          urgency: "STAT",
-        }
-      ]
+      draftLabOrders: {
+        orders: [
+          {
+            uuid: 2,
+            name: "Hemogram",
+            labCategory: 1,
+            urgency: "STAT",
+          },
+        ],
+      },
     };
     const expectedState = {
       uuid: 2,
       name: "Hemogram",
       labCategory: 1,
-      urgency: "STAT"
+      urgency: "STAT",
     };
 
     const order = { orderUuid: 1, orderUrgency: 'STAT' };
@@ -332,6 +344,6 @@ describe('Draft Lab Order Reducer', () => {
     }
 
     const newState = draftLabOrderReducer(initialState, action);
-    expect(newState.draftLabOrders[0]).toEqual(expectedState)
+    expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
   });
 });
