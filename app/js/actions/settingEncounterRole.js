@@ -6,7 +6,7 @@ import {
 import axiosInstance from '../config';
 import loading from './loading';
 import networkError from './networkError';
-import fetchEncounterRole from './encounterRole';
+import { fetchEncounterRole } from './encounterRole';
 
 export const settingEncounterRoleSuccess = configuration => ({
   type: SETTING_ENCOUNTER_ROLE_SUCCESS,

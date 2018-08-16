@@ -39,9 +39,7 @@ export default {
   defaultDrugs: {
     results: [],
   },
-  pastOrders: {
-    loading: false,
-  },
+  pastOrders: {},
 
   encounterTypeValid: {
     results: [

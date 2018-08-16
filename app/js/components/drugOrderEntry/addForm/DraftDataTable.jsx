@@ -95,10 +95,11 @@ export class DraftDataTable extends React.Component {
             provider: this.props.sessionReducer.currentProvider.uuid,
           }],
           encounterType: this.props.encounterType.uuid,
-          location: this.props.sessionReducer.sessionLocation,
+          location: this.props.sessionReducer.currentLocation,
           orders: this.state.orders,
           patient: this.props.patient.uuid,
         };
+
         this.props.postDrugOrder(
           encounterPayload,
           this.state.limit,
@@ -106,7 +107,7 @@ export class DraftDataTable extends React.Component {
           this.props.patient.uuid,
           this.props.careSetting.uuid,
         );
-        if (this.props.addedOrder) {
+        if (this.props.addedOrder.data) {
           this.props.handleDiscardAllOrders();
         } else if (this.props.addOrderError) {
           toastr.error(this.props.addOrderError.response.data.error.message);
@@ -279,7 +280,7 @@ DraftDataTable.propTypes = {
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
     }),
-    sessionLocation: PropTypes.shape({}),
+    currentLocation: PropTypes.shape({}),
   }).isRequired,
   encounterType: PropTypes.shape({
     uuid: PropTypes.string,
