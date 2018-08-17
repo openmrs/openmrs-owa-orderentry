@@ -84,15 +84,17 @@ export default {
     pastOrders: {},
     loading: false,
   },
-  draftTableReducer: {
-    draftDrugOrders: [],
-  },
-  draftLabOrderReducer: {
-    draftLabOrders: [],
-    selectedLabPanels: [],
-    defaultTests: [],
-    selectedTests: [],
-    singleTests: [],
+  draftReducer: {
+    draftDrugOrders: {
+      orders: [],
+    },
+    draftLabOrders: {
+      orders: [],
+      selectedLabPanels: [],
+      defaultTests: [],
+      selectedTests: [],
+      singleTests: [],
+    },
   },
   drugSearchReducer: {
     drugs: [],

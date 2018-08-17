@@ -1,9 +1,10 @@
-import draftTableReducer from '../../app/js/reducers/draftTableReducer';
+import draftDrugOrderReducer from '../../../app/js/reducers/draftReducer/draftDrugOrderReducer';
+
 import {
   ADD_DRAFT_DRUG_ORDER_SUCCESS,
   DELETE_DRAFT_DRUG_ORDER_SUCCESS,
   DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
-} from '../../app/js/actions/actionTypes';
+} from '../../../app/js/actions/actionTypes';
 
 
 describe('Draft Table Reducer', () => {
@@ -23,7 +24,7 @@ describe('Draft Table Reducer', () => {
       order,
     }
 
-    const newState = draftTableReducer(initialState, action);
+    const newState = draftDrugOrderReducer(initialState, action);
     expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([action.order])
     );
@@ -49,7 +50,7 @@ describe('Draft Table Reducer', () => {
       order,
     }
 
-    const newState = draftTableReducer(initialState, action);
+    const newState = draftDrugOrderReducer(initialState, action);
     expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([])
     )
@@ -68,7 +69,7 @@ describe('Draft Table Reducer', () => {
       type: DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
     }
 
-    const newState = draftTableReducer(initialState, action);
+    const newState = draftDrugOrderReducer(initialState, action);
     expect(newState.draftDrugOrders).toEqual(
       expect.arrayContaining([])
     )
