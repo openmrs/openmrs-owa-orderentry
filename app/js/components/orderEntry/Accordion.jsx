@@ -16,7 +16,7 @@ class Accordion extends React.Component {
           onClick={() => {
             this.setState({ isVisible: !this.state.isVisible });
           }}>
-          <th className="th-1">
+          <th className="th-1 th-invisible">
             <span>
               {this.state.isVisible ? (
                 <i className="toggle-icon icon-caret-down small rotate90" />
