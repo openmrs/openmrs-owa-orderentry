@@ -134,4 +134,8 @@ export default {
     isLoading: false,
     error: '',
   },
+  orderSelection: {
+    currentOrderType: {},
+    selectedOrder: {},
+  },
 };

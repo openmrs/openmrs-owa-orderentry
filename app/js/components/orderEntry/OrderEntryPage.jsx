@@ -1,27 +1,23 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
-import * as orderTypes from './orderTypes';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderables } from "../../actions/labOrders/settingLabOrderableAction";
 import getDateFormat from '../../actions/dateFormat';
+import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
+import { setSelectedOrder } from '../../actions/orderAction';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';
 
 export class OrderEntryPage extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentOrderType: {},
-    };
-  }
-  componentDidMount() {
+  componentWillMount() {
     const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
 
     this.props.fetchPatientCareSetting();
@@ -48,12 +44,9 @@ export class OrderEntryPage extends PureComponent {
 
   switchOrderType = (newOrderType) => {
     if (!newOrderType) {
-      this.setState({ currentOrderType: {} });
-      return;
+      return this.props.setSelectedOrder({ currentOrderType: {} });
     }
-    const { id } = this.state.currentOrderType;
-    if (id === newOrderType.id) return;
-    this.setState({ currentOrderType: newOrderType });
+    return this.props.setSelectedOrder({ currentOrderType: newOrderType });
   };
 
   render() {
@@ -157,16 +150,16 @@ export class OrderEntryPage extends PureComponent {
             <PatientHeader patient={this.props.patient} note={this.props.note} />
             <div className="header-nav">
               <div>
-                <h3 className="orders-nav" onClick={this.switchOrderType} role="button">
+                <h3 className="orders-nav" onClick={() => { this.switchOrderType(); }} role="button">
                   <b>Orders List</b>
                 </h3>
               </div>
               <SelectOrderType
                 switchOrderType={this.switchOrderType}
-                currentOrderType={this.state.currentOrderType}
+                currentOrderType={this.props.currentOrderType}
               />
             </div>
-            <RenderOrderType currentOrderTypeID={this.state.currentOrderType.id} {...this.props} />
+            <RenderOrderType currentOrderTypeID={this.props.currentOrderType.id} {...this.props} />
           </div>
         ) : (
           <div className="error-notice">
@@ -225,6 +218,8 @@ OrderEntryPage.propTypes = {
   getLabOrderables: PropTypes.func.isRequired,
   fetchPatientRecord: PropTypes.func.isRequired,
   fetchPatientNote: PropTypes.func.isRequired,
+  setSelectedOrder: PropTypes.func.isRequired,
+  currentOrderType: PropTypes.object,
 };
 
 OrderEntryPage.defaultProps = {
@@ -233,6 +228,7 @@ OrderEntryPage.defaultProps = {
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
+  currentOrderType: {},
 };
 
 const mapStateToProps = ({
@@ -242,6 +238,7 @@ const mapStateToProps = ({
   dateFormatReducer,
   patientReducer: { patient },
   noteReducer: { note },
+  orderSelectionReducer: { currentOrderType },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -250,6 +247,7 @@ const mapStateToProps = ({
   settingEncounterRoleReducer,
   patient,
   note,
+  currentOrderType,
 });
 
 const actionCreators = {
@@ -260,9 +258,13 @@ const actionCreators = {
   getDateFormat,
   fetchPatientRecord,
   fetchPatientNote,
+  setSelectedOrder,
+  activeOrderAction,
 };
+
+const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
 
 export default connect(
   mapStateToProps,
-  actionCreators,
+  mapDispatchToProps,
 )(OrderEntryPage);
