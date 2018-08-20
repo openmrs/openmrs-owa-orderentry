@@ -65,7 +65,6 @@ describe('onPageChange() method', () => {
 describe('componentWillReceiveProps()', () => {
   it('should update state', () => {
     const renderedComponent = getComponent().instance();
-    getComponent().setProps({ tabName: 'inpatient' })
     getComponent().setProps({ pageCount: 2 })
     getComponent().setState({ pageCount: 9 })
     expect(getComponent().state().pageCount).toEqual(9);

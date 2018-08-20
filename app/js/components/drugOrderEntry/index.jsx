@@ -148,64 +148,31 @@ export class SearchAndAddOrder extends React.Component {
 
   render() {
     const {
-      outpatientCareSetting, inpatientCareSetting, location, dateFormat,
+      outpatientCareSetting, location, dateFormat,
     } = this.props;
     return (
       <div className="body-wrapper drug-order-entry">
         <h5 className="drug-form-header">New Drug Order</h5>
-        <Tabs
-          closeFormsOnTabChange={this.closeFormsOnTabChange}
-        >
-          <Tab
-            tabName={outpatientCareSetting.display}>
-            {this.renderSearchDrug()}
-            {this.renderAddForm(outpatientCareSetting)}
-            {this.renderDraftDataTable(outpatientCareSetting)}
-            <Accordion open title="Active Drug Orders">
-              <ActiveOrders
-                tabName={outpatientCareSetting.display}
-                careSetting={outpatientCareSetting}
-                location={location}
-                dateFormat={dateFormat}
-                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-              />
-            </Accordion>
+        {this.renderSearchDrug()}
+        {this.renderAddForm(outpatientCareSetting)}
+        {this.renderDraftDataTable(outpatientCareSetting)}
+        <Accordion open title="Active Drug Orders">
+          <ActiveOrders
+            careSetting={outpatientCareSetting}
+            location={location}
+            dateFormat={dateFormat}
+            handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
+          />
+        </Accordion>
 
-            <Accordion title="Past Drug Orders">
-              <PastOrders
-                tabName="Outpatient"
-                careSetting={outpatientCareSetting}
-                dateFormat={dateFormat}
-                location={location} />
-
-              <br />
-            </Accordion>
-          </Tab>
-          <Tab
-            tabName={inpatientCareSetting.display}>
-            {this.renderSearchDrug()}
-            {this.renderAddForm(inpatientCareSetting)}
-            {this.renderDraftDataTable(this.props.inpatientCareSetting)}
-            <Accordion open title="Active Drug Orders">
-              <ActiveOrders
-                tabName={inpatientCareSetting.display}
-                careSetting={inpatientCareSetting}
-                location={location}
-                dateFormat={dateFormat}
-                handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-              />
-            </Accordion>
-
-            <Accordion title="Past Drug Orders">
-              <PastOrders
-                tabName="Inpatient"
-                careSetting={inpatientCareSetting}
-                dateFormat={dateFormat}
-                location={location} />
-            </Accordion>
-
-          </Tab>
-        </Tabs>
+        <Accordion title="Past Drug Orders">
+          <PastOrders
+            careSetting={outpatientCareSetting}
+            dateFormat={dateFormat}
+            location={location}
+          />
+          <br />
+        </Accordion>
       </div>
     );
   }
@@ -213,12 +180,11 @@ export class SearchAndAddOrder extends React.Component {
 
 const mapStateToProps = ({
   careSettingReducer:
-  { inpatientCareSetting, outpatientCareSetting },
+  { outpatientCareSetting },
   drugSearchReducer,
   draftReducer: { draftDrugOrders: { orders } },
   dateFormatReducer: { dateFormat },
 }) => ({
-  inpatientCareSetting,
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders: orders,
@@ -247,10 +213,6 @@ SearchAndAddOrder.propTypes = {
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,
   outpatientCareSetting: PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    display: PropTypes.string.isRequired,
-  }).isRequired,
-  inpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
   }).isRequired,

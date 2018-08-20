@@ -6,7 +6,6 @@ const props = {
   activateSaveButton: jest.fn(),
   fields: {},
   fieldErrors: {},
-  careSetting: {display: 'Outpatient'},
   options: {
     dispensingUnit: [{
       display: 'kits',

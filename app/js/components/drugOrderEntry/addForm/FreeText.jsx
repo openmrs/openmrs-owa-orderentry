@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const FreeText = ({
   fieldErrors,
-  careSetting,
   fields,
   options,
   handleChange,
@@ -29,58 +28,55 @@ const FreeText = ({
             />
           </div>
         </div>
-        {(careSetting.display === "Outpatient") &&
-          <div className="flex-row">
-            <div>
-              <label>For outpatient orders </label>
-              <p className="left label-margin">
-                <label>Dispense:</label>
-              </p>
-              <p className="left p-margin">
-                <input
-                  className={`medium-input ${fieldErrors.dispensingQuantity && "illegalValue"}`}
-                  placeholder="Quantity"
-                  name="dispensingQuantity"
-                  id="dispenseQuantity"
-                  type="number"
-                  min="0"
-                  onBlur={handleValidation}
-                  onChange={handleChange}
-                  value={fields.dispensingQuantity} />
+        <div className="flex-row">
+          <div>
+            <p className="left label-margin">
+              <label>Dispense:</label>
+            </p>
+            <p className="left p-margin">
+              <input
+                className={`medium-input ${fieldErrors.dispensingQuantity && "illegalValue"}`}
+                placeholder="Quantity"
+                name="dispensingQuantity"
+                id="dispenseQuantity"
+                type="number"
+                min="0"
+                onBlur={handleValidation}
+                onChange={handleChange}
+                value={fields.dispensingQuantity} />
+              {
+                fieldErrors.dispensingQuantity ?
+                  <span className="field-error">Required</span>
+                  : ""
+              }
+            </p>
+            <p className="left">
+              <input
+                className={(fields.dispensingQuantity && !fields.dispensingUnit) ? "illegalValue" : ""}
+                placeholder="Units"
+                name="dispensingUnit"
+                id="drugDispensingUnits"
+                list="dispensingUnits"
+                size="20"
+                value={fields.dispensingUnit}
+                onBlur={handleValidation}
+                onChange={handleChange} />
+              <datalist id="dispensingUnits" >
                 {
-                  fieldErrors.dispensingQuantity ?
-                    <span className="field-error">Required</span>
-                    : ""
+                  options.dispensingUnit &&
+                    options.dispensingUnit.map(unit =>
+                      (
+                        <option key={unit.uuid} value={unit.display} />
+                      ))
                 }
-              </p>
-              <p className="left">
-                <input
-                  className={(fields.dispensingQuantity && !fields.dispensingUnit) ? "illegalValue" : ""}
-                  placeholder="Units"
-                  name="dispensingUnit"
-                  id="drugDispensingUnits"
-                  list="dispensingUnits"
-                  size="20"
-                  value={fields.dispensingUnit}
-                  onBlur={handleValidation}
-                  onChange={handleChange} />
-                <datalist id="dispensingUnits" >
-                  {
-                    options.dispensingUnit &&
-                      options.dispensingUnit.map(unit =>
-                        (
-                          <option key={unit.uuid} value={unit.display} />
-                        ))
-                  }
-                </datalist>
-                {
-                  (fields.dispensingQuantity && !fields.dispensingUnit) &&
-                    <span className="field-error">Required</span>
-                }
-              </p>
-            </div>
-          </div>}
-        <br />
+              </datalist>
+              {
+                (fields.dispensingQuantity && !fields.dispensingUnit) &&
+                  <span className="field-error">Required</span>
+              }
+            </p>
+          </div>
+        </div>
         <div className="flex-row">
           <div>
             <button
@@ -116,9 +112,6 @@ FreeText.propTypes = {
   handleCancel: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  careSetting: PropTypes.shape({
-    display: PropTypes.string,
-  }).isRequired,
 };
 
 FreeText.defaultProps = {

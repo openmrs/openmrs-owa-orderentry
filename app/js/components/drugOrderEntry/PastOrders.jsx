@@ -24,9 +24,6 @@ export class PastOrders extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.tabName !== this.props.tabName) {
-      this.getAllPastOrders(nextProps);
-    }
     this.setState({ pageCount: nextProps.pageCount });
   }
 
@@ -142,7 +139,6 @@ PastOrders.propTypes = {
   }).isRequired,
   dateFormat: PropTypes.string.isRequired,
   showResultCount: PropTypes.string,
-  tabName: PropTypes.string.isRequired,
   pageCount: PropTypes.number,
   pastOrders: PropTypes.shape({
     loading: PropTypes.bool,

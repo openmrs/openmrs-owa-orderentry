@@ -34,7 +34,8 @@ export default {
     },
   },
   defaultCareSetting: {
-    patientCareSetting: [],
+    outpatientCareSetting: null,
+    inpatientCareSetting: null,
   },
   defaultDrugs: {
     results: [],

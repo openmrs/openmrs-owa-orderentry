@@ -49,9 +49,6 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.careSetting.display !== this.props.careSetting.display) {
-      this.clearDrugForms();
-    }
     return (
       Object.keys(this.props.draftOrder).length ||
       Object.keys(this.props.editOrder).length
@@ -260,30 +257,20 @@ export class AddForm extends React.Component {
     if (Object.values(this.state.fieldErrors).includes(true)) {
       return true;
     } else if (this.state.formType === 'Standard Dosage') {
-      if (duration && !durationUnit) {
-        return true;
-      } else if ((this.props.careSetting.display === 'Outpatient') &&
-      !(
-        dose &&
-        dosingUnit &&
-        frequency &&
-        route &&
-        dispensingQuantity &&
-        dispensingUnit
-      )) {
-        return true;
-      } else if ((this.props.careSetting.display === 'Inpatient') &&
-      !(dose && dosingUnit && frequency && route)) {
+      if ((duration && !durationUnit) ||
+        !(
+          dose &&
+          dosingUnit &&
+          frequency &&
+          route &&
+          dispensingQuantity &&
+          dispensingUnit
+        )) {
         return true;
       }
-    } else if (this.state.formType === 'Free Text') {
-      if ((this.props.careSetting.display === 'Outpatient') &&
+    } else if (this.state.formType === 'Free Text' &&
       !(drugInstructions && dispensingQuantity && dispensingUnit)) {
-        return true;
-      } else if ((this.props.careSetting.display === 'Inpatient') &&
-      !(drugInstructions)) {
-        return true;
-      }
+      return true;
     }
     return false;
   }
@@ -321,7 +308,6 @@ export class AddForm extends React.Component {
       >
         <DosageTab tabName="Standard Dosage &nbsp;" icon="icon-th-large">
           <StandardDose
-            careSetting={this.props.careSetting}
             fields={this.state.fields}
             fieldErrors={this.state.fieldErrors}
             options={this.state.options}
@@ -342,7 +328,7 @@ export class AddForm extends React.Component {
             handleChange={this.handleChange}
             handleCancel={this.handleCancel}
             handleSubmit={this.handleSubmitDrugForm}
-            careSetting={this.props.careSetting} />
+          />
           <br />
         </DosageTab>
       </DosageTabs>
