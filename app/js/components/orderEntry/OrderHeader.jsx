@@ -1,13 +1,22 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '../button/IconButton';
 
 const OrderHeader = ({ status, orderable }) => (
   <Fragment>
     <th>{orderable}</th>
     <th>{status}</th>
-    <th>
-      <i className="icon-edit" />
-      <i className="icon-delete" />
+    <th className="order-actions-btn">
+      <IconButton
+        iconClass="icon-pencil"
+        iconTitle="EDIT"
+        onClick={() => {}}
+      />
+      <IconButton
+        iconClass="icon-remove"
+        iconTitle="DISCONTINUE"
+        onClick={() => {}}
+      />
     </th>
   </Fragment>
 );
