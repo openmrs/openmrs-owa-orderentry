@@ -86,9 +86,7 @@ export default {
     loading: false,
   },
   draftReducer: {
-    draftDrugOrders: {
-      orders: [],
-    },
+    draftDrugOrders: [],
     draftLabOrders: {
       orders: [],
       selectedLabPanels: [],

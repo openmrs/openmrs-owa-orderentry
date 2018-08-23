@@ -227,7 +227,7 @@ describe('details rendered by draft table', () => {
 describe('Connected DraftDataTable component', () => {
   it('component successfully rendered', () => {
     const store = mockStore({
-      draftReducer: { draftDrugOrders: { orders: draftOrders } },
+      draftReducer: { draftDrugOrders:  draftOrders },
       drugSearchReducer: { selected: "para" },
       patientReducer: {
         patient,
