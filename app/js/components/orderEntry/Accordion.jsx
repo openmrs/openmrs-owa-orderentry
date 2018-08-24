@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import format from 'date-fns/format';
 
 class Accordion extends React.Component {
   state = {
@@ -7,6 +8,7 @@ class Accordion extends React.Component {
   };
 
   render() {
+    const { date, dateFormat } = this.props;
     return (
       <React.Fragment>
         <tr
@@ -24,7 +26,7 @@ class Accordion extends React.Component {
                 <i className="toggle-icon icon-caret-right small rotate90" />
               )}
             </span>
-            27 jun 2018
+            {format(date, dateFormat)}
           </th>
           {this.props.title}
         </tr>
@@ -50,10 +52,14 @@ Accordion.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool,
   title: PropTypes.object.isRequired,
+  date: PropTypes.string,
+  dateFormat: PropTypes.string,
 };
 
 Accordion.defaultProps = {
   open: false,
+  date: '',
+  dateFormat: '',
 };
 
 export default Accordion;

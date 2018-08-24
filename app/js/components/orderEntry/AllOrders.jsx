@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import OrdersTable from './OrdersTable';
+import SortAndFilter from './SortAndFilter';
 
 const AllOrders = () => (
   <div className="all-orders">
     <div className="orders-breadcrumb">
       <h3>Patient Orders</h3>
     </div>
+    <SortAndFilter />
+    <br />
     <table className="t-orders">
       <tbody>
         <tr>
