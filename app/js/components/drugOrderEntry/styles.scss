@@ -7,7 +7,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
  
-.drug-order-entry {  
+.drug-order-entry {
+  margin-bottom: 10px;
+  
   .page-link {
     color: #007fff !important;
     cursor: pointer;
@@ -81,4 +83,8 @@
       }
     }
   }
+}
+
+#notes {
+  width: 590px;
 }

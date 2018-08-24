@@ -76,9 +76,9 @@ describe('Draft Lab Order Reducer', () => {
       type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
       orders: mockPanels[0],
     };
+    const nextAction = { ...previousAction, orders: mockPanels[1] };
     const previousState = draftLabOrderReducer(initialState, previousAction);
 
-    const nextAction = { ...previousAction, orders: mockPanels[1] };
     const newState = draftLabOrderReducer(previousState, nextAction);
     expect(newState.draftLabOrders.orders.length).toEqual(2);
   });
