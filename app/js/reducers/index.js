@@ -29,6 +29,7 @@ import fetchLabOrderReducer from './labOrders/fetchLabOrderReducer';
 import createLabOrderReducer from './createLabOrderReducer';
 import getLabOrderablesReducer from './labOrders/settingLabOrderableReducer';
 import fetchOrdersReducer from './fetchOrdersReducer';
+import orderSelectionReducer from './orderSelectionReducer';
 import draftReducer from './draftReducer';
 
 export default combineReducers({
@@ -55,4 +56,5 @@ export default combineReducers({
   createLabOrderReducer,
   getLabOrderablesReducer,
   fetchOrdersReducer,
+  orderSelectionReducer,
 });

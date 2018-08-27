@@ -14,7 +14,7 @@ import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
 import './styles.scss';
 
-export class SearchAndAddOrder extends React.Component {
+export class SearchAndAddOrder extends React.PureComponent {
   state = {
     value: "",
     focused: false,
@@ -23,6 +23,20 @@ export class SearchAndAddOrder extends React.Component {
     editOrder: {},
     draftOrder: {},
   };
+
+  componentDidMount() {
+    const { selectedOrder, activity } = this.props;
+    if (activity === 'EDIT' && !this.state.formattedDetails) {
+      const details = (
+        <td>
+          {selectedOrder.drug.display}:
+          {selectedOrder.dosingInstructions && ` ${selectedOrder.dosingInstructions}`}
+          {(selectedOrder.quantity && selectedOrder.quantityUnits) && `, (Dispense: ${selectedOrder.quantity} ${selectedOrder.quantityUnits.display})`}
+        </td>
+      );
+      this.handleEditActiveDrugOrder({ ...selectedOrder, status: activity }, details);
+    }
+  }
 
   onSelectDrug = (drugName) => {
     this.setState(() => ({
@@ -184,16 +198,21 @@ const mapStateToProps = ({
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
   dateFormatReducer: { dateFormat },
+  orderSelectionReducer: { activity, selectedOrder },
 }) => ({
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders: draftDrugOrders,
   dateFormat,
+  activity,
+  selectedOrder,
 });
 
 SearchAndAddOrder.defaultProps = {
   draftOrders: [],
   drug: null,
+  selectedOrder: {},
+  activity: '',
 };
 
 SearchAndAddOrder.propTypes = {
@@ -217,6 +236,8 @@ SearchAndAddOrder.propTypes = {
     display: PropTypes.string.isRequired,
   }).isRequired,
   selectDrugSuccess: PropTypes.func.isRequired,
+  selectedOrder: PropTypes.object,
+  activity: PropTypes.string,
 };
 
 export default connect(

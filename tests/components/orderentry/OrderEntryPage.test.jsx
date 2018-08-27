@@ -24,6 +24,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       getDateFormat: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -36,9 +37,11 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
       },
+      orderSelectionReducer: { currentOrderType: {} },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      currentOrderType: {},
     };
     mountedComponent = undefined;
   });
@@ -60,16 +63,16 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
   it('renders the patient-orders component', () => {
     const component =  shallow(<OrderEntryPage {...props} />);
     component.find('.orders-nav').simulate('click');
-    expect(component.state('currentOrderType')).toEqual({})
+    expect(props.setSelectedOrder).toBeCalled();
     expect(component.find('.orders-nav').exists()).toBeTruthy();
   })
   it('should switch the order type in the state', () => {
     const component =  shallow(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
-    expect(component.state('currentOrderType')).toEqual({});
+    expect(props.currentOrderType).toEqual({});
     componentInstance.switchOrderType(orderTypesAsArray[1]);
-    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[1]);
+    expect(props.setSelectedOrder).toBeCalled();
   });
   it(`does not switch order type page if the current
   orderType is same as the new orderType`, () => {
@@ -77,9 +80,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
     componentInstance.switchOrderType(orderTypesAsArray[0]);
-    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
-    componentInstance.switchOrderType(orderTypesAsArray[0]);
-    expect(component.state('currentOrderType')).toBe(orderTypesAsArray[0]);
+    expect(props.setSelectedOrder).toBeCalled();
   })
 });
 
@@ -93,6 +94,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -139,6 +141,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -147,6 +150,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      orderSelectionReducer: { currentOrderType: {} },
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
@@ -174,6 +178,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -213,6 +218,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -221,6 +227,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      orderSelectionReducer: { currentOrderType: {} },
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
@@ -247,6 +254,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
@@ -259,6 +267,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         dateFormat: '',
         error: 'incomplete config',
       },
+      orderSelectionReducer: { currentOrderType: {} },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
       location: {search: '?patient=esere_shbfidfb_343ffd'}
@@ -288,6 +297,7 @@ describe('Connected OrderEntryPage component', () => {
         settingEncounterType: 'order entry',
         error: ''
       },
+      orderSelectionReducer: { currentOrderType: {} },
       patientReducer: {
         patient: {
           patientId: 'some-random-id',

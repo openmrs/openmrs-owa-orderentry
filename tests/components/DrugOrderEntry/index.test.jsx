@@ -5,13 +5,11 @@ import ConnectedDraftTable from '../../../app/js/components/drugOrderEntry/addFo
 
 const { order } = mockData;
 const props = {
-  outpatientCareSetting:{
-    uuid: '',
-    display: '',
-  },
-  inpatientCareSetting: {
-    uuid: '',
-    display: '',
+  careSettingReducer: {
+    outpatientCareSetting:{
+      uuid: '',
+      display: '',
+    },
   },
   getPastOrders: jest.fn(),
   draftOrders: [],
@@ -19,7 +17,9 @@ const props = {
   location:{
     search: '',
   },
-  dateFormat: 'DD-MMM-YYYY HH:mm',
+  dateFormatReducer: {
+    dateFormat: 'DD-MMM-YYYY HH:mm',
+  },
   order,
   selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
@@ -40,6 +40,15 @@ const getComponent = () => {
 describe('Test for Searching and Adding an order', () => {
   it('should render component', () => {
     expect(getComponent()).toMatchSnapshot()
+  });
+  it('should render component during edit activity', () => {
+    const newProps = {
+      ...props,
+      selectedOrder: order,
+      activity: 'EDIT',
+    }
+    const component = shallow(<SearchAndAddOrder {...newProps} />);
+    expect(component).toMatchSnapshot();
   });
 });
 

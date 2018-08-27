@@ -7,6 +7,8 @@ import OrderHeader from './OrderHeader';
 import LabOrderDetails from './LabOrderDetails';
 import DrugOrderDetails from './DrugOrderDetails';
 import fetchOrders from '../../actions/fetchOrders';
+import { DRUG_ORDER } from './orderTypes';
+import { setSelectedOrder } from '../../actions/orderAction';
 
 export class OrdersTable extends PureComponent {
   componentDidMount() {
@@ -17,6 +19,10 @@ export class OrdersTable extends PureComponent {
     if (this.props.patient.uuid !== prevProps.patient.uuid) {
       this.props.dispatch(fetchOrders(null, this.props.patient.uuid));
     }
+  }
+
+  handleActiveOrderEdit = (order) => {
+    this.props.dispatch(setSelectedOrder({ order: { ...order, status: 'EDIT' }, currentOrderType: DRUG_ORDER, activity: 'EDIT' }));
   }
 
   renderNoFilterResults = () => {
@@ -47,7 +53,14 @@ export class OrdersTable extends PureComponent {
           filteredOrders.length !== 0 &&
           filteredOrders.map(order => (
             <Accordion
-              title={<OrderHeader status="Active" orderable={order.display} />}
+              title={
+                <OrderHeader
+                  status="Active"
+                  orderable={order.display}
+                  order={order}
+                  handleEdit={this.handleActiveOrderEdit}
+                />
+              }
               key={order.uuid}
               dateFormat={dateFormat}
               date={order.dateActivated}>
@@ -74,7 +87,7 @@ export class OrdersTable extends PureComponent {
 
 OrdersTable.defaultProps = {
   dateFormat: '',
-}
+};
 
 OrdersTable.propTypes = {
   dispatch: PropTypes.func.isRequired,

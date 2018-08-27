@@ -159,6 +159,23 @@ describe('behaviour when status is edit', () => {
       onDelete: jest.fn(),
       setOrderAction: jest.fn(),
       isDelete: false,
+      activity: 'EDIT',
+      selectedOrder: {
+        drug: { display: 'Morphine'},
+        uuid:'024b1459-f31d-46cb-8ad3-2a624c894e2c',
+        dose:1,
+        quantity:2,
+        duration:2,
+        auditInfo:{dateCreated:'2018-03-20 10:59:22'},
+        drug:{display:'new drug'},
+        doseUnits:{display:'drops'},
+        frequency:{display:'twice a week'},
+        route:{display:'reactally'},
+        quantityUnits:{display:'drops'},
+        durationUnits:{display:'weeks'},
+        dosingType: "org.openmrs.FreeTextInstructions",
+        status:'EDIT'
+      },
       drugOrder: {
         activeOrders: [
           {

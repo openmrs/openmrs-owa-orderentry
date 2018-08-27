@@ -18,9 +18,7 @@ class IconButton extends PureComponent {
   handleClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const data = this.props.dataContext;
-    // do somethinng with this data when clicking
-    this.props.onClick();
+    this.props.onClick(this.props.dataContext);
   }
   render() {
     const { iconClass, iconTitle } = this.props;
