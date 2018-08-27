@@ -258,7 +258,7 @@ const StandardDose = ({
               Cancel
             </button>
           </div>
-          <div className="-1 pull-right-8">
+          <div className="-1">
             <button
               type="button"
               className="confirm"

@@ -8,11 +8,7 @@ import AllOrders from './AllOrders';
 const RenderOrderType = (props) => {
   switch (props.currentOrderTypeID) {
     case orderTypes.LAB_ORDER.id: {
-      return (
-        <div className="body-wrapper">
-          <LabEntryForm />
-        </div>
-      );
+      return (<LabEntryForm />);
     }
     case orderTypes.DRUG_ORDER.id: {
       return (
@@ -24,11 +20,7 @@ const RenderOrderType = (props) => {
       );
     }
     default: {
-      return (
-        <div className="body-wrapper">
-          <AllOrders />
-        </div>
-      );
+      return (<AllOrders />);
     }
   }
 };
