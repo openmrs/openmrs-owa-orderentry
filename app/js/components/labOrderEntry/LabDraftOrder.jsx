@@ -36,7 +36,7 @@ export class LabDraftOrder extends PureComponent {
       const draftType = !isPanel ? 'single' : 'panel';
       const orderName = order.display;
       const iconClass = classNames(
-        'icon-warning-sign scale',
+        'scale',
         {
           'i-gray': order.urgency === constants.ROUTINE || order.urgency === undefined,
           'i-red': order.urgency === constants.STAT,
@@ -50,7 +50,7 @@ export class LabDraftOrder extends PureComponent {
               <a
                 id="draft-toggle-btn" href="#" onClick={event => this.handleToggleDraftOrderUgency(event, order)}
               >
-                <i className={iconClass} title="Urgency" />
+                <i className={iconClass} title="Urgency">&#x25B2;</i>
               </a>
             </span>
             <span className="action-btn right">
