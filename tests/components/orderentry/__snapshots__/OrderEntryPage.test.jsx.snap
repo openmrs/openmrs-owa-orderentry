@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Order entry page when orderentryowa.encounterType is set should render component 1`] = `
+<div
+  className="order-entry-page"
+>
+  <div>
+    <Connect(PatientHeader) />
+    <div
+      className="header-nav"
+    >
+      <div>
+        <h3
+          className="orders-nav"
+          onClick={[Function]}
+          role="button"
+        >
+          <b>
+            Orders List
+          </b>
+        </h3>
+      </div>
+      <SelectOrderType
+        currentOrderType={Object {}}
+        switchOrderType={[Function]}
+      />
+    </div>
+    <RenderOrderType
+      dateFormatReducer={
+        Object {
+          "dateFormat": "DD-MMM-YYYY HH:mm",
+          "error": "",
+        }
+      }
+      fetchPatientCareSetting={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+        }
+      }
+      fetchPatientNote={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "esere_shbfidfb_343ffd",
+            ],
+          ],
+        }
+      }
+      fetchPatientRecord={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "esere_shbfidfb_343ffd",
+            ],
+          ],
+        }
+      }
+      getDateFormat={
+        [MockFunction] {
+          "calls": Array [
+            Array [
+              "default",
+            ],
+          ],
+        }
+      }
+      getLabOrderables={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+        }
+      }
+      getSettingEncounterRole={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+        }
+      }
+      getSettingEncounterType={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+        }
+      }
+      inpatientCareSetting={
+        Object {
+          "uuid": "6766667",
+        }
+      }
+      location={
+        Object {
+          "search": "?patient=esere_shbfidfb_343ffd",
+        }
+      }
+      outpatientCareSetting={
+        Object {
+          "uuid": "5677666",
+        }
+      }
+      settingEncounterRoleReducer={
+        Object {
+          "roleError": "",
+          "settingEncounterRole": "Admin role",
+        }
+      }
+      settingEncounterTypeReducer={
+        Object {
+          "error": "",
+          "settingEncounterType": "order type",
+        }
+      }
+    />
+  </div>
+</div>
+`;

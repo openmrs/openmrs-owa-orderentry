@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for adding a new drug order should render component 1`] = `
+<div>
+  <div>
+    <DosageTabs
+      activeTabIndex={0}
+      formType={[Function]}
+      handleFormTabs={[Function]}
+    >
+      <DosageTab
+        icon="icon-th-large"
+        onClick={[Function]}
+        tabIndex={0}
+        tabName="Standard Dosage  "
+      >
+        <StandardDose
+          activateSaveButton={[Function]}
+          fieldErrors={Object {}}
+          fields={
+            Object {
+              "dispensingQuantity": "",
+              "dispensingUnit": "",
+              "dose": "",
+              "dosingUnit": "",
+              "drugInstructions": "",
+              "duration": "",
+              "durationUnit": "",
+              "frequency": "",
+              "reason": "",
+              "route": "",
+            }
+          }
+          handleCancel={[Function]}
+          handleChange={[Function]}
+          handleSubmit={[Function]}
+          handleValidation={[Function]}
+          options={
+            Object {
+              "dispensingUnit": Array [],
+              "dosingUnit": Array [],
+              "durationUnit": Array [],
+              "frequency": Array [],
+              "route": Array [],
+            }
+          }
+        />
+        <br />
+      </DosageTab>
+      <DosageTab
+        icon="icon-edit"
+        onClick={[Function]}
+        tabIndex={0}
+        tabName="Free Text"
+      >
+        <FreeText
+          activateSaveButton={[Function]}
+          fieldErrors={Object {}}
+          fields={
+            Object {
+              "dispensingQuantity": "",
+              "dispensingUnit": "",
+              "dose": "",
+              "dosingUnit": "",
+              "drugInstructions": "",
+              "duration": "",
+              "durationUnit": "",
+              "frequency": "",
+              "reason": "",
+              "route": "",
+            }
+          }
+          handleCancel={[Function]}
+          handleChange={[Function]}
+          handleSubmit={[Function]}
+          handleValidation={[Function]}
+          options={
+            Object {
+              "dispensingUnit": Array [],
+              "dosingUnit": Array [],
+              "durationUnit": Array [],
+              "frequency": Array [],
+              "route": Array [],
+            }
+          }
+        />
+        <br />
+      </DosageTab>
+    </DosageTabs>
+  </div>
+</div>
+`;

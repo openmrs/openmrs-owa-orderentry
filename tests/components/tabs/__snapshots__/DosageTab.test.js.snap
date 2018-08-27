@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dosage Tab component should render the free text form 1`] = `
+<a
+  onClick={[Function]}
+  role="presentation"
+>
+  <span
+    className=""
+  />
+</a>
+`;
+
+exports[`Dosage Tab component should render the standard form 1`] = `
+<a
+  onClick={[Function]}
+  role="presentation"
+>
+  <span
+    className=""
+  />
+</a>
+`;
+
+exports[`Dosage Tab component should render without crashing 1`] = `
+<a
+  onClick={[Function]}
+  role="presentation"
+>
+  <span
+    className=""
+  />
+</a>
+`;

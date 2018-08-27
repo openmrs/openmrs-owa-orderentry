@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Draft Data Table should render component 1`] = `
+<div
+  className="draft-spacing"
+>
+  <h2>
+    Unsaved Draft Orders (
+    1
+    )
+  </h2>
+  <div
+    className="table-container"
+  >
+    <table
+      className="table bordered mw-958-px"
+    >
+      <thead>
+        <tr>
+          <th
+            className="w-120-px"
+          >
+            Status
+          </th>
+          <th>
+            Details
+          </th>
+          <th
+            className="w-81-px"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          key="3"
+        >
+          <td />
+          <td>
+            <p>
+              :
+            </p>
+          </td>
+          <td>
+            <a
+              href="#"
+              id="edit-draft-order"
+              onClick={[Function]}
+            >
+              <i
+                className="icon-edit"
+                title="Edit"
+              />
+            </a>
+            <a
+              href="#"
+              id="discard-draft-order"
+              onClick={[Function]}
+            >
+              <i
+                className="icon-remove"
+                title="Discard"
+              />
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <input
+    className="button cancel"
+    onClick={[MockFunction]}
+    type="button"
+    value="Discard"
+  />
+  <input
+    className="button confirm right"
+    onClick={[Function]}
+    type="submit"
+    value="Sign and Save"
+  />
+</div>
+`;

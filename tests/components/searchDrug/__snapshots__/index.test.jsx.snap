@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: SearchDrug: Container should render properly 1`] = `
+<View
+  error={null}
+  focused={false}
+  loading={false}
+  onChange={[Function]}
+  onOptionSelected={[Function]}
+  results={Array []}
+  searchDrug={[Function]}
+  value="paracetamol"
+/>
+`;

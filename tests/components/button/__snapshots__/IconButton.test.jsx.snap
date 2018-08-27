@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: IconButton renders properly 1`] = `
+<span>
+  <a
+    href="#"
+    id="icon-btn-anchor"
+    onClick={[Function]}
+  >
+    <i
+      className="icon-remove scale"
+      title="Header"
+    />
+  </a>
+</span>
+`;

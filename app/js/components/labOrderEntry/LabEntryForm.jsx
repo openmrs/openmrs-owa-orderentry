@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Accordion } from '@openmrs/react-components';
-import shortid from 'shortid';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
@@ -293,8 +292,9 @@ export class LabEntryForm extends PureComponent {
               <div className="lab-form-wrapper">
                 <div className="lab-category">
                   <ul>
-                    {orderables.map(orderable => (
-                      <li key={shortid.generate()}>
+                    {orderables.map((orderable, index) => (
+                      // eslint-disable-next-line
+                      <li key={index}>
                         <a
                           className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
                           href="#"
