@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
+import * as orderTypes from './orderTypes';
+import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
@@ -48,6 +50,19 @@ export class OrderEntryPage extends PureComponent {
     }
     return this.props.setSelectedOrder({ currentOrderType: newOrderType });
   };
+
+  renderDraftOrder = () => {
+    const { draftDrugOrders, draftLabOrders } = this.props;
+    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
+    return (
+      <div className="draft-wrapper">
+        <Draft
+          handleDraftDiscard={() => {}}
+          draftOrders={allDraftOrders}
+          handleSubmit={() => {}}
+        />
+      </div>);
+  }
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
@@ -159,7 +174,13 @@ export class OrderEntryPage extends PureComponent {
                 currentOrderType={this.props.currentOrderType}
               />
             </div>
-            <RenderOrderType currentOrderTypeID={this.props.currentOrderType.id} {...this.props} />
+            <div className="body-wrapper drug-order-entry">
+              <RenderOrderType
+                currentOrderTypeID={this.props.currentOrderType.id}
+                {...this.props}
+              />
+              {this.props.currentOrderType.id && this.renderDraftOrder()}
+            </div>
           </div>
         ) : (
           <div className="error-notice">
@@ -220,6 +241,8 @@ OrderEntryPage.propTypes = {
   fetchPatientNote: PropTypes.func.isRequired,
   setSelectedOrder: PropTypes.func.isRequired,
   currentOrderType: PropTypes.object,
+  draftLabOrders: PropTypes.array.isRequired,
+  draftDrugOrders: PropTypes.arrayOf(PropTypes.any),
 };
 
 OrderEntryPage.defaultProps = {
@@ -229,6 +252,7 @@ OrderEntryPage.defaultProps = {
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
   currentOrderType: {},
+  draftDrugOrders: [],
 };
 
 const mapStateToProps = ({
@@ -239,6 +263,10 @@ const mapStateToProps = ({
   patientReducer: { patient },
   noteReducer: { note },
   orderSelectionReducer: { currentOrderType },
+  draftReducer: {
+    draftDrugOrders,
+    draftLabOrders,
+  },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -248,6 +276,8 @@ const mapStateToProps = ({
   patient,
   note,
   currentOrderType,
+  draftDrugOrders,
+  draftLabOrders,
 });
 
 const actionCreators = {

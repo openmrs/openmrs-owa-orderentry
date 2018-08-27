@@ -165,7 +165,7 @@ export class SearchAndAddOrder extends React.PureComponent {
       outpatientCareSetting, location, dateFormat,
     } = this.props;
     return (
-      <div className="body-wrapper drug-order-entry">
+      <div className="drug-order-entry">
         <h5 className="drug-form-header">New Drug Order</h5>
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
