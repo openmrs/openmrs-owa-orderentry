@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Searching and Adding an order should render component 1`] = `
+<div
+  className="body-wrapper drug-order-entry"
+>
+  <h5
+    className="drug-form-header"
+  >
+    New Drug Order
+  </h5>
+  <Connect(SearchDrug)
+    focused={false}
+    onChange={[Function]}
+    onSelectDrug={[Function]}
+    value=""
+  />
+  <div>
+    <Connect(AddForm)
+      careSetting={
+        Object {
+          "display": "",
+          "uuid": "",
+        }
+      }
+      clearSearchField={[Function]}
+      draftOrder={Object {}}
+      editOrder={Object {}}
+      removeOrder={[Function]}
+    />
+  </div>
+  <Accordion
+    border={false}
+    open={true}
+    title="Active Drug Orders"
+  >
+    <Connect(ActiveOrders)
+      careSetting={
+        Object {
+          "display": "",
+          "uuid": "",
+        }
+      }
+      dateFormat="DD-MMM-YYYY HH:mm"
+      handleEditActiveDrugOrder={[Function]}
+      location={
+        Object {
+          "search": "",
+        }
+      }
+    />
+  </Accordion>
+  <Accordion
+    border={false}
+    open={false}
+    title="Past Drug Orders"
+  >
+    <Connect(PastOrders)
+      careSetting={
+        Object {
+          "display": "",
+          "uuid": "",
+        }
+      }
+      dateFormat="DD-MMM-YYYY HH:mm"
+      location={
+        Object {
+          "search": "",
+        }
+      }
+    />
+    <br />
+  </Accordion>
+</div>
+`;
+
+exports[`Test for Searching and Adding an order should render component 2`] = `
+Object {
+  "wrapper": <div
+    className="body-wrapper drug-order-entry"
+  >
+    <h5
+      className="drug-form-header"
+    >
+      New Drug Order
+    </h5>
+    <Connect(SearchDrug)
+      focused={false}
+      onChange={[Function]}
+      onSelectDrug={[Function]}
+      value=""
+    />
+    <div>
+      <Connect(AddForm)
+        careSetting={
+          Object {
+            "display": "",
+            "uuid": "",
+          }
+        }
+        clearSearchField={[Function]}
+        draftOrder={Object {}}
+        editOrder={Object {}}
+        removeOrder={[Function]}
+      />
+    </div>
+    <Accordion
+      border={false}
+      open={true}
+      title="Active Drug Orders"
+    >
+      <Connect(ActiveOrders)
+        careSetting={
+          Object {
+            "display": "",
+            "uuid": "",
+          }
+        }
+        dateFormat="DD-MMM-YYYY HH:mm"
+        handleEditActiveDrugOrder={[Function]}
+        location={
+          Object {
+            "search": "",
+          }
+        }
+      />
+    </Accordion>
+    <Accordion
+      border={false}
+      open={false}
+      title="Past Drug Orders"
+    >
+      <Connect(PastOrders)
+        careSetting={
+          Object {
+            "display": "",
+            "uuid": "",
+          }
+        }
+        dateFormat="DD-MMM-YYYY HH:mm"
+        location={
+          Object {
+            "search": "",
+          }
+        }
+      />
+      <br />
+    </Accordion>
+  </div>,
+}
+`;

@@ -5,14 +5,14 @@ import PastOrders from '../../../app/js/components/labOrderEntry/PastOrders';
 const pastOrders = [
   {
     uuid: '1',
-    dateActivated: new Date(),
+    dateActivated: '2018-08-27T10:23:22.228Z',
     concept: {
       display: 'Hemoglobin blood test',
     }
   },
   {
     uuid: '2',
-    dateActivated: new Date(),
+    dateActivated: '2018-08-27T10:23:22.228Z',
     concept: {
       display: 'Hematocrit blood test',
     }

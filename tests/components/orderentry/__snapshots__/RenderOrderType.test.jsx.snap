@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: orderentry: RenderOrderType Conditional rendering shows the drug order entry by default 1`] = `
+<div
+  className="body-wrapper"
+>
+  <AllOrders />
+</div>
+`;
+
+exports[`Component: orderentry: RenderOrderType Conditional rendering shows the durg order entry when specified 1`] = `
+<Connect(SearchAndAddOrder)
+  inpatientCareSetting={
+    Object {
+      "uuid": "6766667",
+    }
+  }
+  location={
+    Object {
+      "search": "?patient=esere_shbfidfb_343ffd",
+    }
+  }
+  outpatientCareSetting={
+    Object {
+      "uuid": "5677666",
+    }
+  }
+/>
+`;
+
+exports[`Component: orderentry: RenderOrderType Conditional rendering shows the lab order entry when specified 1`] = `
+<div
+  className="body-wrapper"
+>
+  <Connect(LabEntryForm) />
+</div>
+`;

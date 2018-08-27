@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: OrderHeader renders properly 1`] = `
+<React.Fragment>
+  <th>
+    some oderable
+  </th>
+  <th>
+    iactive
+  </th>
+  <th
+    className="order-actions-btn"
+  >
+    <IconButton
+      dataContext={Object {}}
+      iconClass="icon-pencil"
+      iconTitle="EDIT"
+      onClick={[Function]}
+    />
+    <IconButton
+      dataContext={Object {}}
+      iconClass="icon-remove"
+      iconTitle="DISCONTINUE"
+      onClick={[Function]}
+    />
+  </th>
+</React.Fragment>
+`;

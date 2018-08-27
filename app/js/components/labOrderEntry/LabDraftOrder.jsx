@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import shortid from 'shortid';
 import constants from '../../utils/constants';
 
 export class LabDraftOrder extends PureComponent {
@@ -31,7 +30,7 @@ export class LabDraftOrder extends PureComponent {
 
   renderDraftList = () => {
     const { draftLabOrders } = this.props;
-    return draftLabOrders.map((order) => {
+    return draftLabOrders.map((order, index) => {
       const isPanel = !!order.set;
       const draftType = !isPanel ? 'single' : 'panel';
       const orderName = order.display;
@@ -43,7 +42,8 @@ export class LabDraftOrder extends PureComponent {
         },
       );
       return (
-        <li className="draft-list small-font" key={shortid.generate()}>
+        // eslint-disable-next-line
+        <li className="draft-list small-font" key={index}>
           <span className="draft-name">{orderName.toLowerCase()}</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">

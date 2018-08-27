@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Inpatient Active orders should render component 1`] = `
+<div>
+  <table
+    className="table bordered mw-958-px"
+  >
+    <thead>
+      <tr>
+        <th
+          className="w-155-px"
+        >
+          Date
+        </th>
+        <th>
+          Details
+        </th>
+        <th
+          className="w-81-px"
+        >
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="024b1459-f31d-46cb-8ad3-2a624c894e2c"
+      >
+        <td
+          id="table-font"
+        >
+          Invalid Date
+        </td>
+        <td>
+          new drug
+          :
+           1
+           drops
+          , twice a week
+          , reactally
+          , for 2
+           weeks total
+          , (3 tabs)
+          , (Dispense: 2 drops)
+        </td>
+        <td
+          className="text-center action-padding"
+        >
+          <div>
+            <a
+              href="#"
+              id="edit-drug-orders"
+              onClick={[Function]}
+            >
+               
+              <i
+                className="icon-edit"
+                title="Edit"
+              />
+            </a>
+            <a>
+               
+              <i
+                className="icon-remove icon-color"
+                id="delete"
+                onClick={[Function]}
+                role="button"
+                tabIndex="0"
+                title="Discontinue"
+              />
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    className="clear"
+  >
+    <div
+      className="float-left-padding"
+    />
+    <div
+      className="dataTables_paginate"
+    >
+      <PaginationBoxView
+        activeClassName="active-link"
+        breakClassName="text-align-center"
+        breakLabel="..."
+        containerClassName="react-paginate-container"
+        disableInitialCallback={true}
+        disabledClassName="active-link"
+        forcePage={0}
+        initialPage={0}
+        marginPagesDisplayed={3}
+        nextClassName="next"
+        nextLabel="Next"
+        nextLinkClassName="page-link"
+        onPageChange={[Function]}
+        pageCount={0}
+        pageLinkClassName="page-link"
+        pageRangeDisplayed={5}
+        previousClassName="previous"
+        previousLabel="Previous"
+        previousLinkClassName="page-link"
+      />
+    </div>
+  </div>
+</div>
+`;

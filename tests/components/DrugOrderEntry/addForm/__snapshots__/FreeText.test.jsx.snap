@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Free text form should render component 1`] = `
+<div>
+  <form
+    className="simple-form-ui"
+  >
+    <div
+      className="flex-row"
+    >
+      <div>
+        <label
+          name="notes"
+        >
+          Complete Instructions
+        </label>
+        <textarea
+          cols="80"
+          id="notes"
+          name="drugInstructions"
+          onChange={[MockFunction]}
+          rows="4"
+        />
+      </div>
+    </div>
+    <div
+      className="flex-row"
+    >
+      <div>
+        <p
+          className="left label-margin"
+        >
+          <label>
+            Dispense:
+          </label>
+        </p>
+        <p
+          className="left p-margin"
+        >
+          <input
+            className="medium-input undefined"
+            id="dispenseQuantity"
+            min="0"
+            name="dispensingQuantity"
+            onBlur={[MockFunction]}
+            onChange={[MockFunction]}
+            placeholder="Quantity"
+            type="number"
+          />
+        </p>
+        <p
+          className="left"
+        >
+          <input
+            className=""
+            id="drugDispensingUnits"
+            list="dispensingUnits"
+            name="dispensingUnit"
+            onBlur={[MockFunction]}
+            onChange={[MockFunction]}
+            placeholder="Units"
+            size="20"
+          />
+          <datalist
+            id="dispensingUnits"
+          >
+            <option
+              key="ABC-56Y"
+              value="kits"
+            />
+          </datalist>
+        </p>
+      </div>
+    </div>
+    <div
+      className="flex-row"
+    >
+      <div>
+        <button
+          className="cancel"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+      <div
+        className="column-1 pull-right-8"
+      >
+        <button
+          className="confirm"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;

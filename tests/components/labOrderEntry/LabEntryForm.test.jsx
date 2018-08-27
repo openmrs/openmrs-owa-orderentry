@@ -36,10 +36,10 @@ props = {
     results: [
       {
         uuid: '1',
-        dateActivated: new Date(),
+        dateActivated: '2018-08-27T10:23:22.228Z',
         concept: {
           display: 'Hemoglobin blood test',
-        }
+        },
       },
     ],
   },
@@ -97,7 +97,7 @@ mockPanel = {
     { uuid: '456Abc-123', name: 'Concept D', set: false },
     { uuid: '138Abc-466', name: 'Concept E', set: false },
     { uuid: '123Def-456', name: 'Concept F', set: false },
-  ]
+  ],
 },
 
 describe('Component: LabEntryForm', () => {
@@ -112,14 +112,14 @@ describe('Component: LabEntryForm', () => {
       dateFormatReducer: { dateFormat: 'DD-MM-YYYY HH:mm' },
       patientReducer: { patient: {} },
       fetchLabOrderReducer: { labOrders: [] },
-      labConceptsReducer: { conceptsAsTests:[], conceptsAsPanels:[] },
+      labConceptsReducer: { conceptsAsTests: [], conceptsAsPanels: [] },
       openmrs: { session: {} },
       encounterRoleReducer: { encounterRole: {} },
       encounterReducer: { encounterType: {} },
       careSettingReducer: { inpatientCareSetting: {} },
       labOrderableReducer: { orderables: [] },
       getLabOrderablesReducer: { getLabOrderables: '' },
-    })
+    });
     expect(component).toMatchSnapshot();
   });
 
@@ -190,7 +190,7 @@ describe('Component: LabEntryForm', () => {
     const dispatch = jest.spyOn(props, 'dispatch');
     instance.handleUrgencyChange();
     expect(dispatch).toBeCalled();
-  }) 
+  });
 
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
