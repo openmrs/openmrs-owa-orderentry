@@ -16,4 +16,3 @@ const activeOrderAction = (
 });
 
 export default activeOrderAction;
-
