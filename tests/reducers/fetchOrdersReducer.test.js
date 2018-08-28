@@ -214,6 +214,64 @@ describe('fetchorders reducer test-suite', () => {
     });
   });
 
+  it('switches the urgency property of an order upon TOGGLE_URGENCY action type', () => {
+    expect(fetchOrdersReducer(
+      {
+        ...initialState,
+        orders: {
+          results: [
+            {
+              uuid: 1,
+              type: 'drugorder',
+              urgency: 'ROUTINE',
+            },
+            {
+              uuid: 2,
+              type: 'testorder',
+              urgency: 'STAT',
+            },
+          ],
+        },
+        filteredOrders: [
+          {
+            uuid: 1,
+            type: 'drugorder',
+            urgency: 'ROUTINE',
+          },
+        ],
+      },
+      {
+        type: 'TOGGLE_URGENCY',
+        previousOrderId: 1,
+        newOrderId: 1,
+        newUrgency: 'STAT'
+      },
+    )).toEqual({
+      ...initialState,
+      orders: {
+        results: [
+          {
+            uuid: 1,
+            type: 'drugorder',
+            urgency: 'STAT',
+          },
+          {
+            uuid: 2,
+            type: 'testorder',
+            urgency: 'STAT',
+          },
+        ],
+      },
+      filteredOrders: [
+        {
+          uuid: 1,
+          type: 'drugorder',
+          urgency: 'STAT',
+        },
+      ],
+    });
+  })
+
   it('returns initial state if action type is not handled', () => {
     expect(fetchOrdersReducer(initialState, {})).toEqual(initialState);
   });
