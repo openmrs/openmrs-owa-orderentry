@@ -217,4 +217,33 @@ describe('fetchorders reducer test-suite', () => {
   it('returns initial state if action type is not handled', () => {
     expect(fetchOrdersReducer(initialState, {})).toEqual(initialState);
   });
+  it('should remove a discontinued active order from the state', () => {
+    expect(fetchOrdersReducer(
+      {
+        ...initialState,
+        filteredOrders: [
+          {
+            orderNumber: 1,
+            drugName: 'sabutamol',
+          },
+          {
+            orderNumber: 2,
+            drugName: 'paracetamol',
+          },
+        ],
+      },
+      {
+        type: 'DISCONTINUE_ACTIVE_DRUG_ORDER',
+        orderNumber: 1,
+      },
+    )).toEqual({
+      ...initialState,
+      filteredOrders: [
+        {
+          orderNumber: 2,
+          drugName: 'paracetamol',
+        },
+      ],
+    });
+  })
 });
