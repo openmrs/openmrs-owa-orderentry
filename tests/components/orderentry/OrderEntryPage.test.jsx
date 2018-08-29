@@ -41,7 +41,17 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
       location: {search: '?patient=esere_shbfidfb_343ffd'},
-      currentOrderType: {},
+      currentOrderType: {
+        id: '94386782390'
+      },
+      draftLabOrders: {
+        orders: [
+          { display: 'Hemoglobin', uuid: '12746hfgjff' },
+          { display: 'Hematocrit', uuid: '12746hfgjff' },
+          { display: 'blood', uuid: '12746hfgjff' },
+        ]
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -70,7 +80,8 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     const component =  shallow(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
-    expect(props.currentOrderType).toEqual({});
+    const mockCurrentOrderType = { id: '94386782390' };
+    expect(props.currentOrderType).toEqual(mockCurrentOrderType);
     componentInstance.switchOrderType(orderTypesAsArray[1]);
     expect(props.setSelectedOrder).toBeCalled();
   });
@@ -109,7 +120,11 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: {
+        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -157,7 +172,11 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: {
+        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -193,7 +212,11 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: {
+        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -234,7 +257,11 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: {
+        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -270,7 +297,11 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       orderSelectionReducer: { currentOrderType: {} },
       outpatientCareSetting: { uuid: '5677666' },
       inpatientCareSetting: { uuid: '6766667' },
-      location: {search: '?patient=esere_shbfidfb_343ffd'}
+      location: {search: '?patient=esere_shbfidfb_343ffd'},
+      draftLabOrders: {
+        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
+      },
+      draftDrugOrders: [{ drugName: 'paracetamol' }],
     };
     mountedComponent = undefined;
   });
@@ -284,7 +315,6 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
     expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
-
 
 describe('Connected OrderEntryPage component', () => {
   it('component successfully rendered', () => {
@@ -306,7 +336,13 @@ describe('Connected OrderEntryPage component', () => {
           personName: { display: 'joey bart'}
         }
       },
-      noteReducer: { note: []}
+      noteReducer: { note: []},
+      draftReducer: {
+        draftLabOrders: {
+          orders: [],
+        },
+        draftDrugOrders: [{ drugName: 'paracetamol' }],
+      },
     });
     const props = {
       location: {search: '?patient=esere_shbfidfb_343ffd'}
