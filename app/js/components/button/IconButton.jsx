@@ -7,12 +7,16 @@ class IconButton extends PureComponent {
     iconTitle: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     dataContext: PropTypes.object,
+    icon: PropTypes.string,
+    id: PropTypes.string,
   }
 
   static defaultProps = {
     iconClass: '',
     iconTitle: '',
     dataContext: {},
+    icon: null,
+    id: '',
   }
 
   handleClick = (event) => {
@@ -21,12 +25,13 @@ class IconButton extends PureComponent {
     this.props.onClick(this.props.dataContext);
   }
   render() {
-    const { iconClass, iconTitle } = this.props;
-
+    const {
+      id, iconClass, iconTitle, icon,
+    } = this.props;
     return (
       <span>
-        <a id="icon-btn-anchor" href="#" onClick={this.handleClick}>
-          <i className={`${iconClass} scale`} title={iconTitle} />
+        <a id={`${id}`} href="#" onClick={this.handleClick}>
+          <i className={`${iconClass} scale`} title={iconTitle}>{icon && icon}</i>
         </a>
       </span>
     );
