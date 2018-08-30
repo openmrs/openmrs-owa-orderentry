@@ -231,9 +231,18 @@
       -webkit-transition: all 200ms ease-in-out;
       -moz-transition: all 200ms ease-in-out;
     }
-  }
-  .draft-name {
-    text-transform: capitalize;
+
+    .order-status{
+      font-size: .7em;
+      margin-right: 10px;
+    }
+
+    .draft-name {
+      text-transform: capitalize;
+      font-size: .9em;
+      flex-basis: 130px;
+      font-weight: bolder;
+    }
   }
 
   /* Icon styles */
