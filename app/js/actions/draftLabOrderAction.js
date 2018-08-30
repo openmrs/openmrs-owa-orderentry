@@ -27,11 +27,6 @@ export const removeTestPanelFromDraft = orders => ({
   orders,
 });
 
-export const toggleDraftLabOrdersUgency = order => ({
-  type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
-  order,
-});
-
 export const addTestPanelToDraft = orders => ({
   type: ADD_PANEL_TO_DRAFT_LAB_ORDER,
   orders,

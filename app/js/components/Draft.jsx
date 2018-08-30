@@ -30,7 +30,8 @@ export class Draft extends PureComponent {
                 <IconButton
                   iconClass={iconClass}
                   iconTitle="Urgency"
-                  onClick={() => {}}
+                  dataContext={order}
+                  onClick={this.props.toggleDraftLabOrderUrgency}
                   icon="&#x25B2;"
                   id="draft-toggle-btn icon-btn-anchor"
                 /> :
@@ -94,6 +95,7 @@ Draft.propTypes = {
   draftOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleDraftDiscard: PropTypes.func.isRequired,
+  toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
 };
 
 export default Draft;

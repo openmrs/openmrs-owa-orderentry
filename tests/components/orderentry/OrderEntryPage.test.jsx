@@ -33,6 +33,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
@@ -114,6 +115,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
@@ -165,6 +167,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       orderSelectionReducer: { currentOrderType: {} },
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
@@ -206,6 +209,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         settingEncounterRole: '',
         roleError: 'error error',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
@@ -250,6 +254,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       orderSelectionReducer: { currentOrderType: {} },
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
@@ -290,6 +295,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         settingEncounterRole: 'Admin role',
         roleError: '',
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       dateFormatReducer: {
         dateFormat: '',
         error: 'incomplete config',
@@ -327,6 +333,7 @@ describe('Connected OrderEntryPage component', () => {
         settingEncounterType: 'order entry',
         error: ''
       },
+      toggleDraftLabOrderUrgency: jest.fn(),
       orderSelectionReducer: { currentOrderType: {} },
       patientReducer: {
         patient: {

@@ -12,7 +12,6 @@ import {
   removeTestPanelFromDraft,
   addTestPanelToDraft,
   deleteDraftLabOrder,
-  toggleDraftLabOrdersUgency,
 } from '../../app/js/actions/draftLabOrderAction';
 
 import { panelData, testsData } from '../../app/js/components/labOrderEntry/labData';
@@ -82,23 +81,6 @@ describe('Lab Order Actions', () => {
     }
     const store = mockStore({});
     await store.dispatch(addTestPanelToDraft(orders), () => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-    done();
-  });
-
-
-  it('should dispatch toggling a draft lab order urgency successfuly', async (done) => {
-    const order = { orderId: 1, orderUrgency: 'SWAT' };
-
-    const expectedActions = {
-      TOGGLE_DRAFT_LAB_ORDER_URGENCY,
-      order
-    }
-
-    const store = mockStore({});
-
-    await store.dispatch(toggleDraftLabOrdersUgency(order), () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
     done();
