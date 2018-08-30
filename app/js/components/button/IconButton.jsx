@@ -24,6 +24,7 @@ class IconButton extends PureComponent {
     event.stopPropagation();
     this.props.onClick(this.props.dataContext);
   }
+
   render() {
     const {
       id, iconClass, iconTitle, icon,
