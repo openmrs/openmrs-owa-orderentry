@@ -8,6 +8,7 @@ describe('orderSelectionReducer Reducer', () => {
         orderSelection: {
             currentOrderType: {},
             selectedOrder: {},
+            activity: ''
           },
       };
 
@@ -48,6 +49,7 @@ describe('orderSelectionReducer Reducer', () => {
         orderSelection: {
             currentOrderType: {},
             selectedOrder: {},
+            activity: ''
         },
     };
     const action = {

@@ -35,6 +35,38 @@ export class SearchAndAddOrder extends React.PureComponent {
         </td>
       );
       this.handleEditActiveDrugOrder({ ...selectedOrder, status: activity }, details);
+    } else if (activity === 'DRAFT_ORDER_EDIT' && selectedOrder) {
+      this.setState({
+        draftOrder: selectedOrder,
+        editDrugUuid: selectedOrder.drug,
+        editDrugName: selectedOrder.drugName,
+        orderNumber: selectedOrder.orderNumber,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedOrder, activity } = this.props;
+    if (activity === 'DRAFT_ORDER_EDIT' && selectedOrder &&
+      ((!this.state.editDrugUuid && selectedOrder) ||
+      (this.state.editDrugUuid &&
+        (this.state.editDrugUuid !== selectedOrder.drug)
+      ))
+    ) {
+      this.setState({
+        draftOrder: selectedOrder,
+        editDrugUuid: selectedOrder.drug,
+        editDrugName: selectedOrder.drugName,
+        orderNumber: selectedOrder.orderNumber,
+      });
+    }
+    if (!selectedOrder && this.state.editDrugUuid) {
+      this.setState({
+        draftOrder: {},
+        editDrugUuid: '',
+        editDrugName: '',
+        orderNumber: '',
+      });
     }
   }
 
@@ -137,6 +169,7 @@ export class SearchAndAddOrder extends React.PureComponent {
   renderAddForm = careSetting => (
     <div>
       <AddForm
+        currentOrderType={this.props.currentOrderType}      
         drugName={this.state.editDrugName ? this.state.editDrugName : this.props.drug.display}
         drugUuid={this.state.editDrugUuid ? this.state.editDrugUuid : this.props.drug.uuid}
         editOrder={this.state.editOrder}
@@ -198,7 +231,7 @@ const mapStateToProps = ({
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
   dateFormatReducer: { dateFormat },
-  orderSelectionReducer: { activity, selectedOrder },
+  orderSelectionReducer: { activity, selectedOrder, currentOrderType },
 }) => ({
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
@@ -206,9 +239,11 @@ const mapStateToProps = ({
   dateFormat,
   activity,
   selectedOrder,
+  currentOrderType,
 });
 
 SearchAndAddOrder.defaultProps = {
+  currentOrderType: {},
   draftOrders: [],
   drug: null,
   selectedOrder: {},
@@ -216,6 +251,7 @@ SearchAndAddOrder.defaultProps = {
 };
 
 SearchAndAddOrder.propTypes = {
+  currentOrderType: PropTypes.object,
   drug: PropTypes.oneOfType([
     PropTypes.shape({
       uuid: PropTypes.string,
