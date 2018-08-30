@@ -17,6 +17,8 @@ describe('Component: IconButton', () => {
       iconClass: 'icon-remove',
       iconTitle: 'Header',
       onClick: jest.fn(),
+      id:'icon-btn-anchor',
+      icon: '&#x25B2;'
     };
     mountedComponent = undefined;
   });

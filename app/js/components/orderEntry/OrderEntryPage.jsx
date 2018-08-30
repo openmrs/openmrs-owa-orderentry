@@ -240,7 +240,7 @@ OrderEntryPage.propTypes = {
   fetchPatientNote: PropTypes.func.isRequired,
   setSelectedOrder: PropTypes.func.isRequired,
   currentOrderType: PropTypes.object,
-  draftLabOrders: PropTypes.array.isRequired,
+  draftLabOrders: PropTypes.object.isRequired,
   draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
