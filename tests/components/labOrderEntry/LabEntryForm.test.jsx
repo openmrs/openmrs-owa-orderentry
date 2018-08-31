@@ -182,13 +182,6 @@ describe('Component: LabEntryForm', () => {
     expect(dispatch).toBeCalled();	
   });
 
-  it('should toggle the urgency state of a test', () => {	
-    const instance = getComponent().instance();	
-    const dispatch = jest.spyOn(props, 'dispatch');	
-    instance.handleUrgencyChange();	
-    expect(dispatch).toBeCalled();
-  });
-
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
     const instance = component.instance();
