@@ -13,7 +13,6 @@ import {
   removeTestFromDraft,
   addTestToDraft,
   deleteDraftLabOrder,
-  toggleDraftLabOrdersUgency,
 } from '../../actions/draftLabOrderAction';
 import '../../../css/grid.scss';
 import './styles.scss';
@@ -158,10 +157,6 @@ export class LabEntryForm extends PureComponent {
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
       if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
-  }
-
-  handleUrgencyChange = (order) => {
-    this.props.dispatch(toggleDraftLabOrdersUgency(order));
   }
 
   discardTestsInDraft = (test, action) => {

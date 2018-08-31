@@ -10,6 +10,7 @@ props = {
   ],
   handleSubmit: jest.fn(),
   handleDraftDiscard: jest.fn(),
+  toggleDraftLabOrderUrgency: jest.fn(),
 };
 
 const getComponent = () => {
