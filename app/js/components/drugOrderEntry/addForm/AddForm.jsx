@@ -9,7 +9,7 @@ import DosageTab from '../../tabs/DosageTab';
 import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
-import { setOrderAction } from '../../../actions/orderAction';
+import { setOrderAction, setSelectedOrder } from '../../../actions/orderAction';
 
 export class AddForm extends React.Component {
   state = {
@@ -116,6 +116,13 @@ export class AddForm extends React.Component {
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
     this.props.clearSearchField();
+    if (this.props.activity === 'DRAFT_ORDER_EDIT') {
+      this.props.setSelectedOrder({
+        currentOrderType: this.props.currentOrderType,
+        selectedOrder: null,
+        activity: null,
+      });
+    }
   }
 
 
@@ -208,6 +215,11 @@ export class AddForm extends React.Component {
     this.clearDrugForms();
     this.props.clearSearchField();
     this.props.setOrderAction('DISCARD_ONE', this.props.orderNumber);
+    this.props.setSelectedOrder({
+      currentOrderType: this.props.currentOrderType,
+      selectedOrder: null,
+      activity: null,
+    });
   }
   clearDrugForms = () => {
     this.setState({
@@ -349,8 +361,10 @@ const mapStateToProps = ({
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
   openmrs: { session },
+  orderSelectionReducer: { activity },
 }) =>
   ({
+    activity,
     drug: drugSearchReducer.selected,
     draftOrders: draftDrugOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
@@ -358,12 +372,14 @@ const mapStateToProps = ({
   });
 
 AddForm.propTypes = {
+  activity: PropTypes.string,
   clearSearchField: PropTypes.func.isRequired,
+  currentOrderType: PropTypes.object.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
   addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
-  orderNumber: PropTypes.string,
+  orderNumber: PropTypes.number,
   draftOrders: PropTypes.arrayOf(PropTypes.any),
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
@@ -384,6 +400,7 @@ AddForm.propTypes = {
     dosingType: PropTypes.string,
   }),
   draftOrder: PropTypes.shape({}),
+  setSelectedOrder: PropTypes.func.isRequired,
   session: PropTypes.shape({
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
@@ -392,6 +409,7 @@ AddForm.propTypes = {
 };
 
 AddForm.defaultProps = {
+  activity: '',
   selectDrugSuccess: {},
   getOrderEntryConfigurations: () => {},
   drugName: '',
@@ -409,5 +427,6 @@ export default connect(
     selectDrugSuccess,
     addDraftOrder,
     setOrderAction,
+    setSelectedOrder,
   },
 )(AddForm);

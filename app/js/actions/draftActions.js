@@ -1,7 +1,10 @@
-import { TOGGLE_DRAFT_LAB_ORDER_URGENCY } from './actionTypes';
+import { DELETE_DRAFT_DRUG_ORDER_SUCCESS, TOGGLE_DRAFT_LAB_ORDER_URGENCY } from './actionTypes';
+import { DRUG_ORDER } from '../components/orderEntry/orderTypes';
+import { selectDrugSuccess } from './drug';
+import { setSelectedOrder } from './orderAction';
 import constants from '../utils/constants';
 
-const toggleDraftLabOrderUrgency = (order) => {
+export const toggleDraftLabOrderUrgency = (order) => {
   const urgencyTypeToggled = {
     ROUTINE: constants.STAT,
     STAT: constants.ROUTINE,
@@ -23,4 +26,17 @@ const toggleDraftLabOrderUrgency = (order) => {
   };
 };
 
-export default toggleDraftLabOrderUrgency;
+export const deleteDraftOrder = order => ({
+  type: DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+  order,
+});
+
+export const editDraftDrugOrder = order => (dispatch) => {
+  dispatch(selectDrugSuccess(order.drug));
+  dispatch(setSelectedOrder({
+    currentOrderType: DRUG_ORDER,
+    order,
+    activity: 'DRAFT_ORDER_EDIT',
+  }));
+  dispatch(deleteDraftOrder(order));
+};

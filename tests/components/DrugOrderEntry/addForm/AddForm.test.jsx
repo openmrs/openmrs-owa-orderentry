@@ -9,9 +9,11 @@ const props = {
   clearDrugForms: jest.fn(),
   clearSearchField: jest.fn(),
   setOrderAction: jest.fn(),
+  setSelectedOrder: jest.fn(),
   removeOrder: jest.fn(),
   selectDrugSuccess: jest.fn(),
   getOrderEntryConfigurations: jest.fn(),
+  activity: '',
   allConfigurations: {
     drugDosingUnits: [{display: 'grams'}],
     orderFrequencies: [{display: 'daily'}],
@@ -224,6 +226,16 @@ describe('handleSubmitDrugForm() method', () => {
       route: "",
     });
   });
+  it(`should call setSelectedOrder after calling handleSubmitDrugForm 
+      if activity is DRAFT_ORDER_EDIT`, () => {
+        const component = getComponent();
+        const componentInstance = component.instance();
+        component.setProps({ activity: 'DRAFT_ORDER_EDIT'});
+        props.setSelectedOrder.mockReset();  
+        expect(props.setSelectedOrder).toHaveBeenCalledTimes(0);            
+        componentInstance.handleSubmitDrugForm();
+        expect(props.setSelectedOrder).toHaveBeenCalledTimes(1); 
+    });
   it('should call handleSubmitDrugForm()', () => {
     const component = getComponent().instance();
     const hhhSpy = jest.spyOn(component, 'handleSubmitDrugForm');
