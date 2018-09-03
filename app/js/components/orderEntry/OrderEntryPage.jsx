@@ -14,7 +14,7 @@ import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
-import toggleDraftLabOrderUrgency from '../../actions/draftActions';
+import { editDraftDrugOrder, toggleDraftLabOrderUrgency } from '../../actions/draftActions';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';
 
@@ -61,6 +61,7 @@ export class OrderEntryPage extends PureComponent {
           draftOrders={allDraftOrders}
           handleSubmit={() => {}}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
+          editDraftDrugOrder={this.props.editDraftDrugOrder}
         />
       </div>);
   }
@@ -206,6 +207,7 @@ export class OrderEntryPage extends PureComponent {
 }
 
 OrderEntryPage.propTypes = {
+  editDraftDrugOrder: PropTypes.func.isRequired,
   fetchPatientCareSetting: PropTypes.func.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
@@ -292,6 +294,7 @@ const actionCreators = {
   setSelectedOrder,
   activeOrderAction,
   toggleDraftLabOrderUrgency,
+  editDraftDrugOrder,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

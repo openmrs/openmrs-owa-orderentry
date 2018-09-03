@@ -44,6 +44,48 @@ describe('Test for Searching and Adding an order', () => {
     const component = shallow(<SearchAndAddOrder {...newProps} />);
     expect(component).toMatchSnapshot();
   });
+  it(`should set the details of an order in the state
+     if activity is DRAFT_ORDER_EDIT and there is a selectedOrder`, () => {
+      const newProps = {
+        ...props,
+        selectedOrder: { drug: '222-55-dddssd' },
+        activity: 'DRAFT_ORDER_EDIT',
+      };
+      const component = shallow(<SearchAndAddOrder {...newProps} />);
+      expect(component.state('editDrugUuid')).toEqual('222-55-dddssd');
+  });
+});
+
+describe('componentDidUpdate method', () => {
+  it(`should set the details of an order in the state
+    if activity is DRAFT_ORDER_EDIT, there was no draftOrder in the state,
+    and there is a selectedOrder`, () => {
+      const component = getComponent();
+      expect(component.state('draftOrder')).toEqual({});
+      component.setProps({
+        selectedOrder: { drug: '222-55-dddssd' }, 
+        activity: 'DRAFT_ORDER_EDIT',
+      });
+      expect(component.state('draftOrder')).toEqual({ drug: '222-55-dddssd' });
+  });
+    it(`should update the details of the order in the state 
+      if activity is DRAFT_ORDER_EDIT but the selectedOrder has changed`, () => {
+      const component = getComponent();
+      const newDrugUuid = '222-55-dddssd';
+      component.setState({ editDrugUuid: '111-22-addaddd' }); 
+      component.setProps({
+        selectedOrder: { drug: newDrugUuid }, 
+        activity: 'DRAFT_ORDER_EDIT',
+      });
+      expect(component.state('editDrugUuid')).toEqual(newDrugUuid);
+    });
+    it(`should clear the details of an order in the state
+       if there is no selectedOrder`, () => {
+        const component = getComponent();
+        component.setState({ editDrugUuid: '111-22-addaddd' }); 
+        component.setProps({ selectedOrder: null });
+        expect(component.state('editDrugUuid')).toEqual('');
+    });
 });
 
 describe('onSelectDrug() method', () => {
