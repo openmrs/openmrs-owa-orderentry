@@ -94,7 +94,7 @@ export class Draft extends PureComponent {
         />
         <input
           type="submit"
-          onClick={handleSubmit}
+          onClick={() => handleSubmit()}
           className="button confirm right modified-btn"
           value="Sign and Save"
           disabled={isDisabled}

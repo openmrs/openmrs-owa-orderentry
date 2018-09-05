@@ -195,9 +195,6 @@ describe('Component: LabEntryForm', () => {
 
   it('shows a toast prompt when test is submitted successfully', () => {
     const component = getComponent();
-    const instance = component.instance();
-    instance.handleSubmit(); // This should be change on the fix ticket for submiting all draft orders
-
     component.setProps({
       ...component.props(),
       createLabOrderReducer: {
@@ -208,13 +205,11 @@ describe('Component: LabEntryForm', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('lab order successfully created');
+    expect(global.toastrMessage).toEqual('order successfully created');
   });
 
   it('shows a toast prompt when there is an error in submission', () => {
     const component = getComponent();
-    const instance = component.instance();
-    instance.handleSubmit(); // This should be change on the fix ticket for submiting all draft orders
     component.setProps({
       ...component.props(),
       createLabOrderReducer: {
