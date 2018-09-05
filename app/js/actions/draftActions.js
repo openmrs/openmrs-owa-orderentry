@@ -2,6 +2,11 @@ import { DELETE_DRAFT_DRUG_ORDER_SUCCESS, TOGGLE_DRAFT_LAB_ORDER_URGENCY } from 
 import { DRUG_ORDER } from '../components/orderEntry/orderTypes';
 import { selectDrugSuccess } from './drug';
 import { setSelectedOrder } from './orderAction';
+import {
+  removeTestFromDraft,
+  removeTestPanelFromDraft,
+  deleteDraftLabOrder,
+} from '../actions/draftLabOrderAction';
 import constants from '../utils/constants';
 
 export const toggleDraftLabOrderUrgency = (order) => {
@@ -39,4 +44,10 @@ export const editDraftDrugOrder = order => (dispatch) => {
     activity: 'DRAFT_ORDER_EDIT',
   }));
   dispatch(deleteDraftOrder(order));
+};
+
+export const discardTestsInDraft = (test = {}) => (dispatch) => {
+  if (test.draftType === 'single') return dispatch(removeTestFromDraft(test.order));
+  if (test.draftType === 'panel') return dispatch(removeTestPanelFromDraft(test.order));
+  return dispatch(deleteDraftLabOrder());
 };

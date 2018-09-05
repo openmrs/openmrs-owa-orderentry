@@ -7,7 +7,7 @@ import IconButton from './button/IconButton';
 
 export class Draft extends PureComponent {
   renderDraftList = () => {
-    const { draftOrders } = this.props;
+    const { draftOrders, handleDraftDiscard } = this.props;
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
       const draftType = !isPanel ? 'single' : 'panel';
@@ -49,7 +49,8 @@ export class Draft extends PureComponent {
                 iconClass="icon-remove"
                 iconTitle="Discard"
                 id="draft-discard-btn"
-                onClick={() => {}}
+                dataContext={{ order, draftType }}
+                onClick={handleDraftDiscard}
               />
             </span>
           </div>
