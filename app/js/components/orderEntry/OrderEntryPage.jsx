@@ -14,7 +14,11 @@ import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
-import { editDraftDrugOrder, toggleDraftLabOrderUrgency } from '../../actions/draftActions';
+import {
+  editDraftDrugOrder,
+  toggleDraftLabOrderUrgency,
+  discardTestsInDraft,
+} from '../../actions/draftActions';
 import imageLoader from '../../../img/loading.gif';
 import './styles.scss';
 
@@ -57,7 +61,7 @@ export class OrderEntryPage extends PureComponent {
     return (
       <div className="draft-wrapper">
         <Draft
-          handleDraftDiscard={() => {}}
+          handleDraftDiscard={this.props.discardTestsInDraft}
           draftOrders={allDraftOrders}
           handleSubmit={() => {}}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
@@ -247,6 +251,7 @@ OrderEntryPage.propTypes = {
   draftLabOrders: PropTypes.object.isRequired,
   draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
+  discardTestsInDraft: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -295,6 +300,7 @@ const actionCreators = {
   activeOrderAction,
   toggleDraftLabOrderUrgency,
   editDraftDrugOrder,
+  discardTestsInDraft,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
