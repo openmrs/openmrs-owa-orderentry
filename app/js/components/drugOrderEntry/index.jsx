@@ -9,8 +9,6 @@ import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import ActiveOrders from './ActiveOrders';
 import { setOrderAction } from '../../actions/orderAction';
-import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
-import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
 import './styles.scss';
 
@@ -84,19 +82,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     }));
   }
 
-  handleDiscardOneOrder = (order) => {
-    this.props.deleteDraftOrder(order);
-    if (order.action === 'REVISE') {
-      this.props.setOrderAction('DISCARD_EDIT', order.orderNumber);
-    } else {
-      this.props.setOrderAction('DISCARD_ONE', order.orderNumber);
-    }
-  }
-
-  handleDiscardAllOrders = () => {
-    this.props.deleteAllDraftOrders();
-    this.props.setOrderAction('DISCARD_ALL', '0');
-  }
 
   clearSearchField = () => {
     this.setState({
@@ -107,18 +92,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     });
   }
 
-  handleEditDraftOrder = (order) => {
-    this.props.selectDrugSuccess(order.drug);
-    this.setState({
-      draftOrder: order,
-      editDrugUuid: order.drug,
-      editDrugName: order.drugName,
-      orderNumber: order.orderNumber,
-    }, () => {
-      this.props.setOrderAction('EDIT', order.orderNumber);
-    });
-    this.props.deleteDraftOrder(order);
-  }
 
   handleEditActiveDrugOrder = (order, details) => {
     let formattedDetails = details.props.children.join("");
@@ -148,7 +121,6 @@ export class SearchAndAddOrder extends React.PureComponent {
   closeFormsOnTabChange = () => {
     this.clearSearchField();
     this.props.selectDrugSuccess();
-    this.props.deleteAllDraftOrders();
   }
 
   renderSearchDrug = () => (
@@ -182,17 +154,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     </div>
   );
 
-  renderDraftDataTable = careSetting => (
-    (this.props.draftOrders.length > 0) &&
-    <DraftDataTable
-      draftOrders={this.props.draftOrders}
-      handleDiscardOneOrder={this.handleDiscardOneOrder}
-      handleDiscardAllOrders={this.handleDiscardAllOrders}
-      handleEditDraftOrder={this.handleEditDraftOrder}
-      careSetting={careSetting}
-    />
-  )
-
   render() {
     const {
       outpatientCareSetting, location, dateFormat,
@@ -202,7 +163,6 @@ export class SearchAndAddOrder extends React.PureComponent {
         <h5 className="drug-form-header">New Drug Order</h5>
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
-        {this.renderDraftDataTable(outpatientCareSetting)}
         <Accordion open title="Active Drug Orders">
           <ActiveOrders
             careSetting={outpatientCareSetting}
@@ -244,7 +204,6 @@ const mapStateToProps = ({
 
 SearchAndAddOrder.defaultProps = {
   currentOrderType: {},
-  draftOrders: [],
   drug: null,
   selectedOrder: {},
   activity: '',
@@ -259,14 +218,11 @@ SearchAndAddOrder.propTypes = {
     }),
     PropTypes.string,
   ]),
-  draftOrders: PropTypes.arrayOf(PropTypes.any),
   dateFormat: PropTypes.string.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
   setOrderAction: PropTypes.func.isRequired,
-  deleteDraftOrder: PropTypes.func.isRequired,
-  deleteAllDraftOrders: PropTypes.func.isRequired,
   outpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -280,8 +236,6 @@ export default connect(
   mapStateToProps,
   {
     setOrderAction,
-    deleteDraftOrder,
-    deleteAllDraftOrders,
     selectDrugSuccess,
   },
 )(SearchAndAddOrder);

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import connectedSearchAndAddOrder, {SearchAndAddOrder} from '../../../app/js/components/drugOrderEntry';
-import ConnectedDraftTable from '../../../app/js/components/drugOrderEntry/addForm/DraftDataTable';
 
 const { order } = mockData;
 const props = {
@@ -24,8 +23,6 @@ const props = {
   selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
   fetchOutpatientCareSetting: jest.fn(),
-  deleteDraftOrder: jest.fn(),
-  deleteAllDraftOrders: jest.fn(),
   drug: "abc-e345-thed-uuid2345",
 };
 
@@ -162,16 +159,6 @@ describe('removeOrder() method', () => {
   });
 });
 
-describe('handleEditDraftOrder() method', () => {
-  it('should call handleEditDraftOrder()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleEditDraftOrder');
-    renderedComponent.handleEditDraftOrder(order);
-    expect(renderedComponent.handleEditDraftOrder.calledOnce).toEqual(true);
-    expect(getComponent().state('draftOrder')).toEqual(order);
-  });
-});
-
 describe('closeFormsOnTabChange() method', () => {
   it('should call closeFormsOnTabChange()', () => {
     const renderedComponent = getComponent().instance();
@@ -187,31 +174,6 @@ const setup = () => {
   return { wrapper }
 }
 
-describe('handleDiscardOneOrder', () => {
-  it('should be called on discarding one draft order', () => {
-    const order2 = {
-      uuid: '',
-      drugName: { drug: { display: '' } },
-      action: 'DISCONTINUE',
-      dose: '',
-      dosingUnit: '',
-      orderNumber: '',
-    };
-    const { wrapper } = setup();
-
-    wrapper.instance().handleDiscardOneOrder(order2);
-  });
-});
-
-describe('handleDiscardAllOrders', () => {
-  it('should be called on discarding all draft orders', () => {
-    const { wrapper } = setup();
-
-    wrapper.instance().handleDiscardAllOrders();
-    expect(props.deleteAllDraftOrders.mock.calls.length).toEqual(2);
-  });
-});
-
 describe('Test for Searching and Adding an order', () => {
   it('should render component', () => {
     const wrapper = setup();
@@ -219,61 +181,3 @@ describe('Test for Searching and Adding an order', () => {
   });
 });
 
-describe('behaviour when the length of the unsaved draft orders table is more than zero', () => {
-  it('should render a DraftDataTable if length of draftOrders is not zero ', () => {
-    const propsOne = {
-      outpatientCareSetting:{
-        uuid: '',
-        display: '',
-      },
-      inpatientCareSetting: {
-        uuid: '',
-        display: '',
-      },
-      getPastOrders: jest.fn(),
-      draftOrders: [],
-      setOrderAction: jest.fn(),
-      location:{
-        search: '',
-      },
-      order,
-      selectDrugSuccess: jest.fn(),
-      fetchInpatientCareSetting: jest.fn(),
-      fetchOutpatientCareSetting: jest.fn(),
-      deleteDraftOrder: jest.fn(),
-      deleteAllDraftOrders: jest.fn(),
-      drug: "abc-e345-thed-uuid2345",
-      dateFormat: 'DD-MMM-YYYY HH:mm',
-    };
-    const wrapperOne = shallow(<SearchAndAddOrder {...propsOne} store={store} />);
-    const propsTwo = {
-      outpatientCareSetting:{
-        uuid: '',
-        display: '',
-      },
-      inpatientCareSetting: {
-        uuid: '',
-        display: '',
-      },
-      getPastOrders: jest.fn(),
-      draftOrders: [
-        {dose: '', doseUnits: ''}
-      ],
-      setOrderAction: jest.fn(),
-      location:{
-        search: '',
-      },
-      order,
-      selectDrugSuccess: jest.fn(),
-      fetchInpatientCareSetting: jest.fn(),
-      fetchOutpatientCareSetting: jest.fn(),
-      deleteDraftOrder: jest.fn(),
-      deleteAllDraftOrders: jest.fn(),
-      drug: "abc-e345-thed-uuid2345",
-      dateFormat: 'DD-MMM-YYYY HH:mm',
-    };
-    const wrapperTwo = shallow(<SearchAndAddOrder {...propsTwo} store={store} />);
-    expect(wrapperOne.find(ConnectedDraftTable) === wrapperTwo.find(ConnectedDraftTable)).toEqual(false);
-
-  });
-});
