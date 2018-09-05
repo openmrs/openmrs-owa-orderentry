@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Accordion } from '@openmrs/react-components';
 import shortid from 'shortid';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
-import ActiveOrders from './ActiveOrders';
-import PastOrders from './PastOrders';
 import createLabOrder from '../../actions/createLabOrder';
 import { successToast, errorToast } from '../../utils/toast';
 import {
@@ -21,8 +18,9 @@ import {
 import '../../../css/grid.scss';
 import './styles.scss';
 
-import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import fetchLabConcepts from '../../actions/labOrders/labConceptsAction';
+import { setSelectedOrder } from '../../actions/orderAction';
+
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
@@ -32,14 +30,10 @@ export class LabEntryForm extends PureComponent {
       labOrderData: PropTypes.object,
     }),
     draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
-    dateFormat: PropTypes.string.isRequired,
     selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
     defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
     dispatch: PropTypes.func.isRequired,
-    labOrders: PropTypes.shape({
-      results: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
-    }),
     patient: PropTypes.shape({
       uuid: PropTypes.string,
     }),
@@ -90,9 +84,6 @@ export class LabEntryForm extends PureComponent {
         },
       },
     },
-    labOrders: {
-      results: [],
-    },
   };
 
   state = {
@@ -103,7 +94,6 @@ export class LabEntryForm extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
     if (this.state.categoryUUID) {
       this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
     }
@@ -128,7 +118,11 @@ export class LabEntryForm extends PureComponent {
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
       successToast('lab order successfully created');
-      this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
+      this.props.dispatch(setSelectedOrder({
+        currentOrderType: {},
+        order: null,
+        activity: null,
+      }));
     }
     if (error) {
       errorToast(errorMessage);
@@ -233,39 +227,6 @@ export class LabEntryForm extends PureComponent {
     this.props.dispatch(deleteDraftLabOrder());
   };
 
-  renderPendingOrders = () => {
-    const { labOrderData } = this.props.createLabOrderReducer;
-    if (labOrderData.orders) {
-      const tests = labOrderData.orders.map(order => order.display);
-      return (
-        <Accordion open title="Pending Lab Orders">
-          <ActiveOrders labOrderData={labOrderData} tests={tests} />
-        </Accordion>
-      );
-    }
-    return (
-      <Accordion open title="Pending Lab Orders">
-        <p>No pending orders</p>
-      </Accordion>
-    );
-  };
-
-  renderPastOrders = () => {
-    const { labOrders: { results }, dateFormat } = this.props;
-    if (results.length > 0) {
-      return (
-        <Accordion open title="Past Lab Orders">
-          <PastOrders orders={results} dateFormat={dateFormat} />
-        </Accordion>
-      );
-    }
-    return (
-      <Accordion title="Past Lab Orders">
-        <p>No past orders</p>
-      </Accordion>
-    );
-  };
-
   renderLabDraftOrder = () => (
     <div className="draft-lab-wrapper">
       <LabDraftOrder
@@ -311,11 +272,6 @@ export class LabEntryForm extends PureComponent {
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
                 </div>
               </div>
-              <br />
-              {renderPendingOrders()}
-              <br />
-              {(this.props.labOrders.results) && <div>{renderPastOrders()}</div>}
-              <br />
             </div>
             :
             <p>No Lab Orderables was found</p>
@@ -334,7 +290,6 @@ export const mapStateToProps = ({
       selectedTests,
     },
   },
-  dateFormatReducer: { dateFormat },
   labConceptsReducer: {
     conceptsAsPanels,
     standAloneTests,
@@ -350,7 +305,6 @@ export const mapStateToProps = ({
   getLabOrderablesReducer: { getLabOrderables },
 }) => ({
   draftLabOrders: orders,
-  dateFormat,
   conceptsAsPanels,
   standAloneTests,
   selectedLabPanels,
