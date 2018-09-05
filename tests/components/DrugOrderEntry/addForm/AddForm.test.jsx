@@ -5,7 +5,6 @@ import { AddForm } from '../../../../app/js/components/drugOrderEntry/addForm/Ad
 const { draftOrders, draftOrder, editOrder, formType, session } = mockData;
 
 const props = {
-  addDraftOrder: jest.fn(),
   clearDrugForms: jest.fn(),
   clearSearchField: jest.fn(),
   setOrderAction: jest.fn(),
@@ -114,6 +113,28 @@ describe('Test for adding a new drug order', () => {
   });
 });
 
+describe('populateEditOrderForm() method', () => {
+  it('should call populateEditActiveOrderForm()', () => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'populateEditOrderForm');
+    renderedComponent.populateEditOrderForm();
+    expect(renderedComponent.populateEditOrderForm.calledOnce).toEqual(true);
+    expect(getComponent().state('activeTabIndex')).toEqual(1);
+    expect(getComponent().state('fields')).toEqual({
+      dispensingQuantity: "",
+      dispensingUnit: "",
+      dose: "",
+      dosingUnit: "",
+      drugInstructions: "",
+      duration: "",
+      durationUnit: "",
+      frequency: "",
+      reason: "",
+      route: "",
+    });
+  });
+});
+
 describe('Test AddForm state', () => {
   it('should update state', () => {
     mountedComponent = mount(<AddForm {...props} />);
@@ -153,28 +174,6 @@ describe('handleCancel() method', () => {
   });
 });
 
-describe('populateEditOrderForm() method', () => {
-  it('should call populateEditActiveOrderForm()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'populateEditOrderForm');
-    renderedComponent.populateEditOrderForm();
-    expect(renderedComponent.populateEditOrderForm.calledOnce).toEqual(true);
-    expect(getComponent().state('activeTabIndex')).toEqual(1);
-    expect(getComponent().state('fields')).toEqual({
-      dispensingQuantity: "",
-      dispensingUnit: "",
-      dose: "",
-      dosingUnit: "",
-      drugInstructions: "",
-      duration: "",
-      durationUnit: "",
-      frequency: "",
-      reason: "",
-      route: "",
-    });
-  });
-});
-
 describe('clearDrugForms() method', () => {
   it('should call clearDrugForms()', () => {
     const renderedComponent = getComponent().instance();
@@ -202,27 +201,6 @@ describe('handleSubmitDrugForm() method', () => {
     sinon.spy(renderedComponent, 'handleSubmitDrugForm');
     renderedComponent.handleSubmitDrugForm();
     expect(renderedComponent.handleSubmitDrugForm.calledOnce).toEqual(true);
-    expect(getComponent().state('draftOrder')).toEqual({
-      action: "NEW",
-      careSetting: "aaa1234",
-      dosingType: "org.openmrs.SimpleDosingInstructions",
-      drug: "AJJJKW7378JHJ",
-      drugName: "Paracentamol",
-      orderNumber: 1,
-      type: "drugorder",
-      orderer: "",
-      previousOrder: null,
-      dispensingQuantity: "",
-      dispensingUnit: "",
-      dose: "",
-      dosingUnit: "",
-      drugInstructions: "",
-      duration: "",
-      durationUnit: "",
-      frequency: "",
-      reason: "",
-      route: "",
-    });
   });
   it('should call handleSubmitDrugForm()', () => {
     const component = getComponent().instance();
@@ -230,7 +208,6 @@ describe('handleSubmitDrugForm() method', () => {
     component.setState({ action: 'NOT_NEW' });
     component.handleSubmitDrugForm();
     expect(hhhSpy).toHaveBeenCalledTimes(1);
-    expect(component.state.draftOrder).toEqual({ ...component.state.draftOrder, action: 'NOT_NEW', });
   });
 });
 

@@ -30,7 +30,6 @@ import createLabOrderReducer from './createLabOrderReducer';
 import getLabOrderablesReducer from './labOrders/settingLabOrderableReducer';
 import fetchOrdersReducer from './fetchOrdersReducer';
 import orderSelectionReducer from './orderSelectionReducer';
-import draftReducer from './draftReducer';
 
 export default combineReducers({
   openmrs: openmrsReducers,
@@ -47,7 +46,6 @@ export default combineReducers({
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
   encounterRoleReducer,
-  draftReducer,
   addDrugOrderReducer,
   dateFormatReducer,
   labOrderableReducer,
