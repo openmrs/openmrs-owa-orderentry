@@ -15,13 +15,20 @@ const initialState = {
 
 const filter = (allResults, filteredResults, sortBy, value) => {
   const newFilter = filteredResults.filter(each => each[sortBy] === value);
-  if (value === 'all' && sortBy === "type") {
+  if (value === 'all' && sortBy === 'type') {
     return allResults;
   }
   if (allResults.length > 0 && newFilter.length === 0) {
     return allResults.filter(each => each[sortBy] === value);
   }
   return newFilter;
+};
+
+const toggleUrgency = (previousOrderId, newOrderId, urgency, orders) => {
+  const toggledUrgencyOrders = orders.map(order =>
+    (order.uuid === previousOrderId ?
+      { ...order, uuid: newOrderId, urgency } : order));
+  return toggledUrgencyOrders;
 };
 
 const fetchOrdersReducer = (state = initialState, action) => {
@@ -65,6 +72,23 @@ const fetchOrdersReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredOrders: filter(results, filteredOrders, action.sortBy, action.value),
+      };
+    }
+
+    case 'TOGGLE_URGENCY': {
+      const { previousOrderId, newOrderId, newUrgency } = action;
+      return {
+        ...state,
+        filteredOrders: toggleUrgency(
+          previousOrderId,
+          newOrderId,
+          newUrgency,
+          state.filteredOrders,
+        ),
+        orders: {
+          ...state.orders,
+          results: toggleUrgency(previousOrderId, newOrderId, newUrgency, state.orders.results),
+        },
       };
     }
 
