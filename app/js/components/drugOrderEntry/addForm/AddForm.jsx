@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
-import DraftDataTable from './DraftDataTable';
 import DosageTabs from '../../tabs/DosageTabs';
 import DosageTab from '../../tabs/DosageTab';
 import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
-import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
 import { setOrderAction } from '../../../actions/orderAction';
 
@@ -50,7 +48,6 @@ export class AddForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     return (
-      Object.keys(this.props.draftOrder).length ||
       Object.keys(this.props.editOrder).length
     ) && this.populateEditOrderForm();
   }
@@ -102,23 +99,37 @@ export class AddForm extends React.Component {
           'org.openmrs.SimpleDosingInstructions' :
           'org.openmrs.FreeTextDosingInstructions',
         type: "drugorder",
-        orderNumber: (this.state.action === 'NEW') ? this.props.draftOrders.length :
-          this.props.orderNumber,
+        orderNumber: (this.state.action !== 'NEW') && this.props.orderNumber,
       },
-    }, () => {
-      this.props.addDraftOrder(this.state.draftOrder);
-      if (this.state.draftOrder.action === 'NEW') {
-        this.props.setOrderAction('DRAFT', this.state.orderNumber);
-      } else {
-        this.props.setOrderAction('DRAFT_EDIT', this.props.orderNumber);
-      }
     });
     this.props.selectDrugSuccess('');
     this.clearDrugForms();
     this.props.clearSearchField();
   }
 
-
+  populateEditOrderForm = () => {
+    const { editOrder, draftOrder } = this.props;
+    this.setState({
+      activeTabIndex: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
+      action: draftOrder.action || editOrder.action,
+      previousOrder: editOrder.uuid || ((draftOrder.action === 'REVISE') && draftOrder.previousOrder) || null,
+      formType: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
+      dosingType: draftOrder.dosingType || editOrder.dosingType,
+      fields: {
+        dose: editOrder.dose || draftOrder.dose || '',
+        dosingUnit: (editOrder.doseUnits && editOrder.doseUnits.display) || draftOrder.dosingUnit || '',
+        frequency: (editOrder.frequency && editOrder.frequency.display) || draftOrder.frequency || '',
+        route: (editOrder.route && editOrder.route.display) || draftOrder.route || '',
+        duration: editOrder.duration || draftOrder.duration || '',
+        durationUnit: (editOrder.durationUnits && editOrder.durationUnits.display) || draftOrder.durationUnit || '',
+        dispensingQuantity: editOrder.quantity || draftOrder.dispensingQuantity || '',
+        dispensingUnit: (editOrder.quantityUnits && editOrder.quantityUnits.display) || draftOrder.dispensingUnit || '',
+        reason: editOrder.asNeededCondition || draftOrder.reason || '',
+        drugInstructions: editOrder.dosingInstructions || draftOrder.drugInstructions || '',
+      },
+    });
+    this.props.removeOrder();
+  }
   /**
    * Validation of datalist tag values using onblur event handler
    */
@@ -275,30 +286,6 @@ export class AddForm extends React.Component {
     return false;
   }
 
-  populateEditOrderForm = () => {
-    const { editOrder, draftOrder } = this.props;
-    this.setState({
-      activeTabIndex: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 0 : 1,
-      action: draftOrder.action || editOrder.action,
-      previousOrder: editOrder.uuid || ((draftOrder.action === 'REVISE') && draftOrder.previousOrder) || null,
-      formType: (draftOrder.dosingType || editOrder.dosingType) === 'org.openmrs.SimpleDosingInstructions' ? 'Standard Dosage' : 'Free Text',
-      dosingType: draftOrder.dosingType || editOrder.dosingType,
-      fields: {
-        dose: editOrder.dose || draftOrder.dose || '',
-        dosingUnit: (editOrder.doseUnits && editOrder.doseUnits.display) || draftOrder.dosingUnit || '',
-        frequency: (editOrder.frequency && editOrder.frequency.display) || draftOrder.frequency || '',
-        route: (editOrder.route && editOrder.route.display) || draftOrder.route || '',
-        duration: editOrder.duration || draftOrder.duration || '',
-        durationUnit: (editOrder.durationUnits && editOrder.durationUnits.display) || draftOrder.durationUnit || '',
-        dispensingQuantity: editOrder.quantity || draftOrder.dispensingQuantity || '',
-        dispensingUnit: (editOrder.quantityUnits && editOrder.quantityUnits.display) || draftOrder.dispensingUnit || '',
-        reason: editOrder.asNeededCondition || draftOrder.reason || '',
-        drugInstructions: editOrder.dosingInstructions || draftOrder.drugInstructions || '',
-      },
-    });
-    this.props.removeOrder();
-  }
-
   renderDrugOrderForms = () => (
     <div>
       <DosageTabs
@@ -347,12 +334,10 @@ export class AddForm extends React.Component {
 const mapStateToProps = ({
   orderEntryConfigurations,
   drugSearchReducer,
-  draftReducer: { draftDrugOrders },
   openmrs: { session },
 }) =>
   ({
     drug: drugSearchReducer.selected,
-    draftOrders: draftDrugOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
     session,
   });
@@ -361,10 +346,8 @@ AddForm.propTypes = {
   clearSearchField: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   getOrderEntryConfigurations: PropTypes.func,
-  addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
   orderNumber: PropTypes.string,
-  draftOrders: PropTypes.arrayOf(PropTypes.any),
   allConfigurations: PropTypes.object.isRequired,
   drugName: PropTypes.string,
   careSetting: PropTypes.object.isRequired,
@@ -383,7 +366,6 @@ AddForm.propTypes = {
     dosingInstructions: PropTypes.string,
     dosingType: PropTypes.string,
   }),
-  draftOrder: PropTypes.shape({}),
   session: PropTypes.shape({
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
@@ -396,8 +378,6 @@ AddForm.defaultProps = {
   getOrderEntryConfigurations: () => {},
   drugName: '',
   editOrder: {},
-  draftOrder: {},
-  draftOrders: [],
   drugUuid: '',
   orderNumber: '0',
 };
@@ -407,7 +387,6 @@ export default connect(
   {
     getOrderEntryConfigurations,
     selectDrugSuccess,
-    addDraftOrder,
     setOrderAction,
   },
 )(AddForm);

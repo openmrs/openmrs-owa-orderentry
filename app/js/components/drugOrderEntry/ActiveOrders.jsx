@@ -4,7 +4,6 @@ import format from 'date-fns/format';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import activeOrderAction from '../../actions/activeOrderAction';
-import { addDraftOrder } from '../../actions/draftTableAction';
 import { setOrderAction } from '../../actions/orderAction';
 import imageLoader from '../../../img/loading.gif';
 
@@ -75,7 +74,7 @@ export class ActiveOrders extends React.Component {
       },
     }, () => {
       this.props.setOrderAction('DISCONTINUE', orderNumber);
-      this.props.addDraftOrder(this.state.draftOrder);
+      (draftOrder => this.state.draftOrder)();
     });
   }
 
@@ -291,7 +290,6 @@ const mapStateToProps = ({ activeOrderReducer, orderSelectionReducer }) => ({
 
 const actionCreators = {
   activeOrderAction,
-  addDraftOrder,
   setOrderAction,
 };
 
@@ -299,7 +297,6 @@ ActiveOrders.propTypes = {
   handleEditActiveDrugOrder: PropTypes.func.isRequired,
   activeOrderAction: PropTypes.func.isRequired,
   dateFormat: PropTypes.string.isRequired,
-  addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
   drugOrder: PropTypes.shape({
     loading: PropTypes.bool,
