@@ -9,7 +9,7 @@ import DosageTab from '../../tabs/DosageTab';
 import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
-import { setOrderAction } from '../../../actions/orderAction';
+import { setOrderAction, setSelectedOrder } from '../../../actions/orderAction';
 
 export class AddForm extends React.Component {
   state = {
@@ -49,6 +49,14 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { addedOrder } = this.props.addDrugOrderReducer;
+    if (addedOrder && prevProps.addDrugOrderReducer.addedOrder !== addedOrder) {
+      this.props.setSelectedOrder({
+        currentOrderType: {},
+        order: null,
+        activity: null,
+      });
+    }
     return (
       Object.keys(this.props.draftOrder).length ||
       Object.keys(this.props.editOrder).length
@@ -345,6 +353,7 @@ export class AddForm extends React.Component {
 }
 
 const mapStateToProps = ({
+  addDrugOrderReducer,
   orderEntryConfigurations,
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
@@ -355,11 +364,14 @@ const mapStateToProps = ({
     draftOrders: draftDrugOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
     session,
+    addDrugOrderReducer,
   });
 
 AddForm.propTypes = {
+  addDrugOrderReducer: PropTypes.object.isRequired,
   clearSearchField: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
+  setSelectedOrder: PropTypes.func.isRequired,
   getOrderEntryConfigurations: PropTypes.func,
   addDraftOrder: PropTypes.func.isRequired,
   setOrderAction: PropTypes.func.isRequired,
@@ -409,5 +421,6 @@ export default connect(
     selectDrugSuccess,
     addDraftOrder,
     setOrderAction,
+    setSelectedOrder,
   },
 )(AddForm);

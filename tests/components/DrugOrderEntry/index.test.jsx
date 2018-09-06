@@ -14,12 +14,6 @@ const props = {
   getPastOrders: jest.fn(),
   draftOrders: [],
   setOrderAction: jest.fn(),
-  location:{
-    search: '',
-  },
-  dateFormatReducer: {
-    dateFormat: 'DD-MMM-YYYY HH:mm',
-  },
   order,
   selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
@@ -191,9 +185,6 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       getPastOrders: jest.fn(),
       draftOrders: [],
       setOrderAction: jest.fn(),
-      location:{
-        search: '',
-      },
       order,
       selectDrugSuccess: jest.fn(),
       fetchInpatientCareSetting: jest.fn(),
@@ -201,7 +192,6 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       deleteDraftOrder: jest.fn(),
       deleteAllDraftOrders: jest.fn(),
       drug: "abc-e345-thed-uuid2345",
-      dateFormat: 'DD-MMM-YYYY HH:mm',
     };
     const wrapperOne = shallow(<SearchAndAddOrder {...propsOne} store={store} />);
     const propsTwo = {
@@ -218,9 +208,6 @@ describe('behaviour when the length of the unsaved draft orders table is more th
         {dose: '', doseUnits: ''}
       ],
       setOrderAction: jest.fn(),
-      location:{
-        search: '',
-      },
       order,
       selectDrugSuccess: jest.fn(),
       fetchInpatientCareSetting: jest.fn(),
@@ -228,7 +215,6 @@ describe('behaviour when the length of the unsaved draft orders table is more th
       deleteDraftOrder: jest.fn(),
       deleteAllDraftOrders: jest.fn(),
       drug: "abc-e345-thed-uuid2345",
-      dateFormat: 'DD-MMM-YYYY HH:mm',
     };
     const wrapperTwo = shallow(<SearchAndAddOrder {...propsTwo} store={store} />);
     expect(wrapperOne.find(ConnectedDraftTable) === wrapperTwo.find(ConnectedDraftTable)).toEqual(false);

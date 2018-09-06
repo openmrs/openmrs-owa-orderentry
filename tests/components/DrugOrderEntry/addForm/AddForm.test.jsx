@@ -6,11 +6,13 @@ const { draftOrders, draftOrder, editOrder, formType, session } = mockData;
 
 const props = {
   addDraftOrder: jest.fn(),
+  addDrugOrderReducer: jest.fn(),
   clearDrugForms: jest.fn(),
   clearSearchField: jest.fn(),
   setOrderAction: jest.fn(),
   removeOrder: jest.fn(),
   selectDrugSuccess: jest.fn(),
+  setSelectedOrder: jest.fn(),
   getOrderEntryConfigurations: jest.fn(),
   allConfigurations: {
     drugDosingUnits: [{display: 'grams'}],
@@ -231,6 +233,14 @@ describe('handleSubmitDrugForm() method', () => {
     component.handleSubmitDrugForm();
     expect(hhhSpy).toHaveBeenCalledTimes(1);
     expect(component.state.draftOrder).toEqual({ ...component.state.draftOrder, action: 'NOT_NEW', });
+  });
+  it('should change the selected order after a drug has been added', () =>{
+    const component = getComponent();
+    props.setSelectedOrder.mockReset();
+    component.setProps({ 
+      addDrugOrderReducer: { addedOrder: {order: 'just-a-sample-order'} } 
+    });
+    expect(props.setSelectedOrder).toHaveBeenCalledTimes(1);
   });
 });
 

@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Accordion } from '@openmrs/react-components';
 import AddForm from './addForm/AddForm';
-import PastOrders from './PastOrders';
 import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
-import ActiveOrders from './ActiveOrders';
 import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
 import DraftDataTable from './addForm/DraftDataTable';
@@ -162,7 +159,7 @@ export class SearchAndAddOrder extends React.PureComponent {
 
   render() {
     const {
-      outpatientCareSetting, location, dateFormat,
+      outpatientCareSetting,
     } = this.props;
     return (
       <div className="body-wrapper drug-order-entry">
@@ -170,23 +167,6 @@ export class SearchAndAddOrder extends React.PureComponent {
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
         {this.renderDraftDataTable(outpatientCareSetting)}
-        <Accordion open title="Active Drug Orders">
-          <ActiveOrders
-            careSetting={outpatientCareSetting}
-            location={location}
-            dateFormat={dateFormat}
-            handleEditActiveDrugOrder={this.handleEditActiveDrugOrder}
-          />
-        </Accordion>
-
-        <Accordion title="Past Drug Orders">
-          <PastOrders
-            careSetting={outpatientCareSetting}
-            dateFormat={dateFormat}
-            location={location}
-          />
-          <br />
-        </Accordion>
       </div>
     );
   }
@@ -197,13 +177,11 @@ const mapStateToProps = ({
   { outpatientCareSetting },
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
-  dateFormatReducer: { dateFormat },
   orderSelectionReducer: { activity, selectedOrder },
 }) => ({
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders: draftDrugOrders,
-  dateFormat,
   activity,
   selectedOrder,
 });
@@ -224,10 +202,6 @@ SearchAndAddOrder.propTypes = {
     PropTypes.string,
   ]),
   draftOrders: PropTypes.arrayOf(PropTypes.any),
-  dateFormat: PropTypes.string.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
   setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,
