@@ -7,10 +7,21 @@ import IconButton from './button/IconButton';
 
 export class Draft extends PureComponent {
   renderDraftList = () => {
+    let draftType;
     const { draftOrders, handleDraftDiscard } = this.props;
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
-      const draftType = !isPanel ? 'single' : 'panel';
+      const isOtherOrderType = !!order.type;
+
+      if (isPanel) {
+        draftType = 'panel';
+      } else {
+        draftType = 'single';
+      }
+      if (isOtherOrderType) {
+        draftType = order.type;
+      }
+
       const orderName = order.display || order.drugName;
       const iconClass = classNames(
         'scale',
