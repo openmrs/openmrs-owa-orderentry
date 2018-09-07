@@ -7,6 +7,7 @@ import {
   removeTestPanelFromDraft,
   deleteDraftLabOrder,
 } from '../actions/draftLabOrderAction';
+import { deleteAllDrugDraftOrders } from './draftTableAction';
 import constants from '../utils/constants';
 
 export const toggleDraftLabOrderUrgency = (order) => {
@@ -49,5 +50,7 @@ export const editDraftDrugOrder = order => (dispatch) => {
 export const discardTestsInDraft = (test = {}) => (dispatch) => {
   if (test.draftType === 'single') return dispatch(removeTestFromDraft(test.order));
   if (test.draftType === 'panel') return dispatch(removeTestPanelFromDraft(test.order));
-  return dispatch(deleteDraftLabOrder());
+  if (test.draftType === 'drugorder') return dispatch(deleteDraftOrder(test.order));
+  dispatch(deleteDraftLabOrder());
+  return dispatch(deleteAllDrugDraftOrders());
 };

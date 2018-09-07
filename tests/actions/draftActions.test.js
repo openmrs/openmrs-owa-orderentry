@@ -2,6 +2,7 @@ import {
   TOGGLE_DRAFT_LAB_ORDER_URGENCY,
   SET_SELECTED_ORDER,
   DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+  DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
   SELECT_DRUG,
   DELETE_TEST_FROM_DRAFT_LAB_ORDER,
   DELETE_PANEL_FROM_DRAFT_LAB_ORDER,
@@ -131,14 +132,33 @@ describe("Draft Actions", () => {
     done();
   });
 
-  it("should dispatch DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER", async done => {
+  it("should dispatch DELETE_DRAFT_DRUG_ORDER_SUCCESS", async done => {
+    const order = {
+      drugName: "paracetamol",
+      drug: "23sdfert4356reg4321"
+    };
+
+    const draftType = "drugorder";
     const expectedActions = {
-      type: DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER
+      type: DELETE_DRAFT_DRUG_ORDER_SUCCESS,
+      order: order
     };
 
     const store = mockStore({});
-    await store.dispatch(discardTestsInDraft());
+    await store.dispatch(discardTestsInDraft({ order, draftType }));
     expect(store.getActions()).toEqual([expectedActions]);
+    done();
+  });
+
+  it("should dispatch both DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS and DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER", async done => {
+    const expectedActions = [
+      { type: DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER },
+      { type: DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS }
+    ];
+
+    const store = mockStore({});
+    await store.dispatch(discardTestsInDraft());
+    expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 });

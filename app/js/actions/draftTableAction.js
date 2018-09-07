@@ -14,7 +14,7 @@ export const deleteDraftOrderSuccess = order => ({
   order,
 });
 
-export const deleteAllDraftOrdersSuccess = () => ({
+export const deleteAllDrugDraftOrdersSuccess = () => ({
   type: DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS,
 });
 
@@ -26,6 +26,6 @@ export const deleteDraftOrder = order => (dispatch) => {
   dispatch(deleteDraftOrderSuccess(order));
 };
 
-export const deleteAllDraftOrders = () => (dispatch) => {
-  dispatch(deleteAllDraftOrdersSuccess());
+export const deleteAllDrugDraftOrders = () => (dispatch) => {
+  dispatch(deleteAllDrugDraftOrdersSuccess());
 };
