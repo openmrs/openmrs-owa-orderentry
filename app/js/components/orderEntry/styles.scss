@@ -92,7 +92,8 @@
 
   .order-details {
     background-color: #fff;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .details {
@@ -123,6 +124,10 @@
   %invisible {
     border: none;
     background-color: #fff;
+  }
+  
+  .th-orderable {
+    text-transform: capitalize;
   }
 
   .th-invisible {
@@ -197,16 +202,54 @@
   }
 }
 
+.pagination {
+  display: flex;
+  text-align: center;
+  padding-left: 35%;
+  padding-right: 35%;
+  padding-bottom: 50px;
+}
+
+.page-link {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.current-page {
+  background-color: #999;
+}
+
+.page-link:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.no-click {
+  cursor: auto;
+}
+
+.no-click:hover {
+  background-color: #fff;
+}
+
+.current-page {
+  font-weight: bolder;
+}
+
 .order-actions-btn {
   span {
-    width:50%;
+    width: 50%;
     a {
       i.scale {
         text-decoration: none;
-         color: black;
+        color: black;
       }
     }
-    :hover{
+    :hover {
       transform: scale(1.5);
       -webkit-transform: scale(1.5);
       -moz-transform: scale(1.5);

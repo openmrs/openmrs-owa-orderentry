@@ -87,6 +87,7 @@ export class OrdersTable extends PureComponent {
 
 OrdersTable.defaultProps = {
   dateFormat: '',
+  filteredOrders: [],
 };
 
 OrdersTable.propTypes = {
@@ -94,9 +95,7 @@ OrdersTable.propTypes = {
   patient: PropTypes.shape({
     uuid: PropTypes.string,
   }).isRequired,
-  filteredOrders: PropTypes.shape({
-    results: PropTypes.array,
-  }).isRequired,
+  filteredOrders: PropTypes.array,
   status: PropTypes.objectOf(PropTypes.bool).isRequired,
   dateFormat: PropTypes.string,
 };
