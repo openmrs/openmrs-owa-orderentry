@@ -18,7 +18,7 @@ const DrugOrderDetails = ({
         <b>Active Dates:</b> {activeDates}
       </ul>
       <br />
-      <p>ordered by {orderer}</p>
+      <p>Ordered by {orderer}</p>
     </div>
   </div>
 );
