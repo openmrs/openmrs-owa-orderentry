@@ -92,7 +92,8 @@
 
   .order-details {
     background-color: #fff;
-    padding-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .details {
@@ -123,6 +124,10 @@
   %invisible {
     border: none;
     background-color: #fff;
+  }
+  
+  .th-orderable {
+    text-transform: capitalize;
   }
 
   .th-invisible {

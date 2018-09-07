@@ -9,7 +9,7 @@ const OrderHeader = ({
   handleEdit,
 }) => (
   <Fragment>
-    <th>{orderable}</th>
+    <th className="th-orderable">{orderable.toLowerCase()}</th>
     <th>{status}</th>
     <th className="order-actions-btn">
       {order.type === 'drugorder'
