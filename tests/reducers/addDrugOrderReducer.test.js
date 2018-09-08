@@ -7,33 +7,47 @@ import addDrugOrderReducer from '../../app/js/reducers/addDrugOrderReducer';
 const addedOrder = mockData.addedOrder;
 const error = mockData.addedOrderError
 
-describe('addDrugOrderReducer reducer for post actions', () => {
+describe('addDrugOrderReducer reducer test-suite', () => {
     const initialState = {
         addedOrder: {},
-        error: null,
+        errorMessage: '',
+        status: {
+          error: false,
+          added: false,
+        },
       };
-    it('should return addedOrder payload', () => {
+    it(`parses payload from action to key addedOrder and sets status key 
+    added to true on POST_DRUG_ORDER_SUCCESS action type`, () => {
         const action = {
             type: POST_DRUG_ORDER_SUCCESS,
-            addedOrder,
+            data: { id: 1, type: 'drugorder'},
         }
-        const expected = {
-            addedOrder: addedOrder.response,
-            error: null,
+        const expectedState = {
+            ...initialState,
+            addedOrder: { id: 1, type: 'drugorder'},
+            status: {
+              error: false,
+              added: true,
+            }
         };
-        const newSate = addDrugOrderReducer(initialState, action);
-        expect(newSate).toEqual(expected);
+        const newState = addDrugOrderReducer(initialState, action);
+        expect(newState).toEqual(expectedState);
     });
-    it('should return an error', () => {
+    it(`parses payload error message from action to key errorMessage and
+    sets status key error to true on POST_DRUG_ORDER_FAILURE action type`, () => {
         const action = {
             type: POST_DRUG_ORDER_FAILURE,
-            error,
+            payload: { response: { data: { error: { message: 'Another error' }}}},
         }
-        const expected = {
-            addedOrder: {},
-            error: error.response,
+        const expectedState = {
+            ...initialState,
+            errorMessage: 'Another error',
+            status: {
+                error: true,
+                added: false,
+            }
         };
-        const newSate = addDrugOrderReducer(initialState, action);
-        expect(newSate).toEqual(expected);
+        const newState = addDrugOrderReducer(initialState, action);
+        expect(newState).toEqual(expectedState);
     });
 });

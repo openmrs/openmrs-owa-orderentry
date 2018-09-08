@@ -5,7 +5,11 @@ import {
 
 const initialState = {
   addedOrder: {},
-  error: null,
+  errorMessage: '',
+  status: {
+    error: false,
+    added: false,
+  },
 };
 
 const addDrugOrderReducer = (state = initialState, action) => {
@@ -14,11 +18,20 @@ const addDrugOrderReducer = (state = initialState, action) => {
       return {
         ...state,
         addedOrder: action.data,
+        errorMessage: '',
+        status: {
+          error: false,
+          added: true,
+        },
       };
     case POST_DRUG_ORDER_FAILURE:
       return {
         ...state,
-        error: action.payload,
+        errorMessage: action.payload.response.data.error.message,
+        status: {
+          error: true,
+          added: false,
+        },
       };
     default:
       return state;

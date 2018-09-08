@@ -1,0 +1,3 @@
+{
+  "Order.cannot.have.more.than.one": "Cannot have more than one active order for the same orderable and care setting at same time"
+}

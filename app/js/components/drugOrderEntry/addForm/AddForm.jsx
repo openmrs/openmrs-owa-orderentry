@@ -10,6 +10,8 @@ import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
 import { setOrderAction, setSelectedOrder } from '../../../actions/orderAction';
+import { successToast, errorToast } from '../../../utils/toast';
+import errorMessages from '../../../utils/errorMessages.json';
 
 export class AddForm extends React.Component {
   state = {
@@ -49,13 +51,19 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { addedOrder } = this.props.addDrugOrderReducer;
+    const { status: { added, error }, errorMessage, addedOrder } = this.props.addDrugOrderReducer;
     if (addedOrder && prevProps.addDrugOrderReducer.addedOrder !== addedOrder) {
       this.props.setSelectedOrder({
         currentOrderType: {},
         order: null,
         activity: null,
       });
+    }
+    if (added && prevProps.addDrugOrderReducer.addedOrder !== addedOrder) {
+      successToast('Order Successfully Created');
+    }
+    if (error && prevProps.addDrugOrderReducer.errorMessage !== errorMessage) {
+      errorToast(errorMessages[errorMessage.join('')]);
     }
     return (
       Object.keys(this.props.draftOrder).length ||
@@ -368,7 +376,6 @@ const mapStateToProps = ({
   });
 
 AddForm.propTypes = {
-  addDrugOrderReducer: PropTypes.object.isRequired,
   clearSearchField: PropTypes.func.isRequired,
   selectDrugSuccess: PropTypes.func,
   setSelectedOrder: PropTypes.func.isRequired,
@@ -400,6 +407,11 @@ AddForm.propTypes = {
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
     }),
+  }).isRequired,
+  addDrugOrderReducer: PropTypes.shape({
+    status: PropTypes.objectOf(PropTypes.bool),
+    errorMessage: PropTypes.string,
+    addedOrder: PropTypes.object,
   }).isRequired,
 };
 
