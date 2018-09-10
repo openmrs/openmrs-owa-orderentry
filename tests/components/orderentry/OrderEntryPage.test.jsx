@@ -76,6 +76,14 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         ],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -175,6 +183,14 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -229,6 +245,14 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -271,6 +295,14 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -322,6 +354,14 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -364,6 +404,14 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     };
     mountedComponent = undefined;
   });
@@ -434,6 +482,14 @@ describe('Handling Submit', () => {
       orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
     },
     draftDrugOrders: [{ drugName: 'paracetamol', }],
+    createLabOrderReducer: {
+      status: {
+        error: false,
+        added: false,
+      },
+      labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
+    },
+    fetchLabOrders: jest.fn(),
   };
   const wrapper = shallow(<OrderEntryPage {...newProps} />);
 
@@ -449,6 +505,37 @@ describe('Handling Submit', () => {
     handleSubmit();
     expect(newProps.createLabOrder).toHaveBeenCalled();
   });
+
+  it('shows a toast prompt when test is submitted successfully', () => {
+    const component = getComponent();
+    component.setProps({
+      ...component.props(),
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
+      },
+    });
+    expect(global.toastrMessage).toEqual('order successfully created');
+  });
+});
+
+it('shows a toast prompt when there is an error in submission', () => {
+  const component = getComponent();
+  component.setProps({
+    ...component.props(),
+    createLabOrderReducer: {
+      status: {
+        error: true,
+        added: false,
+      },
+      labOrderData: {},
+      errorMessage: 'an error occured',
+    },
+  });
+  expect(global.toastrMessage).toEqual('an error occured');
 });
 
 describe('Connected OrderEntryPage component', () => {
@@ -508,6 +595,14 @@ describe('Connected OrderEntryPage component', () => {
         },
         draftDrugOrders: [{ drugName: 'paracetamol' }],
       },
+      createLabOrderReducer: {
+        status: {
+          error: false,
+          added: true,
+        },
+        labOrderData: {},
+      },
+      fetchLabOrders: jest.fn(),
     });
     const props = {
       location: { search: '?patient=esere_shbfidfb_343ffd' },
