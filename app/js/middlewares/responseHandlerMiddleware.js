@@ -28,8 +28,8 @@ export default function responseHandlerMiddleware() {
     }
 
     if (
-      action.type === FETCH_ENCOUNTER_ROLE_SUCCESS
-      || action.type === FETCH_ENCOUNTER_TYPE_SUCCESS
+      action.type === FETCH_ENCOUNTER_ROLE_SUCCESS ||
+      action.type === FETCH_ENCOUNTER_TYPE_SUCCESS
     ) {
       const { results } = action.payload.data;
       try {
@@ -57,6 +57,15 @@ export default function responseHandlerMiddleware() {
       next({ type: 'PAST_ORDERS_PAGE_COUNT', pageCount });
       return next({ ...action, pastOrders: results });
     }
+
+    if (action.type === 'SAVE_DRAFT_LAB_ORDER_SUCCESS') {
+      next({ type: 'DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER' });
+      next({ type: 'DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS' });
+      next({
+        type: 'SET_SELECTED_ORDER', currentOrderType: {}, selectedorder: {}, activity: {},
+      });
+    }
+
     if (action.payload) {
       return next({
         ...action,

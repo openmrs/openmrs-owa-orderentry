@@ -42,26 +42,8 @@ export class LabEntryForm extends PureComponent {
     patient: PropTypes.shape({
       uuid: PropTypes.string,
     }),
-    encounterType: PropTypes.shape({
-      uuid: PropTypes.string,
-    }).isRequired,
-    encounterRole: PropTypes.shape({
-      uuid: PropTypes.string,
-    }),
-    inpatientCareSetting: PropTypes.shape({
-      uuid: PropTypes.string,
-    }),
     conceptsAsPanels: PropTypes.array,
     standAloneTests: PropTypes.array,
-    session: PropTypes.shape({
-      currentProvider: PropTypes.shape({
-        person: PropTypes.shape({
-          uuid: PropTypes.string,
-        }),
-        uuid: PropTypes.string,
-      }),
-      currentLocation: PropTypes.object,
-    }),
     orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
     getLabOrderables: PropTypes.string.isRequired,
   };
@@ -71,24 +53,11 @@ export class LabEntryForm extends PureComponent {
       status: {},
       errorMessage: '',
     },
-    encounterRole: {
-      uuid: '',
-    },
     patient: {
-      uuid: '',
-    },
-    inpatientCareSetting: {
       uuid: '',
     },
     conceptsAsPanels: [],
     standAloneTests: [],
-    session: {
-      currentProvider: {
-        person: {
-          uuid: '',
-        },
-      },
-    },
     labOrders: {
       results: [],
     },
@@ -126,7 +95,7 @@ export class LabEntryForm extends PureComponent {
       labOrderData,
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
-      successToast('lab order successfully created');
+      successToast('order successfully created');
       this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
     }
     if (error) {
@@ -194,38 +163,6 @@ export class LabEntryForm extends PureComponent {
       categoryUUID: id,
       categoryName: name,
     });
-  };
-
-  handleSubmit = () => {
-    const { draftLabOrders } = this.props;
-    const isEmpty = !draftLabOrders.length;
-    if (isEmpty) return;
-    const orders = draftLabOrders.map(labOrder => (
-      {
-        concept: labOrder.uuid,
-        careSetting: this.props.inpatientCareSetting.uuid,
-        encounter: this.props.encounterType.uuid,
-        orderer: this.props.session.currentProvider.uuid,
-        patient: this.props.patient.uuid,
-        type: 'testorder',
-        urgency: labOrder.urgency || 'ROUTINE',
-      }
-    ));
-
-    const encounterPayload = {
-      encounterProviders: [
-        {
-          encounterRole: this.props.encounterRole.uuid,
-          provider: this.props.session.currentProvider.uuid,
-        },
-      ],
-      encounterType: this.props.encounterType.uuid,
-      location: this.props.session.currentLocation,
-      orders,
-      patient: this.props.patient.uuid,
-    };
-    this.props.dispatch(createLabOrder(encounterPayload));
-    this.props.dispatch(deleteDraftLabOrder());
   };
 
   renderPendingOrders = () => {
@@ -321,11 +258,8 @@ export const mapStateToProps = ({
     conceptsAsPanels,
     standAloneTests,
   },
-  openmrs: { session },
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
-  encounterRoleReducer: { encounterRole },
-  encounterReducer: { encounterType },
   careSettingReducer: { inpatientCareSetting },
   createLabOrderReducer,
   labOrderableReducer: { orderables },
@@ -339,12 +273,9 @@ export const mapStateToProps = ({
   defaultTests,
   selectedTests,
   labOrders,
-  encounterType,
   inpatientCareSetting,
   createLabOrderReducer,
-  encounterRole,
   patient,
-  session,
   orderables,
   getLabOrderables,
 });
