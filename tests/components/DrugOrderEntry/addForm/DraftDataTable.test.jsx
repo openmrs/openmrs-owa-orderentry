@@ -145,7 +145,6 @@ describe('behaviour when adding an order fails', () => {
       patient,
       careSetting,
       draftOrders,
-      addedOrder: {},
       addOrderError: {
         response: {
           data: {

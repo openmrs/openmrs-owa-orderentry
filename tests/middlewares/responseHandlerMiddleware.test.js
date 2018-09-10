@@ -120,6 +120,25 @@ describe('responseHandlerMiddleware', () => {
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([{pastOrdersResultCount: "Showing 1 to 5 of undefined entries", type: "PAST_ORDERS_RESULT_COUNT"}]);
   });
+  it('should dispatch DISCONTINUE_ACTIVE_DRUG_ORDER after POST_DRUG_ORDER_SUCCESS when meta activity is set to DISCONTINUE', () => {
+    const action = {
+      type: 'POST_DRUG_ORDER_SUCCESS',
+      payload: {
+          data: {
+              results: [{}, {}],
+              totalConut: 2,
+          },
+      },
+      meta: {
+          activity: 'DISCONTINUE',
+          orderNumber: 2,
+      }
+    };
+    nextArgs = [];
+
+    nextHandler(fakeNext)(action);
+    expect(nextArgs[0]).toEqual([{"orderNumber": 2, "type": "DISCONTINUE_ACTIVE_DRUG_ORDER"}]);
+  });
   it('should handle responses for all actions after promise has been resolved', () => {
     const action = {
       type: 'SOME_ACTION_TYPE',

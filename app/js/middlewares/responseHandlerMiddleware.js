@@ -1,11 +1,12 @@
+import toastr from 'toastr';
 import {
   GET_DATE_SUCCESS,
   GET_DATE_FAILURE,
   FETCH_ENCOUNTER_ROLE_SUCCESS,
-  FETCH_ENCOUNTER_ROLE_FAILURE,
   FETCH_ENCOUNTER_TYPE_SUCCESS,
-  FETCH_ENCOUNTER_TYPE_FAILURE,
   LOAD_PAST_ORDERS_SUCCESS,
+  POST_DRUG_ORDER_SUCCESS,
+  DISCONTINUE_ACTIVE_DRUG_ORDER,
 } from '../actions/actionTypes';
 
 export default function responseHandlerMiddleware() {
@@ -56,6 +57,10 @@ export default function responseHandlerMiddleware() {
       next({ type: 'PAST_ORDERS_RESULT_COUNT', pastOrdersResultCount });
       next({ type: 'PAST_ORDERS_PAGE_COUNT', pageCount });
       return next({ ...action, pastOrders: results });
+    }
+    if (action.type === POST_DRUG_ORDER_SUCCESS && action.meta.activity === 'DISCONTINUE') {
+      toastr.success('Order discontinued Succesfully');
+      next({ type: DISCONTINUE_ACTIVE_DRUG_ORDER, orderNumber: action.meta.orderNumber });
     }
     if (action.payload) {
       return next({

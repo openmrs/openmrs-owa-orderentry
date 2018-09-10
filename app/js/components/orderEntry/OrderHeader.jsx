@@ -7,6 +7,7 @@ const OrderHeader = ({
   orderable,
   order,
   handleEdit,
+  handleDiscontinue,
 }) => (
   <Fragment>
     <th className="th-orderable">{orderable.toLowerCase()}</th>
@@ -20,12 +21,14 @@ const OrderHeader = ({
           dataContext={order}
         />
       }
-      <IconButton
+      {order.type === 'drugorder'
+      && <IconButton
         iconClass="icon-remove"
         iconTitle="DISCONTINUE"
-        onClick={() => {}}
         dataContext={order}
+        onClick={handleDiscontinue}
       />
+      }
     </th>
   </Fragment>
 );
@@ -43,4 +46,5 @@ OrderHeader.propTypes = {
   orderable: PropTypes.string,
   order: PropTypes.object,
   handleEdit: PropTypes.func.isRequired,
+  handleDiscontinue: PropTypes.func.isRequired,
 };

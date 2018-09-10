@@ -68,6 +68,14 @@ const fetchOrdersReducer = (state = initialState, action) => {
       };
     }
 
+    case 'DISCONTINUE_ACTIVE_DRUG_ORDER': {
+      return {
+        ...state,
+        filteredOrders: state.filteredOrders
+          .filter(order => order.orderNumber !== action.orderNumber),
+      };
+    }
+
     default:
       return state;
   }
