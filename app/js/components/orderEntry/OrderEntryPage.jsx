@@ -14,6 +14,8 @@ import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
+import { successToast, errorToast } from '../../utils/toast';
+import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import {
   editDraftDrugOrder,
   toggleDraftLabOrderUrgency,
@@ -33,6 +35,21 @@ export class OrderEntryPage extends PureComponent {
     this.props.getDateFormat('default');
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      status: { added, error },
+      errorMessage,
+      labOrderData,
+    } = this.props.createLabOrderReducer;
+    if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
+      successToast('order successfully created');
+      this.props.fetchLabOrders(null, this.props.patient.uuid);
+    }
+    if (error) {
+      errorToast(errorMessage);
+    }
   }
 
   getUUID = (items, itemName) => items.find(item => item.display === itemName);
@@ -374,6 +391,12 @@ OrderEntryPage.propTypes = {
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
   discardTestsInDraft: PropTypes.func.isRequired,
   createLabOrder: PropTypes.func.isRequired,
+  createLabOrderReducer: PropTypes.shape({
+    status: PropTypes.objectOf(PropTypes.bool),
+    errorMessage: PropTypes.string,
+    labOrderData: PropTypes.object,
+  }).isRequired,
+  fetchLabOrders: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -415,6 +438,7 @@ const mapStateToProps = ({
   encounterRoleReducer: { encounterRole },
   encounterReducer: { encounterType },
   openmrs: { session },
+  createLabOrderReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -430,6 +454,7 @@ const mapStateToProps = ({
   encounterRole,
   session,
   configurations,
+  createLabOrderReducer,
 });
 
 const actionCreators = {
@@ -446,6 +471,7 @@ const actionCreators = {
   editDraftDrugOrder,
   discardTestsInDraft,
   createLabOrder,
+  fetchLabOrders,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
