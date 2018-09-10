@@ -136,5 +136,6 @@ export default {
   orderSelection: {
     currentOrderType: {},
     selectedOrder: {},
+    activity: '',
   },
 };

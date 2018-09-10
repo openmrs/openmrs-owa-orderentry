@@ -171,4 +171,16 @@ describe('responseHandlerMiddleware', () => {
     }
     ]);
   });
+  it('should dispatch SAVE_DRAFT_LAB_ORDER_SUCCESS',() => {
+      const action = {
+        type: 'SAVE_DRAFT_LAB_ORDER_SUCCESS'
+      }
+      nextArgs = [],
+      nextHandler(fakeNext)(action);
+      expect(nextArgs[0]).toEqual([
+          {
+              type: 'DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER'
+          }
+      ])
+  })
 });

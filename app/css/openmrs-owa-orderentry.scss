@@ -8,13 +8,17 @@
  */
 
 body {
-  font-family: 'OpenSans', Arial, sans-serif;
+  font-family: "OpenSans", Arial, sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   max-width: 1000px;
   margin: 10px auto;
   background: #eeeeee;
   color: #363463;
   font-size: 16px;
+}
+
+*:focus {
+  outline: none;
 }
 
 .body-wrapper {
@@ -30,7 +34,29 @@ body {
   -khtml-border-radius: 5px;
   border-radius: 0px 0px 5px 5px;
   min-height: 500px;
-  justify-content: center;
+  display: flex;
+
+  .ui-tabs {
+    flex-direction: row;
+  }
+
+  .all-orders {
+    width: 100%;
+  }
+
+  .lab-order-entry {
+    flex-direction: row;
+    width: 65%;
+  }
+
+  .drug-order-entry {
+    flex-direction: row;
+    width: 65%;
+  }
+
+  .draft-wrapper {
+    margin-left: 2rem;
+  }
 }
 
 .app-title {

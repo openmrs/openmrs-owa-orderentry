@@ -158,39 +158,29 @@ describe('Component: LabEntryForm', () => {
     expect(dispatch).toBeCalled();
   });
 
-  it('should dispatch an action to handle single test deletion', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft(mockTest, 'single');
-    expect(dispatch).toBeCalled();
+  it('should dispatch an action to handle single test deletion', () => {	
+    const instance = getComponent().instance();	
+    instance.state.selectedPanelIds = [1];	
+     const dispatch = jest.spyOn(props, 'dispatch');	
+    instance.discardTestsInDraft(mockTest, 'single');	
+    expect(dispatch).toBeCalled();	
   });
 
-  it('should dispatch an action to handle panel deletion', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft(mockPanel, 'panel');
-    expect(dispatch).toBeCalled();
+  it('should dispatch an action to handle panel deletion', () => {	
+    const instance = getComponent().instance();	
+    instance.state.selectedPanelIds = [1];	
+     const dispatch = jest.spyOn(props, 'dispatch');	
+    instance.discardTestsInDraft(mockPanel, 'panel');	
+    expect(dispatch).toBeCalled();	
   });
 
-  it('should dispatch an action to handle deletion of all items from the draft', () => {
-    const instance = getComponent().instance();
-    instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.discardTestsInDraft();
-    expect(dispatch).toBeCalled();
+  it('should dispatch an action to handle deletion of all items from the draft', () => {	
+    const instance = getComponent().instance();	
+    instance.state.selectedPanelIds = [1];	
+     const dispatch = jest.spyOn(props, 'dispatch');	
+    instance.discardTestsInDraft();	
+    expect(dispatch).toBeCalled();	
   });
-
-  it('should toggle the urgency state of a test', () => {
-    const instance = getComponent().instance();
-    const dispatch = jest.spyOn(props, 'dispatch');
-    instance.handleUrgencyChange();
-    expect(dispatch).toBeCalled();
-  }) 
 
   it(`should change the default lab form's tests category by toggling component state`, () => {
     const component = getComponent();
@@ -205,9 +195,6 @@ describe('Component: LabEntryForm', () => {
 
   it('shows a toast prompt when test is submitted successfully', () => {
     const component = getComponent();
-    const addButton = component.find('.confirm');
-    addButton.simulate('click', {});
-
     component.setProps({
       ...component.props(),
       createLabOrderReducer: {
@@ -218,13 +205,11 @@ describe('Component: LabEntryForm', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('lab order successfully created');
+    expect(global.toastrMessage).toEqual('order successfully created');
   });
 
   it('shows a toast prompt when there is an error in submission', () => {
     const component = getComponent();
-    const addButton = component.find('.confirm').at(0);
-    addButton.simulate('click', {});
     component.setProps({
       ...component.props(),
       createLabOrderReducer: {

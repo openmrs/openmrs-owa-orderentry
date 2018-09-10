@@ -7,7 +7,6 @@ import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
-import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
 import './styles.scss';
 
@@ -32,6 +31,38 @@ export class SearchAndAddOrder extends React.PureComponent {
         </td>
       );
       this.handleEditActiveDrugOrder({ ...selectedOrder, status: activity }, details);
+    } else if (activity === 'DRAFT_ORDER_EDIT' && selectedOrder) {
+      this.setState({
+        draftOrder: selectedOrder,
+        editDrugUuid: selectedOrder.drug,
+        editDrugName: selectedOrder.drugName,
+        orderNumber: selectedOrder.orderNumber,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedOrder, activity } = this.props;
+    if (activity === 'DRAFT_ORDER_EDIT' && selectedOrder &&
+      ((!this.state.editDrugUuid && selectedOrder) ||
+      (this.state.editDrugUuid &&
+        (this.state.editDrugUuid !== selectedOrder.drug)
+      ))
+    ) {
+      this.setState({
+        draftOrder: selectedOrder,
+        editDrugUuid: selectedOrder.drug,
+        editDrugName: selectedOrder.drugName,
+        orderNumber: selectedOrder.orderNumber,
+      });
+    }
+    if (!selectedOrder && this.state.editDrugUuid) {
+      this.setState({
+        draftOrder: {},
+        editDrugUuid: '',
+        editDrugName: '',
+        orderNumber: '',
+      });
     }
   }
 
@@ -134,6 +165,7 @@ export class SearchAndAddOrder extends React.PureComponent {
   renderAddForm = careSetting => (
     <div>
       <AddForm
+        currentOrderType={this.props.currentOrderType}      
         drugName={this.state.editDrugName ? this.state.editDrugName : this.props.drug.display}
         drugUuid={this.state.editDrugUuid ? this.state.editDrugUuid : this.props.drug.uuid}
         editOrder={this.state.editOrder}
@@ -146,27 +178,15 @@ export class SearchAndAddOrder extends React.PureComponent {
     </div>
   );
 
-  renderDraftDataTable = careSetting => (
-    (this.props.draftOrders.length > 0) &&
-    <DraftDataTable
-      draftOrders={this.props.draftOrders}
-      handleDiscardOneOrder={this.handleDiscardOneOrder}
-      handleDiscardAllOrders={this.handleDiscardAllOrders}
-      handleEditDraftOrder={this.handleEditDraftOrder}
-      careSetting={careSetting}
-    />
-  )
-
   render() {
     const {
       outpatientCareSetting,
     } = this.props;
     return (
-      <div className="body-wrapper drug-order-entry">
+      <div className="drug-order-entry">
         <h5 className="drug-form-header">New Drug Order</h5>
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
-        {this.renderDraftDataTable(outpatientCareSetting)}
       </div>
     );
   }
@@ -177,23 +197,26 @@ const mapStateToProps = ({
   { outpatientCareSetting },
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
-  orderSelectionReducer: { activity, selectedOrder },
+  dateFormatReducer: { dateFormat },
+  orderSelectionReducer: { activity, selectedOrder, currentOrderType },
 }) => ({
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders: draftDrugOrders,
   activity,
   selectedOrder,
+  currentOrderType,
 });
 
 SearchAndAddOrder.defaultProps = {
-  draftOrders: [],
+  currentOrderType: {},
   drug: null,
   selectedOrder: {},
   activity: '',
 };
 
 SearchAndAddOrder.propTypes = {
+  currentOrderType: PropTypes.object,
   drug: PropTypes.oneOfType([
     PropTypes.shape({
       uuid: PropTypes.string,
@@ -201,7 +224,6 @@ SearchAndAddOrder.propTypes = {
     }),
     PropTypes.string,
   ]),
-  draftOrders: PropTypes.arrayOf(PropTypes.any),
   setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,

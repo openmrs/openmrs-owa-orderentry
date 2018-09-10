@@ -13,11 +13,10 @@ import {
   removeTestFromDraft,
   addTestToDraft,
   deleteDraftLabOrder,
-  toggleDraftLabOrdersUgency,
 } from '../../actions/draftLabOrderAction';
 import '../../../css/grid.scss';
 import './styles.scss';
-
+import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import fetchLabConcepts from '../../actions/labOrders/labConceptsAction';
 import { setSelectedOrder } from '../../actions/orderAction';
 
@@ -37,17 +36,10 @@ export class LabEntryForm extends PureComponent {
     patient: PropTypes.shape({
       uuid: PropTypes.string,
     }),
-    encounterType: PropTypes.shape({
-      uuid: PropTypes.string,
-    }).isRequired,
-    encounterRole: PropTypes.shape({
-      uuid: PropTypes.string,
-    }),
-    inpatientCareSetting: PropTypes.shape({
-      uuid: PropTypes.string,
-    }),
     conceptsAsPanels: PropTypes.array,
     standAloneTests: PropTypes.array,
+    orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getLabOrderables: PropTypes.string.isRequired,
     session: PropTypes.shape({
       currentProvider: PropTypes.shape({
         person: PropTypes.shape({
@@ -57,8 +49,15 @@ export class LabEntryForm extends PureComponent {
       }),
       currentLocation: PropTypes.object,
     }),
-    orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
-    getLabOrderables: PropTypes.string.isRequired,
+    encounterType: PropTypes.shape({
+      uuid: PropTypes.string,
+    }).isRequired,
+    encounterRole: PropTypes.shape({
+      uuid: PropTypes.string,
+    }).isRequired,
+    inpatientCareSetting: PropTypes.shape({
+      uuid: PropTypes.string,
+    }).isRequired,
   };
 
   static defaultProps = {
@@ -66,13 +65,7 @@ export class LabEntryForm extends PureComponent {
       status: {},
       errorMessage: '',
     },
-    encounterRole: {
-      uuid: '',
-    },
     patient: {
-      uuid: '',
-    },
-    inpatientCareSetting: {
       uuid: '',
     },
     conceptsAsPanels: [],
@@ -117,7 +110,8 @@ export class LabEntryForm extends PureComponent {
       labOrderData,
     } = this.props.createLabOrderReducer;
     if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
-      successToast('lab order successfully created');
+      successToast('order successfully created');
+      this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
       this.props.dispatch(setSelectedOrder({
         currentOrderType: {},
         order: null,
@@ -158,10 +152,6 @@ export class LabEntryForm extends PureComponent {
       if (!isSelectedPanelTest && isSelected) dispatch(removeTestFromDraft(item));
       if (!isSelectedPanelTest && !isSelected)dispatch(addTestToDraft(item));
     }
-  }
-
-  handleUrgencyChange = (order) => {
-    this.props.dispatch(toggleDraftLabOrdersUgency(order));
   }
 
   discardTestsInDraft = (test, action) => {
@@ -227,18 +217,6 @@ export class LabEntryForm extends PureComponent {
     this.props.dispatch(deleteDraftLabOrder());
   };
 
-  renderLabDraftOrder = () => (
-    <div className="draft-lab-wrapper">
-      <LabDraftOrder
-        toggleDraftLabOrdersUgency={this.handleUrgencyChange}
-        handleDraftDiscard={this.discardTestsInDraft}
-        draftLabOrders={this.props.draftLabOrders}
-        panelTests={this.state.selectedPanelTestIds}
-        handleSubmit={() => this.handleSubmit()}
-      />
-    </div>
-  );
-
   render() {
     const {
       handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
@@ -266,7 +244,6 @@ export class LabEntryForm extends PureComponent {
                       </li>
                     ))}
                   </ul>
-                  {this.renderLabDraftOrder()}
                 </div>
                 <div className="order-form-wrapper">
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
@@ -294,11 +271,8 @@ export const mapStateToProps = ({
     conceptsAsPanels,
     standAloneTests,
   },
-  openmrs: { session },
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
-  encounterRoleReducer: { encounterRole },
-  encounterReducer: { encounterType },
   careSettingReducer: { inpatientCareSetting },
   createLabOrderReducer,
   labOrderableReducer: { orderables },
@@ -311,12 +285,9 @@ export const mapStateToProps = ({
   defaultTests,
   selectedTests,
   labOrders,
-  encounterType,
   inpatientCareSetting,
   createLabOrderReducer,
-  encounterRole,
   patient,
-  session,
   orderables,
   getLabOrderables,
 });
