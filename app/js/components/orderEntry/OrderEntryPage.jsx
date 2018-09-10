@@ -9,7 +9,7 @@ import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
-import { getLabOrderables } from "../../actions/labOrders/settingLabOrderableAction";
+import { getLabOrderables } from '../../actions/labOrders/settingLabOrderableAction';
 import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
@@ -20,12 +20,12 @@ import {
   discardTestsInDraft,
 } from '../../actions/draftActions';
 import imageLoader from '../../../img/loading.gif';
+import createLabOrder from '../../actions/createLabOrder';
 import './styles.scss';
 
 export class OrderEntryPage extends PureComponent {
   componentDidMount() {
     const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
-
     this.props.fetchPatientCareSetting();
     this.props.getSettingEncounterType();
     this.props.getSettingEncounterRole();
@@ -34,6 +34,15 @@ export class OrderEntryPage extends PureComponent {
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
   }
+
+  getUUID = (items, itemName) => items.find(item => item.display === itemName);
+
+  switchOrderType = (newOrderType) => {
+    if (!newOrderType) {
+      return this.props.setSelectedOrder({ currentOrderType: {} });
+    }
+    return this.props.setSelectedOrder({ currentOrderType: newOrderType });
+  };
 
   moreInformation = () => (
     <p>
@@ -48,11 +57,92 @@ export class OrderEntryPage extends PureComponent {
     </p>
   );
 
-  switchOrderType = (newOrderType) => {
-    if (!newOrderType) {
-      return this.props.setSelectedOrder({ currentOrderType: {} });
-    }
-    return this.props.setSelectedOrder({ currentOrderType: newOrderType });
+  formatDrugOrderData = (order) => {
+    const {
+      drugDispensingUnits,
+      drugDosingUnits,
+      drugRoutes,
+      durationUnits,
+      orderFrequencies,
+    } = this.props.configurations;
+    const {
+      action,
+      reason,
+      careSetting,
+      dose,
+      dosingUnit,
+      drugInstructions,
+      dosingType,
+      drug,
+      duration,
+      durationUnit,
+      frequency,
+      orderer,
+      dispensingQuantity,
+      dispensingUnit,
+      route,
+      type,
+      previousOrder,
+    } = order;
+
+    return {
+      action,
+      asNeeded: reason || false,
+      asNeededCondition: reason,
+      autoExpireDate: null,
+      orderReasonNonCoded: null,
+      careSetting,
+      commentToFulfiller: '',
+      dose: dose || null,
+      doseUnits: dosingUnit ? this.getUUID(drugDosingUnits, dosingUnit).uuid : null,
+      dosingInstructions: drugInstructions || null,
+      dosingType,
+      drug,
+      duration: duration || null,
+      durationUnits: durationUnit ? this.getUUID(durationUnits, durationUnit).uuid : null,
+      frequency: frequency ? this.getUUID(orderFrequencies, frequency).uuid : null,
+      numRefills: 0,
+      orderer,
+      previousOrder,
+      quantity: dispensingQuantity || null,
+      quantityUnits:
+      dispensingUnit ? this.getUUID(drugDispensingUnits, dispensingUnit).uuid : null,
+      route: route ? this.getUUID(drugRoutes, route).uuid : null,
+      type,
+    };
+  };
+
+  formatLabOrderData = order => ({
+    concept: order.uuid,
+    careSetting: this.props.inpatientCareSetting.uuid,
+    encounter: this.props.encounterType.uuid,
+    orderer: this.props.session.currentProvider.uuid,
+    patient: this.props.patient.uuid,
+    type: 'testorder',
+    urgency: order.urgency || 'ROUTINE',
+  });
+
+  handleSubmit = () => {
+    const { draftLabOrders, draftDrugOrders } = this.props;
+    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
+    const orders = allDraftOrders.map(order =>
+      (order.type === 'drugorder'
+        ? this.formatDrugOrderData(order)
+        : this.formatLabOrderData(order)));
+
+    const encounterPayload = {
+      encounterProviders: [
+        {
+          encounterRole: this.props.encounterRole.uuid,
+          provider: this.props.session.currentProvider.uuid,
+        },
+      ],
+      encounterType: this.props.encounterType.uuid,
+      location: this.props.session.currentLocation,
+      orders,
+      patient: this.props.patient.uuid,
+    };
+    this.props.createLabOrder(encounterPayload);
   };
 
   renderDraftOrder = () => {
@@ -63,12 +153,13 @@ export class OrderEntryPage extends PureComponent {
         <Draft
           handleDraftDiscard={this.props.discardTestsInDraft}
           draftOrders={allDraftOrders}
-          handleSubmit={() => {}}
+          handleSubmit={this.handleSubmit}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
           editDraftDrugOrder={this.props.editDraftDrugOrder}
         />
-      </div>);
-  }
+      </div>
+    );
+  };
 
   render() {
     const query = new URLSearchParams(this.props.location.search);
@@ -103,7 +194,8 @@ export class OrderEntryPage extends PureComponent {
             As an Administrator,&nbsp;
             {error === 'incomplete config' ? (
               <span>
-                please ensure that you have created a valid<strong> encounter type </strong>.
+                please ensure that you have created a valid
+                <strong> encounter type </strong>.
               </span>
             ) : (
               <span>
@@ -123,7 +215,8 @@ export class OrderEntryPage extends PureComponent {
       return (
         <div className="error-notice">
           <p>
-            Configuration for<strong> orderentryowa.encounterRole </strong>{' '}
+            Configuration for
+            <strong> orderentryowa.encounterRole </strong>{' '}
             {roleError === 'incomplete config' ? 'is incomplete' : 'does not exist'}. Please contact
             your administrator for more information.
           </p>
@@ -131,7 +224,8 @@ export class OrderEntryPage extends PureComponent {
             As an Administrator,&nbsp;
             {roleError === 'incomplete config' ? (
               <span>
-                please ensure that you have created a valid<strong> encounter role </strong>.
+                please ensure that you have created a valid
+                <strong> encounter role </strong>.
               </span>
             ) : (
               <span>
@@ -171,7 +265,10 @@ export class OrderEntryPage extends PureComponent {
             <PatientHeader patient={this.props.patient} note={this.props.note} />
             <div className="header-nav">
               <div>
-                <h3 className="orders-nav" onClick={() => { this.switchOrderType(); }} role="button">
+                <h3
+                  className="orders-nav"
+                  onClick={() => this.switchOrderType()}
+                  role="button">
                   <b>Orders List</b>
                 </h3>
               </div>
@@ -216,6 +313,13 @@ OrderEntryPage.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+  configurations: PropTypes.shape({
+    drugDispensingUnits: PropTypes.arrayOf(PropTypes.any),
+    drugDosingUnits: PropTypes.arrayOf(PropTypes.any),
+    drugRoutes: PropTypes.arrayOf(PropTypes.any),
+    durationUnits: PropTypes.arrayOf(PropTypes.any),
+    orderFrequencies: PropTypes.arrayOf(PropTypes.any),
+  }).isRequired,
   outpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string,
     display: PropTypes.string,
@@ -238,7 +342,24 @@ OrderEntryPage.propTypes = {
     dateFormat: PropTypes.string,
     error: PropTypes.string,
   }),
-  patient: PropTypes.shape({}).isRequired,
+  encounterType: PropTypes.shape({
+    uuid: PropTypes.string,
+  }).isRequired,
+  encounterRole: PropTypes.shape({
+    uuid: PropTypes.string,
+  }),
+  conceptsAsPanels: PropTypes.array,
+  standAloneTests: PropTypes.array,
+  session: PropTypes.shape({
+    currentProvider: PropTypes.shape({
+      person: PropTypes.shape({
+        uuid: PropTypes.string,
+      }),
+      uuid: PropTypes.string,
+    }),
+    currentLocation: PropTypes.object,
+  }),
+  patient: PropTypes.shape({ uuid: PropTypes.string }),
   note: PropTypes.arrayOf(PropTypes.any).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
@@ -252,18 +373,37 @@ OrderEntryPage.propTypes = {
   draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
   discardTestsInDraft: PropTypes.func.isRequired,
+  createLabOrder: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
-  inpatientCareSetting: null,
   outpatientCareSetting: null,
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
   currentOrderType: {},
+  encounterRole: {
+    uuid: '',
+  },
+  patient: {
+    uuid: '',
+  },
+  inpatientCareSetting: {
+    uuid: '',
+  },
+  conceptsAsPanels: [],
+  standAloneTests: [],
+  session: {
+    currentProvider: {
+      person: {
+        uuid: '',
+      },
+    },
+  },
 };
 
 const mapStateToProps = ({
+  orderEntryConfigurations: { configurations },
   careSettingReducer: { outpatientCareSetting, inpatientCareSetting },
   settingEncounterTypeReducer,
   settingEncounterRoleReducer,
@@ -271,10 +411,10 @@ const mapStateToProps = ({
   patientReducer: { patient },
   noteReducer: { note },
   orderSelectionReducer: { currentOrderType },
-  draftReducer: {
-    draftDrugOrders,
-    draftLabOrders,
-  },
+  draftReducer: { draftDrugOrders, draftLabOrders },
+  encounterRoleReducer: { encounterRole },
+  encounterReducer: { encounterType },
+  openmrs: { session },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -286,6 +426,10 @@ const mapStateToProps = ({
   currentOrderType,
   draftDrugOrders,
   draftLabOrders,
+  encounterType,
+  encounterRole,
+  session,
+  configurations,
 });
 
 const actionCreators = {
@@ -301,6 +445,7 @@ const actionCreators = {
   toggleDraftLabOrderUrgency,
   editDraftDrugOrder,
   discardTestsInDraft,
+  createLabOrder,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

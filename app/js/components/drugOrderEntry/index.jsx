@@ -7,7 +7,6 @@ import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
-import DraftDataTable from './addForm/DraftDataTable';
 import { selectDrugSuccess } from '../../actions/drug';
 import './styles.scss';
 
@@ -179,17 +178,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     </div>
   );
 
-  renderDraftDataTable = careSetting => (
-    (this.props.draftOrders.length > 0) &&
-    <DraftDataTable
-      draftOrders={this.props.draftOrders}
-      handleDiscardOneOrder={this.handleDiscardOneOrder}
-      handleDiscardAllOrders={this.handleDiscardAllOrders}
-      handleEditDraftOrder={this.handleEditDraftOrder}
-      careSetting={careSetting}
-    />
-  )
-
   render() {
     const {
       outpatientCareSetting,
@@ -199,7 +187,6 @@ export class SearchAndAddOrder extends React.PureComponent {
         <h5 className="drug-form-header">New Drug Order</h5>
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
-        {this.renderDraftDataTable(outpatientCareSetting)}
       </div>
     );
   }
@@ -223,7 +210,6 @@ const mapStateToProps = ({
 
 SearchAndAddOrder.defaultProps = {
   currentOrderType: {},
-  draftOrders: [],
   drug: null,
   selectedOrder: {},
   activity: '',
@@ -238,7 +224,6 @@ SearchAndAddOrder.propTypes = {
     }),
     PropTypes.string,
   ]),
-  draftOrders: PropTypes.arrayOf(PropTypes.any),
   setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   deleteAllDraftOrders: PropTypes.func.isRequired,

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import connectedSearchAndAddOrder, {SearchAndAddOrder} from '../../../app/js/components/drugOrderEntry';
-import ConnectedDraftTable from '../../../app/js/components/drugOrderEntry/addForm/DraftDataTable';
 
 const { order } = mockData;
 const props = {

@@ -254,7 +254,7 @@ describe('handleSubmitDrugForm() method', () => {
       dosingType: 'org.openmrs.SimpleDosingInstructions',
       drug: 'AJJJKW7378JHJ',
       drugName: 'Paracentamol',
-      orderNumber: 1,
+      orderNumber: 2,
       type: 'drugorder',
       orderer: '',
       previousOrder: null,

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
-import DraftDataTable from './DraftDataTable';
 import DosageTabs from '../../tabs/DosageTabs';
 import DosageTab from '../../tabs/DosageTab';
 import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
@@ -419,7 +418,6 @@ AddForm.propTypes = {
     dosingType: PropTypes.string,
   }),
   draftOrder: PropTypes.shape({}),
-  setSelectedOrder: PropTypes.func.isRequired,
   session: PropTypes.shape({
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
