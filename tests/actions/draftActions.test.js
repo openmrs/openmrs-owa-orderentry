@@ -23,7 +23,6 @@ describe("Draft Actions", () => {
     it(`should dispatch SELECT_DRUG, SET_SELECTED_ORDER, DELETE_DRAFT_DRUG_ORDER_SUCCESS`, async done => {
       const drugOrder = {
         drug: "1asbcddd-tu7"
-        // some other drug order property
       };
       const expectedActions = [
         { type: SELECT_DRUG, drug: drugOrder.drug },

@@ -40,10 +40,8 @@ var getConfig = function () {
 	var config;
 
 	try {
-		// look for config file
 		config = require('./config.json');
 	} catch (err) {
-		// create file with defaults if not found
 		config = {
 			'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
 			'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html'

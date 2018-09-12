@@ -125,7 +125,7 @@ describe('Component: LabEntryForm', () => {
 
   it('should be able to select a category', () => {
     const component = getComponent();
-    const categoryButton = component.find('#category-button').at(1); // click on the second category iwth id of 2
+    const categoryButton = component.find('#category-button').at(1);
     categoryButton.simulate('click', {
       target: {},
     });
