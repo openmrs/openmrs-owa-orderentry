@@ -19,6 +19,9 @@ const RenderOrderType = (props) => {
         />
       );
     }
+    case orderTypes.ORDER_FROM_SETS.id: {
+      return "<InsertComponent />";
+    }
     default: {
       return (<AllOrders />);
     }
