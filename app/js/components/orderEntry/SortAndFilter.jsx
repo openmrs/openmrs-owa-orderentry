@@ -14,6 +14,7 @@ export const SortAndFilter = props => (
         <option value="all">All</option>
         <option value="drugorder">Drug Orders</option>
         <option value="testorder">Test Orders</option>
+        <option value="orderset">Order from Sets</option>
       </select>
     </div>
     {/* The .sort-status element and it's children is currently hidden from the view
