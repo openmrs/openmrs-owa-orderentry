@@ -76,7 +76,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         ],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -183,7 +183,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -245,7 +245,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -295,7 +295,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -354,7 +354,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -404,7 +404,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
         orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
       },
       draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -433,7 +433,7 @@ describe('Handling Submit', () => {
     fetchPatientRecord: jest.fn(),
     fetchPatientNote: jest.fn(),
     setSelectedOrder: jest.fn(),
-    createLabOrder: jest.fn(),
+    createOrder: jest.fn(),
     encounterRoleReducer: {
       encounterRole: {},
     },
@@ -482,7 +482,7 @@ describe('Handling Submit', () => {
       orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
     },
     draftDrugOrders: [{ drugName: 'paracetamol', }],
-    createLabOrderReducer: {
+    createOrderReducer: {
       status: {
         error: false,
         added: false,
@@ -503,14 +503,14 @@ describe('Handling Submit', () => {
       draftLabOrders,
     });
     handleSubmit();
-    expect(newProps.createLabOrder).toHaveBeenCalled();
+    expect(newProps.createOrder).toHaveBeenCalled();
   });
 
   it('shows a toast prompt when test is submitted successfully', () => {
     const component = getComponent();
     component.setProps({
       ...component.props(),
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -526,7 +526,7 @@ it('shows a toast prompt when there is an error in submission', () => {
   const component = getComponent();
   component.setProps({
     ...component.props(),
-    createLabOrderReducer: {
+    createOrderReducer: {
       status: {
         error: true,
         added: false,
@@ -595,7 +595,7 @@ describe('Connected OrderEntryPage component', () => {
         },
         draftDrugOrders: [{ drugName: 'paracetamol' }],
       },
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,

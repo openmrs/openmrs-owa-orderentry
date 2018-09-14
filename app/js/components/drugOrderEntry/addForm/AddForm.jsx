@@ -50,18 +50,18 @@ export class AddForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { status: { added, error }, errorMessage, addedOrder } = this.props.addDrugOrderReducer;
-    if (addedOrder && prevProps.addDrugOrderReducer.addedOrder !== addedOrder) {
+    const { status: { added, error }, errorMessage, addedOrder } = this.props.createOrderReducer;
+    if (addedOrder && prevProps.createOrderReducer.addedOrder !== addedOrder) {
       this.props.setSelectedOrder({
         currentOrderType: {},
         order: null,
         activity: null,
       });
     }
-    if (added && prevProps.addDrugOrderReducer.addedOrder !== addedOrder) {
+    if (added && prevProps.createOrderReducer.addedOrder !== addedOrder) {
       successToast('Order Successfully Created');
     }
-    if (error && prevProps.addDrugOrderReducer.errorMessage !== errorMessage) {
+    if (error && prevProps.createOrderReducer.errorMessage !== errorMessage) {
       errorToast(errorMessages[errorMessage.join('')]);
     }
     return (
@@ -372,7 +372,7 @@ export class AddForm extends React.Component {
 }
 
 const mapStateToProps = ({
-  addDrugOrderReducer,
+  createOrderReducer,
   orderEntryConfigurations,
   drugSearchReducer,
   draftReducer: { draftDrugOrders },
@@ -385,7 +385,7 @@ const mapStateToProps = ({
     draftOrders: draftDrugOrders,
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
     session,
-    addDrugOrderReducer,
+    createOrderReducer,
   });
 
 AddForm.propTypes = {
@@ -423,7 +423,7 @@ AddForm.propTypes = {
       uuid: PropTypes.string,
     }),
   }).isRequired,
-  addDrugOrderReducer: PropTypes.shape({
+  createOrderReducer: PropTypes.shape({
     status: PropTypes.objectOf(PropTypes.bool),
     errorMessage: PropTypes.string,
     addedOrder: PropTypes.object,

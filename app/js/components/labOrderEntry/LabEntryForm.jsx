@@ -5,7 +5,6 @@ import shortid from 'shortid';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import LabDraftOrder from './LabDraftOrder';
-import createLabOrder from '../../actions/createLabOrder';
 import { successToast, errorToast } from '../../utils/toast';
 import {
   addTestPanelToDraft,
@@ -23,7 +22,7 @@ import { setSelectedOrder } from '../../actions/orderAction';
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
-    createLabOrderReducer: PropTypes.shape({
+    createOrderReducer: PropTypes.shape({
       status: PropTypes.objectOf(PropTypes.bool),
       errorMessage: PropTypes.string,
       labOrderData: PropTypes.object,
@@ -40,28 +39,10 @@ export class LabEntryForm extends PureComponent {
     standAloneTests: PropTypes.array,
     orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
     getLabOrderables: PropTypes.string.isRequired,
-    session: PropTypes.shape({
-      currentProvider: PropTypes.shape({
-        person: PropTypes.shape({
-          uuid: PropTypes.string,
-        }),
-        uuid: PropTypes.string,
-      }),
-      currentLocation: PropTypes.object,
-    }),
-    encounterType: PropTypes.shape({
-      uuid: PropTypes.string,
-    }).isRequired,
-    encounterRole: PropTypes.shape({
-      uuid: PropTypes.string,
-    }).isRequired,
-    inpatientCareSetting: PropTypes.shape({
-      uuid: PropTypes.string,
-    }).isRequired,
   };
 
   static defaultProps = {
-    createLabOrderReducer: {
+    createOrderReducer: {
       status: {},
       errorMessage: '',
     },
@@ -70,13 +51,6 @@ export class LabEntryForm extends PureComponent {
     },
     conceptsAsPanels: [],
     standAloneTests: [],
-    session: {
-      currentProvider: {
-        person: {
-          uuid: '',
-        },
-      },
-    },
   };
 
   state = {
@@ -108,8 +82,8 @@ export class LabEntryForm extends PureComponent {
       status: { added, error },
       errorMessage,
       labOrderData,
-    } = this.props.createLabOrderReducer;
-    if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
+    } = this.props.createOrderReducer;
+    if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast('order successfully created');
       this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
       this.props.dispatch(setSelectedOrder({
@@ -185,38 +159,6 @@ export class LabEntryForm extends PureComponent {
     });
   };
 
-  handleSubmit = () => {
-    const { draftLabOrders } = this.props;
-    const isEmpty = !draftLabOrders.length;
-    if (isEmpty) return;
-    const orders = draftLabOrders.map(labOrder => (
-      {
-        concept: labOrder.uuid,
-        careSetting: this.props.inpatientCareSetting.uuid,
-        encounter: this.props.encounterType.uuid,
-        orderer: this.props.session.currentProvider.uuid,
-        patient: this.props.patient.uuid,
-        type: 'testorder',
-        urgency: labOrder.urgency || 'ROUTINE',
-      }
-    ));
-
-    const encounterPayload = {
-      encounterProviders: [
-        {
-          encounterRole: this.props.encounterRole.uuid,
-          provider: this.props.session.currentProvider.uuid,
-        },
-      ],
-      encounterType: this.props.encounterType.uuid,
-      location: this.props.session.currentLocation,
-      orders,
-      patient: this.props.patient.uuid,
-    };
-    this.props.dispatch(createLabOrder(encounterPayload));
-    this.props.dispatch(deleteDraftLabOrder());
-  };
-
   render() {
     const {
       handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
@@ -274,7 +216,7 @@ export const mapStateToProps = ({
   fetchLabOrderReducer: { labOrders },
   patientReducer: { patient },
   careSettingReducer: { inpatientCareSetting },
-  createLabOrderReducer,
+  createOrderReducer,
   labOrderableReducer: { orderables },
   getLabOrderablesReducer: { getLabOrderables },
 }) => ({
@@ -286,7 +228,7 @@ export const mapStateToProps = ({
   selectedTests,
   labOrders,
   inpatientCareSetting,
-  createLabOrderReducer,
+  createOrderReducer,
   patient,
   orderables,
   getLabOrderables,

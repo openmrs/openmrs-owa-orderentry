@@ -21,12 +21,11 @@ import activeOrderReducer from './activeOrderReducer';
 import settingEncounterTypeReducer from './settingEncounterTypeReducer';
 import settingEncounterRoleReducer from './settingEncounterRoleReducer';
 import encounterRoleReducer from './encounterRoleReducer';
-import addDrugOrderReducer from './addDrugOrderReducer';
 import dateFormatReducer from './dateFormatReducer';
 import labOrderableReducer from './labOrders/labOrderableReducer';
 import labConceptsReducer from './labOrders/labConceptsReducer';
 import fetchLabOrderReducer from './labOrders/fetchLabOrderReducer';
-import createLabOrderReducer from './createLabOrderReducer';
+import createOrderReducer from './createOrderReducer';
 import getLabOrderablesReducer from './labOrders/settingLabOrderableReducer';
 import fetchOrdersReducer from './fetchOrdersReducer';
 import orderSelectionReducer from './orderSelectionReducer';
@@ -48,12 +47,11 @@ export default combineReducers({
   settingEncounterRoleReducer,
   encounterRoleReducer,
   draftReducer,
-  addDrugOrderReducer,
   dateFormatReducer,
   labOrderableReducer,
   labConceptsReducer,
   fetchLabOrderReducer,
-  createLabOrderReducer,
+  createOrderReducer,
   getLabOrderablesReducer,
   fetchOrdersReducer,
   orderSelectionReducer,
