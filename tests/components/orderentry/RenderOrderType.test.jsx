@@ -37,5 +37,10 @@ describe('Component: orderentry: RenderOrderType', () => {
       const component = getComponent();
       expect(component).toMatchSnapshot();
     });
+    it('shows the order from set entry when specified', () => {
+      props.currentOrderTypeID = orderTypes.ORDER_FROM_SETS.id;
+      const component = getComponent();
+      expect(component).toMatchSnapshot();
+    });
   });
 });
