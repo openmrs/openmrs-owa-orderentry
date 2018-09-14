@@ -140,10 +140,6 @@ export class AddForm extends React.Component {
     }
   }
 
-
-  /**
-   * Validation of datalist tag values using onblur event handler
-   */
   handleValidation = (event) => {
     const {
       drugDosingUnits, orderFrequencies, drugRoutes, durationUnits, drugDispensingUnits,

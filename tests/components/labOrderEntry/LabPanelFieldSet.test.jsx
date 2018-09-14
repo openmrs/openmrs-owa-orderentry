@@ -36,7 +36,7 @@ describe('Component: LabPanelFieldSet', () => {
   it('should support click for each button rendered', () => {
     const component = getComponent();
     const handleTestSelection = jest.spyOn(props, 'handleTestSelection');
-    const panelButton = component.find('#panel-button').at(0); // click the second button
+    const panelButton = component.find('#panel-button').at(0);
     panelButton.simulate('click', {});
     expect(handleTestSelection).toBeCalled();
   });

@@ -1,7 +1,3 @@
-/**
- * This is a data point for the panel and test form field sets,
- * When an API endpoint is provided, it should be replaced with these.
- * * */
 export const panelData = [
   {
     id: 1,
