@@ -163,16 +163,6 @@ describe('handleEditDraftOrder() method', () => {
   });
 });
 
-describe('closeFormsOnTabChange() method', () => {
-  it('it dispatches selectDrugSuccess, deleteAllDraftOrders prop when triggered', () => {
-    const componentMethods = getComponent().instance();
-    componentMethods.closeFormsOnTabChange();
-    expect(props.selectDrugSuccess).toBeCalled();
-    expect(props.deleteAllDraftOrders).toBeCalled();
-  });
-});
-
-
 const setup = () => {
   const wrapper = shallow(<SearchAndAddOrder {...props} store={store} />);
   return { wrapper }
@@ -192,14 +182,29 @@ describe('handleDiscardOneOrder', () => {
 
     wrapper.instance().handleDiscardOneOrder(order2);
   });
-});
-
-describe('handleDiscardAllOrders', () => {
-  it('should be called on discarding all draft orders', () => {
-    const { wrapper } = setup();
-
-    wrapper.instance().handleDiscardAllOrders();
-    expect(props.deleteAllDraftOrders.mock.calls.length).toEqual(2);
+  it('should call setOrderAction with DISCARD_EDIT argument if action is REVISE', () => {
+    const order = {
+      action: 'REVISE',
+      orderNumber: '4',
+      // A valid order object still has more properties.
+    };
+    const componentInstance = getComponent().instance();
+    props.setOrderAction.mockReset();
+    expect(props.setOrderAction).toBeCalledTimes(0);
+    componentInstance.handleDiscardOneOrder(order);
+    expect(props.setOrderAction).toBeCalledWith('DISCARD_EDIT', order.orderNumber);
+  });
+  it('should call setOrderAction with DISCARD_ONE argument if action is not REVISE', () => {
+    const order = {
+      action: 'SOME_OTHER_ACTION',
+      orderNumber: '4',
+      // A valid order object still has more properties.
+    };
+    const componentInstance = getComponent().instance();
+    props.setOrderAction.mockReset();    
+    expect(props.setOrderAction).toBeCalledTimes(0);
+    componentInstance.handleDiscardOneOrder(order);
+    expect(props.setOrderAction).toBeCalledWith('DISCARD_ONE', order.orderNumber);
   });
 });
 

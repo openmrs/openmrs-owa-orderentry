@@ -6,7 +6,7 @@ import Tabs from '../tabs/Tabs';
 import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import { setOrderAction } from '../../actions/orderAction';
-import { deleteDraftOrder, deleteAllDraftOrders } from '../../actions/draftTableAction';
+import { deleteDraftOrder } from '../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../actions/drug';
 import './styles.scss';
 
@@ -89,11 +89,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     }
   }
 
-  handleDiscardAllOrders = () => {
-    this.props.deleteAllDraftOrders();
-    this.props.setOrderAction('DISCARD_ALL', '0');
-  }
-
   clearSearchField = () => {
     this.setState({
       value: "",
@@ -141,12 +136,6 @@ export class SearchAndAddOrder extends React.PureComponent {
     });
   }
 
-  closeFormsOnTabChange = () => {
-    this.clearSearchField();
-    this.props.selectDrugSuccess();
-    this.props.deleteAllDraftOrders();
-  }
-
   renderSearchDrug = () => (
     this.state.editDrugName ?
       <p className="revise-order-padding">
@@ -173,7 +162,7 @@ export class SearchAndAddOrder extends React.PureComponent {
         clearSearchField={this.clearSearchField}
         removeOrder={this.removeOrder}
         draftOrder={this.state.draftOrder}
-        orderNumber={this.state.orderNumber}
+        orderNumber={`${this.state.orderNumber}`}
       />
     </div>
   );
@@ -226,7 +215,6 @@ SearchAndAddOrder.propTypes = {
   ]),
   setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
-  deleteAllDraftOrders: PropTypes.func.isRequired,
   outpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -241,7 +229,6 @@ export default connect(
   {
     setOrderAction,
     deleteDraftOrder,
-    deleteAllDraftOrders,
     selectDrugSuccess,
   },
 )(SearchAndAddOrder);
