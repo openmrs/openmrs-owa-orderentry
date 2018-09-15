@@ -21,7 +21,7 @@ describe('Component: orderentry: SelectOrderType', () => {
   });
   it('should render two dropdown type navs', () => {
     const component = getComponent();
-    expect(component.find('.order-type-option').length).toBe(2);
+    expect(component.find('.order-type-option').length).toBe(3);
   });
   it('the current order type should have a border styling', () => {
     const component = getComponent();
