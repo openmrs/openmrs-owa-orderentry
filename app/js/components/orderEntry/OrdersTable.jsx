@@ -10,7 +10,7 @@ import DrugOrderDetails from './DrugOrderDetails';
 import fetchOrders from '../../actions/fetchOrders';
 import { DRUG_ORDER } from './orderTypes';
 import { setSelectedOrder, setOrderAction } from '../../actions/orderAction';
-import { postDrugOrder } from '../../actions/addDrugOrder';
+import createOrder from '../../actions/createOrder';
 
 
 export class OrdersTable extends PureComponent {
@@ -127,7 +127,7 @@ export class OrdersTable extends PureComponent {
       activity: order.action,
       orderNumber,
     };
-    return this.props.dispatch(postDrugOrder(
+    return this.props.dispatch(createOrder(
       encounterPayload,
       this.state.limit,
       this.state.startIndex,

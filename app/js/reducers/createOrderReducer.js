@@ -7,7 +7,7 @@ const initialState = {
   },
 };
 
-const createLabOrderReducer = (state = initialState, action) => {
+const createOrderReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SAVE_DRAFT_LAB_ORDER_SUCCESS': {
       const labOrderData = action.data;
@@ -45,4 +45,4 @@ const createLabOrderReducer = (state = initialState, action) => {
   }
 };
 
-export default createLabOrderReducer;
+export default createOrderReducer;

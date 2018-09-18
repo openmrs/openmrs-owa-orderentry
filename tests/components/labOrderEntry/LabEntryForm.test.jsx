@@ -43,8 +43,8 @@ props = {
       },
     ],
   },
-  createLabOrder: jest.fn(() => {}),
-  createLabOrderReducer: {
+  createOrder: jest.fn(() => {}),
+  createOrderReducer: {
     status: {
       error: false,
       added: true,
@@ -197,7 +197,7 @@ describe('Component: LabEntryForm', () => {
     const component = getComponent();
     component.setProps({
       ...component.props(),
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: false,
           added: true,
@@ -212,7 +212,7 @@ describe('Component: LabEntryForm', () => {
     const component = getComponent();
     component.setProps({
       ...component.props(),
-      createLabOrderReducer: {
+      createOrderReducer: {
         status: {
           error: true,
           added: false,

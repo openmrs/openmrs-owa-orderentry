@@ -8,7 +8,7 @@ const {
 
 const props = {
   addDraftOrder: jest.fn(),
-  addDrugOrderReducer: jest.fn(),
+  createOrderReducer: jest.fn(),
   clearDrugForms: jest.fn(),
   clearSearchField: jest.fn(),
   setOrderAction: jest.fn(),
@@ -25,7 +25,7 @@ const props = {
     drugDispensingUnits: [{ display: 'kits' }],
     durationUnits: [{ display: 'months' }],
   },
-  addDrugOrderReducer: {
+  createOrderReducer: {
     addedOrder: {},
     errorMessage: '',
     status: {
@@ -297,7 +297,7 @@ describe('handleSubmitDrugForm() method', () => {
     const wrapper = getComponent();
     wrapper.setProps({
       ...wrapper.props(),
-      addDrugOrderReducer: {
+     createOrderReducer: {
         errorMessage: '',
         addedOrder: { id: 1, type: 'testorder' },
         status: {
@@ -313,7 +313,7 @@ describe('handleSubmitDrugForm() method', () => {
     const wrapper = getComponent();
     wrapper.setProps({
       ...wrapper.props(),
-      addDrugOrderReducer: {
+      createOrderReducer: {
         errorMessage: ["Order.cannot.have.more.than.one"],
         addedOrder: {},
         status: {
@@ -329,7 +329,7 @@ describe('handleSubmitDrugForm() method', () => {
     const component = getComponent();
     props.setSelectedOrder.mockReset();
     component.setProps({
-      addDrugOrderReducer: {
+      createOrderReducer: {
         addedOrder: { order: 'just-a-sample-order' },
         status: { added: true, errror: false },
       },

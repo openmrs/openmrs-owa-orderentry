@@ -22,7 +22,7 @@ import {
   discardTestsInDraft,
 } from '../../actions/draftActions';
 import imageLoader from '../../../img/loading.gif';
-import createLabOrder from '../../actions/createLabOrder';
+import createOrder from '../../actions/createOrder';
 import './styles.scss';
 
 export class OrderEntryPage extends PureComponent {
@@ -42,8 +42,8 @@ export class OrderEntryPage extends PureComponent {
       status: { added, error },
       errorMessage,
       labOrderData,
-    } = this.props.createLabOrderReducer;
-    if (added && labOrderData !== prevProps.createLabOrderReducer.labOrderData) {
+    } = this.props.createOrderReducer;
+    if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast('order successfully created');
       this.props.fetchLabOrders(null, this.props.patient.uuid);
     }
@@ -159,7 +159,7 @@ export class OrderEntryPage extends PureComponent {
       orders,
       patient: this.props.patient.uuid,
     };
-    this.props.createLabOrder(encounterPayload);
+    this.props.createOrder(encounterPayload);
   };
 
   renderDraftOrder = () => {
@@ -390,8 +390,8 @@ OrderEntryPage.propTypes = {
   draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
   discardTestsInDraft: PropTypes.func.isRequired,
-  createLabOrder: PropTypes.func.isRequired,
-  createLabOrderReducer: PropTypes.shape({
+  createOrder: PropTypes.func.isRequired,
+  createOrderReducer: PropTypes.shape({
     status: PropTypes.objectOf(PropTypes.bool),
     errorMessage: PropTypes.string,
     labOrderData: PropTypes.object,
@@ -438,7 +438,7 @@ const mapStateToProps = ({
   encounterRoleReducer: { encounterRole },
   encounterReducer: { encounterType },
   openmrs: { session },
-  createLabOrderReducer,
+  createOrderReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -454,7 +454,7 @@ const mapStateToProps = ({
   encounterRole,
   session,
   configurations,
-  createLabOrderReducer,
+  createOrderReducer,
 });
 
 const actionCreators = {
@@ -470,7 +470,7 @@ const actionCreators = {
   toggleDraftLabOrderUrgency,
   editDraftDrugOrder,
   discardTestsInDraft,
-  createLabOrder,
+  createOrder,
   fetchLabOrders,
 };
 

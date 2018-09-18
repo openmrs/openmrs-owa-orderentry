@@ -1,15 +1,15 @@
-import createLabOrder from '../../app/js/actions/createLabOrder';
+import createOrder from '../../app/js/actions/createOrder';
 import {
   SAVE_DRAFT_LAB_ORDER_LOADING,
   SAVE_DRAFT_LAB_ORDER_SUCCESS,
 } from '../../app/js/actions/actionTypes';
 
 
-describe('createLabOrder action', () => {
+describe('createOrder action', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
-  it('should save lab orders successfully', async (done) => {
+  it('should save orders successfully', async (done) => {
       const order = {
         order: 'testorder',
         concept: 'fkhfffkfjhf'
@@ -24,7 +24,7 @@ describe('createLabOrder action', () => {
     ];
     
     const store = mockStore({});
-    return store.dispatch(createLabOrder(order)).then(() => {
+    return store.dispatch(createOrder(order)).then(() => {
       const dispatchedActions = store.getActions();
       const actionTypes = dispatchedActions.map(action => action.type);
       expect(actionTypes).toEqual(expectedTypes);
