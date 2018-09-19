@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import DrugOrderEntry from '../drugOrderEntry';
 import * as orderTypes from './orderTypes';
 import LabEntryForm from '../labOrderEntry/LabEntryForm';
+import OrderSetForm from '../setsOrderEntry/OrderSetForm';
 import AllOrders from './AllOrders';
 
 const RenderOrderType = (props) => {
@@ -20,7 +21,7 @@ const RenderOrderType = (props) => {
       );
     }
     case orderTypes.ORDER_FROM_SETS.id: {
-      return "<InsertComponent />";
+      return (<OrderSetForm />);
     }
     default: {
       return (<AllOrders />);

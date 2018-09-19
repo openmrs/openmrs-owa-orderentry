@@ -16,6 +16,18 @@ describe('Patient Reducer', () => {
       const newState = patientReducer(initialState, action);
       expect(newState.patient).toEqual(patient);
     });
+
+    it('set the patient to empty array if the request fails', () => {
+      const initialState = {
+        patient: []
+      };
+
+      const action = {
+        type: 'SET_PATIENT_FAILED',
+      };
+      const newState = patientReducer(initialState, action);
+      expect(newState.patient).toEqual([]);
+    });
   });
 
   it('set state to initial state when no new state is passed',

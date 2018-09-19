@@ -3,7 +3,7 @@ import {
   fetchPatientNote,
 } from '../../app/js/actions/patient';
 import {
-  SET_PATIENT, SET_NOTE
+  SET_PATIENT, SET_NOTE, SET_PATIENT_FAILED
 } from '../../app/js/actions/actionTypes';
 
 window.location = locationMock;
@@ -30,6 +30,21 @@ describe('Patient actions', () => {
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
+    done();
+  });
+
+  it('fetch patient records failure case', async (done) => {
+    let request = moxios.requests.mostRecent();
+    moxios.stubRequest(`${apiBaseUrl}/patient/${uuid}?v=custom:(patientId,uuid,patientIdentifier:(uuid,identifier),person:(gender,age,birthdate,birthdateEstimated,personName,preferredAddress),attributes:(value,attributeType:(name)))`, {
+      status: 400,
+      response: { message: "No record found" }
+    });
+    const expectedActions = [{
+      type: SET_PATIENT_FAILED,
+    }];
+    const store = mockStore({});
+    await store.dispatch(fetchPatientRecord(uuid));
+    expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 

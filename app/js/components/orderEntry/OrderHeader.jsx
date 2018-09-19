@@ -10,10 +10,10 @@ const OrderHeader = ({
   handleDiscontinue,
 }) => (
   <Fragment>
-    <th className="th-orderable">{orderable.toLowerCase()}</th>
-    <th>{status}</th>
+    {orderable && <th className="th-orderable">{orderable.toLowerCase()}</th>}
+    {status && <th>{status}</th>}
     <th className="order-actions-btn">
-      {order.type === 'drugorder'
+      {order.type !== 'laborder'
         && <IconButton
           iconClass="icon-pencil"
           iconTitle="EDIT"
@@ -21,7 +21,7 @@ const OrderHeader = ({
           dataContext={order}
         />
       }
-      {order.type === 'drugorder'
+      {order.type !== 'laborder'
       && <IconButton
         iconClass="icon-remove"
         iconTitle="DISCONTINUE"
