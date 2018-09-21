@@ -8,7 +8,7 @@ class Accordion extends React.Component {
   };
 
   render() {
-    const { date, dateFormat } = this.props;
+    const { date, dateFormat, caretText } = this.props;
     return (
       <React.Fragment>
         <tr
@@ -26,7 +26,7 @@ class Accordion extends React.Component {
                 <i className="toggle-icon icon-caret-right small rotate90" />
               )}
             </span>
-            {format(date, dateFormat)}
+            {date ? format(date, dateFormat) : caretText}
           </th>
           {this.props.title}
         </tr>
@@ -54,9 +54,11 @@ Accordion.propTypes = {
   title: PropTypes.object.isRequired,
   date: PropTypes.string,
   dateFormat: PropTypes.string,
+  caretText: PropTypes.string,
 };
 
 Accordion.defaultProps = {
+  caretText: '',
   open: false,
   date: '',
   dateFormat: '',

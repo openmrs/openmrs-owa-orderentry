@@ -168,8 +168,14 @@
     max-height: 0;
   }
 
+  .accordion {
+    border: none
+  }
+
   .th-1 {
     width: 120px;
+    border: none;
+    text-align: left;
   }
 
   .accordion-two.content.open {
@@ -255,6 +261,8 @@
       -moz-transform: scale(1.5);
     }
   }
+  border: none;
+  text-align: right;
 }
 
 .swal-button--NO {

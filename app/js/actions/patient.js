@@ -1,4 +1,4 @@
-import { SET_PATIENT, SET_NOTE } from './actionTypes';
+import { SET_PATIENT, SET_NOTE, SET_PATIENT_FAILED } from './actionTypes';
 import axiosInstance from '../config';
 
 const contextPath = window.location.href.split('/')[3];
@@ -12,6 +12,9 @@ export function fetchPatientRecord(patientUuid) {
     })
     .catch((error) => {
       if (error.response) {
+        dispatch({
+          type: SET_PATIENT_FAILED,
+        });
         window.location.href = `/${contextPath}`;
       }
     });
