@@ -220,6 +220,22 @@
   cursor: pointer;
 }
 
+.page-link-disabled {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  p {
+    color: #007fff !important;
+  }
+}
+
+.page-link-disabled:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
 .current-page {
   background-color: #999;
 }
