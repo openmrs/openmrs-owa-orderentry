@@ -135,15 +135,12 @@ describe('Component: LabEntryForm', () => {
   it('should dispatch an action to remove a test panel from the draft', () => {
     const instance = getComponent().instance();
     instance.state.selectedPanelIds = [mockPanel.uuid];
-
-    const dipatch = jest.spyOn(props, 'dispatch');
     instance.handleTestSelection(mockPanel, 'panel');
-    expect(dipatch).toBeCalled();
+    expect(props.dispatch).toBeCalled();
   });
 
   it('should dispatch an action to add a test panel to the draft', () => {
     const instance = getComponent().instance();
-
     const dipatch = jest.spyOn(props, 'dispatch');
     instance.handleTestSelection(mockPanel, 'panel');
     expect(dipatch).toBeCalled();
@@ -152,34 +149,29 @@ describe('Component: LabEntryForm', () => {
   it('should dispatch an action to handle single test selection', () => {
     const instance = getComponent().instance();
     instance.state.selectedPanelIds = [1];
-
-    const dispatch = jest.spyOn(props, 'dispatch');
     instance.handleTestSelection(mockTest, 'single');
-    expect(dispatch).toBeCalled();
+    expect(props.dispatch).toBeCalled();
   });
 
   it('should dispatch an action to handle single test deletion', () => {	
     const instance = getComponent().instance();	
     instance.state.selectedPanelIds = [1];	
-     const dispatch = jest.spyOn(props, 'dispatch');	
     instance.discardTestsInDraft(mockTest, 'single');	
-    expect(dispatch).toBeCalled();	
+    expect(props.dispatch).toBeCalled();	
   });
 
   it('should dispatch an action to handle panel deletion', () => {	
     const instance = getComponent().instance();	
     instance.state.selectedPanelIds = [1];	
-     const dispatch = jest.spyOn(props, 'dispatch');	
     instance.discardTestsInDraft(mockPanel, 'panel');	
-    expect(dispatch).toBeCalled();	
+    expect(props.dispatch).toBeCalled();	
   });
 
   it('should dispatch an action to handle deletion of all items from the draft', () => {	
     const instance = getComponent().instance();	
     instance.state.selectedPanelIds = [1];	
-     const dispatch = jest.spyOn(props, 'dispatch');	
     instance.discardTestsInDraft();	
-    expect(dispatch).toBeCalled();	
+    expect(props.dispatch).toBeCalled();	
   });
 
   it(`should change the default lab form's tests category by toggling component state`, () => {

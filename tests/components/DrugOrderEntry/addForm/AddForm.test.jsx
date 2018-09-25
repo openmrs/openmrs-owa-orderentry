@@ -56,6 +56,7 @@ describe('Test for adding a new drug order', () => {
     const wrapper = shallow(<AddForm {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
+
   describe('Outpatient orders', () => {
     const wrapper = mount(<AddForm {...props} />);
     describe('Activate and deactivate Confirm button under standard dosing form', () => {
@@ -77,12 +78,14 @@ describe('Test for adding a new drug order', () => {
       it('should be deactivated without both dispensing quantity and units', () => {
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should be deactivated with dispensing quantity without units', () => {
         wrapper
           .find('[name="dispensingQuantity"]')
           .simulate('change', { target: { name: 'dispensingQuantity', value: 12 } });
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should be activated with both dispensing Quantity and units', () => {
         wrapper
           .find('[name="dispensingQuantity"]')
@@ -93,6 +96,7 @@ describe('Test for adding a new drug order', () => {
         expect(wrapper.find('button.confirm').props().disabled).toBe(false);
       });
     });
+
     describe('Activate and deactivate Confirm button under free text form', () => {
       it('should activate when the required fields are filled', () => {
         wrapper.setState({ formType: 'Free Text' });
@@ -109,6 +113,7 @@ describe('Test for adding a new drug order', () => {
         expect(wrapper.find('button.confirm').props().disabled).toBe(false);
       });
     });
+
     describe('Validation of fields', () => {
       beforeEach(() => {
         wrapper
@@ -118,14 +123,17 @@ describe('Test for adding a new drug order', () => {
           .find('[name="dispensingUnit"]')
           .simulate('change', { target: { name: 'dispensingUnit', value: 'tins' } });
       });
+
       it('should deactivate confirm button with invalid dose units', () => {
         wrapper.find('[name="dosingUnit"]').simulate('blur');
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should display error with invalid dosing units', () => {
         wrapper.find('[name="dosingUnit"]').simulate('blur');
         expect(wrapper.find('span.field-error').length).toBe(1);
       });
+
       it('should activate with valid dose units', () => {
         wrapper
           .find('[name="dosingUnit"]')
@@ -133,18 +141,22 @@ describe('Test for adding a new drug order', () => {
         wrapper.find('[name="dosingUnit"]').simulate('blur');
         expect(wrapper.find('button.confirm').props().disabled).toBe(false);
       });
+
       it('should deactivate with invalid frequency', () => {
         wrapper.find('[name="frequency"]').simulate('blur');
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should deactivate with invalid route', () => {
         wrapper.find('[name="route"]').simulate('blur');
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should deactivate with invalid dispensing unit', () => {
         wrapper.find('[name="dispensingUnit"]').simulate('blur');
         expect(wrapper.find('button.confirm').props().disabled).toBe(true);
       });
+
       it('should deactivate if duration is valid but duration unit is invalid', () => {
         wrapper
           .find('[name="duration"]')
@@ -171,40 +183,33 @@ describe('Test AddForm state', () => {
 });
 
 describe('handleFormType() method', () => {
-  it('should call handleFormType()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleFormType');
-    renderedComponent.handleFormType(formType);
-    expect(renderedComponent.handleFormType.calledOnce).toEqual(true);
+  it('sets state when method is triggered', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.handleFormType(formType);
     expect(getComponent().state('formType')).toEqual('Free Text');
   });
 });
 
 describe('handleFormTabs() method', () => {
-  it('should call handleFormTabs()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleFormTabs');
-    renderedComponent.handleFormTabs(1);
-    expect(renderedComponent.handleFormTabs.calledOnce).toEqual(true);
+  it('sets state when method is triggered', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.handleFormTabs(1);
     expect(getComponent().state('activeTabIndex')).toEqual(1);
   });
 });
 
 describe('handleCancel() method', () => {
-  it('should call handleCancel()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleCancel');
-    renderedComponent.handleCancel();
-    expect(renderedComponent.handleCancel.calledOnce).toEqual(true);
+  it('dispatches clearSearchField prop when fired', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.handleCancel();
+    expect(props.clearSearchField).toBeCalled();
   });
 });
 
 describe('populateEditOrderForm() method', () => {
-  it('should call populateEditActiveOrderForm()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'populateEditOrderForm');
-    renderedComponent.populateEditOrderForm();
-    expect(renderedComponent.populateEditOrderForm.calledOnce).toEqual(true);
+  it('sests state to data in editOrder and draftOrder props', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.populateEditOrderForm();
     expect(getComponent().state('activeTabIndex')).toEqual(1);
     expect(getComponent().state('fields')).toEqual({
       dispensingQuantity: '',
@@ -222,11 +227,9 @@ describe('populateEditOrderForm() method', () => {
 });
 
 describe('clearDrugForms() method', () => {
-  it('should call clearDrugForms()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'clearDrugForms');
-    renderedComponent.clearDrugForms();
-    expect(renderedComponent.clearDrugForms.calledOnce).toEqual(true);
+  it('resets the data in state', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.clearDrugForms();
     expect(getComponent().state('fields')).toEqual({
       dispensingQuantity: '',
       dispensingUnit: '',
@@ -243,49 +246,27 @@ describe('clearDrugForms() method', () => {
 });
 
 describe('handleSubmitDrugForm() method', () => {
-  it('should call handleSubmitDrugForm()', () => {
+  it(`it dispatches the addDraftOrder, selectDrugSuccess,
+  setOrderAction props when method is fired`, () => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleSubmitDrugForm');
     renderedComponent.handleSubmitDrugForm();
-    expect(renderedComponent.handleSubmitDrugForm.calledOnce).toEqual(true);
-    expect(getComponent().state('draftOrder')).toEqual({
-      action: 'NEW',
-      careSetting: 'aaa1234',
-      dosingType: 'org.openmrs.SimpleDosingInstructions',
-      drug: 'AJJJKW7378JHJ',
-      drugName: 'Paracentamol',
-      orderNumber: 2,
-      type: 'drugorder',
-      orderer: '',
-      previousOrder: null,
-      dispensingQuantity: '',
-      dispensingUnit: '',
-      dose: '',
-      dosingUnit: '',
-      drugInstructions: '',
-      duration: '',
-      durationUnit: '',
-      frequency: '',
-      reason: '',
-      route: '',
-    });
+    expect(props.addDraftOrder).toBeCalled();
+    expect(props.setOrderAction).toBeCalled();
+    expect(props.selectDrugSuccess).toBeCalled();
   });
-  it(`should call setSelectedOrder after calling handleSubmitDrugForm 
-      if activity is DRAFT_ORDER_EDIT`, () => {
-        const component = getComponent();
-        const componentInstance = component.instance();
-        component.setProps({ activity: 'DRAFT_ORDER_EDIT'});
-        props.setSelectedOrder.mockReset();  
-        expect(props.setSelectedOrder).toHaveBeenCalledTimes(0);            
-        componentInstance.handleSubmitDrugForm();
-        expect(props.setSelectedOrder).toHaveBeenCalledTimes(1); 
-    });
-  it('should call handleSubmitDrugForm()', () => {
+
+  it('dispatches setSelectedOrder if activity is DRAFT_ORDER_EDIT', () => {
+    const component = getComponent();
+    const componentMethods = component.instance();
+    component.setProps({ activity: 'DRAFT_ORDER_EDIT' });
+    componentMethods.handleSubmitDrugForm();
+    expect(props.setSelectedOrder).toHaveBeenCalled();
+  });
+
+  it('sets state accordingly', () => {
     const component = getComponent().instance();
-    const hhhSpy = jest.spyOn(component, 'handleSubmitDrugForm');
     component.setState({ action: 'NOT_NEW' });
     component.handleSubmitDrugForm();
-    expect(hhhSpy).toHaveBeenCalledTimes(1);
     expect(component.state.draftOrder).toEqual({
       ...component.state.draftOrder,
       action: 'NOT_NEW',
@@ -297,7 +278,7 @@ describe('handleSubmitDrugForm() method', () => {
     const wrapper = getComponent();
     wrapper.setProps({
       ...wrapper.props(),
-     createOrderReducer: {
+      createOrderReducer: {
         errorMessage: '',
         addedOrder: { id: 1, type: 'testorder' },
         status: {
@@ -314,7 +295,7 @@ describe('handleSubmitDrugForm() method', () => {
     wrapper.setProps({
       ...wrapper.props(),
       createOrderReducer: {
-        errorMessage: ["Order.cannot.have.more.than.one"],
+        errorMessage: ['Order.cannot.have.more.than.one'],
         addedOrder: {},
         status: {
           added: false,
@@ -322,7 +303,7 @@ describe('handleSubmitDrugForm() method', () => {
         },
       },
     });
-    expect(global.toastrMessage).toEqual("Cannot have more than one active order for the same orderable and care setting at same time");
+    expect(global.toastrMessage).toEqual('Cannot have more than one active order for the same orderable and care setting at same time');
   });
 
   it('should change the selected order after a drug has been added', () => {

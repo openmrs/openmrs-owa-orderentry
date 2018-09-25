@@ -35,11 +35,9 @@ describe('Component: LabTestFieldSet', () => {
 
   it('should support click for each button rendered', () => {
     const component = getComponent();
-    const handleTestSelection = jest.spyOn(props, 'handleTestSelection');
     const testButton = component.find('#category-test-button').at(0);
     testButton.simulate('click', {});
-    expect(handleTestSelection).toBeCalled();
-    expect(component).toMatchSnapshot();
+    expect(props.handleTestSelection).toBeCalled();
   });
 
   it('should add a class of `active` to the selected test', () => {

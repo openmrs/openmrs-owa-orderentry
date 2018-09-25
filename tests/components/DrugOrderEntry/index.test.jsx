@@ -88,36 +88,33 @@ describe('componentDidUpdate method', () => {
 });
 
 describe('onSelectDrug() method', () => {
-  it('should call onSelectDrug()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'onSelectDrug');
-    renderedComponent.onSelectDrug("paracetamol");
-    expect(renderedComponent.onSelectDrug.calledOnce).toEqual(true);
+  it('sets state to value passed as argument', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.onSelectDrug("paracetamol");
     expect(getComponent().state('value')).toEqual("paracetamol");
     expect(getComponent().state('focused')).toEqual(false);
   });
 });
 
 describe('onChange() method', () => {
-  it('should call onChange()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'onChange');
-    renderedComponent.onChange("paracetamol");
-    expect(renderedComponent.onChange.calledOnce).toEqual(true);
+  it('should sets state to value passed as argument', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.onChange("paracetamol");
     expect(getComponent().state('value')).toEqual("paracetamol");
     expect(getComponent().state('focused')).toEqual(true);
   });
 });
 
 describe('clearSearchField() method', () => {
-  it('should call clearSearchField()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'clearSearchField');
-    renderedComponent.clearSearchField();
-    expect(renderedComponent.clearSearchField.calledOnce).toEqual(true);
-    expect(getComponent().state('editDrugUuid')).toEqual("");
-    expect(getComponent().state('editDrugName')).toEqual("");
-    expect(getComponent().state('editOrder')).toEqual({});
+  it('resets the state of the component', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.clearSearchField();
+    expect(getComponent().state()).toEqual({
+      ...getComponent().state(),
+      editDrugUuid: '',
+      editDrugName: '',
+      editOrder: {},
+    });
   });
 });
 
@@ -133,44 +130,45 @@ describe('handleEditActiveDrugOrder() method', () => {
       ]
     }
   }
-  it('should call handleEditActiveDrugOrder()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleEditActiveDrugOrder');
-    renderedComponent.handleEditActiveDrugOrder(order,details);
+  it('sets state to value in props', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.handleEditActiveDrugOrder(order,details);
     expect(getComponent().state('formattedDetails').length).toBeGreaterThan(250)
-    expect(renderedComponent.handleEditActiveDrugOrder.calledOnce).toEqual(true);
-    expect(getComponent().state('editDrugUuid')).toEqual("");
-    expect(getComponent().state('editDrugName')).toEqual("");
-    expect(getComponent().state('editOrder')).toEqual(order);
+    expect(getComponent().state()).toEqual({
+      ...getComponent().state(),
+      editDrugUuid: '',
+      editDrugName: '',
+      editOrder: order,
+    });
   });
 });
 
 describe('removeOrder() method', () => {
-  it('should call removeOrder()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'removeOrder');
-    renderedComponent.removeOrder();
-    expect(renderedComponent.removeOrder.calledOnce).toEqual(true);
-    expect(getComponent().state('editOrder')).toEqual({});
+  it('resets the draftOrder and editOrder values in state', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.removeOrder();
+    expect(getComponent().state()).toEqual({
+      ...getComponent().state(),
+      draftOrder: {},
+      editOrder: {},
+    });
   });
 });
 
 describe('handleEditDraftOrder() method', () => {
-  it('should call handleEditDraftOrder()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'handleEditDraftOrder');
-    renderedComponent.handleEditDraftOrder(order);
-    expect(renderedComponent.handleEditDraftOrder.calledOnce).toEqual(true);
+  it('sets draftOrder value in state to parsed argument', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.handleEditDraftOrder(order);
     expect(getComponent().state('draftOrder')).toEqual(order);
   });
 });
 
 describe('closeFormsOnTabChange() method', () => {
-  it('should call closeFormsOnTabChange()', () => {
-    const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'closeFormsOnTabChange');
-    renderedComponent.closeFormsOnTabChange();
-    expect(renderedComponent.closeFormsOnTabChange.calledOnce).toEqual(true);
+  it('it dispatches selectDrugSuccess, deleteAllDraftOrders prop when triggered', () => {
+    const componentMethods = getComponent().instance();
+    componentMethods.closeFormsOnTabChange();
+    expect(props.selectDrugSuccess).toBeCalled();
+    expect(props.deleteAllDraftOrders).toBeCalled();
   });
 });
 
