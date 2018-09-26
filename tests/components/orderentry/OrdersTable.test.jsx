@@ -49,6 +49,10 @@ const props = {
       dosingInstructions: '25mg of Amoxycillin syrup for the next 5 days',
       dispense: '45',
       orderer: { display: 'Mark Goodrich' },
+      drug: {
+        uuid: "502a2b2e-4659-4987-abbd-c50545dead47",
+        display: "Paracetamol",
+      },
       urgency: 'STAT',
       uuid: 2,
     },
@@ -57,6 +61,10 @@ const props = {
       display: 'Paracetamol',
       type: 'testorder',
       orderer: { display: 'Mark Goodrich' },
+      drug: {
+        uuid: "502a2b2e-4659-4987-abbd-c50545dead47",
+        display: "Paracetamol",
+      },
       urgency: 'STAT',
       uuid: 2,
     },
