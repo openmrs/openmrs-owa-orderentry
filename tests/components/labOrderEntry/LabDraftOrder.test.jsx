@@ -33,58 +33,52 @@ describe('Component: LabDraftOrder', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should toggle draftOrder Urgency from routine to STAT', () => {
+  it(`toggleDraftLaborderUrgency prop function is dispatched
+  when toggling urgency from ROUTINE to STAT`, () => {
     const event = { preventDefault: () => {} };
-    jest.spyOn(event, 'preventDefault');
     const component = getComponent();
-    const handleToggleDraftOrderUgency = jest.spyOn(props, 'toggleDraftLabOrdersUgency');
     component.find('#draft-toggle-btn').at(0).simulate('click', event);
-    expect(handleToggleDraftOrderUgency).toBeCalled();
-    expect(event.preventDefault).toBeCalled();
+    expect(props.toggleDraftLabOrdersUgency).toBeCalled();
   });
 
-  it('should toggle draftOrder Urgency from STAT to routine', () => {
-    props.draftLabOrders = [
-        { uuid: 6, display: 'prothrombin', urgency: constants.STAT }
-      ]
-    const event = { preventDefault: () => {} };
-    jest.spyOn(event, 'preventDefault');
+  it(`toggleDraftLaborderUrgency prop function is dispatched
+  when toggling urgency from STAT to ROUTINE`, () => {
+    const event = { preventDefault: jest.fn() };
     const component = getComponent();
-    const handleToggleDraftOrderUgency = jest.spyOn(props, 'toggleDraftLabOrdersUgency');
+    component.setProps({
+      ...component.props(),
+      draftLabOrders: [
+        { uuid: 6, display: 'prothrombin', urgency: constants.STAT },
+      ],
+    });
     component.find('#draft-toggle-btn').at(0).simulate('click', event);
-    expect(handleToggleDraftOrderUgency).toBeCalled();
-    expect(event.preventDefault).toBeCalled();
+    expect(props.toggleDraftLabOrdersUgency).toBeCalled();
   });
 
-  it('should toggle draftOrder Urgency from undefined to ROUTINE', () => {
+  it(`toggleDraftLaborderUrgency prop function is dispatched
+  when toggling urgency from undefined to ROUTINE`, () => {
     props.draftLabOrders = [
         { uuid: 6, display: 'prothrombin' }
       ]
     const event = { preventDefault: () => {} };
-    jest.spyOn(event, 'preventDefault');
     const component = getComponent();
-    const handleToggleDraftOrderUgency = jest.spyOn(props, 'toggleDraftLabOrdersUgency');
     component.find('#draft-toggle-btn').at(0).simulate('click', event);
-    expect(handleToggleDraftOrderUgency).toBeCalled();
-    expect(event.preventDefault).toBeCalled();
+    expect(props.toggleDraftLabOrdersUgency).toBeCalled();
   });
 
-  it('should handle discarding items from the draftOrder', () => {
+  it(`handleDraftDiscard action is dispatched if the
+  corresponding discard button is clicked`, () => {
     const event = { preventDefault: () => {} };
-    jest.spyOn(event, 'preventDefault');
     const component = getComponent();
-    const handleDraftDiscard = jest.spyOn(props, 'handleDraftDiscard');
     component.find('#draft-discard-btn').at(0).simulate('click', event);
-    expect(handleDraftDiscard).toBeCalled();
-    expect(event.preventDefault).toBeCalled();
+    expect(props.handleDraftDiscard).toBeCalled();
   });
 
-  it('should handle discarding items from the draftOrder', () => {
+  it(`handleDraftDiscard action is dispatched if the
+  discard all button is clicked`, () => {
     const event = { preventDefault: () => {} };
-    jest.spyOn(event, 'preventDefault');
     const component = getComponent();
-    const handleDraftDiscard = jest.spyOn(props, 'handleDraftDiscard');
     component.find('#draft-discard-all').at(0).simulate('click', event);
-    expect(handleDraftDiscard).toBeCalled();
+    expect(props.handleDraftDiscard).toBeCalled();
   });
 });

@@ -26,6 +26,9 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
+      encounterType: { uuid: '1eeee' },
+      session: { currentProvider: { uuid: '1eeeee' } },
+      createOrder: jest.fn(),
       configurations: {
         drugDispensingUnits: [{
           display: 'display',
@@ -98,16 +101,19 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div img').length).toBe(1);
   });
+
   it('should not show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
+
   it('renders the patient-orders component', () => {
     const component = shallow(<OrderEntryPage {...props} />);
     component.find('.orders-nav').simulate('click');
     expect(props.setSelectedOrder).toBeCalled();
     expect(component.find('.orders-nav').exists()).toBeTruthy();
   });
+
   it('should switch the order type in the state', () => {
     const component = shallow(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
@@ -117,6 +123,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
     componentInstance.switchOrderType(orderTypesAsArray[1]);
     expect(props.setSelectedOrder).toBeCalled();
   });
+
   it(`does not switch order type page if the current
   orderType is same as the new orderType`, () => {
     const component = shallow(<OrderEntryPage {...props} />);
@@ -127,373 +134,103 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
   });
 });
 
-describe('Test for Order entry page when orderentryowa.encounterType is not set', () => {
-  beforeEach(() => {
-    props = {
-      editDraftDrugOrder: jest.fn(),
-      fetchPatientCareSetting: jest.fn(),
-      getSettingEncounterType: jest.fn(),
-      getSettingEncounterRole: jest.fn(),
-      getDateFormat: jest.fn(),
-      getLabOrderables: jest.fn(),
-      fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn(),
-      setSelectedOrder: jest.fn(),
-      orderEntryConfigurations: {
-        configurations: {
-          drugDispensingUnits: {
-            display: 'display',
-            uuid: '123mockUUIDef',
-          },
-          drugDosingUnits: {
-            display: 'display',
-            uuid: '123mockUUIDef',
-          },
-          drugRoutes: {
-            display: 'display',
-            uuid: '123mockUUIDef',
-          },
-          durationUnits: {
-            display: 'display',
-            uuid: '123mockUUIDef',
-          },
-          orderFrequencies: {
-            display: 'display',
-            uuid: '123mockUUIDef',
-          },
-        },
-      },
-      settingEncounterTypeReducer: {
-        settingEncounterType: 'order type',
-        error: '',
-      },
-      settingEncounterRoleReducer: {
-        settingEncounterRole: 'Admin role',
-        roleError: '',
-      },
-      toggleDraftLabOrderUrgency: jest.fn(),
-      dateFormatReducer: {
-        dateFormat: 'DD-MMM-YYYY HH:mm',
-        error: '',
-      },
-      outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' },
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-      draftLabOrders: {
-        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-      },
-      draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createOrderReducer: {
-        status: {
-          error: false,
-          added: true,
-        },
-        labOrderData: {},
-      },
-      fetchLabOrders: jest.fn(),
-    };
-    mountedComponent = undefined;
-  });
+describe('when orderentryowa.encounterType is not set', () => {
   it('should not render DrugOrderEntry Component ', () => {
-    props.settingEncounterTypeReducer = {
-      settingEncounterType: '',
-      error: 'Property can not be found',
-    };
     mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: '',
+        error: 'Property can not be found',
+      },
+    });
     expect(mountedComponent.find(DrugOrderEntry).length).toBe(0);
   });
+
   it('should show error', () => {
-    props.settingEncounterTypeReducer = {
-      settingEncounterType: '',
-      error: 'Property can not be found',
-    };
     mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
+      settingEncounterTypeReducer: {
+        settingEncounterType: '',
+        error: 'Property can not be found',
+      },
+    });
     expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
 
-describe('Test for Order entry page when orderentryowa.encounterRole is set', () => {
-  beforeEach(() => {
-    props = {
-      editDraftDrugOrder: jest.fn(),
-      fetchPatientCareSetting: jest.fn(),
-      getSettingEncounterType: jest.fn(),
-      getSettingEncounterRole: jest.fn(),
-      getDateFormat: jest.fn(),
-      getLabOrderables: jest.fn(),
-      fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn(),
-      setSelectedOrder: jest.fn(),
+describe('when orderentryowa.encounterRole is set', () => {
+  it('should not show error', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
         error: '',
       },
-      settingEncounterRoleReducer: {
-        settingEncounterRole: 'Admin role',
-        roleError: '',
-      },
-      toggleDraftLabOrderUrgency: jest.fn(),
-      orderSelectionReducer: { currentOrderType: {} },
-      dateFormatReducer: {
-        dateFormat: 'DD-MMM-YYYY HH:mm',
-        error: '',
-      },
-      outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' },
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-      draftLabOrders: {
-        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-      },
-      draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createOrderReducer: {
-        status: {
-          error: false,
-          added: true,
-        },
-        labOrderData: {},
-      },
-      fetchLabOrders: jest.fn(),
-    };
-    mountedComponent = undefined;
-  });
-
-  it('should not show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    });
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
 });
 
-describe('Test for Order entry page when orderentryowa.encounterRole is not set', () => {
-  beforeEach(() => {
-    props = {
-      editDraftDrugOrder: jest.fn(),
-      fetchPatientCareSetting: jest.fn(),
-      getSettingEncounterType: jest.fn(),
-      getSettingEncounterRole: jest.fn(),
-      getDateFormat: jest.fn(),
-      getLabOrderables: jest.fn(),
-      fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn(),
-      setSelectedOrder: jest.fn(),
-      settingEncounterTypeReducer: {
-        settingEncounterType: 'order type',
-        error: '',
-      },
+describe('when orderentryowa.encounterRole is not set', () => {
+  it('should not render DrugOrderEntry Component ', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
       settingEncounterRoleReducer: {
         settingEncounterRole: '',
         roleError: 'error error',
       },
-      toggleDraftLabOrderUrgency: jest.fn(),
-      dateFormatReducer: {
-        dateFormat: 'DD-MMM-YYYY HH:mm',
-        error: '',
-      },
-      outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' },
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-      draftLabOrders: {
-        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-      },
-      draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createOrderReducer: {
-        status: {
-          error: false,
-          added: true,
-        },
-        labOrderData: {},
-      },
-      fetchLabOrders: jest.fn(),
-    };
-    mountedComponent = undefined;
-  });
-
-  it('should not render DrugOrderEntry Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    });
     expect(mountedComponent.find(DrugOrderEntry).length).toBe(0);
   });
+
   it('should show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
+      settingEncounterRoleReducer: {
+        settingEncounterRole: '',
+        roleError: 'error error',
+      },
+    });
     expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
 
-describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set', () => {
-  beforeEach(() => {
-    props = {
-      editDraftDrugOrder: jest.fn(),
-      fetchPatientCareSetting: jest.fn(),
-      getSettingEncounterType: jest.fn(),
-      getSettingEncounterRole: jest.fn(),
-      getDateFormat: jest.fn(),
-      getLabOrderables: jest.fn(),
-      fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn(),
-      setSelectedOrder: jest.fn(),
-      encounterRoleReducer: {
-        encounterRole: {},
-      },
-      encounterReducer: { encounterType: {} },
-      settingEncounterTypeReducer: {
-        settingEncounterType: 'order type',
-        error: '',
-      },
-      settingEncounterRoleReducer: {
-        settingEncounterRole: 'Admin role',
-        roleError: '',
-      },
-      toggleDraftLabOrderUrgency: jest.fn(),
-      orderSelectionReducer: { currentOrderType: {} },
+describe('when orderentryowa.dateAndTimeFormat is set', () => {
+  it('should not show error', () => {
+    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
       dateFormatReducer: {
         dateFormat: 'DD-MMM-YYYY HH:mm',
         error: '',
       },
-      outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' },
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-      draftLabOrders: {
-        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-      },
-      draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createOrderReducer: {
-        status: {
-          error: false,
-          added: true,
-        },
-        labOrderData: {},
-      },
-      fetchLabOrders: jest.fn(),
-    };
-    mountedComponent = undefined;
-  });
-  it('should not show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    });
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
 });
 
-describe('Test for Order entry page when orderentryowa.encounterRole is not set', () => {
-  beforeEach(() => {
-    props = {
-      editDraftDrugOrder: jest.fn(),
-      fetchPatientCareSetting: jest.fn(),
-      getSettingEncounterType: jest.fn(),
-      getSettingEncounterRole: jest.fn(),
-      getDateFormat: jest.fn(),
-      getLabOrderables: jest.fn(),
-      fetchPatientRecord: jest.fn(),
-      fetchPatientNote: jest.fn(),
-      setSelectedOrder: jest.fn(),
-      settingEncounterTypeReducer: {
-        settingEncounterType: 'order type',
-        error: '',
-      },
-      settingEncounterRoleReducer: {
-        settingEncounterRole: 'Admin role',
-        roleError: '',
-      },
-      toggleDraftLabOrderUrgency: jest.fn(),
-      dateFormatReducer: {
-        dateFormat: '',
-        error: 'incomplete config',
-      },
-      orderSelectionReducer: { currentOrderType: {} },
-      outpatientCareSetting: { uuid: '5677666' },
-      inpatientCareSetting: { uuid: '6766667' },
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-      draftLabOrders: {
-        orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-      },
-      draftDrugOrders: [{ drugName: 'paracetamol' }],
-      createOrderReducer: {
-        status: {
-          error: false,
-          added: true,
-        },
-        labOrderData: {},
-      },
-      fetchLabOrders: jest.fn(),
-    };
-    mountedComponent = undefined;
-  });
-
+describe('when orderentryowa.dateAndTimeFormat is set', () => {
   it('should show error', () => {
     mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent.setProps({
+      ...mountedComponent.props(),
+      dateFormatReducer: {
+        dateFormat: null,
+        error: '',
+      },
+    });
     expect(mountedComponent.find('div.error-notice').length).toBe(1);
   });
 });
 
 describe('Handling Submit', () => {
-  const newProps = {
-    editDraftDrugOrder: jest.fn(),
-    fetchPatientCareSetting: jest.fn(),
-    getSettingEncounterType: jest.fn(),
-    getSettingEncounterRole: jest.fn(),
-    getDateFormat: jest.fn(),
-    getLabOrderables: jest.fn(),
-    fetchPatientRecord: jest.fn(),
-    fetchPatientNote: jest.fn(),
-    setSelectedOrder: jest.fn(),
-    createOrder: jest.fn(),
-    encounterRoleReducer: {
-      encounterRole: {},
-    },
-    session: { currentProvider: { uuid: '1eeeee' } },
-    encounterType: { uuid: '1eeee' },
-    configurations: {
-      drugDispensingUnits: [{
-        display: 'display',
-        uuid: '123mockUUIDef',
-      }],
-      drugDosingUnits: [{
-        display: 'display',
-        uuid: '123mockUUIDef',
-      }],
-      drugRoutes: [{
-        display: 'display',
-        uuid: '123mockUUIDef',
-      }],
-      durationUnits: [{
-        display: 'display',
-        uuid: '123mockUUIDef',
-      }],
-      orderFrequencies: [{
-        display: 'display',
-        uuid: '123mockUUIDef',
-      }],
-    },
-    settingEncounterTypeReducer: {
-      settingEncounterType: 'order type',
-      error: '',
-    },
-    settingEncounterRoleReducer: {
-      settingEncounterRole: 'Admin role',
-      roleError: '',
-    },
-    toggleDraftLabOrderUrgency: jest.fn(),
-    dateFormatReducer: {
-      dateFormat: '',
-      error: 'incomplete config',
-    },
-    orderSelectionReducer: { currentOrderType: {} },
-    outpatientCareSetting: { uuid: '5677666' },
-    inpatientCareSetting: { uuid: '6766667' },
-    location: { search: '?patient=esere_shbfidfb_343ffd' },
-    draftLabOrders: {
-      orders: [{ display: 'Hemoglobin', uuid: '12746hfgjff' }],
-    },
-    draftDrugOrders: [{ drugName: 'paracetamol', }],
-    createOrderReducer: {
-      status: {
-        error: false,
-        added: false,
-      },
-      labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
-    },
-    fetchLabOrders: jest.fn(),
-  };
-  const wrapper = shallow(<OrderEntryPage {...newProps} />);
-
   it('It dispatches create lab order action if the handleSubmit method is triggered', () => {
+    const wrapper = shallow(<OrderEntryPage {...props} />);
     const handleSubmit = wrapper.instance().handleSubmit;
     handleSubmit();
     const { draftDrugOrders, draftLabOrders } = mockData;
@@ -503,7 +240,7 @@ describe('Handling Submit', () => {
       draftLabOrders,
     });
     handleSubmit();
-    expect(newProps.createOrder).toHaveBeenCalled();
+    expect(props.createOrder).toHaveBeenCalled();
   });
 
   it('shows a toast prompt when test is submitted successfully', () => {
@@ -604,9 +341,6 @@ describe('Connected OrderEntryPage component', () => {
       },
       fetchLabOrders: jest.fn(),
     });
-    const props = {
-      location: { search: '?patient=esere_shbfidfb_343ffd' },
-    };
     const wrapper = shallow(<ConnectedOrderEntryPage store={store} {...props} />);
     expect(wrapper.length).toBe(1);
   });
