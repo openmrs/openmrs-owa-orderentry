@@ -26,6 +26,7 @@ export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { 
     </table>
     <br />
     <br />
+
     <Paginate
       totalPage={totalCount}
       nextPageUrl={links ? links[0].uri : ''}

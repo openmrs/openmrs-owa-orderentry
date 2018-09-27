@@ -26,7 +26,7 @@ class Accordion extends React.Component {
                 <i className="toggle-icon icon-caret-right small rotate90" />
               )}
             </span>
-            {format(date, dateFormat)}
+            {format(date, dateFormat).slice(0, -5)}
           </th>
           {this.props.title}
         </tr>
