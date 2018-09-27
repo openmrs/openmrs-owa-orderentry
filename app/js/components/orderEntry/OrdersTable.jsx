@@ -163,35 +163,38 @@ export class OrdersTable extends PureComponent {
       <React.Fragment>
         {filteredOrders &&
           filteredOrders.length !== 0 &&
-          filteredOrders.map(order => (
-            <Accordion
-              title={
-                <OrderHeader
-                  status="Active"
-                  orderable={order.display}
-                  order={order}
-                  handleEdit={this.handleActiveOrderEdit}
-                  handleDiscontinue={this.setDiscontinuedDrugOrder}
-                />
-              }
-              key={order.uuid}
-              dateFormat={dateFormat}
-              date={order.dateActivated}>
-              {order.type === 'drugorder' ? (
-                <DrugOrderDetails
-                  dosingInstructions={order.dosingInstructions}
-                  dispense={order.dispense}
-                  activeDates={format(order.dateActivated, dateFormat)}
-                  orderer={order.orderer.display.split('-')[1]}
-                />
-              ) : (
-                <LabOrderDetails
-                  urgency={order.urgency}
-                  orderer={order.orderer.display.split('-')[1]}
-                />
-              )}
-            </Accordion>
-          ))}
+          filteredOrders.map((order) => {
+            const { drug, display } = order;
+            return (
+              <Accordion
+                title={
+                  <OrderHeader
+                    status="Active"
+                    orderable={drug ? drug.display : display}
+                    order={order}
+                    handleEdit={this.handleActiveOrderEdit}
+                    handleDiscontinue={this.setDiscontinuedDrugOrder}
+                  />
+                }
+                key={order.uuid}
+                dateFormat={dateFormat}
+                date={order.dateActivated}>
+                {order.type === 'drugorder' ? (
+                  <DrugOrderDetails
+                    dosingInstructions={order.dosingInstructions}
+                    dispense={order.dispense}
+                    activeDates={format(order.dateActivated, dateFormat)}
+                    orderer={order.orderer.display.split('-')[1]}
+                  />
+                ) : (
+                  <LabOrderDetails
+                    urgency={order.urgency}
+                    orderer={order.orderer.display.split('-')[1]}
+                  />
+                )}
+              </Accordion>
+            );
+          })}
         {this.renderNoFilterResults()}
       </React.Fragment>
     );
