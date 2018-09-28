@@ -57,5 +57,12 @@ describe('Component: Draft', () => {
     discardButton.simulate('click', {});
     expect(props.handleDraftDiscard).toBeCalled();
   });
+
+  it('trigggers handleSubmit props when the submit button is clicked', () => {
+    const component = getComponent();
+    const submitButton = component.find('.confirm')
+    submitButton.simulate('click');
+    expect(props.handleSubmit).toBeCalled();
+  })
 });
 

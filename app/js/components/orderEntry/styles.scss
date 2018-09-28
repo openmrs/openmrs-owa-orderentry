@@ -4,7 +4,7 @@
  * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
  *
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
- * graphic logo is a trademark of OpenMRS Inc. 
+ * graphic logo is a trademark of OpenMRS Inc.
  */
 
 .order-entry-page {
@@ -125,7 +125,7 @@
     border: none;
     background-color: #fff;
   }
-  
+
   .th-orderable {
     text-transform: capitalize;
   }
@@ -316,10 +316,14 @@
   .i-gray {
     color: gray
   }
-  
+
   .i-red {
     color: red;
   }
+}
+
+.th-orderable {
+  text-align: left;
 }
 
 .draft-wrapper{
@@ -355,5 +359,5 @@
         }
       }
     }
-  }  
+  }
 }
