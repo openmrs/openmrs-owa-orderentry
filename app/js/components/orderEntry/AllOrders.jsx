@@ -57,5 +57,5 @@ AllOrders.propTypes = {
     totalCount: PropTypes.number,
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
-  patient: PropTypes.objectOf(PropTypes.string),
+  patient: PropTypes.shape({ uuid: PropTypes.string }),
 };

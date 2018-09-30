@@ -279,7 +279,11 @@ export class OrderEntryPage extends PureComponent {
       <div className="order-entry-page">
         {patientUuid ? (
           <div>
-            <PatientHeader patient={this.props.patient} note={this.props.note} />
+            <PatientHeader
+              patient={this.props.patient} 
+              note={this.props.note}
+              location={this.props.location}
+            />
             <div className="header-nav">
               <div>
                 <h3
@@ -336,7 +340,7 @@ OrderEntryPage.propTypes = {
     drugRoutes: PropTypes.arrayOf(PropTypes.any),
     durationUnits: PropTypes.arrayOf(PropTypes.any),
     orderFrequencies: PropTypes.arrayOf(PropTypes.any),
-  }).isRequired,
+  }),
   outpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string,
     display: PropTypes.string,
@@ -400,6 +404,7 @@ OrderEntryPage.propTypes = {
 };
 
 OrderEntryPage.defaultProps = {
+  configurations: {},
   outpatientCareSetting: null,
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
