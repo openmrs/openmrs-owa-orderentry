@@ -23,9 +23,11 @@ describe('AllOrders test-suite', () => {
         totalCount: 20,
         links: [
           {
+            rel: 'next',
             uri: 'next-page-url'
           },
           {
+            rel: 'prev',
             uri: 'prev-page-url'
           }
         ]

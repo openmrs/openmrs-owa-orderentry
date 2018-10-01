@@ -6,11 +6,24 @@ import SortAndFilter from './SortAndFilter';
 import Paginate from './Paginate';
 import fetchOrders from '../../actions/fetchOrders';
 
+const getPreviousOrNextPageUrl = (links, action) => {
+  let url = '';
+  if (!links) { 
+    return url;
+  }
+  links.forEach((link) => {
+    if (link.rel === action) {
+      url = link.uri;
+    }
+  });
+  return url;
+};
+
 export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { uuid } }) => (
   <div className="all-orders">
     <div className="orders-breadcrumb">
       <h3>Patient Orders</h3>
-    </div>
+    </div> 
     <SortAndFilter />
     <br />
     <table className="t-orders">
@@ -29,8 +42,8 @@ export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { 
 
     <Paginate
       totalPage={totalCount}
-      nextPageUrl={links ? links[0].uri : ''}
-      prevPageUrl={links && links.length === 2 ? links[1].uri : ''}
+      nextPageUrl={getPreviousOrNextPageUrl(links, 'next')}
+      prevPageUrl={getPreviousOrNextPageUrl(links, 'prev')}
       dispatch={dispatch}
       fetchNew={fetchOrders}
       patientId={uuid}
