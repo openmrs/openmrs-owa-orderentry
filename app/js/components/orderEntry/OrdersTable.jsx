@@ -31,15 +31,7 @@ export class OrdersTable extends PureComponent {
 
   getUUID = (items, itemName) => items.find(item => item.display === itemName)
 
-  setDiscontinuedDrugOrder = async (order) => {
-    const {
-      drugDispensingUnits,
-      drugDosingUnits,
-      drugRoutes,
-      durationUnits,
-      orderFrequencies,
-    } = this.props.allConfigurations;
-
+  setDiscontinuedOrder = async (order) => {
     const {
       careSetting,
       dose,
@@ -74,44 +66,87 @@ export class OrdersTable extends PureComponent {
           closeModal: true,
         },
       });
-      const discontinuedDrugOrder = {
-        action: 'DISCONTINUE',
-        asNeeded: (reason && true) || false,
-        asNeededCondition: reason,
-        autoExpireDate: null,
-        orderReasonNonCoded: this.state.discontinueReason || null,
-        careSetting,
-        commentToFulfiller: '',
-        dose: dose || null,
-        doseUnits: (
-          dosingUnit && this.getUUID(drugDosingUnits, dosingUnit).uuid) || null,
-        dosingInstructions: drugInstructions || null,
-        dosingType,
-        drug,
-        duration: duration || null,
-        durationUnits: (
-          durationUnit && this.getUUID(durationUnits, durationUnit).uuid) || null,
-        frequency: (
-          frequency && this.getUUID(orderFrequencies, frequency).uuid) || null,
-        numRefills: 0,
-        orderer,
-        previousOrder,
-        quantity: dispensingQuantity || null,
-        quantityUnits: (
-          dispensingUnit && this.getUUID(drugDispensingUnits, dispensingUnit).uuid) || null,
-        route: (
-          route && this.getUUID(drugRoutes, route).uuid) || null,
-        type,
-      };
-      this.discontinueDrugOrder(discontinuedDrugOrder, orderNumber);
+      const discontinuedOrder = order.type === 'drugorder'
+        ? this.formatDrugOrderData(order, reason)
+        : this.formatLabOrderData(order);
+      this.discontinueOrder(discontinuedOrder, orderNumber);
     }
   }
+
+  formatDrugOrderData = (order, reason) => {
+    const {
+      drugDispensingUnits,
+      drugDosingUnits,
+      drugRoutes,
+      durationUnits,
+      orderFrequencies,
+    } = this.props.allConfigurations;
+    const {
+      careSetting,
+      dose,
+      dosingUnit,
+      drugInstructions,
+      dosingType,
+      drug,
+      duration,
+      durationUnit,
+      frequency,
+      orderer,
+      dispensingQuantity,
+      dispensingUnit,
+      route,
+      type,
+      previousOrder,
+      orderNumber,
+    } = order;
+    return {
+      action: 'DISCONTINUE',
+      asNeeded: (reason && true) || false,
+      asNeededCondition: reason,
+      autoExpireDate: null,
+      orderReasonNonCoded: this.state.discontinueReason || null,
+      careSetting,
+      commentToFulfiller: '',
+      dose: dose || null,
+      doseUnits: (
+        dosingUnit && this.getUUID(drugDosingUnits, dosingUnit).uuid) || null,
+      dosingInstructions: drugInstructions || null,
+      dosingType,
+      drug,
+      duration: duration || null,
+      durationUnits: (
+        durationUnit && this.getUUID(durationUnits, durationUnit).uuid) || null,
+      frequency: (
+        frequency && this.getUUID(orderFrequencies, frequency).uuid) || null,
+      numRefills: 0,
+      orderer,
+      previousOrder,
+      quantity: dispensingQuantity || null,
+      quantityUnits: (
+        dispensingUnit && this.getUUID(drugDispensingUnits, dispensingUnit).uuid) || null,
+      route: (
+        route && this.getUUID(drugRoutes, route).uuid) || null,
+      type,
+    };
+  };
+
+  formatLabOrderData = order => ({
+    action: 'DISCONTINUE',
+    concept: order.concept,
+    careSetting: order.careSetting,
+    encounter: this.props.encounterType.uuid,
+    orderer: this.props.session.currentProvider.uuid,
+    patient: this.props.patient.uuid,
+    type: 'testorder',
+    urgency: order.urgency || 'ROUTINE',
+    previousOrder: order.uuid,
+  });
 
   handleActiveOrderEdit = (order) => {
     this.props.dispatch(setSelectedOrder({ order: { ...order, status: 'EDIT' }, currentOrderType: DRUG_ORDER, activity: 'EDIT' }));
   }
 
-  discontinueDrugOrder = async (order, orderNumber) => {
+  discontinueOrder = async (order, orderNumber) => {
     const encounterPayload = {
       encounterProviders: [{
         encounterRole: this.props.encounterRole.uuid,
@@ -131,8 +166,6 @@ export class OrdersTable extends PureComponent {
       encounterPayload,
       this.state.limit,
       this.state.startIndex,
-      this.props.patient.uuid,
-      this.props.careSetting.uuid,
       meta,
     ));
   }
@@ -171,7 +204,7 @@ export class OrdersTable extends PureComponent {
                   orderable={order.drug ? order.drug.display : order.display}
                   order={order}
                   handleEdit={this.handleActiveOrderEdit}
-                  handleDiscontinue={this.setDiscontinuedDrugOrder}
+                  handleDiscontinue={this.setDiscontinuedOrder}
                 />
               }
               key={order.uuid}
@@ -202,6 +235,13 @@ export class OrdersTable extends PureComponent {
 OrdersTable.defaultProps = {
   dateFormat: '',
   filteredOrders: [],
+  session: {
+    currentProvider: {
+      person: {
+        uuid: '',
+      },
+    },
+  },
 };
 
 OrdersTable.propTypes = {
@@ -219,9 +259,6 @@ OrdersTable.propTypes = {
     durationUnits: PropTypes.arrayOf(PropTypes.any),
     orderFrequencies: PropTypes.arrayOf(PropTypes.any),
   }).isRequired,
-  careSetting: PropTypes.shape({
-    uuid: PropTypes.string,
-  }).isRequired,
   sessionReducer: PropTypes.shape({
     currentProvider: PropTypes.shape({
       uuid: PropTypes.string,
@@ -234,6 +271,15 @@ OrdersTable.propTypes = {
   encounterRole: PropTypes.shape({
     uuid: PropTypes.string,
   }).isRequired,
+  session: PropTypes.shape({
+    currentProvider: PropTypes.shape({
+      person: PropTypes.shape({
+        uuid: PropTypes.string,
+      }),
+      uuid: PropTypes.string,
+    }),
+    currentLocation: PropTypes.object,
+  }),
 };
 
 const mapStateToProps = ({
@@ -245,19 +291,20 @@ const mapStateToProps = ({
   dateFormatReducer: { dateFormat },
   orderEntryConfigurations,
   careSettingReducer:
-  { outpatientCareSetting },
-
+  { outpatientCareSetting, inpatientCareSetting },
 }) => ({
   filteredOrders,
   patient,
   status,
   dateFormat,
   careSetting: outpatientCareSetting,
+  outpatientCareSetting,
+  inpatientCareSetting,
   sessionReducer: session,
   encounterRole,
   encounterType,
   allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
-
+  session,
 });
 
 export default connect(mapStateToProps)(OrdersTable);
