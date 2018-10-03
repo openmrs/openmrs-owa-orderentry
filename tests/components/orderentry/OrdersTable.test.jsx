@@ -26,12 +26,23 @@ const {
   standardDoseOrder,
 } = mockData;
 
-const mockOrder = {
+const mockDrugOrder = {
   date: "24/12/2018",
   display: "Paracetamol",
   type: "drugorder",
   dosingInstructions: "15mg of Amoxycillin syrup for the next 5 days",
   dispense: "25",
+  activeDates: "25/08/2018 - 25/08/2019",
+  orderer: {display: "Mark Goodrich"},
+  status: "Active",
+  uuid: 2,
+  orderNumber: 22,
+};
+
+const mockLabOrder = {
+  date: "24/12/2018",
+  display: "Complete Blood Count",
+  type: "testorder",
   activeDates: "25/08/2018 - 25/08/2019",
   orderer: {display: "Mark Goodrich"},
   status: "Active",
@@ -151,6 +162,7 @@ describe('Orders component test-suite', () => {
     const wrapper = mount(<ConnectedOrdersTablePage store={store} {...props} />);
     expect(wrapper.find('.no-result-info').props().children).toEqual('No Orders');
   });
+  
   it('handles editing of active orders', () => {
 
     const props = {
@@ -185,7 +197,7 @@ describe('Orders component test-suite', () => {
 
     const component = shallow(<OrdersTable {...props}/>);
     const componentInstance = component.instance();
-    componentInstance.handleActiveOrderEdit(mockOrder);
+    componentInstance.handleActiveOrderEdit(mockDrugOrder);
     expect(props.dispatch).toBeCalled();
   });
 });
@@ -199,22 +211,31 @@ describe('getUUID() method', () => {
   });
 });
 
-describe('setDiscontinuedDrugOrder method', () => {
-  it('should call setDiscontinuedDrugOrder', async (done) => {
+describe('setDiscontinuedOrder method for drug orders', () => {
+  it('should call setDiscontinuedOrder for drug orders', async (done) => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'setDiscontinuedDrugOrder');
-    renderedComponent.setDiscontinuedDrugOrder(mockOrder);
-    expect(renderedComponent.setDiscontinuedDrugOrder.calledOnce).toEqual(true);
+    sinon.spy(renderedComponent, 'setDiscontinuedOrder');
+    renderedComponent.setDiscontinuedOrder(mockDrugOrder);
+    expect(renderedComponent.setDiscontinuedOrder.calledOnce).toEqual(true);
     done();
   });
 });
 
-describe('discontinueDrugOrder method', () => {
-  it('should call discontinueDrugOrder', async (done) => {
+describe('setDiscontinuedOrder method for lab orders', () => {
+  it('should call setDiscontinuedOrder for lab orders', async (done) => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'discontinueDrugOrder');
-    renderedComponent.discontinueDrugOrder(mockOrder, 22);
-    expect(renderedComponent.discontinueDrugOrder.calledOnce).toEqual(true);
+    renderedComponent.setDiscontinuedOrder(mockLabOrder);
+    expect(renderedComponent.setDiscontinuedOrder.calledTwice).toEqual(true);
+    done();
+  });
+});
+
+describe('discontinueOrder method', () => {
+  it('should call discontinueOrder', async (done) => {
+    const renderedComponent = getComponent().instance();
+    sinon.spy(renderedComponent, 'discontinueOrder');
+    renderedComponent.discontinueOrder(mockDrugOrder, 22);
+    expect(renderedComponent.discontinueOrder.calledOnce).toEqual(true);
     expect(props.dispatch).toBeCalled();
     done();
   });

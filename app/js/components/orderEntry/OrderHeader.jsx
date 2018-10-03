@@ -21,14 +21,12 @@ const OrderHeader = ({
           dataContext={order}
         />
       }
-      {order.type === 'drugorder'
-      && <IconButton
+      <IconButton
         iconClass="icon-remove"
         iconTitle="DISCONTINUE"
         dataContext={order}
         onClick={handleDiscontinue}
       />
-      }
     </th>
   </Fragment>
 );
