@@ -6,7 +6,6 @@ import { rejects } from 'assert';
 
 jest.mock('sweetalert', () => jest.fn((question, answer) => "YES"));
 
-
 const mockStore = configureStore();
 
 const {
@@ -31,11 +30,14 @@ const mockDrugOrder = {
   display: "Paracetamol",
   type: "drugorder",
   dosingInstructions: "15mg of Amoxycillin syrup for the next 5 days",
+  dosingUnit: "Pint",
   dispense: "25",
   activeDates: "25/08/2018 - 25/08/2019",
   orderer: {display: "Mark Goodrich"},
   status: "Active",
   uuid: 2,
+  route:'random',
+  durationUnit: '5',
   orderNumber: 22,
 };
 
@@ -99,7 +101,7 @@ const props = {
     ...sessionReducer,
     sessionLocation: 'drugs',
   },
-  dispatch: jest.fn(),
+  dispatch: jest.fn(() => Promise.resolve()),
 };
 
 let mountedComponent;
@@ -205,18 +207,16 @@ describe('Orders component test-suite', () => {
 describe('getUUID() method', () => {
   it('should call getUUID()', () => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'getUUID');
-    renderedComponent.getUUID(items, itemName);
-    expect(renderedComponent.getUUID.calledOnce).toEqual(true);
+    const result = renderedComponent.getUUID(items, itemName);
+    expect(result).toEqual(items[0]);
   });
 });
 
 describe('setDiscontinuedOrder method for drug orders', () => {
   it('should call setDiscontinuedOrder for drug orders', async (done) => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'setDiscontinuedOrder');
     renderedComponent.setDiscontinuedOrder(mockDrugOrder);
-    expect(renderedComponent.setDiscontinuedOrder.calledOnce).toEqual(true);
+    expect(props.dispatch).toBeCalled();
     done();
   });
 });
@@ -225,7 +225,7 @@ describe('setDiscontinuedOrder method for lab orders', () => {
   it('should call setDiscontinuedOrder for lab orders', async (done) => {
     const renderedComponent = getComponent().instance();
     renderedComponent.setDiscontinuedOrder(mockLabOrder);
-    expect(renderedComponent.setDiscontinuedOrder.calledTwice).toEqual(true);
+    expect(props.dispatch).toBeCalled();
     done();
   });
 });
@@ -233,9 +233,7 @@ describe('setDiscontinuedOrder method for lab orders', () => {
 describe('discontinueOrder method', () => {
   it('should call discontinueOrder', async (done) => {
     const renderedComponent = getComponent().instance();
-    sinon.spy(renderedComponent, 'discontinueOrder');
     renderedComponent.discontinueOrder(mockDrugOrder, 22);
-    expect(renderedComponent.discontinueOrder.calledOnce).toEqual(true);
     expect(props.dispatch).toBeCalled();
     done();
   });
