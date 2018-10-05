@@ -9,6 +9,7 @@ import getOrderEntryConfigurations from '../../../actions/orderEntryActions';
 import { addDraftOrder } from '../../../actions/draftTableAction';
 import { selectDrugSuccess } from '../../../actions/drug';
 import { setOrderAction, setSelectedOrder } from '../../../actions/orderAction';
+import fetchAllOrders from '../../../actions/fetchAllOrders';
 import { successToast, errorToast } from '../../../utils/toast';
 import errorMessages from '../../../utils/errorMessages.json';
 
@@ -47,6 +48,7 @@ export class AddForm extends React.Component {
 
   componentDidMount() {
     this.props.getOrderEntryConfigurations();
+    this.props.fetchAllOrders(null, this.props.patient.uuid);
   }
 
   componentDidUpdate(prevProps) {
@@ -81,6 +83,16 @@ export class AddForm extends React.Component {
     this.setState({ formType: formType.trim() });
   }
 
+  checkIfDrugHasActiveOrder = (drugUuid) => {
+    const { filteredOrders } = this.props.fetchOrdersReducer;
+    const activeDrugOrder = filteredOrders.filter(order =>
+      order.type === 'drugorder' && order.drug.uuid === drugUuid);
+    if (activeDrugOrder.length === 1) {
+      return true;
+    }
+    return false;
+  }
+
   handleSubmitDrugForm = () => {
     const {
       dose,
@@ -94,49 +106,65 @@ export class AddForm extends React.Component {
       reason,
       drugInstructions,
     } = this.state.fields;
+    const {
+      careSetting,
+      drugUuid,
+      session,
+      draftOrders,
+      orderNumber,
+      currentOrderType,
+    } = this.props;
 
-    this.setState({
-      draftOrder: {
-        drugName: this.props.drugName,
-        action: this.state.action,
-        dose,
-        dosingUnit,
-        frequency,
-        route,
-        duration,
-        durationUnit,
-        dispensingUnit,
-        dispensingQuantity,
-        reason,
-        previousOrder: this.state.previousOrder,
-        drugInstructions,
-        careSetting: this.props.careSetting.uuid,
-        drug: this.props.drugUuid,
-        orderer: this.props.session.currentProvider.uuid,
-        dosingType: this.state.formType === 'Standard Dosage' ?
-          'org.openmrs.SimpleDosingInstructions' :
-          'org.openmrs.FreeTextDosingInstructions',
-        type: "drugorder",
-        orderNumber: (this.state.action === 'NEW') ? this.props.draftOrders.length :
-          this.props.orderNumber,
-      },
-    }, () => {
-      this.props.addDraftOrder(this.state.draftOrder);
-      if (this.state.draftOrder.action === 'NEW') {
-        this.props.setOrderAction('DRAFT', this.state.orderNumber);
-      } else {
-        this.props.setOrderAction('DRAFT_EDIT', this.props.orderNumber);
-      }
-    });
-    this.props.selectDrugSuccess('');
-    this.clearDrugForms();
-    this.props.clearSearchField();
-    if (this.props.activity === 'DRAFT_ORDER_EDIT') {
-      this.props.setSelectedOrder({
-        currentOrderType: this.props.currentOrderType,
-        selectedOrder: null,
-        activity: null,
+    if (!this.checkIfDrugHasActiveOrder(drugUuid)) {
+      const {
+        previousOrder, formType, action,
+      } = this.state;
+
+      this.setState({
+        draftOrder: {
+          drugName: this.props.drugName,
+          action: this.state.action,
+          dose,
+          dosingUnit,
+          frequency,
+          route,
+          duration,
+          durationUnit,
+          dispensingUnit,
+          dispensingQuantity,
+          reason,
+          previousOrder,
+          drugInstructions,
+          careSetting: careSetting.uuid,
+          drug: drugUuid,
+          orderer: session.currentProvider.uuid,
+          dosingType: formType === 'Standard Dosage' ?
+            'org.openmrs.SimpleDosingInstructions' :
+            'org.openmrs.FreeTextDosingInstructions',
+          type: "drugorder",
+          orderNumber: (action === 'NEW') ? draftOrders.length :
+            orderNumber,
+        },
+      }, () => {
+        this.props.addDraftOrder(this.state.draftOrder);
+        if (this.state.draftOrder.action === 'NEW') {
+          this.props.setOrderAction('DRAFT', this.state.orderNumber);
+        } else {
+          this.props.setOrderAction('DRAFT_EDIT', this.props.orderNumber);
+        }
       });
+      this.props.selectDrugSuccess('');
+      this.clearDrugForms();
+      this.props.clearSearchField();
+      if (this.props.activity === 'DRAFT_ORDER_EDIT') {
+        this.props.setSelectedOrder({
+          currentOrderType,
+          selectedOrder: null,
+          activity: null,
+        });
+      }
+    } else {
+      errorToast(`${this.props.drugName} order is active.`);
     }
   }
 
@@ -374,6 +402,8 @@ const mapStateToProps = ({
   draftReducer: { draftDrugOrders },
   openmrs: { session },
   orderSelectionReducer: { activity },
+  fetchOrdersReducer,
+  patientReducer: { patient },
 }) =>
   ({
     activity,
@@ -382,6 +412,8 @@ const mapStateToProps = ({
     allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
     session,
     createOrderReducer,
+    fetchOrdersReducer,
+    patient,
   });
 
 AddForm.propTypes = {
@@ -424,6 +456,17 @@ AddForm.propTypes = {
     errorMessage: PropTypes.string,
     addedOrder: PropTypes.object,
   }).isRequired,
+  fetchOrdersReducer: PropTypes.shape({
+    filteredOrders: PropTypes.arrayOf(PropTypes.shape({
+      drug: PropTypes.shape({
+        uuid: PropTypes.string,
+      }),
+    })),
+  }).isRequired,
+  fetchAllOrders: PropTypes.func.isRequired,
+  patient: PropTypes.shape({
+    uuid: PropTypes.string,
+  }).isRequired,
 };
 
 AddForm.defaultProps = {
@@ -446,5 +489,6 @@ export default connect(
     addDraftOrder,
     setOrderAction,
     setSelectedOrder,
+    fetchAllOrders,
   },
 )(AddForm);
