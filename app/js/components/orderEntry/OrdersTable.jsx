@@ -162,12 +162,12 @@ export class OrdersTable extends PureComponent {
       activity: order.action,
       orderNumber,
     };
-    return this.props.dispatch(createOrder(
+    await this.props.dispatch(createOrder(
       encounterPayload,
       this.state.limit,
       this.state.startIndex,
       meta,
-    ));
+    )).then(() => this.props.dispatch(fetchOrders(null, this.props.patient.uuid)));
   }
 
   renderNoFilterResults = () => {

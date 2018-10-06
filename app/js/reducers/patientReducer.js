@@ -1,4 +1,4 @@
-import { SET_PATIENT } from '../actions/actionTypes';
+import { SET_PATIENT, SET_PATIENT_FAILED } from '../actions/actionTypes';
 import initialState from './initialState';
 
 export default (state = initialState.defaultPatient, action) => {
@@ -7,6 +7,11 @@ export default (state = initialState.defaultPatient, action) => {
       return {
         ...state,
         patient: action.patient,
+      };
+    case SET_PATIENT_FAILED:
+      return {
+        ...state,
+        patient: [],
       };
     default: return state;
   }

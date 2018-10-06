@@ -226,7 +226,7 @@ export default {
     selected: {},
   },
   formType: 'Free Text',
-  items: [],
-  itemName: '',
+  items: [{ display: 'Procold' }],
+  itemName: 'Procold',
   attributes: [],
 };
