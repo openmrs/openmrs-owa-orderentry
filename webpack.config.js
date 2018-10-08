@@ -25,7 +25,7 @@ const autoprefixer = require('autoprefixer');
 
 const env = process.env.NODE_ENV;
 
-const THIS_APP_ID = 'openmrs-owa-orderentry';
+const THIS_APP_ID = 'orderentry';
 
 var plugins = [];
 const nodeModules = {};

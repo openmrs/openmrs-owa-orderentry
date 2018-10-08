@@ -32,7 +32,7 @@ Create a config.json file in the top level directory following this template:
 
 {
     'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
-    'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html'
+    'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/orderentry/index.html'
 }
 
 "LOCAL_OWA_FOLDER" should point to the "owa" directory of your locally running OpenMRS instance, and
