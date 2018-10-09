@@ -9,7 +9,7 @@ const fetchOrders = (
 ) => ({
   type: FETCH_ORDERS,
   payload: axiosInstance
-    .get(uri || `/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&v=full`),
+    .get(uri ? uri.substr(uri.indexOf('v1') + 2) : `/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&v=full`),
 });
 
 export default fetchOrders;

@@ -227,8 +227,9 @@
   text-decoration: none;
   transition: background-color 0.3s;
   border: 1px solid #ddd;
+  pointer-events:none;
   p {
-    color: #007fff !important;
+    color: #58626b !important;
   }
 }
 
