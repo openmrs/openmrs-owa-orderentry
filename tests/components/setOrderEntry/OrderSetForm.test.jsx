@@ -26,6 +26,13 @@ describe('Component: OrderSetForm', () => {
     const renderedComponent = getComponent().instance();
     const { changeSelectedOrderSet } = renderedComponent;
     changeSelectedOrderSet();
-    expect(renderedComponent.state.displaySets).toEqual('none');
+    expect(renderedComponent.state.displaySets).toEqual(false);
+  });
+
+  it('should hide the segment of the form that displays the order details when cancelOrderSet is called', () => {
+    const renderedComponent = getComponent().instance();
+    const { cancelOrderSet } = renderedComponent;
+    cancelOrderSet();
+    expect(renderedComponent.state.displayForm).toEqual(false);
   });
 });
