@@ -17,6 +17,7 @@ const props = {
   selectDrugSuccess: jest.fn(),
   setSelectedOrder: jest.fn(),
   getOrderEntryConfigurations: jest.fn(),
+  fetchAllOrders: jest.fn(),
   activity: '',
   allConfigurations: {
     drugDosingUnits: [{ display: 'grams' }],
@@ -34,13 +35,38 @@ const props = {
     },
   },
   careSetting: { bdisplay: 'Outpatient', uuid: 'aaa1234' },
-  drugName: 'Paracentamol',
+  drugName: 'Paracetamol',
   drugUuid: 'AJJJKW7378JHJ',
   draftOrder,
   draftOrders,
   editOrder,
   formType,
   session,
+  patient: {
+    patientId: 'some-random-id',
+    uuid: 'some-random-id',
+    patientIdentiier: { uuid: 'some-random-uuid' },
+    person: { gender: 'M', age: 12, birthdate: '2006-08-08T00:00:00.000+0100' },
+    personName: { display: 'joey bart' },
+  },
+  fetchOrdersReducer: {
+    filteredOrders: [
+      {
+        activeDates: '24/12/2018',
+        display: 'Paracetamol',
+        type: 'drugorder',
+        dosingInstructions: '25mg of Amoxycillin syrup for the next 5 days',
+        dispense: '45',
+        orderer: { display: 'Mark Goodrich' },
+        drug: {
+          uuid: "502a2b2e-4659-4987-abbd-c50545dead47",
+          display: "Paracetamol",
+        },
+        urgency: 'STAT',
+        uuid: 2,
+      },
+    ]
+  },
 };
 
 let mountedComponent;
@@ -271,6 +297,15 @@ describe('handleSubmitDrugForm() method', () => {
       ...component.state.draftOrder,
       action: 'NOT_NEW',
     });
+  });
+
+  it('displays a toast with message if a drug has an active order', () => {
+    expect(global.toastrMessage === 'Paracetamol order is active.').toBeFalsy();
+    const component = getComponent();
+    const componentMethods = component.instance();
+    component.setProps({ drugUuid: '502a2b2e-4659-4987-abbd-c50545dead47' });
+    componentMethods.handleSubmitDrugForm();
+    expect(global.toastrMessage).toEqual('Paracetamol order is active.');
   });
 
   it('displays a toast with message if a drug has been added successfully', () => {
