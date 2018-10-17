@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SelectBox from '../selectBox';
 import Accordion from '../orderEntry/Accordion';
-import OrderHeader from '../orderEntry/OrderHeader';
 import OrderSetDetails from './OrderSetDetails';
 import './styles.scss';
 
@@ -13,12 +12,16 @@ class OrderSetForm extends PureComponent {
     items: [{ value: 'Choose a set to add', id: 0 }, { value: 'Mineral', id: 1 }],
     selectedItem: '',
     isDisabled: false,
-    displaySets: 'block',
-    displayForm: 'none',
+    displaySets: true,
+    displayForm: false,
   }
 
   changeSelectedOrderSet = () => {
-    this.setState({ displaySets: 'none', displayForm: 'block' });
+    this.setState({ displaySets: false, displayForm: true });
+  }
+
+  cancelOrderSet = () => {
+    this.setState({ displaySets: true, displayForm: false });
   }
 
   render() {
@@ -31,30 +34,23 @@ class OrderSetForm extends PureComponent {
           <div>
             <h1>Order from Sets</h1>
           </div>
-          <span style={{ display: displaySets }}>
+          <span style={{ display: displaySets ? 'block' : 'none' }}>
             <SelectBox
               items={items}
               selectedItem={selectedItem}
               onChange={this.changeSelectedOrderSet}
             />
           </span>
-          <span style={{ display: displayForm }}>
+          <span style={{ display: displayForm ? 'block' : 'none' }}>
             <div className="set-header">
               <h1>DIABETES INITIAL WORKUP</h1>
             </div>
             <table>
               <tbody>
                 <tr className="set-details">
-                  <th className="set-details-header">Details</th>
-                  <th className="set-actions-header">Actions</th>
+                  <th colSpan="2" className="set-details-header">Details</th>
                 </tr>
                 <Accordion
-                  title={
-                    <OrderHeader
-                      handleEdit={() => {}}
-                      handleDiscontinue={() => {}}
-                    />
-                  }
                   key={1}
                   caretText="Test Set"
                 >
@@ -66,7 +62,7 @@ class OrderSetForm extends PureComponent {
             <input
               type="button"
               id="draft-discard-all"
-              onClick={() => {}}
+              onClick={this.cancelOrderSet}
               className="button cancel modified-btn"
               value="Cancel"
               disabled={isDisabled}
