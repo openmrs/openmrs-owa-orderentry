@@ -42,7 +42,7 @@ const Paginate = ({
     <div className="page-link no-click">
       <p>/</p>
     </div>
-    <div className="page-link current-page">
+    <div className="page-link">
       <p>
         <b>{getNumberOfAllPages(totalPage)}</b>
       </p>
