@@ -33,7 +33,7 @@ export class AddForm extends React.Component {
     },
     draftOrder: {},
     orders: [],
-    orderNumber: '0',
+    stateOrderNumber: '0',
     formType: 'Standard Dosage',
     dosingType: '',
     activeTabIndex: 0,
@@ -47,14 +47,20 @@ export class AddForm extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getOrderEntryConfigurations();
-    this.props.fetchAllOrders(null, this.props.patient.uuid);
+    const {
+      getOrderEntryConfigurationsAction,
+      fetchAllOrdersAction, 
+      patient: { uuid },
+    } = this.props;
+    getOrderEntryConfigurationsAction();
+    fetchAllOrdersAction(null, uuid);
   }
 
   componentDidUpdate(prevProps) {
     const { status: { added, error }, errorMessage, addedOrder } = this.props.createOrderReducer;
+    const { setSelectedOrderAction, draftOrder, editOrder } = this.props;
     if (addedOrder && prevProps.createOrderReducer.addedOrder !== addedOrder) {
-      this.props.setSelectedOrder({
+      setSelectedOrderAction({
         currentOrderType: {},
         order: null,
         activity: null,
@@ -67,8 +73,8 @@ export class AddForm extends React.Component {
       errorToast(errorMessages[errorMessage.join('')]);
     }
     return (
-      Object.keys(this.props.draftOrder).length ||
-      Object.keys(this.props.editOrder).length
+      Object.keys(draftOrder).length ||
+      Object.keys(editOrder).length
     ) && this.populateEditOrderForm();
   }
 
@@ -105,24 +111,34 @@ export class AddForm extends React.Component {
       dispensingUnit,
       reason,
       drugInstructions,
-    } = this.state.fields;
+    } = this.state.fields;  
     const {
       careSetting,
       drugUuid,
       session,
+      activity,
       draftOrders,
       orderNumber,
       currentOrderType,
+      setSelectedOrderAction,
+      drugName,
+      addDraftOrderAction,
+      setOrder,
+      selectDrugSuccessAction,
+      clearSearchField,
     } = this.props;
 
     if (!this.checkIfDrugHasActiveOrder(drugUuid)) {
       const {
-        previousOrder, formType, action,
+        previousOrder,
+        formType,
+        action,
+        stateOrderNumber,
       } = this.state;
 
       this.setState({
         draftOrder: {
-          drugName: this.props.drugName,
+          drugName,
           action: this.state.action,
           dose,
           dosingUnit,
@@ -142,29 +158,29 @@ export class AddForm extends React.Component {
             'org.openmrs.SimpleDosingInstructions' :
             'org.openmrs.FreeTextDosingInstructions',
           type: "drugorder",
-          orderNumber: (action === 'NEW') ? draftOrders.length :
-            orderNumber,
+          stateOrderNumber: (action === 'NEW') ? draftOrders.length :
+            stateOrderNumber,
         },
       }, () => {
-        this.props.addDraftOrder(this.state.draftOrder);
+        addDraftOrderAction(this.state.draftOrder);
         if (this.state.draftOrder.action === 'NEW') {
-          this.props.setOrderAction('DRAFT', this.state.orderNumber);
+          setOrder('DRAFT', stateOrderNumber);
         } else {
-          this.props.setOrderAction('DRAFT_EDIT', this.props.orderNumber);
+          setOrder('DRAFT_EDIT', orderNumber);
         }
       });
-      this.props.selectDrugSuccess('');
+      selectDrugSuccessAction('');
       this.clearDrugForms();
-      this.props.clearSearchField();
-      if (this.props.activity === 'DRAFT_ORDER_EDIT') {
-        this.props.setSelectedOrder({
+      clearSearchField();
+      if (activity === 'DRAFT_ORDER_EDIT') {
+        setSelectedOrderAction({
           currentOrderType,
           selectedOrder: null,
           activity: null,
         });
       }
     } else {
-      errorToast(`${this.props.drugName} order is active.`);
+      errorToast(`${drugName} order is active.`);
     }
   }
 
@@ -250,12 +266,20 @@ export class AddForm extends React.Component {
   }
 
   handleCancel = () => {
-    this.props.selectDrugSuccess('');
+    const {
+      selectDrugSuccessAction,
+      clearSearchField,
+      setOrder,
+      setSelectedOrderAction,
+      orderNumber,
+      currentOrderType,
+    } = this.props;
+    selectDrugSuccessAction('');
     this.clearDrugForms();
-    this.props.clearSearchField();
-    this.props.setOrderAction('DISCARD_ONE', this.props.orderNumber);
-    this.props.setSelectedOrder({
-      currentOrderType: this.props.currentOrderType,
+    clearSearchField();
+    setOrder('DISCARD_ONE', orderNumber);
+    setSelectedOrderAction({
+      currentOrderType,
       selectedOrder: null,
       activity: null,
     });
@@ -420,11 +444,11 @@ AddForm.propTypes = {
   activity: PropTypes.string,
   clearSearchField: PropTypes.func.isRequired,
   currentOrderType: PropTypes.object.isRequired,
-  selectDrugSuccess: PropTypes.func,
-  setSelectedOrder: PropTypes.func.isRequired,
-  getOrderEntryConfigurations: PropTypes.func,
-  addDraftOrder: PropTypes.func.isRequired,
-  setOrderAction: PropTypes.func.isRequired,
+  selectDrugSuccessAction: PropTypes.func,
+  setSelectedOrderAction: PropTypes.func.isRequired,
+  getOrderEntryConfigurationsAction: PropTypes.func,
+  addDraftOrderAction: PropTypes.func.isRequired,
+  setOrder: PropTypes.func.isRequired,
   orderNumber: PropTypes.string,
   draftOrders: PropTypes.arrayOf(PropTypes.any),
   allConfigurations: PropTypes.object.isRequired,
@@ -463,7 +487,7 @@ AddForm.propTypes = {
       }),
     })),
   }).isRequired,
-  fetchAllOrders: PropTypes.func.isRequired,
+  fetchAllOrdersAction: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     uuid: PropTypes.string,
   }).isRequired,
@@ -471,8 +495,8 @@ AddForm.propTypes = {
 
 AddForm.defaultProps = {
   activity: '',
-  selectDrugSuccess: {},
-  getOrderEntryConfigurations: () => {},
+  selectDrugSuccessAction: {},
+  getOrderEntryConfigurationsAction: () => {},
   drugName: '',
   editOrder: {},
   draftOrder: {},
@@ -484,11 +508,11 @@ AddForm.defaultProps = {
 export default connect(
   mapStateToProps,
   {
-    getOrderEntryConfigurations,
-    selectDrugSuccess,
-    addDraftOrder,
-    setOrderAction,
-    setSelectedOrder,
-    fetchAllOrders,
+    getOrderEntryConfigurationsAction: getOrderEntryConfigurations,
+    selectDrugSuccessAction: selectDrugSuccess,
+    addDraftOrderAction: addDraftOrder,
+    setOrder: setOrderAction,
+    setSelectedOrderAction: setSelectedOrder,
+    fetchAllOrdersAction: fetchAllOrders,
   },
 )(AddForm);

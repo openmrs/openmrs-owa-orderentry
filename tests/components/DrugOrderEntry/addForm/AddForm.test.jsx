@@ -7,17 +7,17 @@ const {
 } = mockData;
 
 const props = {
-  addDraftOrder: jest.fn(),
+  addDraftOrderAction: jest.fn(),
   createOrderReducer: jest.fn(),
   clearDrugForms: jest.fn(),
   clearSearchField: jest.fn(),
-  setOrderAction: jest.fn(),
+  setOrder: jest.fn(),
   setSelectedOrder: jest.fn(),
   removeOrder: jest.fn(),
-  selectDrugSuccess: jest.fn(),
-  setSelectedOrder: jest.fn(),
-  getOrderEntryConfigurations: jest.fn(),
-  fetchAllOrders: jest.fn(),
+  selectDrugSuccessAction: jest.fn(),
+  setSelectedOrderAction: jest.fn(),
+  getOrderEntryConfigurationsAction: jest.fn(),
+  fetchAllOrdersAction: jest.fn(),
   activity: '',
   allConfigurations: {
     drugDosingUnits: [{ display: 'grams' }],
@@ -272,13 +272,19 @@ describe('clearDrugForms() method', () => {
 });
 
 describe('handleSubmitDrugForm() method', () => {
+  const { 
+    addDraftOrderAction,
+    setOrder, 
+    selectDrugSuccessAction,
+    setSelectedOrderAction,
+    } = props;
   it(`it dispatches the addDraftOrder, selectDrugSuccess,
   setOrderAction props when method is fired`, () => {
     const renderedComponent = getComponent().instance();
     renderedComponent.handleSubmitDrugForm();
-    expect(props.addDraftOrder).toBeCalled();
-    expect(props.setOrderAction).toBeCalled();
-    expect(props.selectDrugSuccess).toBeCalled();
+    expect(addDraftOrderAction).toBeCalled();
+    expect(setOrder).toBeCalled();
+    expect(selectDrugSuccessAction).toBeCalled();
   });
 
   it('dispatches setSelectedOrder if activity is DRAFT_ORDER_EDIT', () => {
@@ -286,7 +292,7 @@ describe('handleSubmitDrugForm() method', () => {
     const componentMethods = component.instance();
     component.setProps({ activity: 'DRAFT_ORDER_EDIT' });
     componentMethods.handleSubmitDrugForm();
-    expect(props.setSelectedOrder).toHaveBeenCalled();
+    expect(setSelectedOrderAction).toHaveBeenCalled();
   });
 
   it('sets state accordingly', () => {
@@ -343,13 +349,13 @@ describe('handleSubmitDrugForm() method', () => {
 
   it('should change the selected order after a drug has been added', () => {
     const component = getComponent();
-    props.setSelectedOrder.mockReset();
+    props.setSelectedOrderAction.mockReset();
     component.setProps({
       createOrderReducer: {
         addedOrder: { order: 'just-a-sample-order' },
         status: { added: true, errror: false },
       },
     });
-    expect(props.setSelectedOrder).toHaveBeenCalledTimes(1);
+    expect(setSelectedOrderAction).toHaveBeenCalledTimes(1);
   });
 });
