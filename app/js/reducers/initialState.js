@@ -119,7 +119,9 @@ export default {
   labOrderables: {
     error: false,
     loading: false,
-    orderables: [{}],
+    orderables: [{
+      uuid: '',
+    }],
   },
   labConcepts: {
     error: null,

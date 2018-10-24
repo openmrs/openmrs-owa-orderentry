@@ -87,6 +87,11 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         labOrderData: {},
       },
       fetchLabOrders: jest.fn(),
+      labOrderableReducer: {
+        orderables: [{
+          uuid: '1234'
+        }]
+      }
     };
     mountedComponent = undefined;
   });
@@ -340,6 +345,11 @@ describe('Connected OrderEntryPage component', () => {
         labOrderData: {},
       },
       fetchLabOrders: jest.fn(),
+      labOrderableReducer: {
+        orderables: [{
+          uuid: '1234'
+        }]
+      }
     });
     const wrapper = shallow(<ConnectedOrderEntryPage store={store} {...props} />);
     expect(wrapper.length).toBe(1);
