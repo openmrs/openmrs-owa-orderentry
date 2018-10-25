@@ -1,7 +1,3 @@
-import {
-  GET_DATE_SUCCESS,
-  GET_DATE_FAILURE,
-} from './actionTypes';
 import axiosInstance from '../config';
 
 const getDateFormat = value => ({

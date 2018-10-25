@@ -1,5 +1,3 @@
-import { all } from 'redux-saga/effects';
-
 const initialState = {
   orders: {
     results: [],

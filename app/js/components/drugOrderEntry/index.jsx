@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddForm from './addForm/AddForm';
-import Tabs from '../tabs/Tabs';
-import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder } from '../../actions/draftTableAction';
