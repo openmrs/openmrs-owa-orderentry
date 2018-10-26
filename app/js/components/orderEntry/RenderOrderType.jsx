@@ -26,3 +26,25 @@ const RenderOrderType = (props) => {
 };
 
 export default RenderOrderType;
+
+RenderOrderType.defaultProps = {
+  outpatientCareSetting: null,
+  inpatientCareSetting: {
+    uuid: '',
+  },
+};
+
+RenderOrderType.propTypes = {
+  currentOrderTypeID: PropTypes.number,
+  outpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string,
+    display: PropTypes.string,
+  }),
+  inpatientCareSetting: PropTypes.shape({
+    uuid: PropTypes.string,
+    display: PropTypes.string,
+  }),
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+};
