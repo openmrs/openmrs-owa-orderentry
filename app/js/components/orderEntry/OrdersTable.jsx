@@ -9,7 +9,7 @@ import LabOrderDetails from './LabOrderDetails';
 import DrugOrderDetails from './DrugOrderDetails';
 import fetchOrders from '../../actions/fetchOrders';
 import { DRUG_ORDER } from './orderTypes';
-import { setSelectedOrder, setOrderAction } from '../../actions/orderAction';
+import { setSelectedOrder } from '../../actions/orderAction';
 import createOrder from '../../actions/createOrder';
 
 

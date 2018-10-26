@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DrugOrderEntry from '../drugOrderEntry';
 import * as orderTypes from './orderTypes';
 import LabEntryForm from '../labOrderEntry/LabEntryForm';
