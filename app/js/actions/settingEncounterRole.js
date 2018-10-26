@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   SETTING_ENCOUNTER_ROLE_SUCCESS,
   SETTING_ENCOUNTER_ROLE_FAILURE,

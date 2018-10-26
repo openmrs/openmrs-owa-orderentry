@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DosageTab from '../tabs/DosageTab';
 
 class DosageTabs extends Component {
   handleTabClick = (tabIndex, tabName) => {
