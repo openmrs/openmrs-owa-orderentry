@@ -128,7 +128,7 @@ export class AddForm extends React.Component {
       clearSearchField,
     } = this.props;
 
-    if (!this.checkIfDrugHasActiveOrder(drugUuid)) {
+    if (!this.checkIfDrugHasActiveOrder(drugUuid) || activity === "EDIT") {
       const {
         previousOrder,
         formType,

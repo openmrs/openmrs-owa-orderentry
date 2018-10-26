@@ -8,3 +8,5 @@ coverage
 *.snap
 .DS_Store
 .idea
+*.swp
+*.swo
