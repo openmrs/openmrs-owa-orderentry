@@ -8,7 +8,7 @@ import fetchOrders from '../../actions/fetchOrders';
 
 const getPreviousOrNextPageUrl = (links, action) => {
   let url = '';
-  if (!links) { 
+  if (!links) {
     return url;
   }
   links.forEach((link) => {
@@ -23,7 +23,7 @@ export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { 
   <div className="all-orders">
     <div className="orders-breadcrumb">
       <h3>Patient Orders</h3>
-    </div> 
+    </div>
     <SortAndFilter />
     <br />
     <table className="t-orders">

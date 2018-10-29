@@ -152,7 +152,7 @@ export class SearchAndAddOrder extends React.PureComponent {
   renderAddForm = careSetting => (
     <div>
       <AddForm
-        currentOrderType={this.props.currentOrderType}      
+        currentOrderType={this.props.currentOrderType}
         drugName={this.state.editDrugName ? this.state.editDrugName : this.props.drug.display}
         drugUuid={this.state.editDrugUuid ? this.state.editDrugUuid : this.props.drug.uuid}
         editOrder={this.state.editOrder}
