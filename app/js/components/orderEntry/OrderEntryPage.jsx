@@ -209,6 +209,7 @@ export class OrderEntryPage extends PureComponent {
       settingEncounterTypeReducer,
       dateFormatReducer,
     } = this.props;
+    const { page } = this.state;
     const { settingEncounterType, error } = settingEncounterTypeReducer;
     const { settingEncounterRole, roleError } = settingEncounterRoleReducer;
     const { dateFormat, error: dateError } = dateFormatReducer;
@@ -315,10 +316,10 @@ export class OrderEntryPage extends PureComponent {
                   <b>Orders List</b>
                 </h3>
               </div>
-              <SelectOrderType
+              {!(page) && <SelectOrderType
                 switchOrderType={this.switchOrderType}
                 currentOrderType={this.props.currentOrderType}
-              />
+              />}
             </div>
             <div className="body-wrapper drug-order-entry">
               <RenderOrderType
