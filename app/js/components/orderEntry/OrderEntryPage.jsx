@@ -28,7 +28,7 @@ import './styles.scss';
 export class OrderEntryPage extends PureComponent {
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
-    returnUrl: new URLSearchParams(this.props.location.search).get('returnurl'),
+    returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
   };
 
   componentDidMount() {
