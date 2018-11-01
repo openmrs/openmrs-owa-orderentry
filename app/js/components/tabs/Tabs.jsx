@@ -6,7 +6,7 @@ class Tabs extends Component {
       activeTabIndex: this.props.defaultActiveTabIndex,
     };
 
-    handleTabClick = (tabIndex, tabName) => {
+    handleTabClick = (tabIndex) => {
       this.setState({
         activeTabIndex: tabIndex,
       });

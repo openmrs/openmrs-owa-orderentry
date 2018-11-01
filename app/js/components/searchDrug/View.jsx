@@ -8,7 +8,7 @@ const showError = error => (
 );
 
 const View = ({
-  searchDrug, results, loading, error, focused,
+  results, loading, error, focused,
   onOptionSelected,
   onChange, value,
 }) => {
@@ -61,7 +61,6 @@ const View = ({
 
 View.propTypes = {
   results: PropTypes.array,
-  searchDrug: PropTypes.func.isRequired,
   onOptionSelected: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
