@@ -10,3 +10,6 @@ coverage
 .idea
 *.swp
 *.swo
+tags
+tags.lock
+tags.temp
