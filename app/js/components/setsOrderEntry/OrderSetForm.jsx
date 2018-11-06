@@ -4,46 +4,68 @@ import { connect } from 'react-redux';
 import SelectBox from '../selectBox';
 import Accordion from '../orderEntry/Accordion';
 import OrderSetDetails from './OrderSetDetails';
+import fetchOrderSet from '../../actions/orderSet/fetchOrderSet';
 import './styles.scss';
 
-
-class OrderSetForm extends PureComponent {
+export class OrderSetForm extends PureComponent {
   state = {
-    items: [{ value: 'Choose a set to add', id: 0 }, { value: 'Mineral', id: 1 }],
-    selectedItem: '',
+    selectedItem: { name: '', id: '' },
     isDisabled: false,
     displaySets: true,
     displayForm: false,
   }
 
-  changeSelectedOrderSet = () => {
-    this.setState({ displaySets: false, displayForm: true });
+  componentDidMount() {
+    this.props.fetchOrderSet();
+  }
+
+  generateOrderSetOptions = () => {
+    const { orderSets } = this.props;
+    let orderSetsOptions;
+    if (orderSets && orderSets.length) {
+      orderSetsOptions = orderSets.map((orderSet) => {
+        const { name, id } = orderSet;
+        return ({ name, id });
+      });
+      return orderSetsOptions;
+    }
+    return [{ name: 'Loading', id: 0 }];
+  }
+
+  changeSelectedOrderSet = (item) => {
+    this.setState({ displaySets: false, displayForm: true, selectedItem: item });
   }
 
   cancelOrderSet = () => {
     this.setState({ displaySets: true, displayForm: false });
   }
 
+  fetchSelectedOrderSet = orderSetId =>
+    this.props.orderSets.find(orderSet => orderSet.id === orderSetId);
+
   render() {
     const {
-      items, selectedItem, isDisabled, displaySets, displayForm,
+      selectedItem, isDisabled, displaySets, displayForm,
     } = this.state;
+    const { name, id } = selectedItem;
     return (
       <React.Fragment>
         <div className="order-set-entry">
           <div>
             <h1>Order from Sets</h1>
           </div>
-          <span style={{ display: displaySets ? 'block' : 'none' }}>
+          {displaySets &&
+          <span>
             <SelectBox
-              items={items}
+              items={this.generateOrderSetOptions()}
               selectedItem={selectedItem}
               onChange={this.changeSelectedOrderSet}
             />
-          </span>
-          <span style={{ display: displayForm ? 'block' : 'none' }}>
+          </span>}
+          { displayForm &&
+          <span>
             <div className="set-header">
-              <h1>DIABETES INITIAL WORKUP</h1>
+              <h1>{name}</h1>
             </div>
             <table>
               <tbody>
@@ -51,10 +73,10 @@ class OrderSetForm extends PureComponent {
                   <th colSpan="2" className="set-details-header">Details</th>
                 </tr>
                 <Accordion
-                  key={1}
-                  caretText="Test Set"
+                  key={id}
+                  caretText={name}
                 >
-                  <OrderSetDetails />
+                  <OrderSetDetails orderSet={this.fetchSelectedOrderSet(id)} />
                 </Accordion>
               </tbody>
             </table>
@@ -74,10 +96,19 @@ class OrderSetForm extends PureComponent {
               value="Save to Drafts"
               disabled={isDisabled}
             />
-          </span>
+          </span>}
         </div>
       </React.Fragment>);
   }
 }
 
-export default OrderSetForm;
+OrderSetForm.propTypes = {
+  orderSets: PropTypes.arrayOf(PropTypes.any).isRequired,
+  fetchOrderSet: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ fetchOrderSetReducer }) => ({
+  orderSets: fetchOrderSetReducer.orderSets,
+});
+
+export default connect(mapStateToProps, { fetchOrderSet })(OrderSetForm);

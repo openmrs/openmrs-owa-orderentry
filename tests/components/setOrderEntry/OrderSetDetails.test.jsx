@@ -13,7 +13,14 @@ const getComponent = () => {
 
 describe('Component: OrderSetDetails', () => {
   beforeEach(() => {
-    props = {};
+    props = {
+      orderSet: {
+        orders: [{
+          drug: 1,
+          drugName: 'Panadol'
+        }]
+      }
+    };
     mountedComponent = undefined;
   });
 
