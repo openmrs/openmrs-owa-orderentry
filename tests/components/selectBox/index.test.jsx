@@ -27,6 +27,14 @@ describe('Component: SelectBox', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('updates state when a new props is passed', () => {
+    const component = getComponent();
+    const nextItemProp = [{ value: 'Choose a set to add', id: 0 }, { value: 'Mineral', id: 1 }, { value: 'Salt', id: 2 }];
+    component.setProps({ items: nextItemProp });
+    const stateItems = component.state().items;
+    expect(stateItems.length).toEqual(nextItemProp.length);
+  });
+
   it('should change the value of showItems in the state when dropDown() is called', () => {
     const component = getComponent();
     const renderedComponent = getComponent().instance();

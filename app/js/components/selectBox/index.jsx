@@ -5,10 +5,36 @@ import './styles.scss';
 
 class SelectBox extends React.Component {
   state = {
-    name: this.props.name,
-    items: this.props.items || [],
-    selectedItem: this.props.items[0] || this.props.selectedItem,
+    name: '',
+    items: [],
+    selectedItem: null,
     showItems: false,
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.items.length !== state.items.length) {
+      return {
+        name: props.name,
+        items: props.items,
+        selectedItem: props.selectedItem,
+      };
+    }
+    return {
+      name: state.name,
+      items: state.items,
+      selectedItem: state.selectedItem,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { items, name, selectedItem } = this.props;
+    if (nextProps.items.length !== this.props.items.length) {
+      this.setState({
+        items,
+        name,
+        selectedItem,
+      });
+    }
   }
 
   dropDown = () => {
@@ -22,7 +48,7 @@ class SelectBox extends React.Component {
       selectedItem: item,
       showItems: false,
     });
-    this.props.onChange();
+    this.props.onChange(item);
   }
 
   render() {
@@ -59,7 +85,7 @@ class SelectBox extends React.Component {
                   onClick={() => this.selectItem(item)}
                   className={selectedItem === item ? 'selected' : ''}
                 >
-                  { item.value }
+                  { item.name }
                 </div>))
             }
           </div>

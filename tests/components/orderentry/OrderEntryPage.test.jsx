@@ -24,6 +24,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       getLabOrderables: jest.fn(),
       getDateFormat: jest.fn(),
       fetchPatientRecord: jest.fn(),
+      fetchOrderSet: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
       configurations: {
@@ -136,6 +137,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is not set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderables: jest.fn(),
+      fetchOrderSet: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
@@ -222,6 +224,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is set', ()
       getDateFormat: jest.fn(),
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
+      fetchOrderSet: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
@@ -273,6 +276,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getDateFormat: jest.fn(),
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
+      fetchOrderSet: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
@@ -326,6 +330,7 @@ describe('Test for Order entry page when orderentryowa.dateAndTimeFormat is set'
       getSettingEncounterRole: jest.fn(),
       getDateFormat: jest.fn(),
       getLabOrderables: jest.fn(),
+      fetchOrderSet: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
@@ -382,6 +387,7 @@ describe('Test for Order entry page when orderentryowa.encounterRole is not set'
       getLabOrderables: jest.fn(),
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
+      fetchOrderSet: jest.fn(),
       setSelectedOrder: jest.fn(),
       settingEncounterTypeReducer: {
         settingEncounterType: 'order type',
@@ -430,6 +436,7 @@ describe('Handling Submit', () => {
     getSettingEncounterRole: jest.fn(),
     getDateFormat: jest.fn(),
     getLabOrderables: jest.fn(),
+    fetchOrderSet: jest.fn(),
     fetchPatientRecord: jest.fn(),
     fetchPatientNote: jest.fn(),
     setSelectedOrder: jest.fn(),

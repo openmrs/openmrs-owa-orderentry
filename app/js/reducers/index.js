@@ -31,6 +31,7 @@ import getLabOrderablesReducer from './labOrders/settingLabOrderableReducer';
 import fetchOrdersReducer from './fetchOrdersReducer';
 import orderSelectionReducer from './orderSelectionReducer';
 import draftReducer from './draftReducer';
+import fetchOrderSetReducer from './orderSets/fetchOrderSetsReducer';
 
 export default combineReducers({
   openmrs: openmrsReducers,
@@ -53,6 +54,7 @@ export default combineReducers({
   labOrderableReducer,
   labConceptsReducer,
   fetchLabOrderReducer,
+  fetchOrderSetReducer,
   createLabOrderReducer,
   getLabOrderablesReducer,
   fetchOrdersReducer,

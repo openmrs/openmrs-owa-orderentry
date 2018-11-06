@@ -16,6 +16,7 @@ import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
 import { successToast, errorToast } from '../../utils/toast';
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
+import fetchOrderSet from '../../actions/orderSet/fetchOrderSet';
 import {
   editDraftDrugOrder,
   toggleDraftLabOrderUrgency,
@@ -35,6 +36,7 @@ export class OrderEntryPage extends PureComponent {
     this.props.getDateFormat('default');
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
+    this.props.fetchOrderSet();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -397,6 +399,7 @@ OrderEntryPage.propTypes = {
     labOrderData: PropTypes.object,
   }).isRequired,
   fetchLabOrders: PropTypes.func.isRequired,
+  fetchOrderSet: PropTypes.func.isRequired,
 };
 
 OrderEntryPage.defaultProps = {
@@ -472,6 +475,7 @@ const actionCreators = {
   discardTestsInDraft,
   createLabOrder,
   fetchLabOrders,
+  fetchOrderSet,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
