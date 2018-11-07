@@ -6,6 +6,8 @@ import Accordion from '../orderEntry/Accordion';
 import OrderSetDetails from './OrderSetDetails';
 import fetchOrderSet from '../../actions/orderSet/fetchOrderSet';
 import './styles.scss';
+import { addDraftOrder } from '../../actions/draftTableAction';
+
 
 export class OrderSetForm extends PureComponent {
   state = {
@@ -42,6 +44,15 @@ export class OrderSetForm extends PureComponent {
 
   fetchSelectedOrderSet = orderSetId =>
     this.props.orderSets.find(orderSet => orderSet.id === orderSetId);
+
+  handleSubmit = () => {
+    const selectedOrderSet = this.fetchSelectedOrderSet(this.state.selectedItem.id);
+
+    selectedOrderSet.orders.forEach((eachDrug) => {
+      this.props.addDraftOrder(eachDrug);
+    });
+    this.setState({ selectedItem: { name: '', id: '' } });
+  }
 
   render() {
     const {
@@ -91,7 +102,7 @@ export class OrderSetForm extends PureComponent {
             />
             <input
               type="submit"
-              onClick={() => {}}
+              onClick={this.handleSubmit}
               className="button confirm right modified-btn"
               value="Save to Drafts"
               disabled={isDisabled}
@@ -105,10 +116,11 @@ export class OrderSetForm extends PureComponent {
 OrderSetForm.propTypes = {
   orderSets: PropTypes.arrayOf(PropTypes.any).isRequired,
   fetchOrderSet: PropTypes.func.isRequired,
+  addDraftOrder: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ fetchOrderSetReducer }) => ({
   orderSets: fetchOrderSetReducer.orderSets,
 });
 
-export default connect(mapStateToProps, { fetchOrderSet })(OrderSetForm);
+export default connect(mapStateToProps, { fetchOrderSet, addDraftOrder })(OrderSetForm);

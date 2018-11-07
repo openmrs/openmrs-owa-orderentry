@@ -15,6 +15,7 @@ describe('Component: OrderSetForm', () => {
   beforeEach(() => {
     props = {
       fetchOrderSet: jest.fn(),
+      addDraftOrder: jest.fn(),
       orderSets: [{
           dependency: "https://github.com/PIH/openmrs-module-mirebalais",
           name: "CHOP",
@@ -134,3 +135,13 @@ describe('Component: OrderSetForm', () => {
     expect(renderedComponent.state.displayForm).toEqual(false);
   });
 });
+
+describe('handleSubmit() method', () => {
+  it('should call handleSubmit()', () => {
+    const renderedComponent = getComponent().instance();
+    getComponent().setState({ selectedItem: { name: 'CHOP', id: 1 } });
+    renderedComponent.handleSubmit();
+    expect(getComponent().state().selectedItem.name).toEqual('');
+  });
+});
+
