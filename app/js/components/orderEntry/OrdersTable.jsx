@@ -15,8 +15,6 @@ import createOrder from '../../actions/createOrder';
 
 export class OrdersTable extends PureComponent {
   state = {
-    limit: 10,
-    startIndex: 0,
     discontinueReason: '',
   };
   componentDidMount() {
@@ -33,21 +31,6 @@ export class OrdersTable extends PureComponent {
 
   setDiscontinuedOrder = async (order) => {
     const {
-      careSetting,
-      dose,
-      dosingUnit,
-      drugInstructions,
-      dosingType,
-      drug,
-      duration,
-      durationUnit,
-      frequency,
-      orderer,
-      dispensingQuantity,
-      dispensingUnit,
-      route,
-      type,
-      previousOrder,
       orderNumber,
     } = order;
 
@@ -97,7 +80,6 @@ export class OrdersTable extends PureComponent {
       route,
       type,
       previousOrder,
-      orderNumber,
     } = order;
     return {
       action: 'DISCONTINUE',
@@ -157,17 +139,9 @@ export class OrdersTable extends PureComponent {
       orders: [order],
       patient: this.props.patient.uuid,
     };
-
-    const meta = {
-      activity: order.action,
-      orderNumber,
-    };
-    await this.props.dispatch(createOrder(
-      encounterPayload,
-      this.state.limit,
-      this.state.startIndex,
-      meta,
-    )).then(() => this.props.dispatch(fetchOrders(null, this.props.patient.uuid)));
+    await this.props.dispatch( /* eslint-disable-line */
+      createOrder(encounterPayload))
+      .then(() => this.props.dispatch(fetchOrders(null, this.props.patient.uuid)));
   }
 
   renderNoFilterResults = () => {
