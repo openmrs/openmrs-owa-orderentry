@@ -9,10 +9,7 @@ const formatPanelName = (panelName) => {
   return name.replace(/panel/i, '').trim();
 };
 
-const formatToolTipData = (setMembers) => {
-  const testArray = [];
-  return setMembers.map(test => test.display);
-};
+const formatToolTipData = setMembers => setMembers.map(test => test.display);
 
 const LabPanelFieldSet = (props) => {
   const {

@@ -26,6 +26,11 @@ import createOrder from '../../actions/createOrder';
 import './styles.scss';
 
 export class OrderEntryPage extends PureComponent {
+  state = {
+    page: new URLSearchParams(this.props.location.search).get('page'),
+    returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
+  };
+
   componentDidMount() {
     const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
     this.props.fetchPatientCareSetting();
@@ -43,6 +48,22 @@ export class OrderEntryPage extends PureComponent {
       errorMessage,
       labOrderData,
     } = this.props.createOrderReducer;
+    const {
+      orderables,
+    } = this.props.labOrderableReducer;
+    const { page } = this.state;
+    const {
+      labOrderableReducer,
+    } = prevProps;
+
+    if (labOrderableReducer.orderables[0].uuid !== orderables[0].uuid) {
+      if (page === 'laborders') {
+        this.props.setSelectedOrder({ currentOrderType: { id: 2, text: "Lab Orders" } });
+      } else if (page === 'drugorders') {
+        this.props.setSelectedOrder({ currentOrderType: { id: 1, text: "Drug Orders" } });
+      }
+    }
+
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast('order successfully created');
       this.props.fetchLabOrders(null, this.props.patient.uuid);
@@ -139,7 +160,7 @@ export class OrderEntryPage extends PureComponent {
     urgency: order.urgency || 'ROUTINE',
   });
 
-  handleSubmit = () => {
+  handleSubmit = (returnUrl) => {
     const { draftLabOrders, draftDrugOrders } = this.props;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     const orders = allDraftOrders.map(order =>
@@ -159,18 +180,19 @@ export class OrderEntryPage extends PureComponent {
       orders,
       patient: this.props.patient.uuid,
     };
-    this.props.createOrder(encounterPayload);
+    this.props.createOrder(encounterPayload, returnUrl);
   };
 
   renderDraftOrder = () => {
     const { draftDrugOrders, draftLabOrders } = this.props;
+    const { returnUrl } = this.state;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     return (
       <div className="draft-wrapper">
         <Draft
           handleDraftDiscard={this.props.discardTestsInDraft}
           draftOrders={allDraftOrders}
-          handleSubmit={this.handleSubmit}
+          handleSubmit={() => this.handleSubmit(returnUrl)}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
           editDraftDrugOrder={this.props.editDraftDrugOrder}
         />
@@ -187,6 +209,7 @@ export class OrderEntryPage extends PureComponent {
       settingEncounterTypeReducer,
       dateFormatReducer,
     } = this.props;
+    const { page } = this.state;
     const { settingEncounterType, error } = settingEncounterTypeReducer;
     const { settingEncounterRole, roleError } = settingEncounterRoleReducer;
     const { dateFormat, error: dateError } = dateFormatReducer;
@@ -280,7 +303,7 @@ export class OrderEntryPage extends PureComponent {
         {patientUuid ? (
           <div>
             <PatientHeader
-              patient={this.props.patient} 
+              patient={this.props.patient}
               note={this.props.note}
               location={this.props.location}
             />
@@ -293,10 +316,10 @@ export class OrderEntryPage extends PureComponent {
                   <b>Orders List</b>
                 </h3>
               </div>
-              <SelectOrderType
+              {!(page) && <SelectOrderType
                 switchOrderType={this.switchOrderType}
                 currentOrderType={this.props.currentOrderType}
-              />
+              />}
             </div>
             <div className="body-wrapper drug-order-entry">
               <RenderOrderType
@@ -348,6 +371,9 @@ OrderEntryPage.propTypes = {
   inpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string,
     display: PropTypes.string,
+  }),
+  labOrderableReducer: PropTypes.shape({
+    orderables: PropTypes.arrayOf(PropTypes.object),
   }),
   settingEncounterTypeReducer: PropTypes.shape({
     error: PropTypes.string,
@@ -406,6 +432,10 @@ OrderEntryPage.propTypes = {
 OrderEntryPage.defaultProps = {
   configurations: {},
   outpatientCareSetting: null,
+  labOrderableReducer: {
+    error: false,
+    orderables: [],
+  },
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
@@ -444,6 +474,7 @@ const mapStateToProps = ({
   encounterReducer: { encounterType },
   openmrs: { session },
   createOrderReducer,
+  labOrderableReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -459,6 +490,7 @@ const mapStateToProps = ({
   encounterRole,
   session,
   configurations,
+  labOrderableReducer,
   createOrderReducer,
 });
 

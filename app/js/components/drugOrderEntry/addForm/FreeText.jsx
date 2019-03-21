@@ -43,7 +43,7 @@ const FreeText = ({
                 min="0"
                 onBlur={handleValidation}
                 onChange={handleChange}
-                value={fields.dispensingQuantity} />
+                value={dispensingQuantity} />
               {
                 fieldErrors.dispensingQuantity ?
                   <span className="field-error">Required</span>
@@ -52,13 +52,13 @@ const FreeText = ({
             </p>
             <p className="left">
               <input
-                className={(fields.dispensingQuantity && !fields.dispensingUnit) ? "illegalValue" : ""}
+                className={(dispensingQuantity && !dispensingUnit) ? "illegalValue" : ""}
                 placeholder="Units"
                 name="dispensingUnit"
                 id="drugDispensingUnits"
                 list="dispensingUnits"
                 size="20"
-                value={fields.dispensingUnit}
+                value={dispensingUnit}
                 onBlur={handleValidation}
                 onChange={handleChange} />
               <datalist id="dispensingUnits" >
@@ -71,7 +71,7 @@ const FreeText = ({
                 }
               </datalist>
               {
-                (fields.dispensingQuantity && !fields.dispensingUnit) &&
+                (dispensingQuantity && !dispensingUnit) &&
                   <span className="field-error">Required</span>
               }
             </p>

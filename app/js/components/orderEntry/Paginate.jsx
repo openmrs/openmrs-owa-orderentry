@@ -23,7 +23,6 @@ const Paginate = ({
   dispatch,
   fetchNew,
   prevPageUrl,
-  patientId,
 }) => (
   <div className="pagination">
     <div
@@ -64,7 +63,6 @@ Paginate.defaultProps = {
   totalPage: 10,
   nextPageUrl: '',
   prevPageUrl: '',
-  patientId: '1',
 };
 
 Paginate.propTypes = {
@@ -73,5 +71,4 @@ Paginate.propTypes = {
   prevPageUrl: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   fetchNew: PropTypes.func.isRequired,
-  patientId: PropTypes.string,
 };

@@ -49,7 +49,7 @@ export class AddForm extends React.Component {
   componentDidMount() {
     const {
       getOrderEntryConfigurationsAction,
-      fetchAllOrdersAction, 
+      fetchAllOrdersAction,
       patient: { uuid },
     } = this.props;
     getOrderEntryConfigurationsAction();
@@ -111,7 +111,7 @@ export class AddForm extends React.Component {
       dispensingUnit,
       reason,
       drugInstructions,
-    } = this.state.fields;  
+    } = this.state.fields;
     const {
       careSetting,
       drugUuid,
@@ -128,7 +128,7 @@ export class AddForm extends React.Component {
       clearSearchField,
     } = this.props;
 
-    if (!this.checkIfDrugHasActiveOrder(drugUuid)) {
+    if (!this.checkIfDrugHasActiveOrder(drugUuid) || activity === "EDIT") {
       const {
         previousOrder,
         formType,

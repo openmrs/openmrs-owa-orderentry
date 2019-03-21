@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export const PastOrder = (props) => {
   const {
-    drug, dosingType, action, dose, doseUnits, frequency,
+    drug, dosingType, dose, doseUnits, frequency,
     route, duration, durationUnits, dosingInstructions,
     quantityUnits, dateStopped, autoExpireDate, quantity, dateActivated, dateFormat,
   } = props;
@@ -49,7 +49,6 @@ export const PastOrder = (props) => {
 
 PastOrder.propTypes = {
   drug: PropTypes.shape({}).isRequired,
-  action: PropTypes.string.isRequired,
   dateFormat: PropTypes.string.isRequired,
   dosingType: PropTypes.string,
   dose: PropTypes.number,

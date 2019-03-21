@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddForm from './addForm/AddForm';
-import Tabs from '../tabs/Tabs';
-import Tab from '../tabs/Tab';
 import SearchDrug from '../searchDrug';
 import { setOrderAction } from '../../actions/orderAction';
 import { deleteDraftOrder } from '../../actions/draftTableAction';
@@ -154,7 +152,7 @@ export class SearchAndAddOrder extends React.PureComponent {
   renderAddForm = careSetting => (
     <div>
       <AddForm
-        currentOrderType={this.props.currentOrderType}      
+        currentOrderType={this.props.currentOrderType}
         drugName={this.state.editDrugName ? this.state.editDrugName : this.props.drug.display}
         drugUuid={this.state.editDrugUuid ? this.state.editDrugUuid : this.props.drug.uuid}
         editOrder={this.state.editOrder}

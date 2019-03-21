@@ -8,3 +8,8 @@ coverage
 *.snap
 .DS_Store
 .idea
+*.swp
+*.swo
+tags
+tags.lock
+tags.temp
