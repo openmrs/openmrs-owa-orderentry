@@ -44,6 +44,7 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
 SelectOrderType.propTypes = {
   currentOrderType: PropTypes.object.isRequired,
   switchOrderType: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 export default SelectOrderType;
