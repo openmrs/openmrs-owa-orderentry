@@ -48,21 +48,6 @@ export class OrderEntryPage extends PureComponent {
       errorMessage,
       labOrderData,
     } = this.props.createOrderReducer;
-    const {
-      orderables,
-    } = this.props.labOrderableReducer;
-    const { page } = this.state;
-    const {
-      labOrderableReducer,
-    } = prevProps;
-
-    if (labOrderableReducer.orderables[0].uuid !== orderables[0].uuid) {
-      if (page === 'laborders') {
-        this.props.setSelectedOrder({ currentOrderType: { id: 2, text: "Lab Orders" } });
-      } else if (page === 'drugorders') {
-        this.props.setSelectedOrder({ currentOrderType: { id: 1, text: "Drug Orders" } });
-      }
-    }
 
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast('order successfully created');
@@ -160,7 +145,7 @@ export class OrderEntryPage extends PureComponent {
     urgency: order.urgency || 'ROUTINE',
   });
 
-  handleSubmit = (returnUrl) => {
+  handleSubmit = () => {
     const { draftLabOrders, draftDrugOrders } = this.props;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     const orders = allDraftOrders.map(order =>
@@ -180,7 +165,7 @@ export class OrderEntryPage extends PureComponent {
       orders,
       patient: this.props.patient.uuid,
     };
-    this.props.createOrder(encounterPayload, returnUrl);
+    this.props.createOrder(encounterPayload);
   };
 
   renderDraftOrder = () => {
@@ -192,7 +177,7 @@ export class OrderEntryPage extends PureComponent {
         <Draft
           handleDraftDiscard={this.props.discardTestsInDraft}
           draftOrders={allDraftOrders}
-          handleSubmit={() => this.handleSubmit(returnUrl)}
+          handleSubmit={() => this.handleSubmit()}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
           editDraftDrugOrder={this.props.editDraftDrugOrder}
         />
@@ -316,9 +301,10 @@ export class OrderEntryPage extends PureComponent {
                   <b>Orders List</b>
                 </h3>
               </div>
-              {!(page) && <SelectOrderType
+              {<SelectOrderType
                 switchOrderType={this.switchOrderType}
                 currentOrderType={this.props.currentOrderType}
+                page={page}
               />}
             </div>
             <div className="body-wrapper drug-order-entry">
