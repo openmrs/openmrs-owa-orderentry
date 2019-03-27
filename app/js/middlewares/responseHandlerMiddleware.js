@@ -69,9 +69,6 @@ export default function responseHandlerMiddleware() {
       next({
         type: 'SET_SELECTED_ORDER', currentOrderType: {}, selectedorder: {}, activity: {},
       });
-      if (action.meta.returnUrl) {
-        window.location.href = action.meta.returnUrl;
-      }
     }
 
     if (action.payload) {
