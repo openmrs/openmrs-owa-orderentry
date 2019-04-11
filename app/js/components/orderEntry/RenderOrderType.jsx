@@ -5,22 +5,25 @@ import * as orderTypes from './orderTypes';
 import LabEntryForm from '../labOrderEntry/LabEntryForm';
 import AllOrders from './AllOrders';
 
-const RenderOrderType = (props) => {
-  switch (props.currentOrderTypeID) {
+const RenderOrderType = ({
+  backLink, currentOrderTypeID, location, inpatientCareSetting, outpatientCareSetting,
+}) => {
+  switch (currentOrderTypeID) {
     case orderTypes.LAB_ORDER.id: {
-      return (<LabEntryForm />);
+      return (<LabEntryForm backLink={backLink} />);
     }
     case orderTypes.DRUG_ORDER.id: {
       return (
         <DrugOrderEntry
-          outpatientCareSetting={props.outpatientCareSetting}
-          inpatientCareSetting={props.inpatientCareSetting}
-          location={props.location}
+          outpatientCareSetting={outpatientCareSetting}
+          inpatientCareSetting={inpatientCareSetting}
+          location={location}
+          backLink={backLink}
         />
       );
     }
     default: {
-      return (<AllOrders />);
+      return (<AllOrders backLink={backLink} />);
     }
   }
 };
