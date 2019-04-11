@@ -170,7 +170,6 @@ export class OrderEntryPage extends PureComponent {
 
   renderDraftOrder = () => {
     const { draftDrugOrders, draftLabOrders } = this.props;
-    const { returnUrl } = this.state;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     return (
       <div className="draft-wrapper">
@@ -194,7 +193,7 @@ export class OrderEntryPage extends PureComponent {
       settingEncounterTypeReducer,
       dateFormatReducer,
     } = this.props;
-    const { page } = this.state;
+    const { page, returnUrl } = this.state;
     const { settingEncounterType, error } = settingEncounterTypeReducer;
     const { settingEncounterRole, roleError } = settingEncounterRoleReducer;
     const { dateFormat, error: dateError } = dateFormatReducer;
@@ -309,6 +308,7 @@ export class OrderEntryPage extends PureComponent {
             </div>
             <div className="body-wrapper drug-order-entry">
               <RenderOrderType
+                backLink={returnUrl}
                 currentOrderTypeID={this.props.currentOrderType.id}
                 {...this.props}
               />
