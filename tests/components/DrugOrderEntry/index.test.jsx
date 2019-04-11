@@ -14,6 +14,7 @@ const props = {
   draftOrders: [],
   setOrderAction: jest.fn(),
   order,
+  draftLabOrders: {orders: []},
   selectDrugSuccess: jest.fn(),
   fetchInpatientCareSetting: jest.fn(),
   fetchOutpatientCareSetting: jest.fn(),
