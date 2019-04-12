@@ -260,7 +260,7 @@ describe('Handling Submit', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('order successfully created');
+    expect(global.toastrMessage).toEqual('Order successfully created');
   });
 });
 

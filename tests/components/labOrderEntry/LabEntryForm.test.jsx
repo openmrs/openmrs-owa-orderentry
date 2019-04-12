@@ -198,7 +198,7 @@ describe('Component: LabEntryForm', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('order successfully created');
+    expect(global.toastrMessage).toEqual('Order successfully created');
   });
 
   it('shows a toast prompt when there is an error in submission', () => {
