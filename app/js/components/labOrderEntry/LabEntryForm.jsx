@@ -28,6 +28,7 @@ export class LabEntryForm extends PureComponent {
       labOrderData: PropTypes.object,
     }),
     draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
+    draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
     defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -39,6 +40,7 @@ export class LabEntryForm extends PureComponent {
     standAloneTests: PropTypes.array,
     orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
     getLabOrderables: PropTypes.string.isRequired,
+    backLink: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -162,8 +164,10 @@ export class LabEntryForm extends PureComponent {
   render() {
     const {
       handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
-      props: { orderables, getLabOrderables },
+      props: { orderables, getLabOrderables, backLink },
     } = this;
+    const { draftDrugOrders, draftLabOrders } = this.props;
+    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders].length;
     return (
       <React.Fragment>
         {
@@ -191,6 +195,7 @@ export class LabEntryForm extends PureComponent {
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
                 </div>
               </div>
+              <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
             </div>
             :
             <p>No Lab Orderables was found</p>
@@ -208,6 +213,7 @@ export const mapStateToProps = ({
       defaultTests,
       selectedTests,
     },
+    draftDrugOrders,
   },
   labConceptsReducer: {
     conceptsAsPanels,
@@ -221,6 +227,7 @@ export const mapStateToProps = ({
   getLabOrderablesReducer: { getLabOrderables },
 }) => ({
   draftLabOrders: orders,
+  draftDrugOrders,
   conceptsAsPanels,
   standAloneTests,
   selectedLabPanels,

@@ -167,13 +167,18 @@ export class SearchAndAddOrder extends React.PureComponent {
 
   render() {
     const {
-      outpatientCareSetting,
+      outpatientCareSetting, draftOrders, draftLabOrders, backLink,
     } = this.props;
+    const allDraftOrders = [...draftOrders, ...draftLabOrders.orders].length;
     return (
       <div className="drug-order-entry">
         <h5 className="drug-form-header">New Drug Order</h5>
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
+        <br />
+        <br />
+        <br />
+        <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
       </div>
     );
   }
@@ -183,13 +188,14 @@ const mapStateToProps = ({
   careSettingReducer:
   { outpatientCareSetting },
   drugSearchReducer,
-  draftReducer: { draftDrugOrders },
+  draftReducer: { draftDrugOrders, draftLabOrders },
   dateFormatReducer: { dateFormat },
   orderSelectionReducer: { activity, selectedOrder, currentOrderType },
 }) => ({
   outpatientCareSetting,
   drug: drugSearchReducer.selected,
   draftOrders: draftDrugOrders,
+  draftLabOrders,
   activity,
   selectedOrder,
   currentOrderType,
@@ -211,6 +217,8 @@ SearchAndAddOrder.propTypes = {
     }),
     PropTypes.string,
   ]),
+  draftLabOrders: PropTypes.object.isRequired,
+  draftOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   setOrderAction: PropTypes.func.isRequired,
   deleteDraftOrder: PropTypes.func.isRequired,
   outpatientCareSetting: PropTypes.shape({

@@ -16,6 +16,7 @@ props = {
     { display: 'Hematocrit', uuid: '12746hfgjff' },
     { display: 'blood', uuid: '12746hfgjff' },
   ],
+  draftDrugOrders: [],
   defaultTests: [
     { display: 'Hemoglobin', uuid: '12746hfgjff' },
     { display: 'Hematocrit', uuid: '12746hfgjff' },

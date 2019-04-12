@@ -19,7 +19,9 @@ const getPreviousOrNextPageUrl = (links, action) => {
   return url;
 };
 
-export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { uuid } }) => (
+export const AllOrders = ({
+  orders: { totalCount, links }, dispatch, patient: { uuid }, backLink,
+}) => (
   <div className="all-orders">
     <div className="orders-breadcrumb">
       <h3>Patient Orders</h3>
@@ -48,6 +50,7 @@ export const AllOrders = ({ orders: { totalCount, links }, dispatch, patient: { 
       fetchNew={fetchOrders}
       patientId={uuid}
     />
+    <button className="cancel" onClick={() => window.location.assign(backLink)}>Return</button>
   </div>
 );
 
@@ -71,4 +74,5 @@ AllOrders.propTypes = {
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
   patient: PropTypes.shape({ uuid: PropTypes.string }),
+  backLink: PropTypes.string.isRequired,
 };
