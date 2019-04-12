@@ -84,7 +84,7 @@ export class LabEntryForm extends PureComponent {
       labOrderData,
     } = this.props.createOrderReducer;
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
-      successToast('order successfully created');
+      successToast('Order successfully created');
       this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
       this.props.dispatch(setSelectedOrder({
         currentOrderType: {},

@@ -65,7 +65,7 @@ export class OrderEntryPage extends PureComponent {
     }
 
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
-      successToast('order successfully created');
+      successToast('Order successfully created');
       this.props.fetchLabOrders(null, this.props.patient.uuid);
     }
     if (error) {
