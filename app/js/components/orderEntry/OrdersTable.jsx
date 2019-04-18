@@ -10,7 +10,7 @@ import DrugOrderDetails from './DrugOrderDetails';
 import fetchOrders from '../../actions/fetchOrders';
 import { DRUG_ORDER } from './orderTypes';
 import { setSelectedOrder } from '../../actions/orderAction';
-import createOrder from '../../actions/createOrder';
+import { discontinueOrder } from '../../actions/createOrder';
 
 
 export class OrdersTable extends PureComponent {
@@ -129,7 +129,7 @@ export class OrdersTable extends PureComponent {
   }
 
   discontinueOrder = async (order, orderNumber) => {
-    const encounterPayload = {
+    const payload = {
       encounterProviders: [{
         encounterRole: this.props.encounterRole.uuid,
         provider: this.props.sessionReducer.currentProvider.uuid,
@@ -139,9 +139,7 @@ export class OrdersTable extends PureComponent {
       orders: [order],
       patient: this.props.patient.uuid,
     };
-    await this.props.dispatch( /* eslint-disable-line */
-      createOrder(encounterPayload))
-      .then(() => this.props.dispatch(fetchOrders(null, this.props.patient.uuid)));
+    await this.props.dispatch(discontinueOrder(payload));
   }
 
   renderNoFilterResults = () => {

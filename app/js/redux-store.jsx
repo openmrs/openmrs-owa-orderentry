@@ -12,11 +12,11 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { sagas as openmrsSagas } from '@openmrs/react-components';
 import promiseMiddleware from 'redux-promise-middleware';
 import reducers from './reducers';
 import errorMiddleware from './middlewares/errorMiddleware';
 import responseHandlerMiddleware from './middlewares/responseHandlerMiddleware';
+import initSagas from './sagas';
 
 const promiseTypeSuffixes = ['LOADING', 'SUCCESS', 'FAILURE'];
 
@@ -41,6 +41,6 @@ export default () => {
     window.devToolsExtension && process.env.NODE_ENV !== 'production'
       ? window.devToolsExtension() : f => f,
   ));
-  sagaMiddleware.run(openmrsSagas);
+  initSagas(sagaMiddleware);
   return store;
 };
