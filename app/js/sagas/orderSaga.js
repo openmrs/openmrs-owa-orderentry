@@ -2,7 +2,7 @@ import {
   call,
   takeEvery,
   select,
-  put
+  put,
 } from 'redux-saga/effects';
 import { format, addMinutes } from 'date-fns';
 import encounterRest from '../rest/encounterRest';
