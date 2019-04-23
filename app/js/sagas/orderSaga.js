@@ -2,12 +2,13 @@ import {
   call,
   takeEvery,
   select,
+  put
 } from 'redux-saga/effects';
 import { format, addMinutes } from 'date-fns';
 import encounterRest from '../rest/encounterRest';
 import { getDateRange } from '../utils/helpers';
 import { DISCONTINUE_ORDER } from '../actions/actionTypes';
-import fetchLabOrders from '../actions/labOrders/fetchLabOrders';
+import { discontinueOrderSucceeded } from '../actions/createOrder';
 
 
 // eslint-disable-next-line consistent-return
@@ -26,6 +27,8 @@ function* getMatchingEncounter(order) {
       encounterTypeUuid,
       provider,
       locationUuid,
+      '(uuid,encounterDatetime)',
+
     );
     if (encounterResponse.results.length) {
       const matched = getDateRange(
@@ -66,7 +69,7 @@ function* discontinueOrder(action) {
     } else {
       yield call(encounterRest.createEncounter, encounterPayload);
     }
-    window.location.reload();
+    yield put(discontinueOrderSucceeded(action.orderNumber));
   } catch (e) {
     throw new Error(e);
   }

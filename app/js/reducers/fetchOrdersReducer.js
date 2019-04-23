@@ -74,6 +74,14 @@ const fetchOrdersReducer = (state = initialState, action) => {
       };
     }
 
+    case 'DISCONTINUE_ORDER_SUCCEDED': {
+      return {
+        ...state,
+        filteredOrders: state.filteredOrders
+          .filter(order => order.orderNumber !== action.orderNumber),
+      };
+    }
+
     default:
       return state;
   }

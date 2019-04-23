@@ -139,7 +139,7 @@ export class OrdersTable extends PureComponent {
       orders: [order],
       patient: this.props.patient.uuid,
     };
-    await this.props.dispatch(discontinueOrder(payload));
+    await this.props.dispatch(discontinueOrder(payload, orderNumber));
   }
 
   renderNoFilterResults = () => {

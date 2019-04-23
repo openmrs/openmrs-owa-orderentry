@@ -1,8 +1,9 @@
 
 import axiosInstance from '../config';
+import { DEFAULT_ENCOUNTER_REP } from '../utils/constants';
 
 const api = {
-  fetchEncountersByPatient: (patient, encounterType, provider, location) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&provider=${provider}&location=${location}&v=full`)
+  fetchEncountersByPatient: (patient, encounterType, provider, location, representation) => axiosInstance.get(`encounter/?patient=${patient}&encounterType=${encounterType}&provider=${provider}&location=${location}&v=custom:${representation || DEFAULT_ENCOUNTER_REP}`)
     .then((response) => {
       if (response.status !== 200) {
         throw response;
