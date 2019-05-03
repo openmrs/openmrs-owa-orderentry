@@ -149,8 +149,6 @@ if (env === 'development') {
 }
 
 plugins.push(new BrowserSyncPlugin({
-	host: 'localhost',
-	port: 4000,
 	proxy: {
 		target: browserSyncTarget
 	}
