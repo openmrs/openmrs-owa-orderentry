@@ -32,7 +32,7 @@ function* getMatchingEncounter(order) {
 
     );
     if (encounterResponse.results.length) {
-      const withMatchingLocation = encounters => encounters.filter((e) => {
+      const withMatchingLocationAndProvider = encounters => encounters.filter((e) => {
 
         // some locations appear as null, we would just return false
         if (!e.location) return false;
@@ -55,7 +55,7 @@ function* getMatchingEncounter(order) {
         const hasMatchingProvider = matchedProvider.provider.uuid === sessionProvider.uuid;
         return hasMatchingLocation && hasMatchingProvider;
       });
-      const matched = withMatchingLocation(getDateRange(
+      const matched = withMatchingLocationAndProvider(getDateRange(
         encounterResponse.results,
         duration,
         new Date(),
