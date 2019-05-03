@@ -14,7 +14,7 @@ const api = {
 
   createEncounter: encounter => axiosInstance.post(`encounter`, encounter)
     .then((response) => {
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         throw response;
       } else {
         return response.data;

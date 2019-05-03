@@ -18,6 +18,7 @@ function* getMatchingEncounter(order) {
   const encounterTypeUuid = order.encounterType;
   const locationUuid = order.location.uuid;
   const provider = state.encounterRoleReducer.encounterRole.uuid;
+  const sessionProvider = state.openmrs.session.currentProvider;
   const duration = format(addMinutes(new Date(), -60));
 
   try {
@@ -27,16 +28,40 @@ function* getMatchingEncounter(order) {
       encounterTypeUuid,
       provider,
       locationUuid,
-      '(uuid,encounterDatetime)',
+      '(uuid,encounterDatetime,encounterProviders,location:(id,uuid,name))',
 
     );
     if (encounterResponse.results.length) {
-      const matched = getDateRange(
+      const withMatchingLocation = encounters => encounters.filter((e) => {
+
+        // some locations appear as null, we would just return false
+        if (!e.location) return false;
+
+        // if there are no encounterProviders just return false
+        if (!e.encounterProviders.length) return false;
+
+        // check for matching Location
+        const hasMatchingLocation = e.location.uuid === locationUuid;
+
+        // eslint-disable-next-line
+        // loop through encounterProviders and check for matching encounterRole similar to orderentryowa.encounterRole
+        // eslint-disable-next-line
+        const matchingEncounterProvider = e.encounterProviders.filter(p => p.encounterRole.uuid === provider);
+
+        if (!matchingEncounterProvider.length) return false;
+
+        const matchedProvider = matchingEncounterProvider[0];
+
+        const hasMatchingProvider = matchedProvider.provider.uuid === sessionProvider.uuid;
+        return hasMatchingLocation && hasMatchingProvider;
+      });
+      const matched = withMatchingLocation(getDateRange(
         encounterResponse.results,
         duration,
         new Date(),
         'encounterDatetime',
-      );
+      ));
+
 
       if (matched.length) {
         return {
