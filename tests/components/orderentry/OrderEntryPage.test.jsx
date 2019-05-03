@@ -91,7 +91,21 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
         orderables: [{
           uuid: '1234'
         }]
-      }
+      },
+      patient: {
+        patient: {
+          person: {
+            personName: {
+              givenName: '',
+              familyName: '',
+            },
+            preferredAddress: {},
+          },
+          patientIdentifier: {
+            identifier: '',
+          },
+        },
+      },
     };
     mountedComponent = undefined;
   });

@@ -284,7 +284,7 @@ export class OrderEntryPage extends PureComponent {
 
     return (
       <div className="order-entry-page">
-        {patientUuid ? (
+        {this.props.patient ? (
           <div>
             <PatientHeader
               patient={this.props.patient}
@@ -392,7 +392,6 @@ OrderEntryPage.propTypes = {
     }),
     currentLocation: PropTypes.object,
   }),
-  patient: PropTypes.shape({ uuid: PropTypes.string }),
   note: PropTypes.arrayOf(PropTypes.any).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
   getSettingEncounterRole: PropTypes.func.isRequired,
@@ -413,6 +412,7 @@ OrderEntryPage.propTypes = {
     labOrderData: PropTypes.object,
   }).isRequired,
   fetchLabOrders: PropTypes.func.isRequired,
+  patient: PropTypes.shape({}),
 };
 
 OrderEntryPage.defaultProps = {
@@ -429,9 +429,7 @@ OrderEntryPage.defaultProps = {
   encounterRole: {
     uuid: '',
   },
-  patient: {
-    uuid: '',
-  },
+  patient: null,
   inpatientCareSetting: {
     uuid: '',
   },
