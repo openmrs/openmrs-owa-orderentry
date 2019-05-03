@@ -19,20 +19,6 @@ export default {
       display: '',
     },
   },
-  defaultPatient: {
-    patient: {
-      person: {
-        personName: {
-          givenName: '',
-          familyName: '',
-        },
-        preferredAddress: {},
-      },
-      patientIdentifier: {
-        identifier: '',
-      },
-    },
-  },
   defaultCareSetting: {
     outpatientCareSetting: null,
     inpatientCareSetting: null,
