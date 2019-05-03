@@ -33,7 +33,6 @@ function* getMatchingEncounter(order) {
     );
     if (encounterResponse.results.length) {
       const withMatchingLocationAndProvider = encounters => encounters.filter((e) => {
-
         // some locations appear as null, we would just return false
         if (!e.location) return false;
 
