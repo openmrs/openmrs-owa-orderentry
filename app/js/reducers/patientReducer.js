@@ -1,7 +1,7 @@
 import { SET_PATIENT, SET_PATIENT_FAILED } from '../actions/actionTypes';
 import initialState from './initialState';
 
-export default (state = initialState.defaultPatient, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case SET_PATIENT:
       return {
