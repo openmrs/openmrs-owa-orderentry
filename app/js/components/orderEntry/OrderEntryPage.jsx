@@ -139,7 +139,7 @@ export class OrderEntryPage extends PureComponent {
     concept: order.uuid,
     careSetting: this.props.inpatientCareSetting.uuid,
     encounter: this.props.encounterType.uuid,
-    orderer: this.props.session.currentProvider.uuid,
+    orderer: this.props.sessionReducer.currentProvider.uuid,
     patient: this.props.patient.uuid,
     type: 'testorder',
     urgency: order.urgency || 'ROUTINE',
@@ -157,11 +157,11 @@ export class OrderEntryPage extends PureComponent {
       encounterProviders: [
         {
           encounterRole: this.props.encounterRole.uuid,
-          provider: this.props.session.currentProvider.uuid,
+          provider: this.props.sessionReducer.currentProvider.uuid,
         },
       ],
       encounterType: this.props.encounterType.uuid,
-      location: this.props.session.currentLocation,
+      location: this.props.sessionReducer.sessionLocation.uuid,
       orders,
       patient: this.props.patient.uuid,
     };
@@ -350,6 +350,12 @@ OrderEntryPage.propTypes = {
     durationUnits: PropTypes.arrayOf(PropTypes.any),
     orderFrequencies: PropTypes.arrayOf(PropTypes.any),
   }),
+  sessionReducer: PropTypes.shape({
+    currentProvider: PropTypes.shape({
+      uuid: PropTypes.string,
+    }),
+    sessionLocation: PropTypes.shape({}),
+  }).isRequired,
   outpatientCareSetting: PropTypes.shape({
     uuid: PropTypes.string,
     display: PropTypes.string,
@@ -472,7 +478,7 @@ const mapStateToProps = ({
   draftLabOrders,
   encounterType,
   encounterRole,
-  session,
+  sessionReducer: session,
   configurations,
   labOrderableReducer,
   createOrderReducer,

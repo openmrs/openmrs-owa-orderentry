@@ -27,7 +27,13 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
       encounterType: { uuid: '1eeee' },
-      session: { currentProvider: { uuid: '1eeeee' } },
+      sessionReducer: {
+        currentProvider: {
+          uuid: '1eeeee'
+        },
+      sessionLocation: {
+          uuid: 'hospital'
+      }},
       createOrder: jest.fn(),
       configurations: {
         drugDispensingUnits: [{
