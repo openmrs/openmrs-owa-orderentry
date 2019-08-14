@@ -135,7 +135,9 @@ export class OrdersTable extends PureComponent {
         provider: this.props.sessionReducer.currentProvider.uuid,
       }],
       encounterType: this.props.encounterType.uuid,
-      location: this.props.sessionReducer.sessionLocation,
+      location: {
+        uuid: this.props.sessionReducer.sessionLocation.uuid,
+      },
       orders: [order],
       patient: this.props.patient.uuid,
     };
