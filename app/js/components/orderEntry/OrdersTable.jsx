@@ -45,7 +45,7 @@ export class OrdersTable extends PureComponent {
         text: 'Reason for discontinuing',
         content: "input",
         button: {
-          text: "DISCONTINUE!",
+          text: "DISCONTINUE",
           closeModal: true,
         },
       });
