@@ -8,14 +8,28 @@
  */
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Header } from '@openmrs/react-components';
+import {
+  Header,
+  initializeLocalization,
+  withLocalization,
+} from '@openmrs/react-components';
 import OrderEntryPage from './components/orderEntry/OrderEntryPage';
+import messagesEN from "./translations/en.json";
+import messagesFR from "./translations/fr.json";
+import messagesHT from "./translations/ht.json";
+
+
+initializeLocalization({
+  en: messagesEN,
+  fr: messagesFR,
+  ht: messagesHT,
+});
 
 const Routes = store => (
   <div>
     <Header />
     <Switch>
-      <Route path="/" component={OrderEntryPage} />
+      <Route path="/" component={withLocalization(OrderEntryPage)} />
     </Switch>
   </div>
 );

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
@@ -297,7 +298,12 @@ export class OrderEntryPage extends PureComponent {
                   className="orders-nav"
                   onClick={() => this.switchOrderType()}
                   role="button">
-                  <b>Orders List</b>
+                  <b>
+                    <FormattedMessage
+                      id="app.orders.list"
+                      defaultMessage="Orders List"
+                      description="Orders List" />
+                  </b>
                 </h3>
               </div>
               {<SelectOrderType
