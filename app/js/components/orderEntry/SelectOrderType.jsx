@@ -1,18 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import * as orderTypes from './orderTypes';
 
 const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
   const orderTypesAsObject = Object.values(orderTypes);
-  let displayText = "Add Orders";
+  let displayText = (<FormattedMessage
+    id="app.orders.add"
+    defaultMessage="Add Orders"
+    description="Add Orders" />);
   let clickHandler = () => {};
   if (page === 'laborders') {
-    displayText = "Add Lab Orders";
+    displayText =
+      (<FormattedMessage
+        id="app.orders.labs.add"
+        defaultMessage="Add Lab Orders"
+        description="Add Lab Orders" />);
+
     clickHandler = () => switchOrderType(orderTypesAsObject[1]);
   }
 
   if (page === "drugorders") {
-    displayText = "Add Drug Orders";
+    displayText = (<FormattedMessage
+      id="app.orders.drugs.add"
+      defaultMessage="Add Drug Orders"
+      description="Add Drug Orders" />);
     clickHandler = () => switchOrderType(orderTypesAsObject[0]);
   }
   return (

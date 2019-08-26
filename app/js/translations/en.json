@@ -1,5 +1,11 @@
 {
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Orders",
-  "app.orders.list": "Orders List"
+  "app.orders.list": "Orders List",
+  "app.orders.patient": "Patient Orders",
+  "app.orders.details": "Details",
+  "app.orders.actions": "Actions",
+  "app.orders.add": "Add Orders",
+  "app.orders.labs.add": "Add Lab Orders",
+  "app.orders.drugs.add": "Add Drug Orders"
 }

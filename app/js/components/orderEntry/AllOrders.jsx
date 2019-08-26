@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import OrdersTable from './OrdersTable';
 import SortAndFilter from './SortAndFilter';
 import Paginate from './Paginate';
@@ -24,17 +25,41 @@ export const AllOrders = ({
 }) => (
   <div className="all-orders">
     <div className="orders-breadcrumb">
-      <h3>Patient Orders</h3>
+      <h3><FormattedMessage
+        id="app.orders.patient"
+        defaultMessage="Patient Orders"
+        description="Patient Orders" />
+      </h3>
     </div>
     <SortAndFilter />
     <br />
     <table className="t-orders">
       <tbody>
         <tr>
-          <th>Date</th>
-          <th>Details</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>
+            <FormattedMessage
+              id="reactcomponents.date"
+              defaultMessage="Date"
+              description="Date" />
+          </th>
+          <th>
+            <FormattedMessage
+              id="app.orders.details"
+              defaultMessage="Details"
+              description="Details" />
+          </th>
+          <th>
+            <FormattedMessage
+              id="reactcomponents.status"
+              defaultMessage="Status"
+              description="Status" />
+          </th>
+          <th>
+            <FormattedMessage
+              id="app.orders.actions"
+              defaultMessage="Actions"
+              description="Actions" />
+          </th>
         </tr>
         <OrdersTable />
       </tbody>
