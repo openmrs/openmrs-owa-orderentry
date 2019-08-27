@@ -2,9 +2,12 @@
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Orders",
   "app.orders.list": "Liste des commandes",
+  "app.orders.type": "Type",
   "app.orders.patient": "Ordre des patients",
   "app.orders.details": "Détails",
   "app.orders.actions": "Actes",
+  "app.orders.drug": "Commandes d'essai",
+  "app.orders.test": "Test Orders",
   "app.orders.add": "Ajouter des commandes",
   "app.orders.labs.add": "Ajouter des commandes de laboratoire",
   "app.orders.drugs.add": "Ajouter des commandes de médicaments"

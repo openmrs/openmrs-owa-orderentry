@@ -2,10 +2,13 @@
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Orders",
   "app.orders.list": "Lis lòd yo",
+  "app.orders.type": "Kalite",
   "app.orders.patient": "Lòd pou pasyan yo",
   "app.orders.details": "Detay",
   "app.orders.actions": "Aksyon yo",
   "app.orders.add": "Ajoute lòd",
+  "app.orders.drug": "Lòd Dwòg",
+  "app.orders.test": "Lòd Tès yo",
   "app.orders.labs.add": "Ajoute lòd laboratwa",
   "app.orders.drugs.add": "Ajoute lòd dwòg"
 }

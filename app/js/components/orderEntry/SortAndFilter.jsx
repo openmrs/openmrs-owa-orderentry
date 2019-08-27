@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import sortAndFilterAction from '../../actions/sortAndFilterAction';
@@ -6,7 +7,12 @@ import sortAndFilterAction from '../../actions/sortAndFilterAction';
 export const SortAndFilter = props => (
   <div className="sort-filter-section">
     <div className="sort-type">
-      <label className="label-sort">Type:</label>
+      <label className="label-sort">
+        <FormattedMessage
+          id="app.orders.type"
+          defaultMessage="Type"
+          description="Type" />:
+      </label>
       <select
         className="sort-select"
         onChange={event => props.sortAndFilterAction('type', event.target.value)}>
