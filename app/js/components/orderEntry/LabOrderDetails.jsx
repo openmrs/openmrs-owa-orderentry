@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const LabOrderDetails = ({ urgency, orderer, activeDates }) => (
+const LabOrderDetails = ({ urgency, orderer, activeDates, fulfillerStatus }) => (
   <div className="order-details">
     <div className="details">
       <ul>
         <b>Urgency:</b> {urgency}
       </ul>
-      <br />
       <ul>
         <b>Active Dates:</b> {activeDates}
       </ul>
-      <br />
+      { fulfillerStatus && (
+        <ul>
+          <b>Test Status:</b> {fulfillerStatus}
+        </ul>
+      )}
       Ordered by {orderer}
     </div>
   </div>

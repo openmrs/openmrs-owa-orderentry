@@ -7,17 +7,14 @@ const DrugOrderDetails = ({
   <div className="order-details">
     <div className="details">
       <ul>
-        <b>Dosing-Instructions:</b> {dosingInstructions}
+        <b>Dosing Instructions:</b> {dosingInstructions}
       </ul>
-      <br />
       <ul>
         <b>Dispense:</b> {dispense}
       </ul>
-      <br />
       <ul>
         <b>Active Dates:</b> {activeDates}
       </ul>
-      <br />
       <p>Ordered by {orderer}</p>
     </div>
   </div>

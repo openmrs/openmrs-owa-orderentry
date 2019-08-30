@@ -10,5 +10,11 @@
   "app.orders.test": "Test Orders",
   "app.orders.add": "Add Orders",
   "app.orders.labs.add": "Add Lab Orders",
-  "app.orders.drugs.add": "Add Drug Orders"
+  "app.orders.drugs.add": "Add Drug Orders",
+  "app.orders.urgency": "Urgency",
+  "app.orders.dateActive": "Date Active",
+  "app.orders.testStatus": "Test Status",
+  "app.orders.dosingInstructions": "Dosing Instructions",
+  "app.orders.dispense": "Dispense",
+  "app.orders.orderBy": "Ordered by"
 }
