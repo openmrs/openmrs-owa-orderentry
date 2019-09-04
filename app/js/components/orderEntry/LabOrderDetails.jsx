@@ -1,21 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from "react-intl";
 
 const LabOrderDetails = ({ urgency, orderer, activeDates, fulfillerStatus }) => (
   <div className="order-details">
     <div className="details">
       <ul>
-        <b>Urgency:</b> {urgency}
+        <b>
+          <FormattedMessage
+            id="app.orders.urgency"
+            defaultMessage="Urgency" />:
+        </b> {urgency}
       </ul>
       <ul>
-        <b>Active Dates:</b> {activeDates}
+        <b>
+          <FormattedMessage
+            id="app.orders.activeDates"
+            defaultMessage="Active Dates" />:
+        </b> {activeDates}
       </ul>
       { fulfillerStatus && (
         <ul>
-          <b>Test Status:</b> {fulfillerStatus}
+          <b>
+            <FormattedMessage
+              id="app.orders.testStatus"
+              defaultMessage="Test Status" />:
+          </b>&nbsp;
+          <FormattedMessage
+            id={ `app.orders.testStatus.${fulfillerStatus}` }
+            defaultMessage={fulfillerStatus}
+          />
         </ul>
       )}
-      Ordered by {orderer}
+      <FormattedMessage
+        id="app.orders.orderedBy"
+        defaultMessage="Ordered by" /> {orderer}
     </div>
   </div>
 );
@@ -26,10 +45,12 @@ LabOrderDetails.defaultProps = {
   urgency: '',
   orderer: '',
   activeDates: '',
+  fulfillerStatus: '',
 };
 
 LabOrderDetails.propTypes = {
   urgency: PropTypes.string,
   orderer: PropTypes.string,
   activeDates: PropTypes.string,
+  fulfillerStatus: PropTypes.string,
 };

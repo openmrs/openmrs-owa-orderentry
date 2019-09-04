@@ -16,5 +16,10 @@
   "app.orders.testStatus": "Test Status",
   "app.orders.dosingInstructions": "Dosing Instructions",
   "app.orders.dispense": "Dispense",
-  "app.orders.orderBy": "Ordered by"
+  "app.orders.orderBy": "Ordered by",
+  "app.orders.activeDates":"Active Dates",
+  "app.orders.testStatus.IN_PROGRESS":"In Progress",
+  "app.orders.testStatus.COMPLETED":"Completed",
+  "app.orders.testStatus.RECEIVED":"Received",
+  "app.orders.testStatus.EXCEPTION":"Exception"
 }
