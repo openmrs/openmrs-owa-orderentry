@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from "react-intl";
 
-const LabOrderDetails = ({ urgency, orderer, activeDates, fulfillerStatus }) => (
+const LabOrderDetails = ({
+  urgency, orderer, activeDates, fulfillerStatus,
+}) => (
   <div className="order-details">
     <div className="details">
       <ul>
