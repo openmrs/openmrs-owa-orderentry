@@ -12,6 +12,7 @@ import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderables } from '../../actions/labOrders/settingLabOrderableAction';
 import getDateFormat from '../../actions/dateFormat';
+import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
 import { successToast, errorToast } from '../../utils/toast';
@@ -498,6 +499,7 @@ const actionCreators = {
   fetchPatientRecord,
   fetchPatientNote,
   setSelectedOrder,
+  activeOrderAction,
   toggleDraftLabOrderUrgency,
   editDraftDrugOrder,
   discardTestsInDraft,
