@@ -1,13 +1,13 @@
 {
   "name": "orderentry",
-  "version": "1.0.0-beta3",
+  "version": "1.0.0",
   "description": "It is designed to address a set of specific use cases – e.g., placing an order, revising it, discontinuing it, and being able to look up a patient&#39;s active orders.",
   "repository": {
     "type": "git",
     "url": "https://github.com/openmrs/openmrs-owa-orderentry"
   },
   "dependencies": {
-    "@openmrs/react-components": "^1.1.0",
+    "@openmrs/react-components": "^1.2.0",
     "@openmrs/style-referenceapplication": "^0.1.0",
     "ajv": "^6.4.0",
     "axios": "^0.18.0",
