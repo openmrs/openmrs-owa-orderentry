@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from "react-intl";
 
 const DrugOrderDetails = ({
   dosingInstructions, dispense, activeDates, orderer,
@@ -7,18 +8,30 @@ const DrugOrderDetails = ({
   <div className="order-details">
     <div className="details">
       <ul>
-        <b>Dosing-Instructions:</b> {dosingInstructions}
+        <b>
+          <FormattedMessage
+            id="app.orders.dosingInstructions"
+            defaultMessage="Dosing Instructions" />:
+        </b> {dosingInstructions}
       </ul>
-      <br />
       <ul>
-        <b>Dispense:</b> {dispense}
+        <b>
+          <FormattedMessage
+            id="app.orders.dispense"
+            defaultMessage="Dispense" />:
+        </b> {dispense}
       </ul>
-      <br />
       <ul>
-        <b>Active Dates:</b> {activeDates}
+        <b>
+          <FormattedMessage
+            id="app.orders.activeDates"
+            defaultMessage="Active Dates" />:
+        </b> {activeDates}
       </ul>
-      <br />
-      <p>Ordered by {orderer}</p>
+      <p><FormattedMessage
+        id="app.orders.orderedBy"
+        defaultMessage="Ordered by" /> {orderer}
+      </p>
     </div>
   </div>
 );

@@ -196,6 +196,7 @@ export class OrdersTable extends PureComponent {
                   urgency={order.urgency}
                   orderer={order.orderer.display.split('-')[1]}
                   activeDates={format(order.dateActivated, dateFormat)}
+                  fulfillerStatus={order.fulfillerStatus}
                 />
               )}
             </Accordion>
