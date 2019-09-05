@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '../button/IconButton';
+import { isCancellable, isEditable } from "../../utils/helpers";
 
 const OrderHeader = ({
   status,
@@ -13,7 +14,7 @@ const OrderHeader = ({
     <th className="th-orderable">{orderable.toLowerCase()}</th>
     <th>{status}</th>
     <th className="order-actions-btn">
-      {order.type === 'drugorder'
+      {isEditable(order)
         && <IconButton
           iconClass="icon-pencil"
           iconTitle="EDIT"
@@ -21,12 +22,14 @@ const OrderHeader = ({
           dataContext={order}
         />
       }
-      <IconButton
-        iconClass="icon-remove"
-        iconTitle="DISCONTINUE"
-        dataContext={order}
-        onClick={handleDiscontinue}
-      />
+      {isCancellable(order)
+        && <IconButton
+          iconClass="icon-remove"
+          iconTitle="DISCONTINUE"
+          dataContext={order}
+          onClick={handleDiscontinue}
+        />
+      }
     </th>
   </Fragment>
 );
