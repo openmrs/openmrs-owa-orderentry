@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 import { ToolTip } from '@openmrs/react-components';
 import '../../../css/grid.scss';
 
@@ -17,7 +18,12 @@ const LabPanelFieldSet = (props) => {
   } = props;
   return (
     <fieldset className="fieldset">
-      <legend>Panels</legend>
+      <legend>
+        <FormattedMessage
+          id="app.orders.panels"
+          defaultMessage="Panels"
+          description="Panels" />
+      </legend>
       <div className="panel-box">
         {panels.length ? (
           panels.map(panel => (

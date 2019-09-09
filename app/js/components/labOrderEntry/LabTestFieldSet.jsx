@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import '../../../css/grid.scss';
 
@@ -9,7 +10,12 @@ const LabTestFieldSet = (props) => {
   const selectedTestIds = selectedTests.map(test => test.uuid);
   return (
     <fieldset className="fieldset">
-      <legend>Tests</legend>
+      <legend>
+        <FormattedMessage
+          id="app.orders.tests"
+          defaultMessage="Tests"
+          description="Tests" />
+      </legend>
       <div className="tests-box">
         {
           tests.length ?

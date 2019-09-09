@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
+import { FormattedMessage } from 'react-intl';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
-import LabDraftOrder from './LabDraftOrder';
 import { successToast, errorToast } from '../../utils/toast';
 import {
   addTestPanelToDraft,
@@ -173,7 +173,12 @@ export class LabEntryForm extends PureComponent {
         {
           getLabOrderables ?
             <div className="lab-order-entry">
-              <h5>New Lab Order</h5>
+              <h5>
+                <FormattedMessage
+                  id="app.orders.new"
+                  defaultMessage="New Lab Order"
+                  description="New Lab Order" />
+              </h5>
               <br />
               <div className="lab-form-wrapper">
                 <div className="lab-category">

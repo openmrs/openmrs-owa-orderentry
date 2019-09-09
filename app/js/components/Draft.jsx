@@ -82,7 +82,10 @@ export class Draft extends PureComponent {
     return (
       <div className="draft-spacing draft-lab-layout">
         <h5 className="h5-draft-header">
-          Unsaved Draft Orders ({numberOfDraftOrders})
+          <FormattedMessage
+            id="app.orders.unsaved.draft"
+            defaultMessage="Unsaved Draft Orders"
+            description="Unsaved Draft Orders" /> ({numberOfDraftOrders})
         </h5>
         <div className="table-container">
           <ul className="draft-list-container">
@@ -95,7 +98,7 @@ export class Draft extends PureComponent {
           id="draft-discard-all"
           onClick={() => handleDraftDiscard()}
           className="button cancel modified-btn"
-          value={numberOfDraftOrders > 1 ? "Discard All" : discard}
+          value={numberOfDraftOrders > 1 ? discardAll : discard}
           disabled={isDisabled}
         />
         <input
