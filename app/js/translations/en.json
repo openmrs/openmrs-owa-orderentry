@@ -1,6 +1,10 @@
 {
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Orders",
+  "app.orders.all": "All",
+  "app.orders.signandsave": "Sign and Save",
+  "app.orders.discard": "Discard All",
+  "app.orders.discardall": "Discard",
   "app.orders.list": "Orders List",
   "app.orders.type": "Type",
   "app.orders.patient": "Patient Orders",

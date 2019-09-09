@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
+import { FormattedMessage } from 'react-intl';
 import constants from '../../utils/constants';
 
 export class LabDraftOrder extends PureComponent {
@@ -91,7 +92,12 @@ export class LabDraftOrder extends PureComponent {
           type="submit"
           onClick={handleSubmit}
           className="button confirm right modified-btn"
-          value="Sign and Save"
+          value='{
+            <FormattedMessage
+            id="app.orders.signandsave"
+            defaultMessage="Sign and Save"
+            description="All" />
+          }'
           disabled={isDisabled}
         />
       </div>

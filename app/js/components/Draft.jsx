@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import shortid from 'shortid';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
 import IconButton from './button/IconButton';
 
@@ -70,9 +71,14 @@ export class Draft extends PureComponent {
   }
 
   render() {
-    const { draftOrders, handleDraftDiscard, handleSubmit } = this.props;
+    const {
+      draftOrders, handleDraftDiscard, handleSubmit, intl,
+    } = this.props;
     const numberOfDraftOrders = draftOrders.length;
     const isDisabled = !numberOfDraftOrders;
+    const signAndSave = intl.formatMessage({ id: "app.orders.signandsave", defaultMessage: "Sign and Save" });
+    const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
+    const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
     return (
       <div className="draft-spacing draft-lab-layout">
         <h5 className="h5-draft-header">
@@ -89,14 +95,14 @@ export class Draft extends PureComponent {
           id="draft-discard-all"
           onClick={() => handleDraftDiscard()}
           className="button cancel modified-btn"
-          value={numberOfDraftOrders > 1 ? "Discard All" : "Discard"}
+          value={numberOfDraftOrders > 1 ? "Discard All" : discard}
           disabled={isDisabled}
         />
         <input
           type="submit"
           onClick={() => handleSubmit()}
           className="button confirm right modified-btn"
-          value="Sign and Save"
+          value={signAndSave}
           disabled={isDisabled}
         />
       </div>
@@ -112,5 +118,5 @@ Draft.propTypes = {
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
 };
 
-export default Draft;
+export default injectIntl(Draft);
 

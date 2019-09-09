@@ -1,6 +1,10 @@
 {
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Orders",
+  "app.orders.all": "Tout",
+  "app.orders.signandsave": "Siyen epi Sove",
+  "app.orders.discard": "Jete",
+  "app.orders.discard": "Jete Tout",
   "app.orders.list": "Lis lòd yo",
   "app.orders.type": "Kalite",
   "app.orders.patient": "Lòd pou pasyan yo",

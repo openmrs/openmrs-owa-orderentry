@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draft } from '../../app/js/components/Draft';
+import { mountWithIntl } from '@openmrs/react-components';
 
 let props;
 let mountedComponent;
@@ -16,7 +17,7 @@ props = {
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<Draft {...props} />);
+    mountedComponent = mountWithIntl(<Draft {...props} />);
   }
   return mountedComponent;
 };
