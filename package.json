@@ -1,5 +1,5 @@
 {
-  "name": "orderentry",
+  "name": "@openmrs/orderentryui-owa",
   "version": "1.0.0",
   "description": "It is designed to address a set of specific use cases – e.g., placing an order, revising it, discontinuing it, and being able to look up a patient&#39;s active orders.",
   "repository": {
