@@ -1,6 +1,6 @@
 {
   "package": {
-    "name": "openmrs-owa-orderentryui",
+    "name": "openmrs-owa-orderentry",
     "repo": "owa",
     "subject": "openmrs"
   },
