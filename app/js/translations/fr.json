@@ -5,9 +5,9 @@
   "app.orders.signandsave": "Signer et enregistrer",
   "app.orders.discard": "Tout jeter",
   "app.orders.discardall": "Jeter",
-  "app.orders.new": "New Lab Order",
-  "app.orders.unsaved.draft": "Unsaved Draft Orders",
-  "app.orders.panels": "Panels",
+  "app.orders.new": "Nouvelle commande de laboratoire",
+  "app.orders.unsaved.draft": "Brouillons de commandes non enregistrées",
+  "app.orders.panels": "Panneaux",
   "app.orders.tests": "Tests",
   "app.orders.list": "Liste des commandes",
   "app.orders.type": "Type",
@@ -26,8 +26,8 @@
   "app.orders.dispense": "Dispenser",
   "app.orders.orderBy": "Commander par",
   "app.orders.activeDates":"Active Dates",
-  "app.orders.testStatus.IN_PROGRESS":"en cours",
-  "app.orders.testStatus.COMPLETED":"Terminé",
+  "app.orders.testStatus.IN_PROGRESS":"Collected",
+  "app.orders.testStatus.COMPLETED":"Reported",
   "app.orders.testStatus.RECEIVED":"Reçu",
-  "app.orders.testStatus.EXCEPTION":"Exception"
+  "app.orders.testStatus.EXCEPTION":"Not performed"
 }
