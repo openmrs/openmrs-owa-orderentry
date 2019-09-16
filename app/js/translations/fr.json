@@ -26,8 +26,8 @@
   "app.orders.dispense": "Dispenser",
   "app.orders.orderBy": "Commander par",
   "app.orders.activeDates":"Active Dates",
-  "app.orders.testStatus.IN_PROGRESS":"Collected",
-  "app.orders.testStatus.COMPLETED":"Reported",
+  "app.orders.testStatus.IN_PROGRESS":"Collecté",
+  "app.orders.testStatus.COMPLETED":"Rapporter",
   "app.orders.testStatus.RECEIVED":"Reçu",
-  "app.orders.testStatus.EXCEPTION":"Not performed"
+  "app.orders.testStatus.EXCEPTION":"Pas effectué"
 }
