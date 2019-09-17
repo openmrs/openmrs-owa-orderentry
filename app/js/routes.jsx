@@ -25,9 +25,11 @@ initializeLocalization({
   ht: messagesHT,
 });
 
+const LocalizedHeader = withLocalization(Header);
+
 const Routes = store => (
   <div>
-    <Header />
+    <LocalizedHeader />
     <Switch>
       <Route path="/" component={withLocalization(OrderEntryPage)} />
     </Switch>
