@@ -29,5 +29,8 @@
   "app.orders.testStatus.IN_PROGRESS":"Collected",
   "app.orders.testStatus.COMPLETED":"Reported",
   "app.orders.testStatus.RECEIVED":"Received",
-  "app.orders.testStatus.EXCEPTION":"Not performed"
+  "app.orders.testStatus.EXCEPTION":"Not performed",
+  "app.orders.discontinue":"DISKONTINYE",
+  "app.orders.discontinue.question":"Èske ou sèten ou vle sispann lòd sa a?",
+  "app.orders.discontinue.reason":"Rezon pou sispann"
 }

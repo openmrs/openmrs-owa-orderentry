@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 import swal from 'sweetalert';
 import format from 'date-fns/format';
 import Accordion from './Accordion';
@@ -30,22 +31,29 @@ export class OrdersTable extends PureComponent {
   getUUID = (items, itemName) => items.find(item => item.display === itemName)
 
   setDiscontinuedOrder = async (order) => {
+    const { intl } = this.props;
     const {
       orderNumber,
     } = order;
 
-    const discontinueDecision = await swal("Are you sure you want to discontinue this order ?", {
+    const discontinueQuestion = intl.formatMessage({ id: "app.orders.discontinue.question", defaultMessage: "Are you sure you want to discontinue this order ?" });
+    const discontinueMsg = intl.formatMessage({ id: "app.orders.discontinue", defaultMessage: "DISCONTINUE" });
+    const reasonToDiscontinue = intl.formatMessage({ id: "app.orders.discontinue.reason", defaultMessage: "Reason for discontinuing" });
+    const yesMsg = intl.formatMessage({ id: "reactcomponents.yes", defaultMessage: "YES" });
+    const noMsg = intl.formatMessage({ id: "reactcomponents.no", defaultMessage: "NO" });
+
+    const discontinueDecision = await swal(discontinueQuestion, {
       buttons: {
-        YES: "YES",
-        NO: 'NO',
+        YES: yesMsg,
+         NO: noMsg,
       },
     });
     if (discontinueDecision === "YES") {
       const reason = await swal({
-        text: 'Reason for discontinuing',
+        text: reasonToDiscontinue,
         content: "input",
         button: {
-          text: "DISCONTINUE",
+          text: discontinueMsg,
           closeModal: true,
         },
       });
@@ -54,7 +62,7 @@ export class OrdersTable extends PureComponent {
         : this.formatLabOrderData(order);
       this.discontinueOrder(discontinuedOrder, orderNumber);
     }
-  }
+  };
 
   formatDrugOrderData = (order, reason) => {
     const {
@@ -282,4 +290,4 @@ const mapStateToProps = ({
   session,
 });
 
-export default connect(mapStateToProps)(OrdersTable);
+export default connect(mapStateToProps)(injectIntl(OrdersTable));

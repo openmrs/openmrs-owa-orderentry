@@ -1,5 +1,6 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
+import { mountWithIntl, shallowWithIntl } from '@openmrs/react-components';
 import ConnectedOrdersTablePage, { OrdersTable } from '../../../app/js/components/orderEntry/OrdersTable';
 import { rejects } from 'assert';
 
@@ -107,7 +108,7 @@ const props = {
 let mountedComponent;
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<OrdersTable {...props} store={store} />);
+    mountedComponent = shallowWithIntl(<OrdersTable {...props} store={store} />);
   }
   return mountedComponent;
 };
@@ -161,7 +162,7 @@ describe('Orders component test-suite', () => {
     const props = {
       location: { search: '?patient=esere_shbfidfb_343ffd' },
     };
-    const wrapper = mount(<ConnectedOrdersTablePage store={store} {...props} />);
+    const wrapper = mountWithIntl(<ConnectedOrdersTablePage store={store} {...props} />);
     expect(wrapper.find('.no-result-info').props().children).toEqual('No Orders');
   });
   
@@ -197,7 +198,7 @@ describe('Orders component test-suite', () => {
       dispatch: jest.fn()
     };
 
-    const component = shallow(<OrdersTable {...props}/>);
+    const component = shallowWithIntl(<OrdersTable {...props}/>);
     const componentInstance = component.instance();
     componentInstance.handleActiveOrderEdit(mockDrugOrder);
     expect(props.dispatch).toBeCalled();

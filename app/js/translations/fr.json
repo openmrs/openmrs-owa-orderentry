@@ -29,5 +29,8 @@
   "app.orders.testStatus.IN_PROGRESS":"Collecté",
   "app.orders.testStatus.COMPLETED":"Rapporter",
   "app.orders.testStatus.RECEIVED":"Reçu",
-  "app.orders.testStatus.EXCEPTION":"Pas effectué"
+  "app.orders.testStatus.EXCEPTION":"Pas effectué",
+  "app.orders.discontinue":"CESSER",
+  "app.orders.discontinue.question":"Êtes-vous sûr de vouloir interrompre cette commande?",
+  "app.orders.discontinue.reason":"Raison de l'abandon"
 }
