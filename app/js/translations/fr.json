@@ -32,5 +32,7 @@
   "app.orders.testStatus.EXCEPTION":"Pas effectué",
   "app.orders.discontinue":"CESSER",
   "app.orders.discontinue.question":"Êtes-vous sûr de vouloir interrompre cette commande?",
-  "app.orders.discontinue.reason":"Raison de l'abandon"
+  "app.orders.discontinue.reason":"Raison de l'abandon",
+  "app.orders.create.success":"Commande créée avec succès",
+  "app.orders.is.active":"l'ordre est actif"
 }

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
 import { successToast, errorToast } from '../../utils/toast';
@@ -85,8 +85,11 @@ export class LabEntryForm extends PureComponent {
       errorMessage,
       labOrderData,
     } = this.props.createOrderReducer;
+    const { intl } = this.props;
+    const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
+
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
-      successToast('Order successfully created');
+      successToast(orderCreatedMsg);
       this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
       this.props.dispatch(setSelectedOrder({
         currentOrderType: {},
@@ -246,4 +249,4 @@ export const mapStateToProps = ({
   getLabOrderables,
 });
 
-export default connect(mapStateToProps)(LabEntryForm);
+export default connect(mapStateToProps)(injectIntl(LabEntryForm));

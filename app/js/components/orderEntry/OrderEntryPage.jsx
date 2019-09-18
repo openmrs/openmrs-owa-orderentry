@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { PatientHeader } from '@openmrs/react-components';
 import RenderOrderType from './RenderOrderType';
 import SelectOrderType from './SelectOrderType';
@@ -50,8 +50,10 @@ export class OrderEntryPage extends PureComponent {
       labOrderData,
     } = this.props.createOrderReducer;
 
+    const { intl } = this.props;
+    const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
-      successToast('Order successfully created');
+      successToast(orderCreatedMsg);
       this.props.fetchLabOrders(null, this.props.patient.uuid);
     }
     if (error) {
@@ -512,4 +514,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispat
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(OrderEntryPage);
+)(injectIntl(OrderEntryPage));

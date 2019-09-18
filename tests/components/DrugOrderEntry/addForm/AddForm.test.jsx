@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { mountWithIntl, shallowWithIntl } from '@openmrs/react-components';
 import { AddForm } from '../../../../app/js/components/drugOrderEntry/addForm/AddForm';
 
 const {
@@ -72,19 +72,19 @@ const props = {
 let mountedComponent;
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<AddForm {...props} />);
+    mountedComponent = shallowWithIntl(<AddForm {...props} />);
   }
   return mountedComponent;
 };
 
 describe('Test for adding a new drug order', () => {
   it('should render component', () => {
-    const wrapper = shallow(<AddForm {...props} />);
+    const wrapper = shallowWithIntl(<AddForm {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   describe('Outpatient orders', () => {
-    const wrapper = mount(<AddForm {...props} />);
+    const wrapper = mountWithIntl(<AddForm {...props} />);
     describe('Activate and deactivate Confirm button under standard dosing form', () => {
       beforeEach(() => {
         wrapper.find('[name="dose"]').simulate('change', { target: { name: 'dose', value: 8 } });
@@ -196,7 +196,7 @@ describe('Test for adding a new drug order', () => {
 
 describe('Test AddForm state', () => {
   it('should update state', () => {
-    mountedComponent = mount(<AddForm {...props} />);
+    mountedComponent = mountWithIntl(<AddForm {...props} />);
     getComponent().setState({ fields: { dose: 11 } });
     getComponent()
       .find('[name="dose"]')

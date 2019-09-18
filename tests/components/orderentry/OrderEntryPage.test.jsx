@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallowWithIntl } from '@openmrs/react-components';
 import ConnectedOrderEntryPage, { OrderEntryPage } from '../../../app/js/components/orderEntry/OrderEntryPage';
 import * as orderTypes from '../../../app/js/components/orderEntry/orderTypes';
 import DrugOrderEntry from '../../../app/js/components/drugOrderEntry';
@@ -9,7 +10,7 @@ let mountedComponent;
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<SearchDrug {...props} />);
+    mountedComponent = shallowWithIntl(<SearchDrug {...props} />);
   }
   return mountedComponent;
 };
@@ -117,30 +118,30 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
   });
 
   it('should render component', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     expect(mountedComponent).toMatchSnapshot();
   });
 
   it('should render Loader Images ', () => {
     props.outpatientCareSetting = null;
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div img').length).toBe(1);
   });
 
   it('should not show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     expect(mountedComponent.find('div.error-notice').length).toBe(0);
   });
 
   it('renders the patient-orders component', () => {
-    const component = shallow(<OrderEntryPage {...props} />);
+    const component = shallowWithIntl(<OrderEntryPage {...props} />);
     component.find('.orders-nav').simulate('click');
     expect(props.setSelectedOrder).toBeCalled();
     expect(component.find('.orders-nav').exists()).toBeTruthy();
   });
 
   it('should switch the order type in the state', () => {
-    const component = shallow(<OrderEntryPage {...props} />);
+    const component = shallowWithIntl(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
     const mockCurrentOrderType = { id: '94386782390' };
@@ -151,7 +152,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
 
   it(`does not switch order type page if the current
   orderType is same as the new orderType`, () => {
-    const component = shallow(<OrderEntryPage {...props} />);
+    const component = shallowWithIntl(<OrderEntryPage {...props} />);
     const componentInstance = component.instance();
     const orderTypesAsArray = Object.values(orderTypes);
     componentInstance.switchOrderType(orderTypesAsArray[0]);
@@ -161,7 +162,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
 
 describe('when orderentryowa.encounterType is not set', () => {
   it('should not render DrugOrderEntry Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       settingEncounterTypeReducer: {
@@ -173,7 +174,7 @@ describe('when orderentryowa.encounterType is not set', () => {
   });
 
   it('should show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       settingEncounterTypeReducer: {
@@ -187,7 +188,7 @@ describe('when orderentryowa.encounterType is not set', () => {
 
 describe('when orderentryowa.encounterRole is set', () => {
   it('should not show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       settingEncounterTypeReducer: {
@@ -201,7 +202,7 @@ describe('when orderentryowa.encounterRole is set', () => {
 
 describe('when orderentryowa.encounterRole is not set', () => {
   it('should not render DrugOrderEntry Component ', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       settingEncounterRoleReducer: {
@@ -213,7 +214,7 @@ describe('when orderentryowa.encounterRole is not set', () => {
   });
 
   it('should show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       settingEncounterRoleReducer: {
@@ -227,7 +228,7 @@ describe('when orderentryowa.encounterRole is not set', () => {
 
 describe('when orderentryowa.dateAndTimeFormat is set', () => {
   it('should not show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       dateFormatReducer: {
@@ -241,7 +242,7 @@ describe('when orderentryowa.dateAndTimeFormat is set', () => {
 
 describe('when orderentryowa.dateAndTimeFormat is set', () => {
   it('should show error', () => {
-    mountedComponent = shallow(<OrderEntryPage {...props} />);
+    mountedComponent = shallowWithIntl(<OrderEntryPage {...props} />);
     mountedComponent.setProps({
       ...mountedComponent.props(),
       dateFormatReducer: {
@@ -255,7 +256,7 @@ describe('when orderentryowa.dateAndTimeFormat is set', () => {
 
 describe('Handling Submit', () => {
   it('It dispatches create lab order action if the handleSubmit method is triggered', () => {
-    const wrapper = shallow(<OrderEntryPage {...props} />);
+    const wrapper = shallowWithIntl(<OrderEntryPage {...props} />);
     const handleSubmit = wrapper.instance().handleSubmit;
     handleSubmit();
     const { draftDrugOrders, draftLabOrders } = mockData;
@@ -280,7 +281,7 @@ describe('Handling Submit', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('Order successfully created');
+    expect(global.toastrMessage).toEqual('Order Successfully Created');
   });
 });
 
@@ -371,7 +372,7 @@ describe('Connected OrderEntryPage component', () => {
         }]
       }
     });
-    const wrapper = shallow(<ConnectedOrderEntryPage store={store} {...props} />);
+    const wrapper = shallowWithIntl(<ConnectedOrderEntryPage store={store} {...props} />);
     expect(wrapper.length).toBe(1);
   });
 });

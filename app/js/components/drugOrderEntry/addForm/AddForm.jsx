@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 import FreeText from './FreeText';
 import StandardDose from './StandardDose';
 import DosageTabs from '../../tabs/DosageTabs';
@@ -58,7 +59,12 @@ export class AddForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { status: { added, error }, errorMessage, addedOrder } = this.props.createOrderReducer;
-    const { setSelectedOrderAction, draftOrder, editOrder } = this.props;
+    const {
+      setSelectedOrderAction, draftOrder, editOrder, intl,
+    } = this.props;
+
+    const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
+
     if (addedOrder && prevProps.createOrderReducer.addedOrder !== addedOrder) {
       setSelectedOrderAction({
         currentOrderType: {},
@@ -67,7 +73,7 @@ export class AddForm extends React.Component {
       });
     }
     if (added && prevProps.createOrderReducer.addedOrder !== addedOrder) {
-      successToast('Order Successfully Created');
+      successToast(orderCreatedMsg);
     }
     if (error && prevProps.createOrderReducer.errorMessage !== errorMessage) {
       errorToast(errorMessages[errorMessage.join('')]);
@@ -83,11 +89,11 @@ export class AddForm extends React.Component {
       activeTabIndex: tabIndex,
       fieldErrors: {},
     });
-  }
+  };
 
   handleFormType = (formType) => {
     this.setState({ formType: formType.trim() });
-  }
+  };
 
   checkIfDrugHasActiveOrder = (drugUuid) => {
     const { filteredOrders } = this.props.fetchOrdersReducer;
@@ -97,7 +103,7 @@ export class AddForm extends React.Component {
       return true;
     }
     return false;
-  }
+  };
 
   handleSubmitDrugForm = () => {
     const {
@@ -126,8 +132,10 @@ export class AddForm extends React.Component {
       setOrder,
       selectDrugSuccessAction,
       clearSearchField,
+      intl,
     } = this.props;
 
+    const activeOrderMsg = intl.formatMessage({ id: "app.orders.is.active", defaultMessage: "order is active" });
     if (!this.checkIfDrugHasActiveOrder(drugUuid) || activity === "EDIT") {
       const {
         previousOrder,
@@ -180,7 +188,7 @@ export class AddForm extends React.Component {
         });
       }
     } else {
-      errorToast(`${drugName} order is active.`);
+      errorToast(`${drugName} ${activeOrderMsg}.`);
     }
   }
 
@@ -515,4 +523,4 @@ export default connect(
     setSelectedOrderAction: setSelectedOrder,
     fetchAllOrdersAction: fetchAllOrders,
   },
-)(AddForm);
+)(injectIntl(AddForm));

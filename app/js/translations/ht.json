@@ -32,5 +32,7 @@
   "app.orders.testStatus.EXCEPTION":"Not performed",
   "app.orders.discontinue":"DISKONTINYE",
   "app.orders.discontinue.question":"Èske ou sèten ou vle sispann lòd sa a?",
-  "app.orders.discontinue.reason":"Rezon pou sispann"
+  "app.orders.discontinue.reason":"Rezon pou sispann",
+  "app.orders.create.success":"Lòd siksè ki te kreye",
+  "app.orders.is.active":"lòd aktif"
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { mountWithIntl } from '@openmrs/react-components';
 import { LabEntryForm, mapStateToProps } from '../../../app/js/components/labOrderEntry/LabEntryForm';
 import {
   addDraftLabOrders,
@@ -85,7 +86,7 @@ const mockTest = testsData[0];
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = mount(<LabEntryForm {...props} />);
+    mountedComponent = mountWithIntl(<LabEntryForm {...props} />);
   }
   return mountedComponent;
 };
@@ -198,7 +199,7 @@ describe('Component: LabEntryForm', () => {
         labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
-    expect(global.toastrMessage).toEqual('Order successfully created');
+    expect(global.toastrMessage).toEqual('Order Successfully Created');
   });
 
   it('shows a toast prompt when there is an error in submission', () => {
