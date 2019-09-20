@@ -1,40 +1,45 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import IconButton from '../button/IconButton';
 import { isCancellable, isEditable } from "../../utils/helpers";
 
 const OrderHeader = ({
+  intl,
   status,
   orderable,
   order,
   handleEdit,
   handleDiscontinue,
-}) => (
-  <Fragment>
-    <th className="th-orderable">{orderable.toLowerCase()}</th>
-    <th>{status}</th>
-    <th className="order-actions-btn">
-      {isEditable(order)
+}) => {
+  const discontinueMsg = intl.formatMessage({ id: "app.orders.discontinue", defaultMessage: "DISCONTINUE" });
+  return (
+    <Fragment>
+      <th className="th-orderable">{orderable.toLowerCase()}</th>
+      <th>{status}</th>
+      <th className="order-actions-btn">
+        {isEditable(order)
         && <IconButton
           iconClass="icon-pencil"
           iconTitle="EDIT"
           onClick={handleEdit}
           dataContext={order}
         />
-      }
-      {isCancellable(order)
+        }
+        {isCancellable(order)
         && <IconButton
           iconClass="icon-remove"
-          iconTitle="DISCONTINUE"
+          iconTitle={ discontinueMsg }
           dataContext={order}
           onClick={handleDiscontinue}
         />
-      }
-    </th>
-  </Fragment>
-);
+        }
+      </th>
+    </Fragment>
+  );
+};
 
-export default OrderHeader;
+export default injectIntl(OrderHeader);
 
 OrderHeader.defaultProps = {
   status: '',

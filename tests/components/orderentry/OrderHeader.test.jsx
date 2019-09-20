@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallowWithIntl } from '@openmrs/react-components';
 import OrderHeader from '../../../app/js/components/orderEntry/OrderHeader';
 
 let props;
@@ -6,7 +7,7 @@ let mountedComponent;
 
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<OrderHeader {...props} />);
+    mountedComponent = shallowWithIntl(<OrderHeader {...props} />);
   }
   return mountedComponent;
 };

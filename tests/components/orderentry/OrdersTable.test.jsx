@@ -115,7 +115,7 @@ const getComponent = () => {
 
 describe('Orders component test-suite', () => {
   it('renders properly', () => {
-    const wrapper = mount(<OrdersTable {...props} />);
+    const wrapper = mountWithIntl(<OrdersTable {...props} />);
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.find('Accordion').exists()).toBeTruthy();
     wrapper.setProps({

@@ -6,7 +6,7 @@ import {
   FETCH_ENCOUNTER_TYPE_SUCCESS,
   LOAD_PAST_ORDERS_SUCCESS,
   POST_DRUG_ORDER_SUCCESS,
-  DISCONTINUE_ACTIVE_DRUG_ORDER,
+  DISCONTINUE_ACTIVE_DRUG_ORDER, DISCONTINUE_ORDER_SUCCEDED,
 } from '../actions/actionTypes';
 
 export default function responseHandlerMiddleware() {
@@ -57,6 +57,10 @@ export default function responseHandlerMiddleware() {
       next({ type: 'PAST_ORDERS_RESULT_COUNT', pastOrdersResultCount });
       next({ type: 'PAST_ORDERS_PAGE_COUNT', pageCount });
       return next({ ...action, pastOrders: results });
+    }
+
+    if (action.type === DISCONTINUE_ORDER_SUCCEDED) {
+      toastr.success('Order discontinued Succesfully');
     }
     if (action.type === POST_DRUG_ORDER_SUCCESS && action.meta.activity === 'DISCONTINUE') {
       toastr.success('Order discontinued Succesfully');

@@ -1,5 +1,7 @@
 import axiosInstance from '../config';
 
+const ORDER_REP = "custom:(id,uuid,display,orderNumber,dateActivated,scheduledDate,dateStopped,autoExpireDate,orderType:(id,uuid,display,name),encounter:(id,uuid,display,encounterDatetime),careSetting:(uuid,name,careSettingType,display),accessionNumber,urgency,action,patient:(uuid,display),concept:(id,uuid,display,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType))";
+
 const activeOrderAction = (
   limit,
   startIndex,
