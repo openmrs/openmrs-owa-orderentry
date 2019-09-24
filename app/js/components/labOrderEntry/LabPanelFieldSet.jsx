@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import { ToolTip } from '@openmrs/react-components';
 import '../../../css/grid.scss';
+import { getConceptShortName } from '../../utils/helpers';
 
 const formatPanelName = (panelName) => {
   const name = panelName;
@@ -14,7 +15,7 @@ const formatToolTipData = setMembers => setMembers.map(test => test.display);
 
 const LabPanelFieldSet = (props) => {
   const {
-    selectedPanelIds, handleTestSelection, panels, labCategoryName,
+    selectedPanelIds, handleTestSelection, panels, labCategoryName, locale,
   } = props;
   return (
     <fieldset className="fieldset">
@@ -35,7 +36,7 @@ const LabPanelFieldSet = (props) => {
               type="button"
               key={`${panel.uuid}`}
               onClick={() => handleTestSelection(panel, 'panel')}>
-              {formatPanelName(panel.display.toLowerCase())}
+              { getConceptShortName(panel, locale) }
               <ToolTip
                 toolTipHeader="Tests included in this panel:"
                 toolTipBody={formatToolTipData(panel.setMembers)}

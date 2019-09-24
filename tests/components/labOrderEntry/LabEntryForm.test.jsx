@@ -54,6 +54,7 @@ props = {
     labOrderData: {},
   },
   session: {
+    locale: 'en',
     currentProvider: {
       uuid: 'jfhfhiu77474',
     },
@@ -78,6 +79,9 @@ props = {
     { uuid: 'iuweihiYWGD64', display: 'blood', concept: '12746hfgjff' },
   ],
   getLabOrderables: 'buo434873euhwiqeroq',
+  sessionReducer: {
+    locale: 'en',
+  },
 };
 
 let mockPanel = panelData[0];
@@ -121,7 +125,8 @@ describe('Component: LabEntryForm', () => {
       careSettingReducer: { inpatientCareSetting: {} },
       labOrderableReducer: { orderables: [] },
       getLabOrderablesReducer: { getLabOrderables: '' },
-    })
+      sessionReducer: { session: {} }
+    });
     expect(component).toMatchSnapshot();
   });
 

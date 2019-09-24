@@ -1,4 +1,9 @@
 export default {
+  openmrs: {
+    session: {
+      locale: 'en',
+    },
+  },
   defaultLocations: {
     results: {
       locationTags: [],

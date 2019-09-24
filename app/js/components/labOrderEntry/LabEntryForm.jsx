@@ -18,7 +18,8 @@ import './styles.scss';
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import fetchLabConcepts from '../../actions/labOrders/labConceptsAction';
 import { setSelectedOrder } from '../../actions/orderAction';
-
+import { getConceptShortName } from '../../utils/helpers';
+import { CONCEPT_REP } from '../../utils/constants';
 
 export class LabEntryForm extends PureComponent {
   static propTypes = {
@@ -57,14 +58,14 @@ export class LabEntryForm extends PureComponent {
 
   state = {
     categoryUUID: this.props.orderables[0].uuid || 0,
-    categoryName: this.props.orderables[0].display,
+    categoryName: getConceptShortName(this.props.orderables[0], this.props.sessionReducer.locale),
     selectedPanelIds: [],
     selectedPanelTestIds: [],
   };
 
   componentDidMount() {
     if (this.state.categoryUUID) {
-      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
+      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=${CONCEPT_REP}`));
     }
   }
 
@@ -101,7 +102,7 @@ export class LabEntryForm extends PureComponent {
       errorToast(errorMessage);
     }
     if (this.state.categoryUUID !== prevState.categoryUUID) {
-      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=full`));
+      this.props.dispatch(fetchLabConcepts(`${this.state.categoryUUID}?v=${CONCEPT_REP}`));
     }
   }
 
@@ -147,6 +148,7 @@ export class LabEntryForm extends PureComponent {
         handleTestSelection={this.handleTestSelection}
         panels={this.props.conceptsAsPanels}
         selectedPanelIds={this.state.selectedPanelIds}
+        locale={this.props.sessionReducer.locale}
       />
       <LabTestFieldSet
         labCategoryName={this.state.categoryName}
@@ -193,7 +195,7 @@ export class LabEntryForm extends PureComponent {
                           href="#"
                           id="category-button"
                           onClick={() => this.changeLabForm(orderable.uuid, orderable.display)}>
-                          {orderable.display}
+                          { getConceptShortName(orderable, this.props.sessionReducer.locale) }
                         </a>
                       </li>
                     ))}
@@ -233,6 +235,7 @@ export const mapStateToProps = ({
   createOrderReducer,
   labOrderableReducer: { orderables },
   getLabOrderablesReducer: { getLabOrderables },
+  openmrs: { session },
 }) => ({
   draftLabOrders: orders,
   draftDrugOrders,
@@ -247,6 +250,7 @@ export const mapStateToProps = ({
   patient,
   orderables,
   getLabOrderables,
+  sessionReducer: session,
 });
 
 export default connect(mapStateToProps)(injectIntl(LabEntryForm));
