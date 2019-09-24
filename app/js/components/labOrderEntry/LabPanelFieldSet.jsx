@@ -11,7 +11,8 @@ const formatPanelName = (panelName) => {
   return name.replace(/panel/i, '').trim();
 };
 
-const formatToolTipData = setMembers => setMembers.map(test => test.display);
+const formatToolTipData = (setMembers, locale) => setMembers.map(test =>
+  getConceptShortName(test, locale));
 
 const LabPanelFieldSet = (props) => {
   const {
@@ -39,7 +40,7 @@ const LabPanelFieldSet = (props) => {
               { getConceptShortName(panel, locale) }
               <ToolTip
                 toolTipHeader="Tests included in this panel:"
-                toolTipBody={formatToolTipData(panel.setMembers)}
+                toolTipBody={formatToolTipData(panel.setMembers, locale)}
               />
             </button>
           ))

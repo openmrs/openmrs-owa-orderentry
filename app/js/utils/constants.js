@@ -13,4 +13,4 @@ export const DEFAULT_ENCOUNTER_REP = '(id,uuid,encounterDatetime,location:(id,uu
 
 export const ORDER_REP = "custom:(id,uuid,display,orderNumber,dateActivated,scheduledDate,dateStopped,autoExpireDate,orderType:(id,uuid,display,name),encounter:(id,uuid,display,encounterDatetime),careSetting:(uuid,name,careSettingType,display),accessionNumber,urgency,action,patient:(uuid,display),concept:(id,uuid,display,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType))";
 
-export const CONCEPT_REP = "custom:(id,uuid,display,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType),set,setMembers:(id,uuid,display,set,setMembers,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType))";
+export const CONCEPT_REP = "custom:(id,uuid,display,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType),set,setMembers:(id,uuid,display,set,setMembers:(id,uuid,display,names:(id,uuid,name,locale,localePreferred,voided,conceptNameType)),names:(id,uuid,name,locale,localePreferred,voided,conceptNameType))";

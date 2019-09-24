@@ -1,11 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import { getConceptShortName } from '../../utils/helpers';
 import '../../../css/grid.scss';
 
 const LabTestFieldSet = (props) => {
   const {
-    selectedTests, handleTestSelection, tests, labCategoryName,
+    selectedTests, handleTestSelection, tests, labCategoryName, locale,
   } = props;
   const selectedTestIds = selectedTests.map(test => test.uuid);
   return (
@@ -27,7 +28,7 @@ const LabTestFieldSet = (props) => {
                 className={`lab-tests-btn ${(selectedTestIds.includes(test.uuid)) ? 'active' : ''}`}
                 onClick={() => handleTestSelection(test, 'single')}
               >
-                {test.display.toLowerCase()}
+                { getConceptShortName(test, locale) }
               </button>
             )) : <p>{labCategoryName} has no Standalone Tests</p>
         }

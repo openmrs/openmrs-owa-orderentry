@@ -155,6 +155,7 @@ export class LabEntryForm extends PureComponent {
         handleTestSelection={this.handleTestSelection}
         selectedTests={this.props.selectedTests}
         tests={this.props.standAloneTests}
+        locale={this.props.sessionReducer.locale}
       />
     </div>
   );
