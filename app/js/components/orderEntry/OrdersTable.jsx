@@ -12,8 +12,9 @@ import fetchOrders from '../../actions/fetchOrders';
 import { DRUG_ORDER } from './orderTypes';
 import { setSelectedOrder } from '../../actions/orderAction';
 import { discontinueOrder } from '../../actions/createOrder';
+import { getConceptShortName } from '../../utils/helpers';
 
-
+/* eslint-disable max-len */
 export class OrdersTable extends PureComponent {
   state = {
     discontinueReason: '',
@@ -45,7 +46,7 @@ export class OrdersTable extends PureComponent {
     const discontinueDecision = await swal(discontinueQuestion, {
       buttons: {
         YES: yesMsg,
-         NO: noMsg,
+        NO: noMsg,
       },
     });
     if (discontinueDecision === "YES") {
@@ -173,7 +174,7 @@ export class OrdersTable extends PureComponent {
   };
 
   render() {
-    const { filteredOrders, dateFormat } = this.props;
+    const { filteredOrders, dateFormat, sessionReducer } = this.props;
     return (
       <React.Fragment>
         {filteredOrders &&
@@ -183,7 +184,7 @@ export class OrdersTable extends PureComponent {
               title={
                 <OrderHeader
                   status="Active"
-                  orderable={order.drug ? order.drug.display : order.display}
+                  orderable={order.drug ? order.drug.display : getConceptShortName(order.concept, sessionReducer.locale)}
                   order={order}
                   handleEdit={this.handleActiveOrderEdit}
                   handleDiscontinue={this.setDiscontinuedOrder}

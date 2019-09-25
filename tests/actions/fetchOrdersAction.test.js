@@ -1,4 +1,5 @@
 import fetchOrders from '../../app/js/actions/fetchOrders';
+import { ORDER_REP } from '../../app/js/utils/constants';
 
 import {
   FETCH_ORDERS_LOADING,
@@ -14,7 +15,7 @@ describe('fetchOrders action', () => {
   it(`creates FETCH_ORDERS_LOADING and FETCH_ORDERS_SUCCESS
   action types upon success response from server when no url ispassed but with given limits`, async (done) => {
     moxios.stubRequest(
-      `${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&v=full`,
+      `${apiBaseUrl}/order?totalCount=true&sort=desc&status=active&patient=${patient}&limit=${limit}&v=${ORDER_REP}`,
       {
         status: 201,
         response: [{}],

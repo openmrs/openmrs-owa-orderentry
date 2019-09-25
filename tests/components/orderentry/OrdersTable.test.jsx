@@ -101,6 +101,7 @@ const props = {
   sessionReducer: {
     ...sessionReducer,
     sessionLocation: 'drugs',
+    locale: 'en',
   },
   dispatch: jest.fn(() => Promise.resolve()),
 };
@@ -194,6 +195,9 @@ describe('Orders component test-suite', () => {
       },
       patient: {
         uuid: 'some-random-id',
+      },
+      sessionReducer: {
+        locale: 'en',
       },
       dispatch: jest.fn()
     };
