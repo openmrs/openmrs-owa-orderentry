@@ -5,11 +5,12 @@ import shortid from 'shortid';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
 import IconButton from './button/IconButton';
+import { getConceptShortName } from '../utils/helpers';
 
 export class Draft extends PureComponent {
   renderDraftList = () => {
     let draftType;
-    const { draftOrders, handleDraftDiscard } = this.props;
+    const { draftOrders, handleDraftDiscard, locale } = this.props;
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
       const isOtherOrderType = !!order.type;
@@ -23,7 +24,7 @@ export class Draft extends PureComponent {
         draftType = order.type;
       }
 
-      const orderName = order.display || order.drugName;
+      const orderName = getConceptShortName(order, locale) || order.drugName;
       const iconClass = classNames(
         'scale',
         {

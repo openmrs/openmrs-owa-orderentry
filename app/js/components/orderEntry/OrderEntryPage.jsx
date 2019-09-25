@@ -182,6 +182,7 @@ export class OrderEntryPage extends PureComponent {
           handleSubmit={() => this.handleSubmit()}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
           editDraftDrugOrder={this.props.editDraftDrugOrder}
+          locale={ this.props.sessionReducer.locale }
         />
       </div>
     );
