@@ -41,7 +41,13 @@ describe('Helper functions', () => {
   it('isCancellable should return true for lab orders with no fulfiller status', () => {
 
     const order = {
-      type: 'testorder'
+      type: 'testorder',
+      orderType: {
+        "id": 3,
+        "uuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+        "display": "Test Order",
+        "name": "Test Order"
+      },
     };
 
     expect(isCancellable(order)).toBeTruthy();
@@ -51,7 +57,13 @@ describe('Helper functions', () => {
 
     const order = {
       type: 'testorder',
-      fulfillerStatus: 'RECEIVED'
+      fulfillerStatus: 'RECEIVED',
+      orderType: {
+        "id": 3,
+        "uuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+        "display": "Test Order",
+        "name": "Test Order"
+      },
     };
 
     expect(isCancellable(order)).toBeTruthy();
@@ -61,7 +73,13 @@ describe('Helper functions', () => {
 
     const order = {
       type: 'testorder',
-      fulfillerStatus: 'EXCEPTION'
+      fulfillerStatus: 'EXCEPTION',
+      orderType: {
+        "id": 3,
+        "uuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+        "display": "Test Order",
+        "name": "Test Order"
+      },
     };
 
     expect(isCancellable(order)).toBeTruthy();
@@ -71,7 +89,13 @@ describe('Helper functions', () => {
 
     const order = {
       type: 'testorder',
-      fulfillerStatus: 'IN_PROGRESS'
+      fulfillerStatus: 'IN_PROGRESS',
+      orderType: {
+        "id": 3,
+        "uuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+        "display": "Test Order",
+        "name": "Test Order"
+      },
     };
 
     expect(isCancellable(order)).toBeFalsy();
@@ -81,7 +105,13 @@ describe('Helper functions', () => {
 
     const order = {
       type: 'testorder',
-      fulfillerStatus: 'COMPLETED'
+      fulfillerStatus: 'COMPLETED',
+      orderType: {
+        "id": 3,
+        "uuid": "52a447d3-a64a-11e3-9aeb-50e549534c5e",
+        "display": "Test Order",
+        "name": "Test Order"
+      },
     };
 
     expect(isCancellable(order)).toBeFalsy();
