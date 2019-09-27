@@ -16,25 +16,15 @@ export const SortAndFilter = props => (
       <select
         className="sort-select"
         onChange={event => props.sortAndFilterAction('type', event.target.value)}>
-        Type:
-        <option value="all">
-          <FormattedMessage
-            id="app.orders.all"
-            defaultMessage="All"
-            description="All" />
-        </option>
-        <option value="drugorder">
-          <FormattedMessage
-            id="app.orders.drug"
-            defaultMessage="Drug Orders"
-            description="Drug Orders" />
-        </option>
-        <option value="testorder">
-          <FormattedMessage
-            id="app.orders.test"
-            defaultMessage="Test Orders"
-            description="Test Orders" />
-        </option>
+        <FormattedMessage id="app.orders.all" defaultMessage="All" description="All">
+          {m => <option value="all">{m}</option>}
+        </FormattedMessage>
+        <FormattedMessage id="app.orders.drug" defaultMessage="Drug Orders" description="Drug Orders">
+          {m => <option value="drugorder">{m}</option>}
+        </FormattedMessage>
+        <FormattedMessage id="app.orders.test" defaultMessage="Test Orders" description="Test Orders">
+          {m => <option value="testorder">{m}</option>}
+        </FormattedMessage>
       </select>
     </div>
     {/* The .sort-status element and it's children is currently hidden from the view
