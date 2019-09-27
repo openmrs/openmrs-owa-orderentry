@@ -7,12 +7,34 @@ let mountedComponent;
 
 props = {
   draftOrders: [
-    { uuid: 6, display: 'hermatocrite', set: true, type: 'laborder' }
+    { uuid: 6, display: 'hermatocrite', set: true, type: 'laborder',
+      names: [
+        {
+          "id": 13207,
+          "uuid": "0b7ba816-15f5-102d-96e4-000c29c2a5d7",
+          "name": "Hct",
+          "locale": "en",
+          "localePreferred": false,
+          "voided": false,
+          "conceptNameType": "SHORT"
+        },
+        {
+          "id": 13204,
+          "uuid": "3e148d20-26fe-102b-80cb-0017a47871b2",
+          "name": "Hematocrit",
+          "locale": "en",
+          "localePreferred": true,
+          "voided": false,
+          "conceptNameType": "FULLY_SPECIFIED"
+        },
+      ],
+    }
   ],
   handleSubmit: jest.fn(),
   handleDraftDiscard: jest.fn(),
   toggleDraftLabOrderUrgency: jest.fn(),
   editDraftDrugOrder: jest.fn(),
+  locale: 'en',
 };
 
 const getComponent = () => {
@@ -50,10 +72,34 @@ describe('Component: Draft', () => {
 
   it('Should simulate the discard event', () => {
     const component = getComponent();
-    component.setProps({ draftOrders: [
+    component.setProps({
+      draftOrders: [
       { uuid: 6, drugName: 'paracetamol' },
-      { uuid: 7, display: 'hermatology', action: 'NEW', type: 'drugorder'}
-    ]});
+      { uuid: 7, display: 'hermatology', action: 'NEW', type: 'drugorder',
+        names: [
+          {
+            "id": 13207,
+            "uuid": "0b7ba816-15f5-102d-96e4-000c29c2a5d7",
+            "name": "Hct",
+            "locale": "en",
+            "localePreferred": false,
+            "voided": false,
+            "conceptNameType": "SHORT"
+          },
+          {
+            "id": 13204,
+            "uuid": "3e148d20-26fe-102b-80cb-0017a47871b2",
+            "name": "Hematocrit",
+            "locale": "en",
+            "localePreferred": true,
+            "voided": false,
+            "conceptNameType": "FULLY_SPECIFIED"
+          },
+        ],
+      }
+    ],
+    locale: 'en'
+    });
     const discardButton = component.find('#draft-discard-all');
     discardButton.simulate('click', {});
     expect(props.handleDraftDiscard).toBeCalled();

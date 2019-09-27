@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -16,6 +17,7 @@ import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
 import { successToast, errorToast } from '../../utils/toast';
+import { loadGlobalProperties, APP_GLOBAL_PROPERTIES } from "../../utils/globalProperty";
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import {
   editDraftDrugOrder,
@@ -33,6 +35,8 @@ export class OrderEntryPage extends PureComponent {
   };
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    loadGlobalProperties(dispatch);
     const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
     this.props.fetchPatientCareSetting();
     this.props.getSettingEncounterType();
@@ -146,6 +150,7 @@ export class OrderEntryPage extends PureComponent {
     patient: this.props.patient.uuid,
     type: 'testorder',
     urgency: order.urgency || 'ROUTINE',
+    autoExpireDate: moment().add(this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] ? this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] : 30, 'days'),
   });
 
   handleSubmit = () => {
@@ -182,6 +187,7 @@ export class OrderEntryPage extends PureComponent {
           handleSubmit={() => this.handleSubmit()}
           toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
           editDraftDrugOrder={this.props.editDraftDrugOrder}
+          locale={this.props.sessionReducer.locale}
         />
       </div>
     );
@@ -471,6 +477,7 @@ const mapStateToProps = ({
   encounterRoleReducer: { encounterRole },
   encounterReducer: { encounterType },
   openmrs: { session },
+  openmrs: { metadata },
   createOrderReducer,
   labOrderableReducer,
 }) => ({
@@ -487,6 +494,7 @@ const mapStateToProps = ({
   encounterType,
   encounterRole,
   sessionReducer: session,
+  globalProperties: metadata.globalProperties,
   configurations,
   labOrderableReducer,
   createOrderReducer,

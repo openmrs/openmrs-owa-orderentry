@@ -18,6 +18,7 @@ const getComponent = () => {
 describe('Test for Order entry page when orderentryowa.encounterType is set', () => {
   beforeEach(() => {
     props = {
+      dispatch: jest.fn(),
       editDraftDrugOrder: jest.fn(),
       fetchPatientCareSetting: jest.fn(),
       getSettingEncounterType: jest.fn(),
@@ -35,6 +36,9 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       sessionLocation: {
           uuid: 'hospital'
       }},
+      globalProperties: {
+        'orderentryowa.labOrderAutoExpireTimeInDays': '30',
+      },
       createOrder: jest.fn(),
       configurations: {
         drugDispensingUnits: [{
@@ -325,7 +329,14 @@ describe('Connected OrderEntryPage component', () => {
       encounterRoleReducer: {
         encounterRole: {},
       },
-      openmrs: { session: {} },
+      openmrs: {
+        session: {},
+        metadata: {
+          globalProperties: {
+            'orderentryowa.labOrderAutoExpireTimeInDays': '30',
+          },
+        },
+      },
       encounterReducer: { encounterType: {} },
       orderEntryConfigurations: {
         configurations: {
