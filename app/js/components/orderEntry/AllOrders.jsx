@@ -44,6 +44,12 @@ export const AllOrders = ({
           </th>
           <th>
             <FormattedMessage
+              id="app.orders.number"
+              defaultMessage="Order number"
+              description="Order number" />
+          </th>
+          <th id="details">
+            <FormattedMessage
               id="app.orders.details"
               defaultMessage="Details"
               description="Details" />
