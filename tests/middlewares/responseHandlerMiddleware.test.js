@@ -1,7 +1,18 @@
 import responseHandlerMiddleware from '../../app/js/middlewares/responseHandlerMiddleware.js';
 
 describe('responseHandlerMiddleware', () => {
-  const nextHandler = responseHandlerMiddleware();
+
+  const mockState = {
+    getState: () => ({
+      openmrs: {
+        session: {
+          locale: 'en'
+        }
+      }
+    })
+  };
+
+  const nextHandler = responseHandlerMiddleware(mockState);
   let nextArgs = [];
   const fakeNext = (...args) => { nextArgs.push(args); };
   const fakeStore = {};
@@ -21,7 +32,7 @@ describe('responseHandlerMiddleware', () => {
     nextArgs = [];
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([
-        { 
+        {
             type: 'GET_DATE_SUCCESS',
             payload: action.payload,
             dateFormat: 'DD-MMM-YYYY HH:mm'
@@ -40,7 +51,7 @@ describe('responseHandlerMiddleware', () => {
     nextArgs = [];
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([
-        { 
+        {
             type: 'GET_DATE_SUCCESS',
             payload: action.payload,
             dateFormat: 'DD-MMM-YYYY'
@@ -59,7 +70,7 @@ describe('responseHandlerMiddleware', () => {
     nextArgs = [];
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([
-        { 
+        {
             type: 'GET_DATE_FAILURE',
             payload: Error('incomplete config'),
         }
@@ -77,7 +88,7 @@ describe('responseHandlerMiddleware', () => {
     nextArgs = [];
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([
-        { 
+        {
             type: 'FETCH_ENCOUNTER_TYPE_FAILURE',
             payload: Error('incomplete config'),
         }
@@ -95,7 +106,7 @@ describe('responseHandlerMiddleware', () => {
     nextArgs = [];
     nextHandler(fakeNext)(action);
     expect(nextArgs[0]).toEqual([
-        { 
+        {
             type: 'FETCH_ENCOUNTER_TYPE_SUCCESS',
             data: { value : ['some encounter']},
             payload: action.payload,
