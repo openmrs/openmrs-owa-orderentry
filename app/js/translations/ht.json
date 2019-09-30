@@ -30,9 +30,11 @@
   "app.orders.testStatus.COMPLETED":"Reported",
   "app.orders.testStatus.RECEIVED":"Received",
   "app.orders.testStatus.EXCEPTION":"Not performed",
-  "app.orders.discontinue":"DISKONTINYE",
-  "app.orders.discontinue.question":"Èske ou sèten ou vle sispann lòd sa a?",
-  "app.orders.discontinue.reason":"Rezon pou sispann",
-  "app.orders.create.success":"Lòd siksè ki te kreye",
-  "app.orders.is.active":"lòd aktif"
+  "app.orders.discontinue":"DISCONTINUE",
+  "app.orders.discontinue.question":"Are you sure you want to discontinue this order ?",
+  "app.orders.discontinue.reason":"Reason for discontinuing",
+  "app.orders.discontinue.success": "Order discontinued successfully",
+  "app.orders.create.success":"Order Successfully Created",
+  "app.orders.is.active":"order is active",
+  "app.orders.number":"Order number"
 }

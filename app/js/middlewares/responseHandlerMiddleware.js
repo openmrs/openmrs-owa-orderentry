@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import { getIntl, selectors } from "@openmrs/react-components";
 import {
   GET_DATE_SUCCESS,
   GET_DATE_FAILURE,
@@ -9,7 +10,7 @@ import {
   DISCONTINUE_ACTIVE_DRUG_ORDER, DISCONTINUE_ORDER_SUCCEDED,
 } from '../actions/actionTypes';
 
-export default function responseHandlerMiddleware() {
+export default function responseHandlerMiddleware({ getState }) {
   return next => (action) => {
     if (action.type === GET_DATE_SUCCESS) {
       const { results } = action.payload.data;
@@ -60,10 +61,12 @@ export default function responseHandlerMiddleware() {
     }
 
     if (action.type === DISCONTINUE_ORDER_SUCCEDED) {
-      toastr.success('Order discontinued Succesfully');
+      const intl = getIntl(selectors.getSession(getState()).locale);
+      toastr.success(intl.formatMessage({ id: "app.orders.discontinue.success", defaultMessage: "Order discontinued successfully" }));
     }
     if (action.type === POST_DRUG_ORDER_SUCCESS && action.meta.activity === 'DISCONTINUE') {
-      toastr.success('Order discontinued Succesfully');
+      const intl = getIntl(selectors.getSession(getState()).locale);
+      toastr.success(intl.formatMessage({ id: "app.orders.discontinue.success", defaultMessage: "Order discontinued successfully" }));
       next({ type: DISCONTINUE_ACTIVE_DRUG_ORDER, orderNumber: action.meta.orderNumber });
     }
 
