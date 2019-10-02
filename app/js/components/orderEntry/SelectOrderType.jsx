@@ -39,14 +39,14 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
       <div className="dropdown-content" style={{ display: page && "none" }}>
         {orderTypesAsObject.map(orderType => (
           <div
-            key={orderType.id}
-            value={orderType.text}
-            role="link"
-            onClick={() => switchOrderType(orderType)}
-            tabIndex={0}
-            className={`order-type-option ${currentOrderType.id === orderType.id ? 'active' : ''}`}>
-            {orderType.text}
-          </div>
+              key={orderType.id}
+              value={orderType.text}
+              role="link"
+              onClick={() => switchOrderType(orderType)}
+              tabIndex={0}
+              className={`order-type-option ${currentOrderType.id === orderType.id ? 'active' : ''}`}>
+              {orderType.text}
+            </div>
         ))}
       </div>
     </div>

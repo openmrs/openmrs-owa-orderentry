@@ -4,9 +4,9 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
 import { PatientHeader } from '@openmrs/react-components';
-import RenderOrderType from './RenderOrderType';
-import SelectOrderType from './SelectOrderType';
 import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
@@ -19,6 +19,7 @@ import { setSelectedOrder } from '../../actions/orderAction';
 import { successToast, errorToast } from '../../utils/toast';
 import { loadGlobalProperties, APP_GLOBAL_PROPERTIES } from "../../utils/globalProperty";
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
+import * as orderTypes from './orderTypes';
 import {
   editDraftDrugOrder,
   toggleDraftLabOrderUrgency,
@@ -27,11 +28,14 @@ import {
 import imageLoader from '../../../img/loading.gif';
 import createOrder from '../../actions/createOrder';
 import './styles.scss';
+import AllOrders from "./AllOrders";
+import LabEntryForm from "../labOrderEntry/LabEntryForm";
 
 export class OrderEntryPage extends PureComponent {
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
+    index: 0,
   };
 
   componentDidMount() {
@@ -66,6 +70,15 @@ export class OrderEntryPage extends PureComponent {
   }
 
   getUUID = (items, itemName) => items.find(item => item.display === itemName);
+
+  orderTypesAsObject = Object.values(orderTypes);
+
+  switchTabs = (index) => {
+    if (index === 0) {
+      return this.switchOrderType()
+    }
+    return this.switchOrderType(this.orderTypesAsObject[index]);
+  }
 
   switchOrderType = (newOrderType) => {
     if (!newOrderType) {
@@ -174,6 +187,9 @@ export class OrderEntryPage extends PureComponent {
       patient: this.props.patient.uuid,
     };
     this.props.createOrder(encounterPayload);
+    if (this.state.index === 1) {
+      this.setState({ index: 0 });
+    }
   };
 
   renderDraftOrder = () => {
@@ -300,34 +316,25 @@ export class OrderEntryPage extends PureComponent {
               note={this.props.note}
               location={this.props.location}
             />
-            <div className="header-nav">
-              <div>
-                <h3
-                  className="orders-nav"
-                  onClick={() => this.switchOrderType()}
-                  role="button">
-                  <b>
-                    <FormattedMessage
-                      id="app.orders.list"
-                      defaultMessage="Orders List"
-                      description="Orders List" />
-                  </b>
-                </h3>
-              </div>
-              {<SelectOrderType
-                switchOrderType={this.switchOrderType}
-                currentOrderType={this.props.currentOrderType}
-                page={page}
-              />}
-            </div>
-            <div className="body-wrapper drug-order-entry">
-              <RenderOrderType
-                backLink={returnUrl}
-                currentOrderTypeID={this.props.currentOrderType.id}
-                {...this.props}
-              />
-              {this.props.currentOrderType.id && this.renderDraftOrder()}
-            </div>
+            <Tabs
+              selectedIndex={this.state.index} onSelect={ (i) => {
+                this.switchTabs(i); this.setState({ index: i });
+              }
+              }>
+              <TabList>
+                <Tab><FormattedMessage id="app.orders.list" defaultMessage="Orders List" description="Orders List" /></Tab>
+                <Tab><FormattedMessage id="app.orders.labs.add" defaultMessage="Add Lab Orders" description="Add Lab Orders" /></Tab>
+              </TabList>
+              <TabPanel>
+                <AllOrders backLink={returnUrl} />
+              </TabPanel>
+              <TabPanel className="tabpanel">
+                <div className="tabpanel-order">
+                  <LabEntryForm backLink={returnUrl} />
+                </div>
+                <div className="tabpanel-current">{this.props.currentOrderType.id && this.renderDraftOrder()}</div>
+              </TabPanel>
+            </Tabs>
           </div>
         ) : (
           <div className="error-notice">

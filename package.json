@@ -29,6 +29,7 @@
     "react-paginate": "^5.2.4",
     "react-redux": "^5.0.1",
     "react-router-dom": "^4.2.2",
+    "react-tabs": "^3.0.0",
     "redux": "^3.6.0",
     "redux-form": "^7.4.2",
     "redux-merge-reducers": "0.0.2",
