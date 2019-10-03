@@ -326,7 +326,11 @@ export class OrderEntryPage extends PureComponent {
                 <Tab><FormattedMessage id="app.orders.labs.add" defaultMessage="Add Lab Orders" description="Add Lab Orders" /></Tab>
               </TabList>
               <TabPanel>
-                <AllOrders backLink={returnUrl} />
+                <RenderOrderType
+                  backLink={returnUrl}
+                  currentOrderTypeID={this.props.currentOrderType.id}
+                  {...this.props}
+                />
               </TabPanel>
               <TabPanel className="tabpanel">
                 <div className="tabpanel-order">
@@ -492,9 +496,6 @@ const mapStateToProps = ({
   dateFormatReducer,
   inpatientCareSetting,
   settingEncounterTypeReducer,
-  settingEncounterRoleReducer,
-  patient,
-  note,
   currentOrderType,
   draftDrugOrders,
   draftLabOrders,
@@ -521,6 +522,9 @@ const actionCreators = {
   editDraftDrugOrder,
   discardTestsInDraft,
   createOrder,
+  settingEncounterRoleReducer,
+  patient,
+  note,
   fetchLabOrders,
 };
 
