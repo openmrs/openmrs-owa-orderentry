@@ -92,12 +92,12 @@
 
   .order-details {
     background-color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .details {
-    padding-left: 50px;
+    padding-left: 5px;
   }
 
   .drug-form-header {
@@ -272,7 +272,7 @@
 }
 
 .swal-button--NO {
- background: #f66;
+  background: #f66;
 }
 
 .swal-button--YES,
@@ -362,4 +362,18 @@
 
 .patient-header {
   margin: 10px 0px;
+  background-color: white;
+}
+.tabpanel {
+  width: 100% !important;
+  display: inline-flex !important;
+  background-color: white !important;
+}
+.tabpanel-current {
+  display: inline-block;
+  width: 35% !important;
+}
+.tabpanel-order {
+  display: inline-block;
+  width: 65% !important;
 }

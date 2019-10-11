@@ -32,6 +32,7 @@ class Accordion extends React.Component {
         </tr>
         <tr>
           <td className="th-invisible" />
+          <td className="th-invisible" />
           <td className="th-details">
             <div
               className={`th-details accordion-two content ${
