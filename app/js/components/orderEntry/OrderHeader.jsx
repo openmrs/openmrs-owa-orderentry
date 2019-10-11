@@ -16,7 +16,7 @@ const OrderHeader = ({
   return (
     <Fragment>
       <th>{order.orderNumber}</th>
-      <th className="th-orderable">{orderable.toLowerCase()}</th>
+      <th className="th-orderable">{orderable}</th>
       <th>{status}</th>
       <th className="order-actions-btn">
         {isEditable(order)
