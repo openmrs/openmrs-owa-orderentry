@@ -36,7 +36,7 @@ export class Draft extends PureComponent {
       return (
         <li className="draft-list small-font" key={shortid.generate()}>
           <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
-          <span className="draft-name">{orderName.toLowerCase()}</span>
+          <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">
               { order.type !== 'drugorder' ?

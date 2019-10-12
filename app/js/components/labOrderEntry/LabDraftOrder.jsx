@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import shortid from 'shortid';
 import { FormattedMessage } from 'react-intl';
 import constants from '../../utils/constants';
+import { getConceptShortName } from '../../utils/helpers';
 
 export class LabDraftOrder extends PureComponent {
   handleToggleDraftOrderUgency = (event, order) => {
@@ -45,7 +46,7 @@ export class LabDraftOrder extends PureComponent {
       );
       return (
         <li className="draft-list small-font" key={shortid.generate()}>
-          <span className="draft-name">{orderName.toLowerCase()}</span>
+          <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">
               <a
