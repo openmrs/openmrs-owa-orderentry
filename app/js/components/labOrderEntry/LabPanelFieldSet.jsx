@@ -6,10 +6,6 @@ import { ToolTip } from '@openmrs/react-components';
 import '../../../css/grid.scss';
 import { getConceptShortName } from '../../utils/helpers';
 
-const formatPanelName = (panelName) => {
-  const name = panelName;
-  return name.replace(/panel/i, '').trim();
-};
 
 const formatToolTipData = (setMembers, locale) => setMembers.map(test =>
   getConceptShortName(test, locale));
