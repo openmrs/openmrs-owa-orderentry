@@ -178,15 +178,15 @@ export class LabEntryForm extends PureComponent {
       <React.Fragment>
         {
           getLabOrderables ?
-            <div className="lab-order-entry">
+            <div className="lab-order-entry labfm">
               <h5>
                 <FormattedMessage
                   id="app.orders.new"
                   defaultMessage="New Lab Order"
                   description="New Lab Order" />
               </h5>
-              <br />
-              <div className="lab-form-wrapper">
+              {/*<br />*/}
+              <div className="lab-form-wrapper" >
                 <div className="lab-category">
                   <ul>
                     {orderables.map(orderable => (
@@ -206,7 +206,7 @@ export class LabEntryForm extends PureComponent {
                   <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
                 </div>
               </div>
-              <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
+              <button className="cancel footerbutton" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
             </div>
             :
             <p>No Lab Orderables was found</p>

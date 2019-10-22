@@ -323,21 +323,21 @@ export class OrderEntryPage extends PureComponent {
               }>
               <TabList>
                 <Tab><FormattedMessage id="app.orders.list" defaultMessage="Orders List" description="Orders List" /></Tab>
-                <Tab><FormattedMessage id="app.orders.drugs.add" defaultMessage="Add Drug Orders" description="Add Drug Orders" /></Tab>
+                {/*<Tab><FormattedMessage id="app.orders.drugs.add" defaultMessage="Add Drug Orders" description="Add Drug Orders" /></Tab>*/}
                 <Tab><FormattedMessage id="app.orders.labs.add" defaultMessage="Add Lab Orders" description="Add Lab Orders" /></Tab>
               </TabList>
               <TabPanel>
                 <AllOrders backLink={returnUrl} />
               </TabPanel>
-              <TabPanel className="tabpanel">
-                <div className="tabpanel-order">
-                  <DrugOrderEntry
-                      backLink={returnUrl}
-                      {...this.props}
-                  />
-                </div>
-                <div className="tabpanel-current">{this.state.index && this.renderDraftOrder()}</div>
-              </TabPanel>
+              {/*<TabPanel className="tabpanel">*/}
+              {/*  <div className="tabpanel-order">*/}
+              {/*    <DrugOrderEntry*/}
+              {/*        backLink={returnUrl}*/}
+              {/*        {...this.props}*/}
+              {/*    />*/}
+              {/*  </div>*/}
+              {/*  <div className="tabpanel-current">{this.state.index && this.renderDraftOrder()}</div>*/}
+              {/*</TabPanel>*/}
               <TabPanel className="tabpanel">
                 <div className="tabpanel-order">
                   <LabEntryForm backLink={returnUrl} />

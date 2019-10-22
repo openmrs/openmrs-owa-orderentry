@@ -31,8 +31,8 @@ export const AllOrders = ({
         description="Patient Orders" />
       </h3>
     </div>
-    <SortAndFilter />
-    <br />
+    {/*<SortAndFilter />*/}
+    {/*<br />*/}
     <table className="t-orders">
       <tbody>
         <tr>
@@ -48,12 +48,12 @@ export const AllOrders = ({
               defaultMessage="Order number"
               description="Order number" />
           </th>
-          <th>
-            <FormattedMessage
-                id="app.orders.type"
-                defaultMessage="Order type"
-                description="Order type" />
-          </th>
+          {/*<th>*/}
+          {/*  <FormattedMessage*/}
+          {/*      id="app.orders.type"*/}
+          {/*      defaultMessage="Order type"*/}
+          {/*      description="Order type" />*/}
+          {/*</th>*/}
           <th id="details">
             <FormattedMessage
               id="app.orders.details"
@@ -87,7 +87,7 @@ export const AllOrders = ({
       fetchNew={fetchOrders}
       patientId={uuid}
     />
-    <button className="cancel" onClick={() => window.location.assign(backLink)}>Return</button>
+    <button className="cancel footerbutton" onClick={() => window.location.assign(backLink)}>Return</button>
   </div>
 );
 
