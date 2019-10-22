@@ -7,8 +7,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import { PatientHeader } from '@openmrs/react-components';
-import RenderOrderType from './RenderOrderType';
-import SelectOrderType from './SelectOrderType';
 import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
@@ -18,7 +16,7 @@ import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
-import { successToast, errorToast } from '../../utils/toast';
+import { errorToast } from '../../utils/toast';
 import { loadGlobalProperties, APP_GLOBAL_PROPERTIES } from "../../utils/globalProperty";
 import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import * as orderTypes from './orderTypes';
@@ -32,10 +30,10 @@ import createOrder from '../../actions/createOrder';
 import './styles.scss';
 import AllOrders from "./AllOrders";
 import LabEntryForm from "../labOrderEntry/LabEntryForm";
+import DrugOrderEntry from "../drugOrderEntry";
 
 export class OrderEntryPage extends PureComponent {
   state = {
-    page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
     index: 0,
   };
@@ -62,8 +60,8 @@ export class OrderEntryPage extends PureComponent {
 
     const { intl } = this.props;
     const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
+    console.log(this.state.index)
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
-      successToast(orderCreatedMsg);
       this.props.fetchLabOrders(null, this.props.patient.uuid);
     }
     if (error) {
@@ -168,7 +166,7 @@ export class OrderEntryPage extends PureComponent {
     autoExpireDate: moment().add(this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] ? this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] : 30, 'days'),
   });
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { draftLabOrders, draftDrugOrders } = this.props;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     const orders = allDraftOrders.map(order =>
@@ -188,7 +186,10 @@ export class OrderEntryPage extends PureComponent {
       orders,
       patient: this.props.patient.uuid,
     };
-    this.props.createOrder(encounterPayload);
+    await this.props.createOrder(encounterPayload);
+    if (this.state.index > 0) {
+      this.setState({ index: 0 });
+    }
   };
 
   renderDraftOrder = () => {
@@ -217,7 +218,7 @@ export class OrderEntryPage extends PureComponent {
       settingEncounterTypeReducer,
       dateFormatReducer,
     } = this.props;
-    const { page, returnUrl } = this.state;
+    const { returnUrl } = this.state;
     const { settingEncounterType, error } = settingEncounterTypeReducer;
     const { settingEncounterRole, roleError } = settingEncounterRoleReducer;
     const { dateFormat, error: dateError } = dateFormatReducer;
@@ -322,6 +323,7 @@ export class OrderEntryPage extends PureComponent {
               }>
               <TabList>
                 <Tab><FormattedMessage id="app.orders.list" defaultMessage="Orders List" description="Orders List" /></Tab>
+                <Tab><FormattedMessage id="app.orders.drugs.add" defaultMessage="Add Drug Orders" description="Add Drug Orders" /></Tab>
                 <Tab><FormattedMessage id="app.orders.labs.add" defaultMessage="Add Lab Orders" description="Add Lab Orders" /></Tab>
               </TabList>
               <TabPanel>
@@ -329,9 +331,18 @@ export class OrderEntryPage extends PureComponent {
               </TabPanel>
               <TabPanel className="tabpanel">
                 <div className="tabpanel-order">
+                  <DrugOrderEntry
+                      backLink={returnUrl}
+                      {...this.props}
+                  />
+                </div>
+                <div className="tabpanel-current">{this.state.index && this.renderDraftOrder()}</div>
+              </TabPanel>
+              <TabPanel className="tabpanel">
+                <div className="tabpanel-order">
                   <LabEntryForm backLink={returnUrl} />
                 </div>
-                <div className="tabpanel-current">{this.props.currentOrderType.id && this.renderDraftOrder()}</div>
+                <div className="tabpanel-current">{this.state.index && this.renderDraftOrder()}</div>
               </TabPanel>
             </Tabs>
           </div>

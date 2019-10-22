@@ -13,11 +13,12 @@ const initialState = {
 
 const filter = (allResults, filteredResults, sortBy, value) => {
   const newFilter = filteredResults.filter(each => each[sortBy] === value);
-  if (value === 'all' && sortBy === "type") {
+  if (value === 'all') {
+    console.log(newFilter, 'fetch orders filter for sort and filter action --- all');
     return allResults;
   }
   if (allResults.length > 0 && newFilter.length === 0) {
-    return allResults.filter(each => each[sortBy] === value);
+    return allResults.filter(each => each[sortBy].id === Number(value));
   }
   return newFilter;
 };

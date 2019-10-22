@@ -117,7 +117,7 @@ export class OrdersTable extends PureComponent {
         dispensingUnit && this.getUUID(drugDispensingUnits, dispensingUnit).uuid) || null,
       route: (
         route && this.getUUID(drugRoutes, route).uuid) || null,
-      type,
+      type: 'drugorder',
     };
   };
 

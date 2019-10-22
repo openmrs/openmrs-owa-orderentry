@@ -10,7 +10,7 @@
   "app.orders.panels": "Panels",
   "app.orders.tests": "Tests",
   "app.orders.list": "Orders List",
-  "app.orders.type": "Type",
+  "app.orders.type": "Order type",
   "app.orders.patient": "Patient Orders",
   "app.orders.details": "Details",
   "app.orders.actions": "Actions",

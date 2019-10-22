@@ -10,20 +10,20 @@ export const SortAndFilter = props => (
       <label className="label-sort">
         <FormattedMessage
           id="app.orders.type"
-          defaultMessage="Type"
-          description="Type" />:
+          defaultMessage="Order type"
+          description="Order type" />:
       </label>
       <select
         className="sort-select"
-        onChange={event => props.sortAndFilterAction('type', event.target.value)}>
+        onChange={event => props.sortAndFilterAction('orderType', event.target.value)}>
         <FormattedMessage id="app.orders.all" defaultMessage="All" description="All">
           {m => <option value="all">{m}</option>}
         </FormattedMessage>
         <FormattedMessage id="app.orders.drug" defaultMessage="Drug Orders" description="Drug Orders">
-          {m => <option value="drugorder">{m}</option>}
+          {m => <option value="2">{m}</option>}
         </FormattedMessage>
         <FormattedMessage id="app.orders.test" defaultMessage="Test Orders" description="Test Orders">
-          {m => <option value="testorder">{m}</option>}
+          {m => <option value="3">{m}</option>}
         </FormattedMessage>
       </select>
     </div>
