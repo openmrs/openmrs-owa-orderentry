@@ -95,11 +95,20 @@
   }
 
   .lab-tests-btn{
-    width: 145px;
-    font-size: 12px;
+    word-wrap:break-word;
+    font-size: 73%;
     font-weight: bold;
-    margin-right: 10px;	    
     margin-bottom: 10px;
+    padding: 5px;
+  }
+
+  .lab-tests-btn:nth-child(even){
+    width: 47%;
+  }
+
+  .lab-tests-btn:nth-child(odd){
+    width: 47%;
+    margin-right: 6%;
   }
 
   .draft-lab-layout{
