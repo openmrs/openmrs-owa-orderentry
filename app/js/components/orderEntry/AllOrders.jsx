@@ -24,7 +24,7 @@ export const AllOrders = ({
   orders: { totalCount, links }, dispatch, patient: { uuid }, backLink,
 }) => (
   <div className="all-orders">
-{/*    <SortAndFilter />*/}
+    { /*    <SortAndFilter /> */ }
     <br />
     <table className="t-orders">
       <tbody>
