@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import sortAndFilterAction from '../../actions/sortAndFilterAction';
 
+// TODO this currently doesn't work
 export const SortAndFilter = props => (
   <div className="sort-filter-section">
     <div className="sort-type">

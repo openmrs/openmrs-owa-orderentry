@@ -31,7 +31,7 @@ export const AllOrders = ({
         description="Patient Orders" />
       </h3>
     </div>
-    <SortAndFilter />
+{/*    <SortAndFilter />*/}
     <br />
     <table className="t-orders">
       <tbody>
