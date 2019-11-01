@@ -24,13 +24,6 @@ export const AllOrders = ({
   orders: { totalCount, links }, dispatch, patient: { uuid }, backLink,
 }) => (
   <div className="all-orders">
-    <div className="orders-breadcrumb">
-      <h3><FormattedMessage
-        id="app.orders.patient"
-        defaultMessage="Patient Orders"
-        description="Patient Orders" />
-      </h3>
-    </div>
 {/*    <SortAndFilter />*/}
     <br />
     <table className="t-orders">
