@@ -3,6 +3,7 @@
     "name": "openmrs-owa-orderentry",
     "repo": "owa",
     "subject": "openmrs",
+    "vcs_url": "https://github.com/openmrs/openmrs-owa-orderentry",
     "licenses": ["MPL-2.0"]
   },
   "version": {
