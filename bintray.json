@@ -8,7 +8,8 @@
   },
   "version": {
     "name": "1.1.0",
-    "released": "2019-11-6"
+    "released": "2019-11-6",
+    "vcs_tag": "1.1.0"
   },
   "files": [
     {
