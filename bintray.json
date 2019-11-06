@@ -2,11 +2,12 @@
   "package": {
     "name": "openmrs-owa-orderentry",
     "repo": "owa",
-    "subject": "openmrs"
+    "subject": "openmrs",
+    "licenses": ["MPL-2.0"]
   },
   "version": {
     "name": "1.1.0",
-    "released": "2019-09-10"
+    "released": "2019-11-6"
   },
   "files": [
     {
