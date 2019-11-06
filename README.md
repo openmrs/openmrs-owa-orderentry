@@ -173,7 +173,7 @@ Before using the Order Entry Open Web Application, the administrator should make
 
 ## Releasing
 
-In order to release, set a new version in package.json, bintray.json and app/manifest.webapp. Once you commit and push changes to github, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
+In order to release, set a new version in package.json, bintray.json and app/manifest.webapp. Once you commit, push changes to github, and confirm the Travis tests pass, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
 
 ## License
 
