@@ -24,6 +24,7 @@ export default (state = initialState.draftReducer, action) => {
       const panelTests = action.orders.setMembers;
       const singleTests = filterThrough(state.draftLabOrders.singleTests, panelTests);
       const defaultTests = [...state.draftLabOrders.defaultTests, ...panelTests];
+      /* const existingOrders = filterThrough(state.draftLabOrders.orders, panelTests); */
       const selectedLabPanels = [...state.draftLabOrders.selectedLabPanels, action.orders];
       return {
         ...state,
@@ -80,6 +81,42 @@ export default (state = initialState.draftReducer, action) => {
               order = draftOrder;
             }
             return order;
+          }),
+          defaultTests: state.draftLabOrders.defaultTests.map((defaultTest) => {
+            let test;
+            if (defaultTest.uuid === orderUuid) {
+              test = { ...defaultTest, urgency: orderUrgency };
+            } else {
+              test = defaultTest;
+            }
+            return test;
+          }),
+          selectedTests: state.draftLabOrders.selectedTests.map((selectedTest) => {
+            let test;
+            if (selectedTest.uuid === orderUuid) {
+              test = { ...selectedTest, urgency: orderUrgency };
+            } else {
+              test = selectedTest;
+            }
+            return test;
+          }),
+          singleTests: state.draftLabOrders.singleTests.map((singleTest) => {
+            let test;
+            if (singleTest.uuid === orderUuid) {
+              test = { ...singleTest, urgency: orderUrgency };
+            } else {
+              test = singleTest;
+            }
+            return test;
+          }),
+          selectedLabPanels: state.draftLabOrders.selectedLabPanels.map((labPanel) => {
+            let test;
+            if (labPanel.uuid === orderUuid) {
+              test = { ...labPanel, urgency: orderUrgency };
+            } else {
+              test = labPanel;
+            }
+            return test;
           }),
         },
       };

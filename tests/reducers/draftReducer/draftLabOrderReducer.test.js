@@ -220,14 +220,18 @@ describe('Draft Lab Order Reducer', () => {
           { uuid: 1, test: 'Hemoglobin', urgency: 'STAT' },
           { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE' },
           { uuid: 3, test: 'blood', urgency: 'ROUTINE' },
-        ]
+        ],
+        defaultTests: [],
+        selectedTests: [],
+        singleTests: [],
+        selectedLabPanels: [],
       }
     };
     const order = { orderUuid: 1, orderUrgency: 'ROUTINE' };
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
-    }
+    };
 
     const newState = draftLabOrderReducer(initialState, action);
     expect(newState.draftLabOrders.orders[0]).toEqual({ uuid: 1, test: 'Hemoglobin', urgency: 'ROUTINE' })
@@ -241,6 +245,10 @@ describe('Draft Lab Order Reducer', () => {
           { uuid: 2, test: 'Hematocrit', urgency: 'ROUTINE' },
           { uuid: 3, test: 'blood' },
         ],
+        defaultTests: [],
+        selectedTests: [],
+        singleTests: [],
+        selectedLabPanels: [],
       },
     };
 
@@ -266,6 +274,10 @@ describe('Draft Lab Order Reducer', () => {
             urgency: "ROUTINE",
           },
         ],
+        defaultTests: [],
+        selectedTests: [],
+        singleTests: [],
+        selectedLabPanels: [],
       },
     };
     const expectedState = {
@@ -278,7 +290,7 @@ describe('Draft Lab Order Reducer', () => {
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
-    }
+    };
 
     const newState = draftLabOrderReducer(initialState, action);
     expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
@@ -295,6 +307,10 @@ describe('Draft Lab Order Reducer', () => {
             urgency: "STAT",
           },
         ],
+        defaultTests: [],
+        selectedTests: [],
+        singleTests: [],
+        selectedLabPanels: [],
       },
     };
     const expectedState = {
@@ -310,7 +326,7 @@ describe('Draft Lab Order Reducer', () => {
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
-    }
+    };
 
     const newState = draftLabOrderReducer(initialState, action);
     expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
@@ -326,6 +342,10 @@ describe('Draft Lab Order Reducer', () => {
             urgency: "STAT",
           },
         ],
+        defaultTests: [],
+        selectedTests: [],
+        singleTests: [],
+        selectedLabPanels: [],
       },
     };
     const expectedState = {
@@ -341,7 +361,7 @@ describe('Draft Lab Order Reducer', () => {
     const action = {
       type: TOGGLE_DRAFT_LAB_ORDER_URGENCY,
       order
-    }
+    };
 
     const newState = draftLabOrderReducer(initialState, action);
     expect(newState.draftLabOrders.orders[0]).toEqual(expectedState)
