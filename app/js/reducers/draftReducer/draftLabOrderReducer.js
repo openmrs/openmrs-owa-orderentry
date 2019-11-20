@@ -24,7 +24,6 @@ export default (state = initialState.draftReducer, action) => {
       const panelTests = action.orders.setMembers;
       const singleTests = filterThrough(state.draftLabOrders.singleTests, panelTests);
       const defaultTests = [...state.draftLabOrders.defaultTests, ...panelTests];
-      /* const existingOrders = filterThrough(state.draftLabOrders.orders, panelTests); */
       const selectedLabPanels = [...state.draftLabOrders.selectedLabPanels, action.orders];
       return {
         ...state,
