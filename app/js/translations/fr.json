@@ -33,8 +33,8 @@
   "app.orders.discontinue":"ABANDONNÉ",
   "app.orders.discontinue.question":"Êtes-vous sûr de vouloir interrompre cette commande?",
   "app.orders.discontinue.reason":"Raison de l'abandon",
-  "app.orders.discontinue.success": "Order discontinued successfully",
+  "app.orders.discontinue.success": "Commande abandonnée avec succès",
   "app.orders.create.success":"Commande créée avec succès",
   "app.orders.is.active":"l'ordre est actif",
-  "app.orders.number":"Order number"
+  "app.orders.number":"Numéro de commande"
 }
