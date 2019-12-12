@@ -16,54 +16,60 @@ For further documentation about OpenMRS Open Web Apps see
 ## Development
 
 ### Local setup instructions
+
+### Get the project
 ```
-# Get the project
 git clone https://github.com/openmrs/openmrs-owa-orderentry.git
-
-# Move into the project directory
+```
+### Move into the project directory
+```
 cd into openmrs-owa-orderentry
-
-# Install the dependencies
+```
+### Install the dependencies
+```
 npm install
+```
+### Create config.json
 
-# Create config.json
-
-Create a config.json file in the top level directory following this template:
-
+Create a `config.json` file in the top level directory following this template:
+```
 {
     'LOCAL_OWA_FOLDER': '/Users/name/openmrs-standalone-2.4/appdata/owa/',
     'APP_ENTRY_POINT': 'http://localhost:8081/openmrs-standalone/owa/orderentry/index.html'
 }
-
-"LOCAL_OWA_FOLDER" should point to the "owa" directory of your locally running OpenMRS instance, and
-"APP_ENTRY_POINT" should point to the entry point of your app
+```
+`LOCAL_OWA_FOLDER` should point to the `owa` directory of your locally running OpenMRS instance, and
+`APP_ENTRY_POINT` should point to the entry point of your app
 
 ## Linux/SDK example
 
-For example in a link environment where I have OpenMRS running on port 8080 via the SDK in
-directory "/home/mgoodrich/openmrs/haiti", I set config.json as follows:
-
+For example in a link environment where I have OpenMRS running on port `8080` via the SDK in
+directory `/home/mgoodrich/openmrs/haiti`, I set `config.json` as follows:
+```
 {"LOCAL_OWA_FOLDER":"/home/mgoodrich/openmrs/haiti/owa",
 "APP_ENTRY_POINT":"http://localhost:8080/openmrs/owa/openmrs-owa-orderentry/index.html"}
-
+```
 ## Windows/Standalone example
 
-Locate the 'appdata/owa' directory and type the following command to get the path to the 'appdata/owa' directory and copy it to the clipboard.
+Locate the `appdata/owa` directory and type the following command to get the path to the `appdata/owa` directory and copy it to the clipboard.
+```
 pwd | pbcopy
+```
+An example of the path is: `/Users/name/downloads/openmrs-owa-orderentry/appdata\owa`
 
-An example of the path is: /Users/name/downloads/openmrs-owa-orderentry/appdata\owa
+Modify the path to look like: `/Users/name/downloads/openmrs-owa-orderentry/appdata\\owa/`
 
-Modify the path to look like: /Users/name/downloads/openmrs-owa-orderentry/appdata\\owa/
-
-Copy the path. Edit config.json as follows:
+Copy the path. Edit `config.json` as follows:
+```
 {
   "LOCAL_OWA_FOLDER": "PASTE_THE_PATH_YOU_COPIED_HERE",
   "APP_ENTRY_POINT": "http://localhost:8081/openmrs-standalone/owa/openmrs-owa-orderentry/index.html"
 }
-
-Note: Start your cohort builder standalone server locally. Make sure you tomcat port is 8081, if not, change the APP_ENTRY_POINT localhost port to be the same as your tomcat port.
+```
+Note: Start your cohort builder standalone server locally. Make sure you tomcat port is `8081`, if not, change the `APP_ENTRY_POINT` localhost port to be the same as your tomcat port.
 
 # Run the app
+```
 npm run watch
 ```
 ### Production Build
@@ -173,7 +179,7 @@ Before using the Order Entry Open Web Application, the administrator should make
 
 ## Releasing
 
-In order to release, set a new version in package.json, bintray.json and app/manifest.webapp. Once you commit, push changes to github, and confirm the Travis tests pass, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
+In order to release, set a new version in `package.json`, `bintray.json` and `app/manifest.webapp`. Once you commit, push changes to github, and confirm the Travis tests pass, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
 
 ## License
 
