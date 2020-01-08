@@ -15,7 +15,7 @@ const OrderHeader = ({
   const discontinueMsg = intl.formatMessage({ id: "app.orders.discontinue", defaultMessage: "DISCONTINUE" });
   return (
     <Fragment>
-      <th>{order.orderNumber}</th>
+      <th className="th-orderable">{order.orderNumber}</th>
       <th className="th-orderable">{orderable}</th>
       <th>{status}</th>
       <th className="order-actions-btn">
