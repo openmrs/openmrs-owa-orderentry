@@ -49,7 +49,7 @@ var getConfig = function () {
 		// create file with defaults if not found
 		config = {
 			'LOCAL_OWA_FOLDER': '/path/to/your/server/owa/',
-			'APP_ENTRY_POINT': 'http://localhost:8080/openmrs/owa/labworkflow/index.html'
+			'APP_ENTRY_POINT': 'http://localhost:8080/openmrs/owa/orderentry/index.html'
 		};
 		fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
 		console.log(chalk.yellow("No file 'config.json' found. Creating a default. Please fix the values and re-run."));
