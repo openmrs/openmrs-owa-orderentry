@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: BreadCrumb renders properly 1`] = `
+<ul
+  id="breadcrumbs"
+>
+  <li>
+    <a
+      href="../../"
+    >
+      <i
+        className="icon-home small"
+      />
+    </a>
+  </li>
+  <li>
+    <i
+      className="icon-chevron-right link"
+    />
+    <a
+      href="../../coreapps/clinicianfacing/patient.page?patientId=123"
+    >
+      John.Doe
+    </a>
+  </li>
+  <li>
+    <i
+      className="icon-chevron-right link"
+    />
+  </li>
+</ul>
+`;

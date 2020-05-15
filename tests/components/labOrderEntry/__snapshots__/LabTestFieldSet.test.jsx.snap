@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: LabTestFieldSet should mount initially 1`] = `
+<fieldset
+  className="fieldset"
+>
+  <legend>
+    <FormattedMessage
+      defaultMessage="Tests"
+      description="Tests"
+      id="app.orders.tests"
+      values={Object {}}
+    />
+  </legend>
+  <div
+    className="tests-box"
+  >
+    <button
+      className="lab-tests-btn active"
+      id="category-test-button"
+      key="asampleduuid1-234"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="lab-tests-btn active"
+      id="category-test-button"
+      key="defmpleduuid1-566"
+      onClick={[Function]}
+      type="button"
+    />
+    <button
+      className="lab-tests-btn "
+      id="category-test-button"
+      key="5sampleduuid2-788"
+      onClick={[Function]}
+      type="button"
+    />
+  </div>
+</fieldset>
+`;

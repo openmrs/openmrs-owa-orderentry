@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Draft should render on initial setup 1`] = `
+<Draft
+  draftOrders={
+    Array [
+      Object {
+        "display": "hermatocrite",
+        "names": Array [
+          Object {
+            "conceptNameType": "SHORT",
+            "id": 13207,
+            "locale": "en",
+            "localePreferred": false,
+            "name": "Hct",
+            "uuid": "0b7ba816-15f5-102d-96e4-000c29c2a5d7",
+            "voided": false,
+          },
+          Object {
+            "conceptNameType": "FULLY_SPECIFIED",
+            "id": 13204,
+            "locale": "en",
+            "localePreferred": true,
+            "name": "Hematocrit",
+            "uuid": "3e148d20-26fe-102b-80cb-0017a47871b2",
+            "voided": false,
+          },
+        ],
+        "set": true,
+        "type": "laborder",
+        "uuid": 6,
+      },
+    ]
+  }
+  editDraftDrugOrder={[MockFunction]}
+  handleDraftDiscard={[MockFunction]}
+  handleSubmit={[MockFunction]}
+  intl={
+    Object {
+      "defaultFormats": Object {},
+      "defaultLocale": "en",
+      "formatDate": [Function],
+      "formatHTMLMessage": [Function],
+      "formatMessage": [Function],
+      "formatNumber": [Function],
+      "formatPlural": [Function],
+      "formatRelative": [Function],
+      "formatTime": [Function],
+      "formats": Object {},
+      "formatters": Object {
+        "getDateTimeFormat": [Function],
+        "getMessageFormat": [Function],
+        "getNumberFormat": [Function],
+        "getPluralFormat": [Function],
+        "getRelativeFormat": [Function],
+      },
+      "locale": "en",
+      "messages": Object {},
+      "now": [Function],
+      "onError": [Function],
+      "textComponent": "span",
+      "timeZone": null,
+    }
+  }
+  locale="en"
+  toggleDraftLabOrderUrgency={[MockFunction]}
+>
+  <div
+    className="draft-spacing draft-lab-layout"
+  >
+    <h5
+      className="h5-draft-header"
+    >
+      <FormattedMessage
+        defaultMessage="Unsaved Draft Orders"
+        description="Unsaved Draft Orders"
+        id="app.orders.unsaved.draft"
+        values={Object {}}
+      >
+        <span>
+          Unsaved Draft Orders
+        </span>
+      </FormattedMessage>
+       (
+      1
+      )
+    </h5>
+    <div
+      className="table-container"
+    >
+      <ul
+        className="draft-list-container"
+      >
+        <li
+          className="draft-list small-font"
+          key="draft-order-undefined"
+        >
+          <span
+            className="order-status"
+          >
+            NEW
+          </span>
+          <span
+            className="draft-name"
+          >
+            Hct
+          </span>
+          <div
+            className="action-btn-wrapper"
+          >
+            <span
+              className="action-btn"
+            >
+              <IconButton
+                dataContext={
+                  Object {
+                    "display": "hermatocrite",
+                    "names": Array [
+                      Object {
+                        "conceptNameType": "SHORT",
+                        "id": 13207,
+                        "locale": "en",
+                        "localePreferred": false,
+                        "name": "Hct",
+                        "uuid": "0b7ba816-15f5-102d-96e4-000c29c2a5d7",
+                        "voided": false,
+                      },
+                      Object {
+                        "conceptNameType": "FULLY_SPECIFIED",
+                        "id": 13204,
+                        "locale": "en",
+                        "localePreferred": true,
+                        "name": "Hematocrit",
+                        "uuid": "3e148d20-26fe-102b-80cb-0017a47871b2",
+                        "voided": false,
+                      },
+                    ],
+                    "set": true,
+                    "type": "laborder",
+                    "uuid": 6,
+                  }
+                }
+                icon="▲"
+                iconClass="scale i-gray"
+                iconTitle="Urgency"
+                id="draft-toggle-btn icon-btn-anchor"
+                onClick={[MockFunction]}
+              >
+                <span>
+                  <a
+                    href="#"
+                    id="draft-toggle-btn icon-btn-anchor"
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="scale i-gray scale"
+                      title="Urgency"
+                    >
+                      ▲
+                    </i>
+                  </a>
+                </span>
+              </IconButton>
+            </span>
+            <span
+              className="action-btn right"
+            >
+              <IconButton
+                dataContext={
+                  Object {
+                    "draftType": "laborder",
+                    "order": Object {
+                      "display": "hermatocrite",
+                      "names": Array [
+                        Object {
+                          "conceptNameType": "SHORT",
+                          "id": 13207,
+                          "locale": "en",
+                          "localePreferred": false,
+                          "name": "Hct",
+                          "uuid": "0b7ba816-15f5-102d-96e4-000c29c2a5d7",
+                          "voided": false,
+                        },
+                        Object {
+                          "conceptNameType": "FULLY_SPECIFIED",
+                          "id": 13204,
+                          "locale": "en",
+                          "localePreferred": true,
+                          "name": "Hematocrit",
+                          "uuid": "3e148d20-26fe-102b-80cb-0017a47871b2",
+                          "voided": false,
+                        },
+                      ],
+                      "set": true,
+                      "type": "laborder",
+                      "uuid": 6,
+                    },
+                  }
+                }
+                icon={null}
+                iconClass="icon-remove"
+                iconTitle="Discard"
+                id="draft-discard-btn"
+                onClick={[MockFunction]}
+              >
+                <span>
+                  <a
+                    href="#"
+                    id="draft-discard-btn"
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="icon-remove scale"
+                      title="Discard"
+                    />
+                  </a>
+                </span>
+              </IconButton>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <br />
+    <input
+      className="button cancel modified-btn"
+      disabled={false}
+      id="draft-discard-all"
+      onClick={[Function]}
+      type="button"
+      value="Discard"
+    />
+    <input
+      className="button confirm right modified-btn"
+      disabled={false}
+      onClick={[Function]}
+      type="submit"
+      value="Sign and Save"
+    />
+  </div>
+</Draft>
+`;

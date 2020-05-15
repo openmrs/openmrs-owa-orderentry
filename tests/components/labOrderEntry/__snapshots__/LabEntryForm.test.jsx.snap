@@ -1,0 +1,357 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: LabEntryForm should render on initial setup 1`] = `
+<LabEntryForm
+  conceptsAsPanels={Array []}
+  conceptsAsTests={Array []}
+  createOrder={[MockFunction]}
+  createOrderReducer={
+    Object {
+      "labOrderData": Object {},
+      "status": Object {
+        "added": true,
+        "error": false,
+      },
+    }
+  }
+  dateFormat="DD-MM-YYYY HH:mm"
+  defaultTests={
+    Array [
+      Object {
+        "display": "Hemoglobin",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "Hematocrit",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "blood",
+        "uuid": "12746hfgjff",
+      },
+    ]
+  }
+  deleteDraftLabOrderFromStore={[Function]}
+  dispatch={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "payload": Promise {},
+            "type": "FETCH_LAB_CONCEPTS",
+          },
+        ],
+      ],
+    }
+  }
+  draftDrugOrders={Array []}
+  draftLabOrders={
+    Array [
+      Object {
+        "display": "Hemoglobin",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "Hematocrit",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "blood",
+        "uuid": "12746hfgjff",
+      },
+    ]
+  }
+  encounterRole={
+    Object {
+      "uuid": "1234trrrrr",
+    }
+  }
+  encounterType={
+    Object {
+      "uuid": "fhhfgfh9998",
+    }
+  }
+  fetchLabOrders={[MockFunction]}
+  getLabOrderables="buo434873euhwiqeroq"
+  inpatientCareSetting={
+    Object {
+      "uuid": "ifffy9847464",
+    }
+  }
+  intl={
+    Object {
+      "defaultFormats": Object {},
+      "defaultLocale": "en",
+      "formatDate": [Function],
+      "formatHTMLMessage": [Function],
+      "formatMessage": [Function],
+      "formatNumber": [Function],
+      "formatPlural": [Function],
+      "formatRelative": [Function],
+      "formatTime": [Function],
+      "formats": Object {},
+      "formatters": Object {
+        "getDateTimeFormat": [Function],
+        "getMessageFormat": [Function],
+        "getNumberFormat": [Function],
+        "getPluralFormat": [Function],
+        "getRelativeFormat": [Function],
+      },
+      "locale": "en",
+      "messages": Object {},
+      "now": [Function],
+      "onError": [Function],
+      "textComponent": "span",
+      "timeZone": null,
+    }
+  }
+  labOrders={
+    Object {
+      "results": Array [
+        Object {
+          "concept": Object {
+            "display": "Hemoglobin blood test",
+          },
+          "dateActivated": 2020-05-15T23:43:29.642Z,
+          "uuid": "1",
+        },
+      ],
+    }
+  }
+  orderables={
+    Array [
+      Object {
+        "concept": "12746hfgjff",
+        "display": "Hemoglobin",
+        "uuid": "ifffy9847464",
+      },
+      Object {
+        "concept": "12746hfgjff",
+        "display": "Hematocrit",
+        "uuid": "iewue7wyu64",
+      },
+      Object {
+        "concept": "12746hfgjff",
+        "display": "blood",
+        "uuid": "iuweihiYWGD64",
+      },
+    ]
+  }
+  patient={
+    Object {
+      "uuid": "jfgfhfgf",
+    }
+  }
+  selectedLabPanels={
+    Array [
+      Object {
+        "concept": "6e5f5436-b56f-4c7d-9580-095588024d77",
+        "id": 1,
+        "labCategory": 1,
+        "name": "Hemogram",
+        "tests": Array [
+          Object {
+            "concept": "6e5f5436-b56f-4c7d-9580-095588024d77",
+            "id": 1,
+            "test": "Hemoglobin",
+            "urgency": "routine",
+          },
+          Object {
+            "concept": "6e5f5436-b56f-4c7d-9580-095588024d77",
+            "id": 3,
+            "test": "blood",
+            "urgency": "routine",
+          },
+          Object {
+            "concept": "6e5f5436-b56f-4c7d-9580-095588024d77",
+            "id": 6,
+            "test": "prothrombin",
+            "urgency": "routine",
+          },
+        ],
+        "urgency": "routine",
+      },
+    ]
+  }
+  selectedTests={
+    Array [
+      Object {
+        "display": "Hemoglobin",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "Hematocrit",
+        "uuid": "12746hfgjff",
+      },
+      Object {
+        "display": "blood",
+        "uuid": "12746hfgjff",
+      },
+    ]
+  }
+  session={
+    Object {
+      "currentProvider": Object {
+        "uuid": "jfhfhiu77474",
+      },
+      "locale": "en",
+    }
+  }
+  sessionReducer={
+    Object {
+      "locale": "en",
+    }
+  }
+  standAloneTests={Array []}
+>
+  <div
+    className="lab-order-entry"
+  >
+    <h5>
+      <FormattedMessage
+        defaultMessage="New Lab Order"
+        description="New Lab Order"
+        id="app.orders.new"
+        values={Object {}}
+      >
+        <span>
+          New Lab Order
+        </span>
+      </FormattedMessage>
+    </h5>
+    <br />
+    <div
+      className="lab-form-wrapper"
+    >
+      <div
+        className="lab-category"
+      >
+        <ul>
+          <li
+            key="new-lab-order-orderable-ifffy9847464"
+          >
+            <a
+              className="active-category"
+              href="#"
+              id="category-button"
+              onClick={[Function]}
+            />
+          </li>
+          <li
+            key="new-lab-order-orderable-iewue7wyu64"
+          >
+            <a
+              className=""
+              href="#"
+              id="category-button"
+              onClick={[Function]}
+            />
+          </li>
+          <li
+            key="new-lab-order-orderable-iuweihiYWGD64"
+          >
+            <a
+              className=""
+              href="#"
+              id="category-button"
+              onClick={[Function]}
+            />
+          </li>
+        </ul>
+      </div>
+      <div
+        className="order-form-wrapper"
+      >
+        <form
+          className="lab-form simple-form-ui"
+        >
+          <div>
+            <LabPanelFieldSet
+              handleTestSelection={[Function]}
+              locale="en"
+              panels={Array []}
+              selectedPanelIds={Array []}
+            >
+              <fieldset
+                className="fieldset"
+              >
+                <legend>
+                  <FormattedMessage
+                    defaultMessage="Panels"
+                    description="Panels"
+                    id="app.orders.panels"
+                    values={Object {}}
+                  >
+                    <span>
+                      Panels
+                    </span>
+                  </FormattedMessage>
+                </legend>
+                <div
+                  className="panel-box"
+                >
+                  <p>
+                     has no panels
+                  </p>
+                </div>
+              </fieldset>
+            </LabPanelFieldSet>
+            <LabTestFieldSet
+              handleTestSelection={[Function]}
+              locale="en"
+              selectedTests={
+                Array [
+                  Object {
+                    "display": "Hemoglobin",
+                    "uuid": "12746hfgjff",
+                  },
+                  Object {
+                    "display": "Hematocrit",
+                    "uuid": "12746hfgjff",
+                  },
+                  Object {
+                    "display": "blood",
+                    "uuid": "12746hfgjff",
+                  },
+                ]
+              }
+              tests={Array []}
+            >
+              <fieldset
+                className="fieldset"
+              >
+                <legend>
+                  <FormattedMessage
+                    defaultMessage="Tests"
+                    description="Tests"
+                    id="app.orders.tests"
+                    values={Object {}}
+                  >
+                    <span>
+                      Tests
+                    </span>
+                  </FormattedMessage>
+                </legend>
+                <div
+                  className="tests-box"
+                >
+                  <p>
+                     has no Standalone Tests
+                  </p>
+                </div>
+              </fieldset>
+            </LabTestFieldSet>
+          </div>
+        </form>
+      </div>
+    </div>
+    <button
+      className="cancel"
+      disabled={true}
+      onClick={[Function]}
+    >
+      Return
+    </button>
+  </div>
+</LabEntryForm>
+`;

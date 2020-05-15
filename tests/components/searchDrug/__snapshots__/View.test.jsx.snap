@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: searchDrug: View Conditional rendering renders properly 1`] = `
+<div
+  className="search-container"
+>
+  <p>
+    New order for: 
+  </p>
+  <span>
+    <input
+      id="sel-drug4841input"
+      onChange={[Function]}
+      placeholder="Search for drug...(3 chars min.)"
+      type="text"
+      value=""
+    />
+  </span>
+</div>
+`;

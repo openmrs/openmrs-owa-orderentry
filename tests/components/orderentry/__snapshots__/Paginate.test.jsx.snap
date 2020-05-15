@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination component test-suite renders properly 1`] = `
+<div
+  className="pagination"
+>
+  <div
+    className="page-link prev"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+    value="previous"
+  >
+    <p>
+      ❮❮
+    </p>
+  </div>
+  <div
+    className="page-link"
+  >
+    <p>
+      2
+    </p>
+  </div>
+  <div
+    className="page-link no-click"
+  >
+    <p>
+      /
+    </p>
+  </div>
+  <div
+    className="page-link"
+  >
+    <p>
+      <b>
+        20
+      </b>
+    </p>
+  </div>
+  <div
+    className="page-link next"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+    value="http://next=page=some=random=page=and=the=length=20"
+  >
+    <p>
+      ❯❯
+    </p>
+  </div>
+</div>
+`;

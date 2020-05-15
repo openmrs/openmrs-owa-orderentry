@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes successfully rendered 1`] = `
+<div>
+  <Connect(Localization) />
+  <Switch>
+    <Route
+      component={[Function]}
+      path="/"
+    />
+  </Switch>
+</div>
+`;

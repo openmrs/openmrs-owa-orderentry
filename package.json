@@ -118,7 +118,7 @@
     "build:prod": "npm run test && npm run build",
     "build:deploy": "NODE_ENV=\"deploy\" webpack --progress --colors --target=web",
     "watch": "NODE_ENV=\"deploy\" webpack --progress --colors --watch --watch-poll --cache=false",
-    "test": "npm run lint && jest -u --coverage --maxWorkers=4",
+    "test": "npm run lint && jest --coverage --maxWorkers=4",
     "test:debug": "karma start",
     "lint": "node_modules/.bin/eslint . --ext .js,.jsx"
   },
