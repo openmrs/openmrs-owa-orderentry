@@ -74,9 +74,9 @@ export class Draft extends PureComponent {
 
   render() {
     const {
-      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading
+      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading,
     } = this.props;
-    const isDisabled = draftOrders.length == 0 || isLoading;
+    const isDisabled = draftOrders.length === 0 || isLoading;
     const signAndSave = intl.formatMessage({ id: "app.orders.signandsave", defaultMessage: "Sign and Save" });
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
     const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
@@ -123,7 +123,7 @@ Draft.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.createOrderReducer.status.loading
+  isLoading: state.createOrderReducer.status.loading,
 });
 
 export default connect(mapStateToProps)(injectIntl(Draft));
