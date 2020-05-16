@@ -3,8 +3,8 @@
 exports[`<PastOrder /> should render component 1`] = `
 <tr>
   <td>
-    2018-05-20T10:59:00.000-07:00
-    - 2018-05-20T10:59:00.000-07:00
+    2018-May-20
+    - 2018-May-20
   </td>
   <td>
     <p>
@@ -24,13 +24,19 @@ exports[`<PastOrder /> should render component 1`] = `
 exports[`<PastOrder /> should render details 1`] = `
 <tr>
   <td>
-    2018-05-20T10:59:00.000-07:00
-    - 2018-05-20T10:59:00.000-07:00
+    2018-May-20
+    - 2018-May-20
   </td>
   <td>
     <p>
       new drug
       :
+       0
+       drops,
+       twice a week,
+       reactally, for 
+      0
+       weeks
     </p>
   </td>
 </tr>
