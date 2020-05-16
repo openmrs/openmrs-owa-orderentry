@@ -189,7 +189,7 @@ export class LabEntryForm extends PureComponent {
                 <div className="lab-category">
                   <ul>
                     {orderables.map(orderable => (
-                      <li key={"new-lab-order-orderable-" + orderable.uuid}>
+                      <li key={`new-lab-order-orderable-${orderable.uuid}`}>
                         <a
                           className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
                           href="#"

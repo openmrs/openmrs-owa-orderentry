@@ -42,7 +42,7 @@ export class LabDraftOrder extends PureComponent {
         },
       );
       return (
-        <li className="draft-list small-font" key={"draft-order-" + orderName}>
+        <li className="draft-list small-font" key={`draft-order-${orderName}`}>
           <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">

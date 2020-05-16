@@ -33,7 +33,7 @@ export class Draft extends PureComponent {
       );
 
       return (
-        <li className="draft-list small-font" key={'draft-order-' + order.id}>
+        <li className="draft-list small-font" key={`draft-order-${order.id}`}>
           <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
           <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">
