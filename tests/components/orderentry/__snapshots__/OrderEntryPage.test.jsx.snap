@@ -338,7 +338,7 @@ exports[`Test for Order entry page when orderentryowa.encounterType is set shoul
       <div
         className="draft-wrapper"
       >
-        <InjectIntl(Draft)
+        <Connect(InjectIntl(Draft))
           draftOrders={
             Array [
               Object {
