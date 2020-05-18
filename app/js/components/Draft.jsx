@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
@@ -72,10 +73,9 @@ export class Draft extends PureComponent {
 
   render() {
     const {
-      draftOrders, handleDraftDiscard, handleSubmit, intl,
+      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading,
     } = this.props;
-    const numberOfDraftOrders = draftOrders.length;
-    const isDisabled = !numberOfDraftOrders;
+    const isDisabled = draftOrders.length === 0 || isLoading;
     const signAndSave = intl.formatMessage({ id: "app.orders.signandsave", defaultMessage: "Sign and Save" });
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
     const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
@@ -85,7 +85,7 @@ export class Draft extends PureComponent {
           <FormattedMessage
             id="app.orders.unsaved.draft"
             defaultMessage="Unsaved Draft Orders"
-            description="Unsaved Draft Orders" /> ({numberOfDraftOrders})
+            description="Unsaved Draft Orders" /> ({draftOrders.length})
         </h5>
         <div className="table-container">
           <ul className="draft-list-container">
@@ -98,7 +98,7 @@ export class Draft extends PureComponent {
           id="draft-discard-all"
           onClick={() => handleDraftDiscard()}
           className="button cancel modified-btn"
-          value={numberOfDraftOrders > 1 ? discardAll : discard}
+          value={draftOrders.length > 1 ? discardAll : discard}
           disabled={isDisabled}
         />
         <input
@@ -121,5 +121,9 @@ Draft.propTypes = {
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
 };
 
-export default injectIntl(Draft);
+const mapStateToProps = state => ({
+  isLoading: state.createOrderReducer.status.loading,
+});
+
+export default connect(mapStateToProps)(injectIntl(Draft));
 
