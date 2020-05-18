@@ -36,39 +36,7 @@ const nodeModules = {};
 let outputFile = `.bundle`;
 let vendorOutputFile;
 let outputPath;
-
 let devtool;
-
-var getConfig = function () {
-	var config;
-
-	try {
-		// look for config file
-		return require('./config.json');
-	} catch (err) {
-		// create file with defaults if not found
-		config = {
-			'LOCAL_OWA_FOLDER': '/path/to/your/server/owa/',
-			'APP_ENTRY_POINT': 'http://localhost:8080/openmrs/owa/orderentry/index.html'
-		};
-		fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
-		console.log(chalk.yellow("No file 'config.json' found. Creating a default. Please fix the values and re-run."));
-		process.exit(1);
-	};
-}
-var config = getConfig();
-
-var resolveBrowserSyncTarget = function () {
-	if (targetPort != null && targetPort != 'null') {
-		return config.APP_ENTRY_POINT.substr(0, 'http://localhost:'.length)
-			+ targetPort
-			+ config.APP_ENTRY_POINT.substr('http://localhost:'.length + targetPort.toString().length, config.APP_ENTRY_POINT.length);
-	}
-	else {
-		return config.APP_ENTRY_POINT
-	}
-};
-var browserSyncTarget = resolveBrowserSyncTarget();
 
 const rules = [
 	{
@@ -137,11 +105,51 @@ if (env === 'production') {
 		archive.finalize();
 	}));
 }
-if (env === 'deploy') {
-	outputFile = `${outputFile}.js`;
-	vendorOutputFile = "vendor.bundle.js";
-	outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
-	devtool = 'source-map';
+
+if (env === 'deploy' || env === 'development') {
+	var getConfig = function () {
+		var config;
+	
+		try {
+			// look for config file
+			return require('./config.json');
+		} catch (err) {
+			// create file with defaults if not found
+			config = {
+				'LOCAL_OWA_FOLDER': '/path/to/your/server/owa/',
+				'APP_ENTRY_POINT': 'http://localhost:8080/openmrs/owa/orderentry/index.html'
+			};
+			fs.writeFileSync('config.json', JSON.stringify(config, null, 2));
+			console.log(chalk.yellow("No file 'config.json' found. Creating a default. Please fix the values and re-run."));
+			process.exit(1);
+		};
+	}
+	var config = getConfig();
+	
+	var resolveBrowserSyncTarget = function () {
+		if (targetPort != null && targetPort != 'null') {
+			return config.APP_ENTRY_POINT.substr(0, 'http://localhost:'.length)
+				+ targetPort
+				+ config.APP_ENTRY_POINT.substr('http://localhost:'.length + targetPort.toString().length, config.APP_ENTRY_POINT.length);
+		}
+		else {
+			return config.APP_ENTRY_POINT
+		}
+	};
+	var browserSyncTarget = resolveBrowserSyncTarget();
+
+	if (env === 'deploy') {
+		outputFile = `${outputFile}.js`;
+		vendorOutputFile = "vendor.bundle.js";
+		outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
+		devtool = 'source-map';
+	}
+
+	plugins.push(new BrowserSyncPlugin({
+		proxy: {
+			target: browserSyncTarget
+		}
+	}));
 }
 
 if (env === 'development') {
@@ -150,12 +158,6 @@ if (env === 'development') {
 	outputPath = `${__dirname}/dist/`;
 	devtool = 'eval-source-map';
 }
-
-plugins.push(new BrowserSyncPlugin({
-	proxy: {
-		target: browserSyncTarget
-	}
-}));
 
 plugins.push(new CommonsChunkPlugin({
 	name: 'vendor',
