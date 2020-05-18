@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Order entry page when orderentryowa.encounterType is set should render component 1`] = `
+<div
+  className="order-entry-page"
+>
+  <div>
+    <withRouter(Connect(PatientHeader))
+      location={
+        Object {
+          "search": "?patient=esere_shbfidfb_343ffd",
+        }
+      }
+      patient={
+        Object {
+          "patient": Object {
+            "patientIdentifier": Object {
+              "identifier": "",
+            },
+            "person": Object {
+              "personName": Object {
+                "familyName": "",
+                "givenName": "",
+              },
+              "preferredAddress": Object {},
+            },
+          },
+        }
+      }
+    />
+    <div
+      className="header-nav"
+    >
+      <div>
+        <h3
+          className="orders-nav"
+          onClick={[Function]}
+          role="button"
+        >
+          <b>
+            <FormattedMessage
+              defaultMessage="Orders List"
+              description="Orders List"
+              id="app.orders.list"
+              values={Object {}}
+            />
+          </b>
+        </h3>
+      </div>
+      <SelectOrderType
+        currentOrderType={
+          Object {
+            "id": "94386782390",
+          }
+        }
+        page={null}
+        switchOrderType={[Function]}
+      />
+    </div>
+    <div
+      className="body-wrapper drug-order-entry"
+    >
+      <RenderOrderType
+        backLink={null}
+        conceptsAsPanels={Array []}
+        configurations={
+          Object {
+            "drugDispensingUnits": Array [
+              Object {
+                "display": "display",
+                "uuid": "123mockUUIDef",
+              },
+            ],
+            "drugDosingUnits": Array [
+              Object {
+                "display": "display",
+                "uuid": "123mockUUIDef",
+              },
+            ],
+            "drugRoutes": Array [
+              Object {
+                "display": "display",
+                "uuid": "123mockUUIDef",
+              },
+            ],
+            "durationUnits": Array [
+              Object {
+                "display": "display",
+                "uuid": "123mockUUIDef",
+              },
+            ],
+            "orderFrequencies": Array [
+              Object {
+                "display": "display",
+                "uuid": "123mockUUIDef",
+              },
+            ],
+          }
+        }
+        createOrder={[MockFunction]}
+        createOrderReducer={
+          Object {
+            "labOrderData": Object {},
+            "status": Object {
+              "added": true,
+              "error": false,
+            },
+          }
+        }
+        currentOrderType={
+          Object {
+            "id": "94386782390",
+          }
+        }
+        currentOrderTypeID="94386782390"
+        dateFormatReducer={
+          Object {
+            "dateFormat": "DD-MMM-YYYY HH:mm",
+            "error": "",
+          }
+        }
+        dispatch={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "globalProperty": "orderentryowa.labOrderAutoExpireTimeInDays",
+                  "type": "globalproperty/FETCH_REQUESTED",
+                },
+              ],
+            ],
+          }
+        }
+        draftDrugOrders={
+          Array [
+            Object {
+              "drugName": "paracetamol",
+            },
+          ]
+        }
+        draftLabOrders={
+          Object {
+            "orders": Array [
+              Object {
+                "display": "Hemoglobin",
+                "uuid": "12746hfgjff",
+              },
+              Object {
+                "display": "Hematocrit",
+                "uuid": "12746hfgjff",
+              },
+              Object {
+                "display": "blood",
+                "uuid": "12746hfgjff",
+              },
+            ],
+          }
+        }
+        editDraftDrugOrder={[MockFunction]}
+        encounterRole={
+          Object {
+            "uuid": "",
+          }
+        }
+        encounterType={
+          Object {
+            "uuid": "1eeee",
+          }
+        }
+        fetchLabOrders={[MockFunction]}
+        fetchPatientCareSetting={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+          }
+        }
+        fetchPatientNote={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "esere_shbfidfb_343ffd",
+              ],
+            ],
+          }
+        }
+        fetchPatientRecord={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "esere_shbfidfb_343ffd",
+              ],
+            ],
+          }
+        }
+        getDateFormat={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                "default",
+              ],
+            ],
+          }
+        }
+        getLabOrderables={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+          }
+        }
+        getSettingEncounterRole={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+          }
+        }
+        getSettingEncounterType={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+          }
+        }
+        globalProperties={
+          Object {
+            "orderentryowa.labOrderAutoExpireTimeInDays": "30",
+          }
+        }
+        inpatientCareSetting={
+          Object {
+            "uuid": "6766667",
+          }
+        }
+        intl={
+          Object {
+            "defaultFormats": Object {},
+            "defaultLocale": "en",
+            "formatDate": [Function],
+            "formatHTMLMessage": [Function],
+            "formatMessage": [Function],
+            "formatNumber": [Function],
+            "formatPlural": [Function],
+            "formatRelative": [Function],
+            "formatTime": [Function],
+            "formats": Object {},
+            "formatters": Object {
+              "getDateTimeFormat": [Function],
+              "getMessageFormat": [Function],
+              "getNumberFormat": [Function],
+              "getPluralFormat": [Function],
+              "getRelativeFormat": [Function],
+            },
+            "locale": "en",
+            "messages": Object {},
+            "now": [Function],
+            "onError": [Function],
+            "textComponent": "span",
+            "timeZone": null,
+          }
+        }
+        labOrderableReducer={
+          Object {
+            "orderables": Array [
+              Object {
+                "uuid": "1234",
+              },
+            ],
+          }
+        }
+        location={
+          Object {
+            "search": "?patient=esere_shbfidfb_343ffd",
+          }
+        }
+        orderSelectionReducer={
+          Object {
+            "currentOrderType": Object {},
+          }
+        }
+        outpatientCareSetting={
+          Object {
+            "uuid": "5677666",
+          }
+        }
+        patient={
+          Object {
+            "patient": Object {
+              "patientIdentifier": Object {
+                "identifier": "",
+              },
+              "person": Object {
+                "personName": Object {
+                  "familyName": "",
+                  "givenName": "",
+                },
+                "preferredAddress": Object {},
+              },
+            },
+          }
+        }
+        session={
+          Object {
+            "currentProvider": Object {
+              "person": Object {
+                "uuid": "",
+              },
+            },
+          }
+        }
+        sessionReducer={
+          Object {
+            "currentProvider": Object {
+              "uuid": "1eeeee",
+            },
+            "sessionLocation": Object {
+              "uuid": "hospital",
+            },
+          }
+        }
+        setSelectedOrder={[MockFunction]}
+        settingEncounterRoleReducer={
+          Object {
+            "roleError": "",
+            "settingEncounterRole": "Admin role",
+          }
+        }
+        settingEncounterTypeReducer={
+          Object {
+            "error": "",
+            "settingEncounterType": "order type",
+          }
+        }
+        standAloneTests={Array []}
+        toggleDraftLabOrderUrgency={[MockFunction]}
+      />
+      <div
+        className="draft-wrapper"
+      >
+        <InjectIntl(Draft)
+          draftOrders={
+            Array [
+              Object {
+                "drugName": "paracetamol",
+              },
+              Object {
+                "display": "Hemoglobin",
+                "uuid": "12746hfgjff",
+              },
+              Object {
+                "display": "Hematocrit",
+                "uuid": "12746hfgjff",
+              },
+              Object {
+                "display": "blood",
+                "uuid": "12746hfgjff",
+              },
+            ]
+          }
+          editDraftDrugOrder={[MockFunction]}
+          handleSubmit={[Function]}
+          toggleDraftLabOrderUrgency={[MockFunction]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

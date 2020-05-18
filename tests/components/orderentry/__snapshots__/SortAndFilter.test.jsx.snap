@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sort and Filter component test-suite renders properly 1`] = `
+<div
+  className="sort-filter-section"
+>
+  <div
+    className="sort-type"
+  >
+    <label
+      className="label-sort"
+    >
+      <FormattedMessage
+        defaultMessage="Type"
+        description="Type"
+        id="app.orders.type"
+        values={Object {}}
+      />
+      :
+    </label>
+    <select
+      className="sort-select"
+      onChange={[Function]}
+    >
+      <FormattedMessage
+        defaultMessage="All"
+        description="All"
+        id="app.orders.all"
+        values={Object {}}
+      />
+      <FormattedMessage
+        defaultMessage="Drug Orders"
+        description="Drug Orders"
+        id="app.orders.drug"
+        values={Object {}}
+      />
+      <FormattedMessage
+        defaultMessage="Test Orders"
+        description="Test Orders"
+        id="app.orders.test"
+        values={Object {}}
+      />
+    </select>
+  </div>
+  <div
+    className="sort-status"
+  >
+    <label
+      className="label-sort"
+    >
+      Status:
+    </label>
+    <select
+      className="sort-select"
+    >
+      <option>
+        All
+      </option>
+      <option>
+        Active
+      </option>
+      <option>
+        Inactive
+      </option>
+    </select>
+  </div>
+</div>
+`;

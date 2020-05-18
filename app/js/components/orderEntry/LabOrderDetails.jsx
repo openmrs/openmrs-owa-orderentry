@@ -29,7 +29,7 @@ const LabOrderDetails = ({
               defaultMessage="Test Status" />:
           </b>&nbsp;
           <FormattedMessage
-            id={ `app.orders.testStatus.${fulfillerStatus}` }
+            id={`app.orders.testStatus.${fulfillerStatus}`}
             defaultMessage={fulfillerStatus}
           />
         </ul>

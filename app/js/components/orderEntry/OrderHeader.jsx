@@ -30,7 +30,7 @@ const OrderHeader = ({
         {isCancellable(order)
         && <IconButton
           iconClass="icon-remove"
-          iconTitle={ discontinueMsg }
+          iconTitle={discontinueMsg}
           dataContext={order}
           onClick={handleDiscontinue}
         />

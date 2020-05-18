@@ -38,7 +38,7 @@ props = {
     results: [
       {
         uuid: '1',
-        dateActivated: new Date(),
+        dateActivated: new Date("2020-02-20"),
         concept: {
           display: 'Hemoglobin blood test',
         }

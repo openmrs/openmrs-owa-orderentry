@@ -35,7 +35,6 @@
     "redux-promise-middleware": "^4.4.2",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "shortid": "^2.2.12",
     "sinon": "^4.4.6",
     "sweetalert": "^2.1.0",
     "toastr": "^2.1.4"
@@ -120,7 +119,7 @@
     "build:prod": "npm run test && npm run build",
     "build:deploy": "NODE_ENV=\"deploy\" webpack --progress --colors --target=web",
     "watch": "NODE_ENV=\"deploy\" webpack --progress --colors --watch --watch-poll --cache=false",
-    "test": "npm run lint && jest -u --coverage --maxWorkers=4",
+    "test": "npm run lint && jest --coverage --maxWorkers=4",
     "test:debug": "karma start",
     "lint": "node_modules/.bin/eslint . --ext .js,.jsx"
   },

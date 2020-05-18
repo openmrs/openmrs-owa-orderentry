@@ -5,7 +5,6 @@ config.json
 *.zip
 coverage
 .nyc_output
-*.snap
 .DS_Store
 .idea
 *.swp

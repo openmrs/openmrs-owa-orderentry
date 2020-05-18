@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import shortid from 'shortid';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import LabPanelFieldSet from './LabPanelFieldSet';
 import LabTestFieldSet from './LabTestFieldSet';
@@ -190,7 +189,7 @@ export class LabEntryForm extends PureComponent {
                 <div className="lab-category">
                   <ul>
                     {orderables.map(orderable => (
-                      <li key={shortid.generate()}>
+                      <li key={`new-lab-order-orderable-${orderable.uuid}`}>
                         <a
                           className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
                           href="#"

@@ -108,7 +108,7 @@ export class PastOrders extends React.Component {
                       previousLinkClassName="page-link"
                       onPageChange={this.onPageChange}
                       forcePage={this.state.pageNumber}
-                      disableInitialCallback={true}
+                      disableInitialCallback
                     />
                   </div>
                 </div>

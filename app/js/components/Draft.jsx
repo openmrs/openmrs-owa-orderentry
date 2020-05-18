@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import shortid from 'shortid';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
 import IconButton from './button/IconButton';
@@ -34,7 +33,7 @@ export class Draft extends PureComponent {
       );
 
       return (
-        <li className="draft-list small-font" key={shortid.generate()}>
+        <li className="draft-list small-font" key={`draft-order-${order.id}`}>
           <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
           <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">

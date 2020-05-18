@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Accordion renders properly 1`] = `
+<React.Fragment>
+  <tr
+    className="accordion accordion-link"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+  >
+    <th
+      className="th-1"
+    >
+      <span>
+        <i
+          className="toggle-icon icon-caret-down small rotate90"
+        />
+      </span>
+      Invalid
+    </th>
+    Header
+  </tr>
+  <tr>
+    <td
+      className="th-invisible"
+    />
+    <td
+      className="th-invisible"
+    />
+    <td
+      className="th-details"
+    >
+      <div
+        className="th-details accordion-two content open"
+      >
+        <h1>
+          I love this
+        </h1>
+      </div>
+    </td>
+    <td
+      className="th-invisible"
+    />
+    <td
+      className="th-invisible"
+    />
+  </tr>
+</React.Fragment>
+`;

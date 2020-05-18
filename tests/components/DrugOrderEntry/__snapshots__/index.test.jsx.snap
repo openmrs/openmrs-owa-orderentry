@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Searching and Adding an order should render component 1`] = `
+<div
+  className="drug-order-entry"
+>
+  <h5
+    className="drug-form-header"
+  >
+    New Drug Order
+  </h5>
+  <Connect(SearchDrug)
+    focused={false}
+    onChange={[Function]}
+    onSelectDrug={[Function]}
+    value=""
+  />
+  <div>
+    <Connect(InjectIntl(AddForm))
+      clearSearchField={[Function]}
+      currentOrderType={Object {}}
+      draftOrder={Object {}}
+      editOrder={Object {}}
+      orderNumber="undefined"
+      removeOrder={[Function]}
+    />
+  </div>
+  <br />
+  <br />
+  <br />
+  <button
+    className="cancel"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Return
+  </button>
+</div>
+`;
+
+exports[`Test for Searching and Adding an order should render component 2`] = `
+Object {
+  "wrapper": <div
+    className="drug-order-entry"
+  >
+    <h5
+      className="drug-form-header"
+    >
+      New Drug Order
+    </h5>
+    <Connect(SearchDrug)
+      focused={false}
+      onChange={[Function]}
+      onSelectDrug={[Function]}
+      value=""
+    />
+    <div>
+      <Connect(InjectIntl(AddForm))
+        clearSearchField={[Function]}
+        currentOrderType={Object {}}
+        draftOrder={Object {}}
+        editOrder={Object {}}
+        orderNumber="undefined"
+        removeOrder={[Function]}
+      />
+    </div>
+    <br />
+    <br />
+    <br />
+    <button
+      className="cancel"
+      disabled={false}
+      onClick={[Function]}
+    >
+      Return
+    </button>
+  </div>,
+}
+`;
+
+exports[`Test for Searching and Adding an order should render component during edit activity 1`] = `
+<div
+  className="drug-order-entry"
+>
+  <h5
+    className="drug-form-header"
+  >
+    New Drug Order
+  </h5>
+  <Connect(SearchDrug)
+    focused={false}
+    onChange={[Function]}
+    onSelectDrug={[Function]}
+    value=""
+  />
+  <div>
+    <Connect(InjectIntl(AddForm))
+      clearSearchField={[Function]}
+      currentOrderType={Object {}}
+      draftOrder={Object {}}
+      editOrder={
+        Object {
+          "action": "REVISE",
+          "careSetting": Object {
+            "uuid": "",
+          },
+          "dispensingQuantity": "",
+          "dispensingUnit": "",
+          "dose": "",
+          "dosingType": "org.openmrs.SimpleDosingInstructions",
+          "dosingUnit": "",
+          "drug": Object {
+            "display": "",
+            "uuid": "",
+          },
+          "drugInstructions": "",
+          "drugName": Object {
+            "drug": Object {
+              "display": "",
+            },
+          },
+          "duration": "",
+          "durationUnit": "",
+          "frequency": "",
+          "orderNumber": "",
+          "orderer": Object {
+            "uuid": "",
+          },
+          "reason": "",
+          "route": "",
+          "status": "EDIT",
+          "uuid": "",
+        }
+      }
+      orderNumber=""
+      removeOrder={[Function]}
+    />
+  </div>
+  <br />
+  <br />
+  <br />
+  <button
+    className="cancel"
+    disabled={false}
+    onClick={[Function]}
+  >
+    Return
+  </button>
+</div>
+`;

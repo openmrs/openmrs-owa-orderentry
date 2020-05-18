@@ -110,6 +110,8 @@ describe('Component: Draft', () => {
     const submitButton = component.find('.confirm')
     submitButton.simulate('click');
     expect(props.handleSubmit).toBeCalled();
-  })
+  });
+
+  
 });
 

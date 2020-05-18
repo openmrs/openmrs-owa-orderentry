@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: LabPanelFieldSet should mount initially 1`] = `
+<fieldset
+  className="fieldset"
+>
+  <legend>
+    <FormattedMessage
+      defaultMessage="Panels"
+      description="Panels"
+      id="app.orders.panels"
+      values={Object {}}
+    />
+  </legend>
+  <div
+    className="panel-box"
+  >
+    <button
+      className="lab-tests-btn tooltip"
+      id="panel-button"
+      key="asampleduuid1234"
+      onClick={[Function]}
+      type="button"
+    >
+      <ToolTip
+        toolTipBody={
+          Array [
+            undefined,
+          ]
+        }
+        toolTipHeader="Tests included in this panel:"
+      />
+    </button>
+  </div>
+</fieldset>
+`;

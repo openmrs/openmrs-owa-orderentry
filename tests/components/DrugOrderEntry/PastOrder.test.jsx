@@ -1,7 +1,6 @@
 import React from 'react';
 import PastOrder from '../../../app/js/components/drugOrderEntry/PastOrder';
 
-const { drug, dateActivated } = mockData;
 const props = {
   dosingType: 'org.openmrs.SimpleDosingInstructions',
   drug: { display: 'new drug' },
@@ -14,7 +13,7 @@ const props = {
   dateStopped: '2018-May-20 10:59',
   autoExpireDate: '2018-May-20 10:59',
   action: '',
-  dateFormat: '',
+  dateFormat: 'YYYY-MMM-DD',
 }
 
 describe('<PastOrder />', () => {
@@ -24,22 +23,11 @@ describe('<PastOrder />', () => {
   });
 
   it('should render details', () => {
-    const props = {
+    const customProps = {
       dosingType: '',
-      drug: { display: 'new drug' },
-      doseUnits: { display: 'drops' },
-      frequency: { display: 'twice a week' },
-      route: { display: 'reactally' },
-      quantityUnits: { display: 'drops' },
-      durationUnits: { display: 'weeks' },
-      dateActivated: '2018-May-20 10:59',
-      dateStopped: '2018-May-20 10:59',
-      autoExpireDate: '2018-May-20 10:59',
-      dateFormat: '',
-      action: '',
+      ...props
     }
-
-    const wrapper = shallow(<PastOrder {...props} />);
+    const wrapper = shallow(<PastOrder {...customProps} />);
     expect(wrapper).toMatchSnapshot();
   });
 });
