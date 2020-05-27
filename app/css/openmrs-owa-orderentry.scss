@@ -39,7 +39,22 @@ body {
   .ui-tabs {
     flex-direction: row;
   }
+
+  .all-orders {
+    width: 100%;
+  }
+
+  .lab-order-entry {
+    flex-direction: row;
+    width: 65%;
+  }
+
+  .drug-order-entry {
+    flex-direction: row;
+    width: 65%;
+  }
 }
+
 
 .instructions {
   align-self: center;

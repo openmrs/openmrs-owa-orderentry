@@ -22,7 +22,7 @@ const getPreviousOrNextPageUrl = (links, action) => {
 export const AllOrders = ({
   orders: { totalCount, links }, dispatch, patient: { uuid }, backLink,
 }) => (
-  <div>
+  <div className="all-orders">
     { /*    <SortAndFilter /> */ }
     <br />
     <table className="t-orders">

@@ -310,41 +310,42 @@ export class OrderEntryPage extends PureComponent {
                 />
               }
             </div>
-            <div className="body-wrapper drug-order-entry row">
-              {this.props.currentOrderType.id === orderTypes.LAB_ORDER.id ? (
-                <div className="col-xs-12 col-lg-8">
-                  <LabEntryForm backLink={returnUrl} />
-                </div>
-              ) : this.props.currentOrderType.id ===
-                orderTypes.DRUG_ORDER.id ? (
-                <div className="col-xs-12 col-lg-8">
-                  <DrugOrderEntry
-                    outpatientCareSetting={this.props.outpatientCareSetting}
-                    inpatientCareSetting={this.props.inpatientCareSetting}
-                    location={this.props.location}
-                    backLink={returnUrl}
-                  />
-                </div>
+            <div className="body-wrapper drug-order-entry">
+              {!this.props.currentOrderType.id ? (
+                <AllOrders backLink={returnUrl} />
               ) : (
-                <div className="col-xs-12">
-                  <AllOrders backLink={returnUrl} />
-                </div>
-              )}
-              {this.props.currentOrderType.id && (
-                <div className="draft-wrapper col-xs-12 col-lg-4">
-                  <Draft
-                    handleDraftDiscard={this.props.discardTestsInDraft}
-                    draftOrders={[
-                      ...this.props.draftDrugOrders,
-                      ...this.props.draftLabOrders.orders,
-                    ]}
-                    handleSubmit={() => this.handleSubmit()}
-                    toggleDraftLabOrderUrgency={
-                      this.props.toggleDraftLabOrderUrgency
-                    }
-                    editDraftDrugOrder={this.props.editDraftDrugOrder}
-                    locale={this.props.sessionReducer.locale}
-                  />
+                <div className="row">
+                  {this.props.currentOrderType.id ===
+                  orderTypes.LAB_ORDER.id ? (
+                    <div className="col-xs-12 col-lg-8">
+                      <LabEntryForm backLink={returnUrl} />
+                    </div>
+                  ) : (
+                    /* assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id */
+                    <div className="col-xs-12 col-lg-8">
+                      <DrugOrderEntry
+                        outpatientCareSetting={this.props.outpatientCareSetting}
+                        inpatientCareSetting={this.props.inpatientCareSetting}
+                        location={this.props.location}
+                        backLink={returnUrl}
+                      />
+                    </div>
+                  )}
+                  <div className="draft-wrapper col-xs-12 col-lg-4">
+                    <Draft
+                      handleDraftDiscard={this.props.discardTestsInDraft}
+                      draftOrders={[
+                        ...this.props.draftDrugOrders,
+                        ...this.props.draftLabOrders.orders,
+                      ]}
+                      handleSubmit={() => this.handleSubmit()}
+                      toggleDraftLabOrderUrgency={
+                        this.props.toggleDraftLabOrderUrgency
+                      }
+                      editDraftDrugOrder={this.props.editDraftDrugOrder}
+                      locale={this.props.sessionReducer.locale}
+                    />
+                  </div>
                 </div>
               )}
             </div>
