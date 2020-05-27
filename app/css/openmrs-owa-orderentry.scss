@@ -39,35 +39,6 @@ body {
   .ui-tabs {
     flex-direction: row;
   }
-
-  .all-orders {
-    width: 100%;
-  }
-
-  .lab-order-entry {
-    flex-direction: row;
-    width: 65%;
-  }
-
-  .drug-order-entry {
-    flex-direction: row;
-    width: 65%;
-  }
-
-  .draft-wrapper {
-    margin-left: 2rem;
-  }
-}
-
-.app-title {
-  display: block;
-  float: right;
-  color: #eeeeee;
-  font-size: 32px;
-  margin: 4px;
-  height: 100%;
-  padding-top: 12px;
-  padding-right: 5px;
 }
 
 .instructions {
@@ -78,38 +49,8 @@ body {
   display: block;
 }
 
-.icon-color {
-  color: #007fff;
-}
-
-.draft-spacing {
-  padding-top: 1em;
-  padding-bottom: 2em;
-  background-color: #fff;
-}
-
-.hide {
-  display: none;
-}
-
 .text-align-center {
   text-align: center;
-}
-
-.fs-14-px {
-  font-size: 14px;
-}
-
-.w-18-percent {
-  width: 18%;
-}
-
-.w-10-percent {
-  width: 10%;
-}
-
-.w-44-percent {
-  width: 44%;
 }
 
 .mw-958-px {
@@ -118,18 +59,6 @@ body {
 
 .w-155-px {
   width: 155px;
-}
-
-.w-81-px {
-  width: 81px;
-}
-
-.w-120-px {
-  width: 120px;
-}
-
-.pl-39-px {
-  padding-left: 39px;
 }
 
 .action-padding {

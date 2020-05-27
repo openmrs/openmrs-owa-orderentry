@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { PatientHeader } from '@openmrs/react-components';
-import RenderOrderType from './RenderOrderType';
+import * as orderTypes from './orderTypes';
+import DrugOrderEntry from '../drugOrderEntry';
+import LabEntryForm from '../labOrderEntry/LabEntryForm';
+import AllOrders from './AllOrders';
 import SelectOrderType from './SelectOrderType';
 import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
@@ -176,23 +179,6 @@ export class OrderEntryPage extends PureComponent {
     this.props.createOrder(encounterPayload);
   };
 
-  renderDraftOrder = () => {
-    const { draftDrugOrders, draftLabOrders } = this.props;
-    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
-    return (
-      <div className="draft-wrapper">
-        <Draft
-          handleDraftDiscard={this.props.discardTestsInDraft}
-          draftOrders={allDraftOrders}
-          handleSubmit={() => this.handleSubmit()}
-          toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
-          editDraftDrugOrder={this.props.editDraftDrugOrder}
-          locale={this.props.sessionReducer.locale}
-        />
-      </div>
-    );
-  };
-
   render() {
     const query = new URLSearchParams(this.props.location.search);
     const patientUuid = !!query.get('patient');
@@ -305,32 +291,62 @@ export class OrderEntryPage extends PureComponent {
                 <h3
                   className="orders-nav"
                   onClick={() => this.switchOrderType()}
-                  role="button">
+                  role="button"
+                >
                   <b>
                     <FormattedMessage
                       id="app.orders.list"
                       defaultMessage="Orders List"
-                      description="Orders List" />
+                      description="Orders List"
+                    />
                   </b>
                 </h3>
               </div>
-              {<SelectOrderType
-                switchOrderType={this.switchOrderType}
-                currentOrderType={this.props.currentOrderType}
-                page={page}
-              />}
+              {
+                <SelectOrderType
+                  switchOrderType={this.switchOrderType}
+                  currentOrderType={this.props.currentOrderType}
+                  page={page}
+                />
+              }
             </div>
             <div className="body-wrapper drug-order-entry row">
-              <div className="col-xs-12 col-lg-8">
-              <RenderOrderType
-                backLink={returnUrl}
-                currentOrderTypeID={this.props.currentOrderType.id}
-                {...this.props}
-              />
-              </div>
-              <div className="col-xs-12 col-lg-4">
-              {this.props.currentOrderType.id && this.renderDraftOrder()}
-              </div>
+              {this.props.currentOrderType.id === orderTypes.LAB_ORDER.id ? (
+                <div className="col-xs-12 col-lg-8">
+                  <LabEntryForm backLink={returnUrl} />
+                </div>
+              ) : this.props.currentOrderType.id ===
+                orderTypes.DRUG_ORDER.id ? (
+                <div className="col-xs-12 col-lg-8">
+                  <DrugOrderEntry
+                    outpatientCareSetting={this.props.outpatientCareSetting}
+                    inpatientCareSetting={this.props.inpatientCareSetting}
+                    location={this.props.location}
+                    backLink={returnUrl}
+                  />
+                </div>
+              ) : (
+                <div className="col-xs-12">
+                  <AllOrders backLink={returnUrl} />
+                </div>
+              )}
+              {this.props.currentOrderType.id && (
+                <div className="draft-wrapper col-xs-12 col-lg-4">
+                  <Draft
+                    handleDraftDiscard={this.props.discardTestsInDraft}
+                    draftOrders={[
+                      ...this.props.draftDrugOrders,
+                      ...this.props.draftLabOrders.orders,
+                    ]}
+                    handleSubmit={() => this.handleSubmit()}
+                    toggleDraftLabOrderUrgency={
+                      this.props.toggleDraftLabOrderUrgency
+                    }
+                    editDraftDrugOrder={this.props.editDraftDrugOrder}
+                    locale={this.props.sessionReducer.locale}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -343,7 +359,8 @@ export class OrderEntryPage extends PureComponent {
               <a
                 href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide"
                 rel="noopener noreferrer"
-                target="_blank">
+                target="_blank"
+              >
                 here
               </a>
               &nbsp;for more information

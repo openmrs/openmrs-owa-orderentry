@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import OrdersTable from './OrdersTable';
-import SortAndFilter from './SortAndFilter';
 import Paginate from './Paginate';
 import fetchOrders from '../../actions/fetchOrders';
 
@@ -23,7 +22,7 @@ const getPreviousOrNextPageUrl = (links, action) => {
 export const AllOrders = ({
   orders: { totalCount, links }, dispatch, patient: { uuid }, backLink,
 }) => (
-  <div className="all-orders">
+  <div>
     { /*    <SortAndFilter /> */ }
     <br />
     <table className="t-orders">
