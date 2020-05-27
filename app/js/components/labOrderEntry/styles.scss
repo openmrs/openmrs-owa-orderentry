@@ -26,14 +26,6 @@
     border: 2px solid #009384 !important;
   }
 
-  .lab-form-wrapper{
-  display: flex
-  }
-
-  .lab-category{
-  display: inline;
-  }
-
   .lab-category > ul li a{
     width: 200px;
     display: block;
@@ -60,11 +52,6 @@
     -moz-transition: all 200ms ease-in-out;
   }
 
-  .lab-form{
-      padding: 0rem 2rem;
-      overflow: visible;
-  }
-
   .active-category{
     background: #D3D3D3 !important;
   }
@@ -89,9 +76,6 @@
   .panel-box, .tests-box{
     display: flex;
     flex-wrap: wrap;
-    &>p{
-
-    }
   }
 
   .lab-tests-btn{
@@ -133,14 +117,9 @@
 
   .draft-list-container{
     .draft-list {
-      display: block;
       background: #EBEBEB;
       padding: 0 0 0 10px;
       margin: 5px 0px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
       border-radius: 5px;
       &:hover{
         background: #D3D3D3;
@@ -148,9 +127,6 @@
         -webkit-transition: all 200ms ease-in-out;
         -moz-transition: all 200ms ease-in-out;
       }
-    }
-    .draft-name {
-
     }
   }
 

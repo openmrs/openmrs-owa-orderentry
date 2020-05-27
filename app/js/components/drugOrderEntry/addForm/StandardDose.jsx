@@ -17,7 +17,7 @@ const StandardDose = ({
   } = options;
   return (
     <div>
-      <form className="simple-form-ui">
+      <form>
         <div className="flex-row">
           <div>
             <p className="left p-margin">

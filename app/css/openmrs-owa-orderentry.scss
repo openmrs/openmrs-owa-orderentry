@@ -34,27 +34,11 @@ body {
   -khtml-border-radius: 5px;
   border-radius: 0px 0px 5px 5px;
   min-height: 500px;
-  display: flex;
-
-  .ui-tabs {
-    flex-direction: row;
-  }
 
   .all-orders {
     width: 100%;
   }
-
-  .lab-order-entry {
-    flex-direction: row;
-    width: 65%;
-  }
-
-  .drug-order-entry {
-    flex-direction: row;
-    width: 65%;
-  }
 }
-
 
 .instructions {
   align-self: center;

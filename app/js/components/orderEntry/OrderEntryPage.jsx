@@ -314,15 +314,15 @@ export class OrderEntryPage extends PureComponent {
               {!this.props.currentOrderType.id ? (
                 <AllOrders backLink={returnUrl} />
               ) : (
-                <div className="row">
+                <div className="flex-row">
                   {this.props.currentOrderType.id ===
                   orderTypes.LAB_ORDER.id ? (
-                    <div className="col-xs-12 col-lg-8">
+                    <div>
                       <LabEntryForm backLink={returnUrl} />
                     </div>
                   ) : (
                     /* assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id */
-                    <div className="col-xs-12 col-lg-8">
+                    <div>
                       <DrugOrderEntry
                         outpatientCareSetting={this.props.outpatientCareSetting}
                         inpatientCareSetting={this.props.inpatientCareSetting}
@@ -331,7 +331,7 @@ export class OrderEntryPage extends PureComponent {
                       />
                     </div>
                   )}
-                  <div className="draft-wrapper col-xs-12 col-lg-4">
+                  <div>
                     <Draft
                       handleDraftDiscard={this.props.discardTestsInDraft}
                       draftOrders={[

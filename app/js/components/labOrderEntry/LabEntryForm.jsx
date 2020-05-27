@@ -185,7 +185,7 @@ export class LabEntryForm extends PureComponent {
                   description="New Lab Order" />
               </h5>
               <br />
-              <div className="lab-form-wrapper row">
+              <div className="lab-form-wrapper">
                 <div className="lab-category col-xs-12 col-md-6 col-lg-4">
                   <ul>
                     {orderables.map(orderable => (
@@ -201,8 +201,8 @@ export class LabEntryForm extends PureComponent {
                     ))}
                   </ul>
                 </div>
-                <div className="order-form-wrapper">
-                  <form className="lab-form simple-form-ui">{this.showFieldSet()}</form>
+                <div className="order-form-wrapper col-xs-12 col-md-6 col-lg-4">
+                  <form>{this.showFieldSet()}</form>
                 </div>
               </div>
               <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
