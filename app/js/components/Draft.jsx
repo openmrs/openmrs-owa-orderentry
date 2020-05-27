@@ -61,7 +61,7 @@ export class Draft extends PureComponent {
               <IconButton
                 iconClass="icon-remove"
                 iconTitle="Discard"
-                id="draft-discard-btn"
+                className="btn-danger"
                 dataContext={{ order, draftType }}
                 onClick={handleDraftDiscard}
               />

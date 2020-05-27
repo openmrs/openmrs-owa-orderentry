@@ -44,9 +44,18 @@ body {
     width: 100%;
   }
 
+  .lab-order-entry {
+    flex-direction: row;
+    width: 65%;
+  }
+
   .drug-order-entry {
     flex-direction: row;
     width: 65%;
+  }
+
+  .draft-wrapper {
+    margin-left: 2rem;
   }
 }
 
@@ -71,6 +80,12 @@ body {
 
 .icon-color {
   color: #007fff;
+}
+
+.draft-spacing {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  background-color: #fff;
 }
 
 .hide {

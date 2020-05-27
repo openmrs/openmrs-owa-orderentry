@@ -185,8 +185,8 @@ export class LabEntryForm extends PureComponent {
                   description="New Lab Order" />
               </h5>
               <br />
-              <div className="lab-form-wrapper">
-                <div className="lab-category">
+              <div className="lab-form-wrapper row">
+                <div className="lab-category col-xs-12 col-md-6 col-lg-4">
                   <ul>
                     {orderables.map(orderable => (
                       <li key={`new-lab-order-orderable-${orderable.uuid}`}>

@@ -292,7 +292,7 @@ export class OrderEntryPage extends PureComponent {
     }
 
     return (
-      <div className="order-entry-page">
+      <div className="order-entry-page container">
         {this.props.patient ? (
           <div>
             <PatientHeader
@@ -320,13 +320,17 @@ export class OrderEntryPage extends PureComponent {
                 page={page}
               />}
             </div>
-            <div className="body-wrapper drug-order-entry">
+            <div className="body-wrapper drug-order-entry row">
+              <div className="col-xs-12 col-lg-8">
               <RenderOrderType
                 backLink={returnUrl}
                 currentOrderTypeID={this.props.currentOrderType.id}
                 {...this.props}
               />
+              </div>
+              <div className="col-xs-12 col-lg-4">
               {this.props.currentOrderType.id && this.renderDraftOrder()}
+              </div>
             </div>
           </div>
         ) : (
