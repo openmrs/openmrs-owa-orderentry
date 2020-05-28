@@ -355,7 +355,7 @@ export class OrderEntryPage extends PureComponent {
                           this.props.draftLabOrders.orders.length >
                         0
                       }
-                      onClick={() => window.location.assign(backLink)}
+                      onClick={() => window.location.assign(returnUrl)}
                     >
                       Return
                     </button>
