@@ -188,7 +188,7 @@ export class LabEntryForm extends PureComponent {
                   ))}
                 </ul>
               </div>
-              <div className="col-12 col-sm-8 col-md-7">
+              <div className="col-12 col-sm-8 col-md-7 lab-selection-form">
                 <form>
                   <LabPanelFieldSet
                     labCategoryName={this.state.categoryName}
