@@ -165,7 +165,7 @@ export class LabEntryForm extends PureComponent {
             <div className="row">
               <div className="col-12 col-sm-4 col-md-5 lab-category">
                 <ul>
-                  {orderables.map((orderable) => (
+                  {orderables.map(orderable => (
                     <li key={`new-lab-order-orderable-${orderable.uuid}`}>
                       <a
                         className={
@@ -181,7 +181,7 @@ export class LabEntryForm extends PureComponent {
                       >
                         {getConceptShortName(
                           orderable,
-                          this.props.sessionReducer.locale
+                          this.props.sessionReducer.locale,
                         )}
                       </a>
                     </li>
@@ -223,7 +223,7 @@ export const mapStateToProps = ({
       selectedLabPanels,
       defaultTests,
       selectedTests,
-    }
+    },
   },
   labConceptsReducer: {
     conceptsAsPanels,

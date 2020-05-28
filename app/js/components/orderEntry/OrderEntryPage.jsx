@@ -414,9 +414,6 @@ OrderEntryPage.propTypes = {
     uuid: PropTypes.string,
     display: PropTypes.string,
   }),
-  labOrderableReducer: PropTypes.shape({
-    orderables: PropTypes.arrayOf(PropTypes.object),
-  }),
   settingEncounterTypeReducer: PropTypes.shape({
     error: PropTypes.string,
     isLoading: PropTypes.bool,
@@ -436,17 +433,6 @@ OrderEntryPage.propTypes = {
   }).isRequired,
   encounterRole: PropTypes.shape({
     uuid: PropTypes.string,
-  }),
-  conceptsAsPanels: PropTypes.array,
-  standAloneTests: PropTypes.array,
-  session: PropTypes.shape({
-    currentProvider: PropTypes.shape({
-      person: PropTypes.shape({
-        uuid: PropTypes.string,
-      }),
-      uuid: PropTypes.string,
-    }),
-    currentLocation: PropTypes.object,
   }),
   note: PropTypes.arrayOf(PropTypes.any).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
@@ -474,10 +460,6 @@ OrderEntryPage.propTypes = {
 OrderEntryPage.defaultProps = {
   configurations: {},
   outpatientCareSetting: null,
-  labOrderableReducer: {
-    error: false,
-    orderables: [],
-  },
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
@@ -488,15 +470,6 @@ OrderEntryPage.defaultProps = {
   patient: null,
   inpatientCareSetting: {
     uuid: '',
-  },
-  conceptsAsPanels: [],
-  standAloneTests: [],
-  session: {
-    currentProvider: {
-      person: {
-        uuid: '',
-      },
-    },
   },
 };
 
@@ -515,7 +488,6 @@ const mapStateToProps = ({
   openmrs: { session },
   openmrs: { metadata },
   createOrderReducer,
-  labOrderableReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -532,7 +504,6 @@ const mapStateToProps = ({
   sessionReducer: session,
   globalProperties: metadata.globalProperties,
   configurations,
-  labOrderableReducer,
   createOrderReducer,
 });
 
