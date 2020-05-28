@@ -2,9 +2,7 @@
 
 exports[`Test for Free text form should render component 1`] = `
 <div>
-  <form
-    className="simple-form-ui"
-  >
+  <form>
     <div
       className="flex-row"
     >

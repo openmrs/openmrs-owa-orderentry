@@ -65,9 +65,7 @@ exports[`Component: Draft should render on initial setup 1`] = `
   locale="en"
   toggleDraftLabOrderUrgency={[MockFunction]}
 >
-  <div
-    className="draft-spacing draft-lab-layout"
-  >
+  <div>
     <h5
       className="h5-draft-header"
     >
