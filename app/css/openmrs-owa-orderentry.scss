@@ -40,6 +40,22 @@ body {
   }
 }
 
+/* Layout */
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 20px;
+}
+
+@media (min-width: 992px) {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+/* End layout */
+
 .instructions {
   align-self: center;
 }

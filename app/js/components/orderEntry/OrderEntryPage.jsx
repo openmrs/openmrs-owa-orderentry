@@ -278,7 +278,7 @@ export class OrderEntryPage extends PureComponent {
     }
 
     return (
-      <div className="order-entry-page container">
+      <div className="order-entry-page">
         {this.props.patient ? (
           <div>
             <PatientHeader
@@ -314,15 +314,15 @@ export class OrderEntryPage extends PureComponent {
               {!this.props.currentOrderType.id ? (
                 <AllOrders backLink={returnUrl} />
               ) : (
-                <div className="flex-row">
+                <div className="row">
                   {this.props.currentOrderType.id ===
                   orderTypes.LAB_ORDER.id ? (
-                    <div>
+                    <div className="col-md-8">
                       <LabEntryForm backLink={returnUrl} />
                     </div>
                   ) : (
                     /* assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id */
-                    <div>
+                    <div className="col-md-8">
                       <DrugOrderEntry
                         outpatientCareSetting={this.props.outpatientCareSetting}
                         inpatientCareSetting={this.props.inpatientCareSetting}
@@ -331,7 +331,7 @@ export class OrderEntryPage extends PureComponent {
                       />
                     </div>
                   )}
-                  <div>
+                  <div className="col-md-4 draft-wrapper">
                     <Draft
                       handleDraftDiscard={this.props.discardTestsInDraft}
                       draftOrders={[
