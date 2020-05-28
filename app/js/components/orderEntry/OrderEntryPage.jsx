@@ -180,9 +180,6 @@ export class OrderEntryPage extends PureComponent {
   };
 
   render() {
-    const query = new URLSearchParams(this.props.location.search);
-    const patientUuid = !!query.get('patient');
-
     const {
       settingEncounterRoleReducer,
       settingEncounterTypeReducer,
@@ -314,37 +311,54 @@ export class OrderEntryPage extends PureComponent {
               {!this.props.currentOrderType.id ? (
                 <AllOrders backLink={returnUrl} />
               ) : (
-                <div className="row">
-                  {this.props.currentOrderType.id ===
-                  orderTypes.LAB_ORDER.id ? (
-                    <div className="col-md-8">
-                      <LabEntryForm backLink={returnUrl} />
-                    </div>
-                  ) : (
-                    /* assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id */
-                    <div className="col-md-8">
-                      <DrugOrderEntry
-                        outpatientCareSetting={this.props.outpatientCareSetting}
-                        inpatientCareSetting={this.props.inpatientCareSetting}
-                        location={this.props.location}
-                        backLink={returnUrl}
+                <div>
+                  <div className="row">
+                    {this.props.currentOrderType.id ===
+                    orderTypes.LAB_ORDER.id ? (
+                      <div className="col-12 col-md-8">
+                        <LabEntryForm />
+                      </div>
+                    ) : (
+                      // assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id
+                      <div className="col-12 col-md-8">
+                        <DrugOrderEntry
+                          outpatientCareSetting={
+                            this.props.outpatientCareSetting
+                          }
+                          inpatientCareSetting={this.props.inpatientCareSetting}
+                          location={this.props.location}
+                          backLink={returnUrl}
+                        />
+                      </div>
+                    )}
+                    <div className="col-6 col-md-4 draft-wrapper">
+                      <Draft
+                        handleDraftDiscard={this.props.discardTestsInDraft}
+                        draftOrders={[
+                          ...this.props.draftDrugOrders,
+                          ...this.props.draftLabOrders.orders,
+                        ]}
+                        handleSubmit={() => this.handleSubmit()}
+                        toggleDraftLabOrderUrgency={
+                          this.props.toggleDraftLabOrderUrgency
+                        }
+                        editDraftDrugOrder={this.props.editDraftDrugOrder}
+                        locale={this.props.sessionReducer.locale}
                       />
                     </div>
-                  )}
-                  <div className="col-md-4 draft-wrapper">
-                    <Draft
-                      handleDraftDiscard={this.props.discardTestsInDraft}
-                      draftOrders={[
-                        ...this.props.draftDrugOrders,
-                        ...this.props.draftLabOrders.orders,
-                      ]}
-                      handleSubmit={() => this.handleSubmit()}
-                      toggleDraftLabOrderUrgency={
-                        this.props.toggleDraftLabOrderUrgency
+                  </div>
+                  <div style={{ marginTop: "20px" }}>
+                    <button
+                      className="cancel"
+                      disabled={
+                        this.props.draftDrugOrders.length +
+                          this.props.draftLabOrders.orders.length >
+                        0
                       }
-                      editDraftDrugOrder={this.props.editDraftDrugOrder}
-                      locale={this.props.sessionReducer.locale}
-                    />
+                      onClick={() => window.location.assign(backLink)}
+                    >
+                      Return
+                    </button>
                   </div>
                 </div>
               )}

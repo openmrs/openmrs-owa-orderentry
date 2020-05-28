@@ -47,9 +47,19 @@ body {
   grid-gap: 20px;
 }
 
-@media (min-width: 992px) {
-  @for $i from 1 through 12 {
-    .col-md-#{$i} {
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    grid-column: span $i;
+  }
+
+  @media (min-width: 768px) {
+    .col-sm-#{$i}.col-sm-#{$i} {  // specificity x2
+      grid-column: span $i;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .col-md-#{$i}.col-md-#{$i}.col-md-#{$i} {  // specificity x3
       grid-column: span $i;
     }
   }

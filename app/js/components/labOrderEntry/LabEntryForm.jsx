@@ -28,7 +28,6 @@ export class LabEntryForm extends PureComponent {
       labOrderData: PropTypes.object,
     }),
     draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
-    draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
     defaultTests: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedTests: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -40,7 +39,6 @@ export class LabEntryForm extends PureComponent {
     standAloneTests: PropTypes.array,
     orderables: PropTypes.arrayOf(PropTypes.object).isRequired,
     getLabOrderables: PropTypes.string.isRequired,
-    backLink: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -140,25 +138,6 @@ export class LabEntryForm extends PureComponent {
     return dispatch(deleteDraftLabOrder());
   }
 
-  showFieldSet = () => (
-    <div>
-      <LabPanelFieldSet
-        labCategoryName={this.state.categoryName}
-        handleTestSelection={this.handleTestSelection}
-        panels={this.props.conceptsAsPanels}
-        selectedPanelIds={this.state.selectedPanelIds}
-        locale={this.props.sessionReducer.locale}
-      />
-      <LabTestFieldSet
-        labCategoryName={this.state.categoryName}
-        handleTestSelection={this.handleTestSelection}
-        selectedTests={this.props.selectedTests}
-        tests={this.props.standAloneTests}
-        locale={this.props.sessionReducer.locale}
-      />
-    </div>
-  );
-
   changeLabForm = (id, name) => {
     this.setState({
       categoryUUID: id,
@@ -168,48 +147,70 @@ export class LabEntryForm extends PureComponent {
 
   render() {
     const {
-      handleCancel, handleSubmit, renderPendingOrders, renderPastOrders,
-      props: { orderables, getLabOrderables, backLink },
-    } = this;
-    const { draftDrugOrders, draftLabOrders } = this.props;
-    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders].length;
+      orderables,
+      getLabOrderables,
+    } = this.props;
     return (
       <React.Fragment>
-        {
-          getLabOrderables ?
-            <div className="lab-order-entry">
-              <h5>
-                <FormattedMessage
-                  id="app.orders.new"
-                  defaultMessage="New Lab Order"
-                  description="New Lab Order" />
-              </h5>
-              <br />
-              <div className="row">
-                <div className="col-md-5 lab-category">
-                  <ul>
-                    {orderables.map(orderable => (
-                      <li key={`new-lab-order-orderable-${orderable.uuid}`}>
-                        <a
-                          className={this.state.categoryUUID === orderable.uuid ? 'active-category' : ''}
-                          href="#"
-                          id="category-button"
-                          onClick={() => this.changeLabForm(orderable.uuid, orderable.display)}>
-                          { getConceptShortName(orderable, this.props.sessionReducer.locale) }
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="col-md-7">
-                  <form>{this.showFieldSet()}</form>
-                </div>
+        {getLabOrderables ? (
+          <div className="lab-order-entry">
+            <h5>
+              <FormattedMessage
+                id="app.orders.new"
+                defaultMessage="New Lab Order"
+                description="New Lab Order"
+              />
+            </h5>
+            <br />
+            <div className="row">
+              <div className="col-12 col-sm-4 col-md-5 lab-category">
+                <ul>
+                  {orderables.map((orderable) => (
+                    <li key={`new-lab-order-orderable-${orderable.uuid}`}>
+                      <a
+                        className={
+                          this.state.categoryUUID === orderable.uuid
+                            ? "active-category"
+                            : ""
+                        }
+                        href="#"
+                        id="category-button"
+                        onClick={() =>
+                          this.changeLabForm(orderable.uuid, orderable.display)
+                        }
+                      >
+                        {getConceptShortName(
+                          orderable,
+                          this.props.sessionReducer.locale
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
+              <div className="col-12 col-sm-8 col-md-7">
+                <form>
+                  <LabPanelFieldSet
+                    labCategoryName={this.state.categoryName}
+                    handleTestSelection={this.handleTestSelection}
+                    panels={this.props.conceptsAsPanels}
+                    selectedPanelIds={this.state.selectedPanelIds}
+                    locale={this.props.sessionReducer.locale}
+                  />
+                  <LabTestFieldSet
+                    labCategoryName={this.state.categoryName}
+                    handleTestSelection={this.handleTestSelection}
+                    selectedTests={this.props.selectedTests}
+                    tests={this.props.standAloneTests}
+                    locale={this.props.sessionReducer.locale}
+                  />
+                </form>
+              </div>
             </div>
-            :
-            <p>No Lab Orderables was found</p>
-        }
+          </div>
+        ) : (
+          <p>No Lab Orderables was found</p>
+        )}
       </React.Fragment>
     );
   }
@@ -222,8 +223,7 @@ export const mapStateToProps = ({
       selectedLabPanels,
       defaultTests,
       selectedTests,
-    },
-    draftDrugOrders,
+    }
   },
   labConceptsReducer: {
     conceptsAsPanels,
@@ -238,7 +238,6 @@ export const mapStateToProps = ({
   openmrs: { session },
 }) => ({
   draftLabOrders: orders,
-  draftDrugOrders,
   conceptsAsPanels,
   standAloneTests,
   selectedLabPanels,
