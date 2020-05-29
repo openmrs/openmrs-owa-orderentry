@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { PatientHeader } from '@openmrs/react-components';
-import RenderOrderType from './RenderOrderType';
+import * as orderTypes from './orderTypes';
+import DrugOrderEntry from '../drugOrderEntry';
+import LabEntryForm from '../labOrderEntry/LabEntryForm';
+import AllOrders from './AllOrders';
 import SelectOrderType from './SelectOrderType';
 import Draft from '../Draft';
 import fetchPatientCareSetting from '../../actions/careSetting';
@@ -176,27 +179,7 @@ export class OrderEntryPage extends PureComponent {
     this.props.createOrder(encounterPayload);
   };
 
-  renderDraftOrder = () => {
-    const { draftDrugOrders, draftLabOrders } = this.props;
-    const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
-    return (
-      <div className="draft-wrapper">
-        <Draft
-          handleDraftDiscard={this.props.discardTestsInDraft}
-          draftOrders={allDraftOrders}
-          handleSubmit={() => this.handleSubmit()}
-          toggleDraftLabOrderUrgency={this.props.toggleDraftLabOrderUrgency}
-          editDraftDrugOrder={this.props.editDraftDrugOrder}
-          locale={this.props.sessionReducer.locale}
-        />
-      </div>
-    );
-  };
-
   render() {
-    const query = new URLSearchParams(this.props.location.search);
-    const patientUuid = !!query.get('patient');
-
     const {
       settingEncounterRoleReducer,
       settingEncounterTypeReducer,
@@ -305,28 +288,80 @@ export class OrderEntryPage extends PureComponent {
                 <h3
                   className="orders-nav"
                   onClick={() => this.switchOrderType()}
-                  role="button">
+                  role="button"
+                >
                   <b>
                     <FormattedMessage
                       id="app.orders.list"
                       defaultMessage="Orders List"
-                      description="Orders List" />
+                      description="Orders List"
+                    />
                   </b>
                 </h3>
               </div>
-              {<SelectOrderType
-                switchOrderType={this.switchOrderType}
-                currentOrderType={this.props.currentOrderType}
-                page={page}
-              />}
+              {
+                <SelectOrderType
+                  switchOrderType={this.switchOrderType}
+                  currentOrderType={this.props.currentOrderType}
+                  page={page}
+                />
+              }
             </div>
             <div className="body-wrapper drug-order-entry">
-              <RenderOrderType
-                backLink={returnUrl}
-                currentOrderTypeID={this.props.currentOrderType.id}
-                {...this.props}
-              />
-              {this.props.currentOrderType.id && this.renderDraftOrder()}
+              {!this.props.currentOrderType.id ? (
+                <AllOrders backLink={returnUrl} />
+              ) : (
+                <div>
+                  <div className="row">
+                    {this.props.currentOrderType.id ===
+                    orderTypes.LAB_ORDER.id ? (
+                      <div className="col-12 col-md-8">
+                        <LabEntryForm />
+                      </div>
+                    ) : (
+                      // assume this.props.currentOrderType.id === orderTypes.DRUG_ORDER.id
+                      <div className="col-12 col-md-8">
+                        <DrugOrderEntry
+                          outpatientCareSetting={
+                            this.props.outpatientCareSetting
+                          }
+                          inpatientCareSetting={this.props.inpatientCareSetting}
+                          location={this.props.location}
+                          backLink={returnUrl}
+                        />
+                      </div>
+                    )}
+                    <div className="col-6 col-md-4 draft-wrapper">
+                      <Draft
+                        handleDraftDiscard={this.props.discardTestsInDraft}
+                        draftOrders={[
+                          ...this.props.draftDrugOrders,
+                          ...this.props.draftLabOrders.orders,
+                        ]}
+                        handleSubmit={() => this.handleSubmit()}
+                        toggleDraftLabOrderUrgency={
+                          this.props.toggleDraftLabOrderUrgency
+                        }
+                        editDraftDrugOrder={this.props.editDraftDrugOrder}
+                        locale={this.props.sessionReducer.locale}
+                      />
+                    </div>
+                  </div>
+                  <div style={{ marginTop: "20px" }}>
+                    <button
+                      className="cancel"
+                      disabled={
+                        this.props.draftDrugOrders.length +
+                          this.props.draftLabOrders.orders.length >
+                        0
+                      }
+                      onClick={() => window.location.assign(returnUrl)}
+                    >
+                      Return
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -339,7 +374,8 @@ export class OrderEntryPage extends PureComponent {
               <a
                 href="https://wiki.openmrs.org/display/projects/Order+Entry+UI+End+User+Guide"
                 rel="noopener noreferrer"
-                target="_blank">
+                target="_blank"
+              >
                 here
               </a>
               &nbsp;for more information
@@ -378,9 +414,6 @@ OrderEntryPage.propTypes = {
     uuid: PropTypes.string,
     display: PropTypes.string,
   }),
-  labOrderableReducer: PropTypes.shape({
-    orderables: PropTypes.arrayOf(PropTypes.object),
-  }),
   settingEncounterTypeReducer: PropTypes.shape({
     error: PropTypes.string,
     isLoading: PropTypes.bool,
@@ -400,17 +433,6 @@ OrderEntryPage.propTypes = {
   }).isRequired,
   encounterRole: PropTypes.shape({
     uuid: PropTypes.string,
-  }),
-  conceptsAsPanels: PropTypes.array,
-  standAloneTests: PropTypes.array,
-  session: PropTypes.shape({
-    currentProvider: PropTypes.shape({
-      person: PropTypes.shape({
-        uuid: PropTypes.string,
-      }),
-      uuid: PropTypes.string,
-    }),
-    currentLocation: PropTypes.object,
   }),
   note: PropTypes.arrayOf(PropTypes.any).isRequired,
   getSettingEncounterType: PropTypes.func.isRequired,
@@ -438,10 +460,6 @@ OrderEntryPage.propTypes = {
 OrderEntryPage.defaultProps = {
   configurations: {},
   outpatientCareSetting: null,
-  labOrderableReducer: {
-    error: false,
-    orderables: [],
-  },
   settingEncounterRoleReducer: null,
   settingEncounterTypeReducer: null,
   dateFormatReducer: null,
@@ -452,15 +470,6 @@ OrderEntryPage.defaultProps = {
   patient: null,
   inpatientCareSetting: {
     uuid: '',
-  },
-  conceptsAsPanels: [],
-  standAloneTests: [],
-  session: {
-    currentProvider: {
-      person: {
-        uuid: '',
-      },
-    },
   },
 };
 
@@ -479,7 +488,6 @@ const mapStateToProps = ({
   openmrs: { session },
   openmrs: { metadata },
   createOrderReducer,
-  labOrderableReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -496,7 +504,6 @@ const mapStateToProps = ({
   sessionReducer: session,
   globalProperties: metadata.globalProperties,
   configurations,
-  labOrderableReducer,
   createOrderReducer,
 });
 

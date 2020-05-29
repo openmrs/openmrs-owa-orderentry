@@ -221,10 +221,10 @@ exports[`Component: LabEntryForm should render on initial setup 1`] = `
     </h5>
     <br />
     <div
-      className="lab-form-wrapper"
+      className="row"
     >
       <div
-        className="lab-category"
+        className="col-12 col-sm-4 col-md-5 lab-category"
       >
         <ul>
           <li
@@ -260,98 +260,87 @@ exports[`Component: LabEntryForm should render on initial setup 1`] = `
         </ul>
       </div>
       <div
-        className="order-form-wrapper"
+        className="col-12 col-sm-8 col-md-7 lab-selection-form"
       >
-        <form
-          className="lab-form simple-form-ui"
-        >
-          <div>
-            <LabPanelFieldSet
-              handleTestSelection={[Function]}
-              locale="en"
-              panels={Array []}
-              selectedPanelIds={Array []}
+        <form>
+          <LabPanelFieldSet
+            handleTestSelection={[Function]}
+            locale="en"
+            panels={Array []}
+            selectedPanelIds={Array []}
+          >
+            <fieldset
+              className="fieldset"
             >
-              <fieldset
-                className="fieldset"
-              >
-                <legend>
-                  <FormattedMessage
-                    defaultMessage="Panels"
-                    description="Panels"
-                    id="app.orders.panels"
-                    values={Object {}}
-                  >
-                    <span>
-                      Panels
-                    </span>
-                  </FormattedMessage>
-                </legend>
-                <div
-                  className="panel-box"
+              <legend>
+                <FormattedMessage
+                  defaultMessage="Panels"
+                  description="Panels"
+                  id="app.orders.panels"
+                  values={Object {}}
                 >
-                  <p>
-                     has no panels
-                  </p>
-                </div>
-              </fieldset>
-            </LabPanelFieldSet>
-            <LabTestFieldSet
-              handleTestSelection={[Function]}
-              locale="en"
-              selectedTests={
-                Array [
-                  Object {
-                    "display": "Hemoglobin",
-                    "uuid": "12746hfgjff",
-                  },
-                  Object {
-                    "display": "Hematocrit",
-                    "uuid": "12746hfgjff",
-                  },
-                  Object {
-                    "display": "blood",
-                    "uuid": "12746hfgjff",
-                  },
-                ]
-              }
-              tests={Array []}
+                  <span>
+                    Panels
+                  </span>
+                </FormattedMessage>
+              </legend>
+              <div
+                className="panel-box"
+              >
+                <p>
+                   has no panels
+                </p>
+              </div>
+            </fieldset>
+          </LabPanelFieldSet>
+          <LabTestFieldSet
+            handleTestSelection={[Function]}
+            locale="en"
+            selectedTests={
+              Array [
+                Object {
+                  "display": "Hemoglobin",
+                  "uuid": "12746hfgjff",
+                },
+                Object {
+                  "display": "Hematocrit",
+                  "uuid": "12746hfgjff",
+                },
+                Object {
+                  "display": "blood",
+                  "uuid": "12746hfgjff",
+                },
+              ]
+            }
+            tests={Array []}
+          >
+            <fieldset
+              className="fieldset"
             >
-              <fieldset
-                className="fieldset"
-              >
-                <legend>
-                  <FormattedMessage
-                    defaultMessage="Tests"
-                    description="Tests"
-                    id="app.orders.tests"
-                    values={Object {}}
-                  >
-                    <span>
-                      Tests
-                    </span>
-                  </FormattedMessage>
-                </legend>
-                <div
-                  className="tests-box"
+              <legend>
+                <FormattedMessage
+                  defaultMessage="Tests"
+                  description="Tests"
+                  id="app.orders.tests"
+                  values={Object {}}
                 >
-                  <p>
-                     has no Standalone Tests
-                  </p>
-                </div>
-              </fieldset>
-            </LabTestFieldSet>
-          </div>
+                  <span>
+                    Tests
+                  </span>
+                </FormattedMessage>
+              </legend>
+              <div
+                className="tests-box"
+              >
+                <p>
+                   has no Standalone Tests
+                </p>
+              </div>
+            </fieldset>
+          </LabTestFieldSet>
         </form>
       </div>
     </div>
-    <button
-      className="cancel"
-      disabled={true}
-      onClick={[Function]}
-    >
-      Return
-    </button>
   </div>
 </LabEntryForm>
 `;

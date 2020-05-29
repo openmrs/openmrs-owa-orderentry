@@ -80,7 +80,7 @@ export class Draft extends PureComponent {
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
     const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
     return (
-      <div className="draft-spacing draft-lab-layout">
+      <div>
         <h5 className="h5-draft-header">
           <FormattedMessage
             id="app.orders.unsaved.draft"

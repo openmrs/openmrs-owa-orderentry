@@ -7,6 +7,10 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 
+.lab-selection-form form {
+  overflow: visible;  // this allows the tooltip to pop out
+}
+
 .lab-order-entry {
   .button:hover,
   button:hover,
@@ -24,14 +28,6 @@
 
   .active {
     border: 2px solid #009384 !important;
-  }
-
-  .lab-form-wrapper{
-  display: flex
-  }
-
-  .lab-category{
-  display: inline;
   }
 
   .lab-category > ul li a{
@@ -60,11 +56,6 @@
     -moz-transition: all 200ms ease-in-out;
   }
 
-  .lab-form{
-      padding: 0rem 2rem;
-      overflow: visible;
-  }
-
   .active-category{
     background: #D3D3D3 !important;
   }
@@ -81,17 +72,13 @@
     border-right: 10px solid #FFF;
   }
 
-  .fieldset{
-    margin-bottom: 10px;
-    min-width: 92%;
+  .fieldset {
+    width: 85%;
   }
 
   .panel-box, .tests-box{
     display: flex;
     flex-wrap: wrap;
-    &>p{
-
-    }
   }
 
   .lab-tests-btn{
@@ -133,14 +120,9 @@
 
   .draft-list-container{
     .draft-list {
-      display: block;
       background: #EBEBEB;
       padding: 0 0 0 10px;
       margin: 5px 0px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
       border-radius: 5px;
       &:hover{
         background: #D3D3D3;
@@ -148,9 +130,6 @@
         -webkit-transition: all 200ms ease-in-out;
         -moz-transition: all 200ms ease-in-out;
       }
-    }
-    .draft-name {
-
     }
   }
 

@@ -14,7 +14,7 @@ const FreeText = ({
   const { drugInstructions, dispensingQuantity, dispensingUnit } = fields;
   return (
     <div>
-      <form className="simple-form-ui">
+      <form>
         <div className="flex-row">
           <div>
             <label name="notes">Complete Instructions</label>
