@@ -179,7 +179,11 @@ Before using the Order Entry Open Web Application, the administrator should make
 
 ## Releasing
 
-In order to release, set a new version in `package.json`, `bintray.json` and `app/manifest.webapp`. Once you commit, push changes to github, and confirm the Travis tests pass, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
+In order to release, set the new version number in package.json, bintray.json (also set other version information here like release date and vcs_tag) and app/manifest.webapp. Once you commit, push changes to github, and confirm the Travis tests pass, go to https://github.com/openmrs/openmrs-owa-orderentry/releases and create a new release named after the version you want to release. Travis CI should pick up a newly created tag and deploy the release to Bintray at https://bintray.com/openmrs/owa/openmrs-owa-orderentry
+
+A key thing to note is that when releasing, Travis CI will build the project using the version of react-components specified in the package.json, while the PIH staging build always uses the latest head of react-components when building and deploying order entry. Therefore, if changes have been made to react-components since the last ordery entry release, you will likely want to release react-components (see react-components README for details) and upgrade the version number in the Order Entry package.json before releaseing Lab Workflow or you may inadvertently release Order Entry with an earlier verison of React Components than you have been testing against.
+
+
 
 ## License
 
