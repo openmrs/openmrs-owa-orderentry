@@ -5,7 +5,8 @@ import IconButton from '../button/IconButton';
 
 // encapsulates our logic as to whether or not a order is cancellable or editable
 // in the future we will likely want to tweak these and/or make them more configurable
-const isCancellable = (order) => {
+// export just for testing
+export const isCancellable = (order) => {
   const orderTypeName = order && order.orderType && order.orderType.name;
   return orderTypeName === "Drug Order" ||
   (orderTypeName === "Test Order" &&
@@ -13,7 +14,7 @@ const isCancellable = (order) => {
       !["IN_PROGRESS", "COMPLETED"].includes(order.fulfillerStatus)));
     }
 
-const isEditable = order => order && order.orderType && order.orderType.name === 'Drug Order';
+export const isEditable = order => order && order.orderType && order.orderType.name === 'Drug Order';
 
 const OrderHeader = ({
   intl,
