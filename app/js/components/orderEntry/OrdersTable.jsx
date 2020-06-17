@@ -266,29 +266,19 @@ OrdersTable.propTypes = {
   }),
 };
 
-const mapStateToProps = ({
-  fetchOrdersReducer: { filteredOrders, status },
-  patientReducer: { patient },
-  openmrs: { session },
-  encounterReducer: { encounterType },
-  encounterRoleReducer: { encounterRole },
-  dateFormatReducer: { dateFormat },
-  orderEntryConfigurations,
-  careSettingReducer:
-  { outpatientCareSetting, inpatientCareSetting },
-}) => ({
-  filteredOrders,
-  patient,
-  status,
-  dateFormat,
-  careSetting: outpatientCareSetting,
-  outpatientCareSetting,
-  inpatientCareSetting,
-  sessionReducer: session,
-  encounterRole,
-  encounterType,
-  allConfigurations: ((orderEntryConfigurations || {}).configurations || {}),
-  session,
+const mapStateToProps = (state) => ({
+  allConfigurations: ((state.orderEntryConfigurations || {}).configurations || {}),
+  careSetting: state.careSettingReducer.outpatientCareSetting,
+  dateFormat:  state.dateFormatReducer.dateFormat,
+  encounterRole: state.encounterRoleReducer.encounterRole,
+  encounterType: state.encounterReducer.encounterType,
+  filteredOrders: state.fetchOrdersReducer.filteredOrders,
+  inpatientCareSetting: state.careSettingReducer.inpatientCareSetting,
+  outpatientCareSetting: state.careSettingReducer.outpatientCareSetting,
+  patient: state.patientReducer.patient,
+  session: state.openmrs.session,
+  sessionReducer: state.openmrs.session,
+  status: state.fetchOrdersReducer.status,
 });
 
 export default connect(mapStateToProps)(injectIntl(OrdersTable));

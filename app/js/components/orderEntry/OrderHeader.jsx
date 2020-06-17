@@ -2,7 +2,18 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import IconButton from '../button/IconButton';
-import { isCancellable, isEditable } from "../../utils/helpers";
+
+// encapsulates our logic as to whether or not a order is cancellable or editable
+// in the future we will likely want to tweak these and/or make them more configurable
+const isCancellable = (order) => {
+  const orderTypeName = order && order.orderType && order.orderType.name;
+  return orderTypeName === "Drug Order" ||
+  (orderTypeName === "Test Order" &&
+    (!order.fulfillerStatus ||
+      !["IN_PROGRESS", "COMPLETED"].includes(order.fulfillerStatus)));
+    }
+
+const isEditable = order => order && order.orderType && order.orderType.name === 'Drug Order';
 
 const OrderHeader = ({
   intl,
