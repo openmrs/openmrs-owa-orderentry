@@ -173,12 +173,9 @@ export class SearchAndAddOrder extends React.PureComponent {
     return (
       <div className="drug-order-entry">
         <h5 className="drug-form-header">New Drug Order</h5>
+        Yo
         {this.renderSearchDrug()}
         {this.renderAddForm(outpatientCareSetting)}
-        <br />
-        <br />
-        <br />
-        <button className="cancel" disabled={!!allDraftOrders} onClick={() => window.location.assign(backLink)}>Return</button>
       </div>
     );
   }
