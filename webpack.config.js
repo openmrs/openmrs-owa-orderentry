@@ -21,6 +21,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackOnBuildPlugin = require('on-build-webpack');
+const { UnusedFilesWebpackPlugin } = require("unused-files-webpack-plugin");
 
 const autoprefixer = require('autoprefixer');
 
@@ -191,6 +192,12 @@ plugins.push(new webpack.LoaderOptionsPlugin({
       ]
     }
 }));
+
+plugins.push(
+    new UnusedFilesWebpackPlugin({
+		patterns: ["app/**/*.*"]
+	})
+);
 
 console.log('outputPath', outputPath);
 
