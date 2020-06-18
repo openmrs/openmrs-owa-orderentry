@@ -266,10 +266,10 @@ OrdersTable.propTypes = {
   }),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   allConfigurations: ((state.orderEntryConfigurations || {}).configurations || {}),
   careSetting: state.careSettingReducer.outpatientCareSetting,
-  dateFormat:  state.dateFormatReducer.dateFormat,
+  dateFormat: state.dateFormatReducer.dateFormat,
   encounterRole: state.encounterRoleReducer.encounterRole,
   encounterType: state.encounterReducer.encounterType,
   filteredOrders: state.fetchOrdersReducer.filteredOrders,

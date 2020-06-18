@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export const getConceptShortName = (concept, locale) => {
   let conceptName;
   const localeShort = locale ? (locale.split('_'))[0] : "en";
