@@ -25,16 +25,6 @@ exports[`Test for Searching and Adding an order should render component 1`] = `
       removeOrder={[Function]}
     />
   </div>
-  <br />
-  <br />
-  <br />
-  <button
-    className="cancel"
-    disabled={false}
-    onClick={[Function]}
-  >
-    Return
-  </button>
 </div>
 `;
 
@@ -64,16 +54,6 @@ Object {
         removeOrder={[Function]}
       />
     </div>
-    <br />
-    <br />
-    <br />
-    <button
-      className="cancel"
-      disabled={false}
-      onClick={[Function]}
-    >
-      Return
-    </button>
   </div>,
 }
 `;
@@ -136,15 +116,5 @@ exports[`Test for Searching and Adding an order should render component during e
       removeOrder={[Function]}
     />
   </div>
-  <br />
-  <br />
-  <br />
-  <button
-    className="cancel"
-    disabled={false}
-    onClick={[Function]}
-  >
-    Return
-  </button>
 </div>
 `;

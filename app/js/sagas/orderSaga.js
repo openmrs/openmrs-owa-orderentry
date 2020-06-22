@@ -6,10 +6,23 @@ import {
 } from 'redux-saga/effects';
 import { format, addMinutes } from 'date-fns';
 import encounterRest from '../rest/encounterRest';
-import { getDateRange } from '../utils/helpers';
 import { DISCONTINUE_ORDER } from '../actions/actionTypes';
 import { discontinueOrderSucceeded } from '../actions/createOrder';
 
+
+const dateToInt = dateStr => new Date(dateStr).getTime();
+
+const getDateRange = (
+  data,
+  from,
+  to,
+  path,
+) => data.filter((item) => {
+  if (item[path]) {
+    return (dateToInt(from) <= dateToInt(item[path])) && (dateToInt(to) >= dateToInt(item[path]));
+  }
+  return true;
+});
 
 // eslint-disable-next-line consistent-return
 function* getMatchingEncounter(order) {
@@ -102,4 +115,3 @@ function* discontinueOrder(action) {
 export default function* discontinueOrderSaga() {
   yield takeEvery(DISCONTINUE_ORDER, discontinueOrder);
 }
-
