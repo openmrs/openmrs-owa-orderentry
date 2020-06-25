@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "name": "Order Entry",
   "description": "Used for placing, revising, and discontinuing orders, as well as looking up a patient's active orders.",
   "launch_path": "index.html",
