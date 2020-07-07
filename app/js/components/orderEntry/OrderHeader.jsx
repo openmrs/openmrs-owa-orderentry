@@ -13,7 +13,7 @@ export const isCancellable = (order) => {
       !["IN_PROGRESS", "COMPLETED"].includes(order.fulfillerStatus));
     }
 
-export const isEditable = () => false;  // not working for drugs and not supported for labs
+export const isEditable = () => false; // not working for drugs and not supported for labs
 
 const OrderHeader = ({
   intl,
