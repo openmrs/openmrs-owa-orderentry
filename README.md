@@ -174,7 +174,8 @@ Before using the Order Entry Open Web Application, the administrator should make
 3. Create an Encounter Role called `Clinician` or any other name.
 4. Create a setting `orderentryowa.encounterRole` whose value should correspond to the name given to the encounter role created in 3 above.
 5. Create a date format, setting `orderentryowa.dateAndTimeFormat` as the name, with a value of the date format, e.g. `DD-MMM-YYYY HH:mm`, in the global properties
-6. Add global setting `orderentryowa.labOrderAutoExpireTimeInDays` with a value of `30` days or any other number
+6. Add global property `orderentryowa.labOrderAutoExpireTimeInDays` with a value of `30` days or any other number
+7. Add global propery Lab Orderables Concept Set `orderentryowa.abOrderablesConceptSet`, whose value is the UUID of a concept set of Class LabSet and whose Set Members are other LabSet concept sets or concept of Class Test.
 
 
 **NB:** Not having any of the above configurations will result into an error notice. Please check more information [here](https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide)
