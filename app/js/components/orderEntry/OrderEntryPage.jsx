@@ -65,7 +65,7 @@ export class OrderEntryPage extends PureComponent {
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast(orderCreatedMsg);
       // if an afterAddOrderUrl has been specified, redirect to that page
-      if (afterAddOrderUrl && labOrderData && labOrderData.orders) {
+      if (afterAddOrderUrl && labOrderData && labOrderData.orders && labOrderData.orders.length > 0) {
         // we pass in the uuid of the new order (just picking the "first" order if multiple were created)
         let url = Handlebars.compile(afterAddOrderUrl)({
           order: labOrderData.orders[0].uuid,
