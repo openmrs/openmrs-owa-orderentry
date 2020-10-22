@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import Handlebars from 'handlebars';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -35,6 +36,7 @@ export class OrderEntryPage extends PureComponent {
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
+    afterAddOrderUrl: new URLSearchParams(this.props.location.search).get('afterAddOrderUrl'),
   };
 
   componentDidMount() {
@@ -58,10 +60,21 @@ export class OrderEntryPage extends PureComponent {
     } = this.props.createOrderReducer;
 
     const { intl } = this.props;
+    const { afterAddOrderUrl } = this.state;
     const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
     if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
       successToast(orderCreatedMsg);
-      this.props.fetchLabOrders(null, this.props.patient.uuid);
+      // if an afterAddOrderUrl has been specified, redirect to that page
+      if (afterAddOrderUrl && labOrderData &&
+          labOrderData.orders && labOrderData.orders.length > 0) {
+        // we pass in the uuid of the new order (just picking the "first" order if multiple)
+        const url = Handlebars.compile(afterAddOrderUrl)({
+          order: labOrderData.orders[0].uuid,
+        });
+        window.location.assign(url);
+      } else {
+        this.props.fetchLabOrders(null, this.props.patient.uuid);
+      }
     }
     if (error) {
       errorToast(errorMessage);
