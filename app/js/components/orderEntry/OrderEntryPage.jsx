@@ -16,6 +16,7 @@ import fetchPatientCareSetting from '../../actions/careSetting';
 import { getSettingEncounterType } from '../../actions/settingEncounterType';
 import { getSettingEncounterRole } from '../../actions/settingEncounterRole';
 import { getLabOrderables } from '../../actions/labOrders/settingLabOrderableAction';
+import { setContext } from '../../actions/context';
 import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
@@ -32,7 +33,10 @@ import imageLoader from '../../../img/loading.gif';
 import createOrder from '../../actions/createOrder';
 import './styles.scss';
 
+/* eslint-disable no-nested-ternary */
+
 export class OrderEntryPage extends PureComponent {
+  // if "page" = "laborders" or "drugorders" restricts the app to lab or drug orders
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
@@ -41,6 +45,7 @@ export class OrderEntryPage extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const { page } = this.state;
     loadGlobalProperties(dispatch);
     const patientUuid = new URLSearchParams(this.props.location.search).get('patient');
     this.props.fetchPatientCareSetting();
@@ -50,6 +55,7 @@ export class OrderEntryPage extends PureComponent {
     this.props.getDateFormat('default');
     this.props.fetchPatientRecord(patientUuid);
     this.props.fetchPatientNote(patientUuid);
+    this.props.setContext(page);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -304,11 +310,26 @@ export class OrderEntryPage extends PureComponent {
                   role="button"
                 >
                   <b>
-                    <FormattedMessage
-                      id="app.orders.list"
-                      defaultMessage="Orders List"
-                      description="Orders List"
-                    />
+                    { this.props.orderType === 'laborders' ? (
+                      <FormattedMessage
+                        id="app.orders.lablist"
+                        defaultMessage="Lab Orders List"
+                        description="Drug Orders List"
+                      />
+                    ) : this.props.orderType === 'drugorders' ? (
+                      <FormattedMessage
+                        id="app.orders.druglist"
+                        defaultMessage="Drug Orders List"
+                        description="Drug Orders List"
+                      />
+                    ) : (
+                      <FormattedMessage
+                        id="app.orders.list"
+                        defaultMessage="Orders List"
+                        description="Orders List"
+                      />
+                    )
+                  }
                   </b>
                 </h3>
               </div>
@@ -316,7 +337,6 @@ export class OrderEntryPage extends PureComponent {
                 <SelectOrderType
                   switchOrderType={this.switchOrderType}
                   currentOrderType={this.props.currentOrderType}
-                  page={page}
                 />
               }
             </div>
@@ -461,6 +481,7 @@ OrderEntryPage.propTypes = {
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
   discardTestsInDraft: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
+  setContext: PropTypes.func.isRequired,
   createOrderReducer: PropTypes.shape({
     status: PropTypes.objectOf(PropTypes.bool),
     errorMessage: PropTypes.string,
@@ -501,6 +522,7 @@ const mapStateToProps = ({
   openmrs: { session },
   openmrs: { metadata },
   createOrderReducer,
+  contextReducer: { orderType },
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -518,6 +540,7 @@ const mapStateToProps = ({
   globalProperties: metadata.globalProperties,
   configurations,
   createOrderReducer,
+  orderType,
 });
 
 const actionCreators = {
@@ -535,6 +558,7 @@ const actionCreators = {
   discardTestsInDraft,
   createOrder,
   fetchLabOrders,
+  setContext,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

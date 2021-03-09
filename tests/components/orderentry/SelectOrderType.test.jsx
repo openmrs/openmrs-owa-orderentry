@@ -1,21 +1,29 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
 import SelectOrderType from '../../../app/js/components/orderEntry/SelectOrderType';
 
 let props;
 let mountedComponent;
 
+const mockStore = configureStore();
+
 const getComponent = () => {
   if (!mountedComponent) {
-    mountedComponent = shallow(<SelectOrderType {...props} />);
+    mountedComponent = mount(<SelectOrderType {...props}  store={store} />);
   }
   return mountedComponent;
 };
 
 describe('Component: orderentry: SelectOrderType', () => {
   beforeEach(() => {
-    props = { 
+    store = mockStore({
+      contextReducer: {}
+    })
+
+    props = {
       currentOrderType: { id: 1, text: 'Test Orders' },
       switchOrderType: jest.fn(),
+      store: store
     };
     mountedComponent = undefined;
   });
@@ -26,7 +34,7 @@ describe('Component: orderentry: SelectOrderType', () => {
   it('the current order type should have a border styling', () => {
     const component = getComponent();
     expect(component.find('.order-type-option').first().hasClass('active')).toBeTruthy();
-  }); 
+  });
   it('clicking the button should call switchOrderType', () => {
     const component = getComponent().find('.order-type-option').first();
     component.simulate('click');

@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { connect } from "react-redux";
 import * as orderTypes from './orderTypes';
 
-const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
+const SelectOrderType = ({ switchOrderType, currentOrderType, orderType }) => {
   const orderTypesAsObject = Object.values(orderTypes);
   let displayText = (<FormattedMessage
     id="app.orders.add"
     defaultMessage="Add Orders"
     description="Add Orders" />);
   let clickHandler = () => {};
-  if (page === 'laborders') {
+  // if "type" = "laborders" or "drugorders" restricts the app to lab or drug orders respectively
+  if (orderType === 'laborders') {
     displayText =
       (<FormattedMessage
         id="app.orders.labs.add"
@@ -20,7 +22,7 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
     clickHandler = () => switchOrderType(orderTypesAsObject[1]);
   }
 
-  if (page === "drugorders") {
+  if (orderType === "drugorders") {
     displayText = (<FormattedMessage
       id="app.orders.drugs.add"
       defaultMessage="Add Drug Orders"
@@ -36,16 +38,16 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
           {displayText}
         </button>
       </div>
-      <div className="dropdown-content" style={{ display: page && "none" }}>
-        {orderTypesAsObject.map(orderType => (
+      <div className="dropdown-content" >
+        {orderTypesAsObject.map(type => (
           <div
-            key={orderType.id}
-            value={orderType.text}
+            key={type.id}
+            value={type.text}
             role="link"
-            onClick={() => switchOrderType(orderType)}
+            onClick={() => switchOrderType(type)}
             tabIndex={0}
-            className={`order-type-option ${currentOrderType.id === orderType.id ? 'active' : ''}`}>
-            {orderType.text}
+            className={`order-type-option ${currentOrderType.id === type.id ? 'active' : ''}`}>
+            {type.text}
           </div>
         ))}
       </div>
@@ -56,7 +58,11 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, page }) => {
 SelectOrderType.propTypes = {
   currentOrderType: PropTypes.object.isRequired,
   switchOrderType: PropTypes.func.isRequired,
-  page: PropTypes.string.isRequired,
+  orderType: PropTypes.string.isRequired,
 };
 
-export default SelectOrderType;
+const mapStateToProps = state => ({
+  orderType: state.contextReducer.orderType,
+});
+
+export default connect(mapStateToProps)(SelectOrderType);
