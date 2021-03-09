@@ -59,7 +59,9 @@ const props = {
     {
       activeDates: '24/12/2018',
       display: 'Paracetamol',
-      type: 'drugorder',
+      orderType: {
+        name: 'drugorder'
+      },
       dosingInstructions: '25mg of Amoxycillin syrup for the next 5 days',
       dispense: '45',
       orderer: { display: 'Mark Goodrich' },
@@ -73,7 +75,9 @@ const props = {
     {
       activeDates: '24/12/2018',
       display: 'Paracetamol',
-      type: 'testorder',
+      orderType: {
+        name: 'testorder'
+      },
       orderer: { display: 'Mark Goodrich' },
       drug: {
         uuid: "502a2b2e-4659-4987-abbd-c50545dead47",
@@ -158,6 +162,7 @@ describe('Orders component test-suite', () => {
           fetched: true,
         },
       },
+      contextReducer: {},
       dateFormatReducer: { dateFormat: '', }
     });
     const props = {
@@ -166,7 +171,7 @@ describe('Orders component test-suite', () => {
     const wrapper = mountWithIntl(<ConnectedOrdersTablePage store={store} {...props} />);
     expect(wrapper.find('.no-result-info').props().children).toEqual('No Orders');
   });
-  
+
   it('handles editing of active orders', () => {
 
     const props = {
@@ -174,7 +179,9 @@ describe('Orders component test-suite', () => {
         {
             activeDates: "24/12/2018",
             display: "Paracetamol",
-            type: "drugorder",
+            orderType: {
+              name: 'drugorder'
+            },
             dosingInstructions: "25mg of Amoxycillin syrup for the next 5 days",
             dispense: "45",
             orderer: {display: "Mark Goodrich"},
@@ -184,7 +191,9 @@ describe('Orders component test-suite', () => {
         {
             activeDates: "24/12/2018",
             display: "Paracetamol",
-            type: "testorder",
+            orderType: {
+              name: 'testorder'
+            },
             orderer: {display: "Mark Goodrich"},
             urgency: "STAT",
             uuid: 2
