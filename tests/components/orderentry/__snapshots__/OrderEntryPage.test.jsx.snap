@@ -47,13 +47,12 @@ exports[`Test for Order entry page when orderentryowa.encounterType is set shoul
           </b>
         </h3>
       </div>
-      <SelectOrderType
+      <Connect(SelectOrderType)
         currentOrderType={
           Object {
             "id": "94386782390",
           }
         }
-        page={null}
         switchOrderType={[Function]}
       />
     </div>

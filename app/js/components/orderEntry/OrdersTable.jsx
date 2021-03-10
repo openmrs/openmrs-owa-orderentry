@@ -58,7 +58,7 @@ export class OrdersTable extends PureComponent {
           closeModal: true,
         },
       });
-      const discontinuedOrder = order.type === 'drugorder'
+      const discontinuedOrder = order.orderType.name.match(/drug/i)
         ? this.formatDrugOrderData(order, reason)
         : this.formatLabOrderData(order);
       this.discontinueOrder(discontinuedOrder, orderNumber);
@@ -174,12 +174,25 @@ export class OrdersTable extends PureComponent {
   };
 
   render() {
-    const { filteredOrders, dateFormat, sessionReducer } = this.props;
+    const {
+      filteredOrders, dateFormat, sessionReducer, orderType,
+    } = this.props;
+
+    const ordersToDisplay = filteredOrders.filter((order) => {
+      if (orderType) {
+        if (orderType === 'drugorders') {
+          return order.orderType.name.match(/drug/i);
+        } else if (orderType === 'laborders') {
+          return order.orderType.name.match(/test/i);
+        }
+      }
+      return true;
+    });
+
     return (
       <React.Fragment>
-        {filteredOrders &&
-          filteredOrders.length !== 0 &&
-          filteredOrders.map(order => (
+        {ordersToDisplay &&
+          ordersToDisplay.map(order => (
             <Accordion
               title={
                 <OrderHeader
@@ -193,7 +206,7 @@ export class OrdersTable extends PureComponent {
               key={order.uuid}
               dateFormat={dateFormat}
               date={order.dateActivated}>
-              {order.type === 'drugorder' ? (
+              {order.orderType.name.match(/drug/i) ? (
                 <DrugOrderDetails
                   dosingInstructions={order.dosingInstructions}
                   dispense={order.dispense}
@@ -274,6 +287,7 @@ const mapStateToProps = state => ({
   encounterType: state.encounterReducer.encounterType,
   filteredOrders: state.fetchOrdersReducer.filteredOrders,
   inpatientCareSetting: state.careSettingReducer.inpatientCareSetting,
+  orderType: state.contextReducer.orderType,
   outpatientCareSetting: state.careSettingReducer.outpatientCareSetting,
   patient: state.patientReducer.patient,
   session: state.openmrs.session,

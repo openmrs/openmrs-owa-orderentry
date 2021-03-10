@@ -28,6 +28,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientRecord: jest.fn(),
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
+      setContext: jest.fn(),
       encounterType: { uuid: '1eeee' },
       sessionReducer: {
         currentProvider: {
@@ -381,6 +382,9 @@ describe('Connected OrderEntryPage component', () => {
         orderables: [{
           uuid: '1234'
         }]
+      },
+      contextReducer: {
+
       }
     });
     const wrapper = shallowWithIntl(<ConnectedOrderEntryPage store={store} {...props} />);
