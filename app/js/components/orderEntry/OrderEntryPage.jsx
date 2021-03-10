@@ -314,7 +314,7 @@ export class OrderEntryPage extends PureComponent {
                       <FormattedMessage
                         id="app.orders.lablist"
                         defaultMessage="Lab Orders List"
-                        description="Drug Orders List"
+                        description="Lab Orders List"
                       />
                     ) : this.props.orderType === 'drugorders' ? (
                       <FormattedMessage
