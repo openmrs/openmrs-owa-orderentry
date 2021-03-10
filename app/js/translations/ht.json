@@ -10,6 +10,8 @@
   "app.orders.panels": "Panels",
   "app.orders.tests": "Tests",
   "app.orders.list": "Lis lòd yo",
+  "app.orders.lablist": "Lis lòd laboratwa",
+  "app.orders.druglist": "Drug Orders List",
   "app.orders.type": "Kalite",
   "app.orders.patient": "Lòd pou pasyan yo",
   "app.orders.details": "Detay",

@@ -10,6 +10,8 @@
   "app.orders.panels": "Panneaux",
   "app.orders.tests": "Tests",
   "app.orders.list": "Liste des commandes",
+  "app.orders.lablist": "Liste de commandes de laboratoire",
+  "app.orders.druglist": "Drug Orders List",
   "app.orders.type": "Type",
   "app.orders.patient": "Ordre des patients",
   "app.orders.details": "Détails",
