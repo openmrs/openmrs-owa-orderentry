@@ -192,7 +192,6 @@ export class OrdersTable extends PureComponent {
     return (
       <React.Fragment>
         {ordersToDisplay &&
-          ordersToDisplay.length !== 0 &&
           ordersToDisplay.map(order => (
             <Accordion
               title={
