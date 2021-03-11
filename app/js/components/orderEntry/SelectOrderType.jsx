@@ -38,7 +38,7 @@ const SelectOrderType = ({ switchOrderType, currentOrderType, orderType }) => {
           {displayText}
         </button>
       </div>
-      <div className="dropdown-content" >
+      <div className="dropdown-content" style={{ display: orderType && "none" }} >
         {orderTypesAsObject.map(type => (
           <div
             key={type.id}
