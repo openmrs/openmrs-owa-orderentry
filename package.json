@@ -1,6 +1,6 @@
 {
   "name": "@openmrs/orderentry-owa",
-  "version": "1.2.3",
+  "version": "1.2.4-SNAPSHOT",
   "description": "OWA for placing an order, revising it, discontinuing it, and being able to look up a patient&#39;s active orders.",
   "repository": {
     "type": "git",
