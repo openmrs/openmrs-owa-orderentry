@@ -1,11 +1,8 @@
-# this build is designed to replicate the Travis CI workflow
-name: Build with Node
+name: Build, test, and deploy snapshots
 
 on:
   push:
     branches: [ $default-branch, 'github-actions' ]
-  pull_request:
-    branches: [ $default-branch ]
 
 jobs:
   build:
@@ -41,8 +38,12 @@ jobs:
           server-username: MAVEN_REPO_USERNAME
           server-password: MAVEN_REPO_PASSWORD
 
-      - name: Deploy release
+      - name: Extract the name of the built artifact
+        run: echo "::set-env name=ARTIFACT_NAME::`echo $(find . -maxdepth 1 -name "orderentry-*.zip" -printf '%P')`"
+
+      - name: Deploy to Maven if it is a SNAPSHOT
         run: mvn deploy:deploy-file -Pdeploy-snapshot
+        if:  contains(env.ARTIFACT_NAME, '-SNAPSHOT')
         env:
           MAVEN_REPO_USERNAME: mseaton
           MAVEN_REPO_PASSWORD: ${{ secrets.MAVEN_REPO_PASSWORD }}
