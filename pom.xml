@@ -4,7 +4,7 @@
 
     <groupId>org.openmrs.owa</groupId>
     <artifactId>orderentry</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>openmrs-owa-orderentry</name>
     <description>OpenMRS Order Entry OWA</description>
