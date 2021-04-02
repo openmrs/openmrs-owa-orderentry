@@ -12,3 +12,5 @@ coverage
 tags
 tags.lock
 tags.temp
+*.log
+*.iml
