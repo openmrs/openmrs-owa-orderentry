@@ -1,5 +1,5 @@
 # this build is designed to replicate the Travis CI workflow
-name: Build and test Pull Request
+name: Test Pull Request
 
 on:
   pull_request:
