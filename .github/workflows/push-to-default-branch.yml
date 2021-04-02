@@ -39,7 +39,7 @@ jobs:
           server-password: MAVEN_REPO_PASSWORD
 
       - name: Extract the name of the built artifact
-        run: echo "::set-env name=ARTIFACT_NAME::`echo $(find . -maxdepth 1 -name "orderentry-*.zip" -printf '%P')`"
+        run: echo "ARTIFACT_NAME=`echo $(find . -maxdepth 1 -name "orderentry-*.zip" -printf '%P')`" >> $GITHUB_ENV
 
       - name: Deploy to Maven if it is a SNAPSHOT
         run: mvn deploy:deploy-file -Pdeploy-snapshot
