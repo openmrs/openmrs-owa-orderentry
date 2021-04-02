@@ -87,14 +87,14 @@
 
     <distributionManagement>
         <repository>
-            <id>openmrs-repo-modules</id>
+            <id>openmrs-repo-owa</id>
             <name>OpenMRS Modules</name>
-            <url>https://openmrs.jfrog.io/artifactory/modules-pih/</url>
+            <url>https://openmrs.jfrog.io/artifactory/owa/</url>
         </repository>
         <snapshotRepository>
-            <id>openmrs-repo-modules</id>
+            <id>openmrs-repo-owa</id>
             <name>OpenMRS PIH Module Snapshots</name>
-            <url>https://openmrs.jfrog.io/artifactory/modules-pih-snapshots/</url>
+            <url>https://openmrs.jfrog.io/artifactory/owa-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
