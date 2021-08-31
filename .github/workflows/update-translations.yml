@@ -12,7 +12,7 @@ jobs:
   
     steps:
       - name: transifex-pull-request-action
-        uses: c2corg/generate-changelog-action@v3.0.2
+        uses: c2corg/transifex-pull-request-action@v3.0.2
         with:
             transifex_token: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
             transifex_organisation: 'OpenMRS'
