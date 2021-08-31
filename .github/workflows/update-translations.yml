@@ -1,0 +1,23 @@
+name: Update translation files from Transifex 
+
+on:
+  schedule:
+    - cron: '36 0 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: transifex-pull-request-action
+        uses: c2corg/generate-changelog-action@v1.3.4
+        with:
+            transifex_token: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
+            transifex_organisation: 'OpenMRS'
+            transifex_project: 'OpenMRS'
+            transifex_resource: 'Order Entry OWA'
+            output: 'app/js/translations/'
+            locales: 'ar_EG,fr,de,ht,hi,pl,pt_BR,es,tr_TR,uk'
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+
