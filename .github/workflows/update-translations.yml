@@ -18,7 +18,7 @@ jobs:
             transifex_token: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
             transifex_organisation: 'OpenMRS'
             transifex_project: 'OpenMRS'
-            transifex_resource: 'Order Entry OWA'
+            transifex_resource: 'orderentry-owa'
             output: 'app/js/translations/'
             locales: 'ar_EG,fr,de,ht,hi,pl,pt_BR,es,tr_TR,uk'
             github_token: ${{ secrets.GITHUB_TOKEN }}
