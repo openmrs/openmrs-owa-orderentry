@@ -11,15 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TX_TOKEN: ${{ secrets.BRANDONS_TRANSIFEX_API_TOKEN }}
+      TX_TOKEN: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - run: python -m pip install --upgrade pip
       - run: pip install transifex-client
-      - run: tx init --force --no-interactive --traceback
-      - run: git reset --hard HEAD  # `tx init` is needed for auth but overwrites the config file
       - run: tx pull -a --minimum-perc=1 --traceback
       - uses: EndBug/add-and-commit@v7
         with:
