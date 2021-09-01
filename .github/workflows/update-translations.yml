@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TX_TOKEN: ${{ secrets.BRANDONS_TRANSIFEX_API_TOKEN }}
+      TX_TOKEN: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
 
     steps:
       - uses: actions/checkout@v2
