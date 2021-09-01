@@ -9,17 +9,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-  
+
+    env:
+      TX_TOKEN: ${{ secrets.BRANDONS_TRANSIFEX_API_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
-      - name: transifex-pull-request-action
-        uses: c2corg/transifex-pull-request-action@v3.0.2
+      - uses: actions/setup-python@v2
+      - run: python -m pip install --upgrade pip
+      - run: pip install transifex-client
+      - run: tx pull -a --minimum-perc=1 --traceback
+      - uses: EndBug/add-and-commit@v7
         with:
-            transifex_token: ${{ secrets.BRANDONS_TRANSIFEX_API_KEY }}
-            transifex_organisation: 'OpenMRS'
-            transifex_project: 'OpenMRS'
-            transifex_resource: 'orderentry-owa'
-            output: 'app/js/translations/'
-            locales: 'ar_EG,fr,de,ht,hi,pl,pt_BR,es,tr_TR,uk'
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-
+          add: app/js/translations
+          message: 'Update translations'
+          
