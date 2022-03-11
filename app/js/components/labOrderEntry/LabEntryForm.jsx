@@ -149,6 +149,7 @@ export class LabEntryForm extends PureComponent {
     const {
       orderables,
       getLabOrderables,
+      labLocations
     } = this.props;
     return (
       <React.Fragment>
@@ -162,6 +163,15 @@ export class LabEntryForm extends PureComponent {
               />
             </h5>
             <br />
+            <div className="row">
+              <div className="col-12">
+                <select name="example-location-select" id="example-location-select">
+                  {labLocations.map(location => (
+                      <option value={location.id}>{location.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="row">
               <div className="col-12 col-sm-4 col-md-5 lab-category">
                 <ul>
@@ -249,6 +259,7 @@ export const mapStateToProps = ({
   patient,
   orderables,
   getLabOrderables,
+  labLocations,
   sessionReducer: session,
 });
 
