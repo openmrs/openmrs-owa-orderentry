@@ -7,7 +7,7 @@
     "url": "https://github.com/openmrs/openmrs-owa-orderentry"
   },
   "dependencies": {
-    "@openmrs/react-components": "^1.5.1",
+    "@openmrs/react-components": "next",
     "@openmrs/style-referenceapplication": "^0.1.0",
     "ajv": "^6.4.0",
     "axios": "^0.18.0",
