@@ -157,6 +157,23 @@ entry: {
 
 Any files that you add manually must be added in the `app` directory.
 
+## Releasing
+
+Releasing is done via Github Releases.  The process is as follows:
+
+1. Update the version number in package.json, pom.xml, and app/manifest.webapp by removing the "-SNAPSHOT" in each.  Ensure all 3 versions match.
+2. Commit and push to master and confirm everything builds successfully in Github Actions
+3. Go to the [Releases Page](https://github.com/openmrs/openmrs-owa-orderentry/releases) and create a new release named after the version you want to release, publish this.
+4. Confirm that the [Deploy release](https://github.com/openmrs/openmrs-owa-orderentry/actions/workflows/release.yml) job completes successfully
+5. Confirm that the zip artifact has been successfully published to the [Maven repository](https://openmrs.jfrog.io/ui/repos/tree/General/owa%2Forg%2Fopenmrs%2Fowa%2Forderentry)
+6. Update the version number in package.json, pom.xml, and app/manifest.webapp, by incrementing to the next version number and adding a "-SNAPSHOT" suffix
+7. Commit and push to master, and confirm that the next SNAPSHOT builds successfully
+
+Because of the tight coupling on react-components, it is strongly recommended that prior to releasing labworkflow that
+the dependency on react components is updated to reflect an actual released version rather than the "next" tag.  Ideally
+this version is an official release, but could also be a pre-release.  Then, following the labworkflow release, one should update
+ the dependency back to the "next" version to ensure the latest updates are incorporated in the next snapshot development.
+
 ### Troubleshooting
 
 ##### [HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS)
@@ -181,25 +198,6 @@ Then administrator should make the following one time configurations using the a
 
 
 **NB:** Not having any of the above configurations will result into an error notice. Please check more information [here](https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide)
-
-## Releasing
-
-Releasing is done via Github Releases.  The process is as follows:
-
-1. Update the version number in package.json, pom.xml, and app/manifest.webapp by removing the "-SNAPSHOT" in each.  Ensure all 3 versions match.
-2. Commit and push to master and confirm everything builds successfully in Github Actions
-3. Go to the [Releases Page](https://github.com/openmrs/openmrs-owa-orderentry/releases) and create a new release named after the version you want to release, publish this.
-4. Confirm that the [Deploy release](https://github.com/openmrs/openmrs-owa-orderentry/actions/workflows/release.yml) job completes successfully
-5. Confirm that the zip artifact has been successfully published to the [Maven repository](https://openmrs.jfrog.io/ui/repos/tree/General/owa%2Forg%2Fopenmrs%2Fowa%2Forderentry)   
-6. Update the version number in package.json, pom.xml, and app/manifest.webapp, by incrementing to the next version number and adding a "-SNAPSHOT" suffix
-7. Commit and push to master, and confirm that the next SNAPSHOT builds successfully
-
-NOTE: Travis CI will build the project using the version of react-components specified in the package.json, while the 
-PIH staging build always uses the latest head of react-components when building and deploying order entry. 
-Therefore, if changes have been made to react-components since the last ordery entry release, you will likely want to 
-release react-components (see react-components README for details) and upgrade the version number in the Order Entry 
-package.json before releasing Lab Workflow or you may inadvertently release Order Entry with an earlier verison of 
-React Components than you have been testing against.
 
 ## License
 
