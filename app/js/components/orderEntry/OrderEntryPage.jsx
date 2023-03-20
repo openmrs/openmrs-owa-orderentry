@@ -75,7 +75,7 @@ export class OrderEntryPage extends PureComponent {
           labOrderData.orders && labOrderData.orders.length > 0) {
         // we pass in the uuid of the new orders (comment-delimited, if multiple)
         const url = Handlebars.compile(afterAddOrderUrl)({
-          orders: labOrderData.orders.map((o) => o.uuid).join(",")
+          orders: labOrderData.orders.map(o => o.uuid).join(","),
         });
         window.location.assign(url);
       } else {
