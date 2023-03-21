@@ -25,7 +25,7 @@ exports[`Component: LabPanelFieldSet should mount initially 1`] = `
       <ToolTip
         toolTipBody={
           Array [
-            undefined,
+            null,
           ]
         }
         toolTipHeader="Tests included in this panel:"

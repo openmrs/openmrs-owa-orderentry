@@ -265,6 +265,7 @@ exports[`Component: LabEntryForm should render on initial setup 1`] = `
         <form>
           <LabPanelFieldSet
             handleTestSelection={[Function]}
+            labCategoryName={null}
             locale="en"
             panels={Array []}
             selectedPanelIds={Array []}
@@ -295,6 +296,7 @@ exports[`Component: LabEntryForm should render on initial setup 1`] = `
           </LabPanelFieldSet>
           <LabTestFieldSet
             handleTestSelection={[Function]}
+            labCategoryName={null}
             locale="en"
             selectedTests={
               Array [
