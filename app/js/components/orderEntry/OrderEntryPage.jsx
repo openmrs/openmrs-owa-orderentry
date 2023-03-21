@@ -73,9 +73,9 @@ export class OrderEntryPage extends PureComponent {
       // if an afterAddOrderUrl has been specified, redirect to that page
       if (afterAddOrderUrl && labOrderData &&
           labOrderData.orders && labOrderData.orders.length > 0) {
-        // we pass in the uuid of the new order (just picking the "first" order if multiple)
+        // we pass in the uuid of the new orders (comment-delimited, if multiple)
         const url = Handlebars.compile(afterAddOrderUrl)({
-          order: labOrderData.orders[0].uuid,
+          orders: labOrderData.orders.map(o => o.uuid).join(","),
         });
         window.location.assign(url);
       } else {
