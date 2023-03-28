@@ -1,10 +1,10 @@
 import loading from './loading';
 import axiosInstance from '../config';
 
-import { SAVE_DRAFT_LAB_ORDER, DISCONTINUE_ORDER, DISCONTINUE_ORDER_SUCCEDED } from './actionTypes';
+import { SAVE_ORDER, DISCONTINUE_ORDER, DISCONTINUE_ORDER_SUCCEDED } from './actionTypes';
 
 export const createOrder = OrderData => ({
-  type: SAVE_DRAFT_LAB_ORDER,
+  type: SAVE_ORDER,
   payload: axiosInstance.post(`encounter`, OrderData),
 });
 

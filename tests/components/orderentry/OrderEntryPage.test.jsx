@@ -29,6 +29,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       fetchPatientNote: jest.fn(),
       setSelectedOrder: jest.fn(),
       setContext: jest.fn(),
+      setRedirectToAddResults: jest.fn(),
       encounterType: { uuid: '1eeee' },
       sessionReducer: {
         currentProvider: {
@@ -37,6 +38,9 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
       sessionLocation: {
           uuid: 'hospital'
       }},
+      addResultsReducer: {
+        redirectToAddResults: false
+      },
       globalProperties: {
         'orderentryowa.labOrderAutoExpireTimeInDays': '30',
       },
@@ -96,7 +100,7 @@ describe('Test for Order entry page when orderentryowa.encounterType is set', ()
           error: false,
           added: true,
         },
-        labOrderData: {},
+        orderData: {},
       },
       fetchLabOrders: jest.fn(),
       labOrderableReducer: {
@@ -283,7 +287,7 @@ describe('Handling Submit', () => {
           error: false,
           added: true,
         },
-        labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
+        orderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
     expect(global.toastrMessage).toEqual('Order Successfully Created');
@@ -299,7 +303,7 @@ it('shows a toast prompt when there is an error in submission', () => {
         error: true,
         added: false,
       },
-      labOrderData: {},
+      orderData: {},
       errorMessage: 'an error occured',
     },
   });
@@ -375,7 +379,7 @@ describe('Connected OrderEntryPage component', () => {
           error: false,
           added: true,
         },
-        labOrderData: {},
+        orderData: {},
       },
       fetchLabOrders: jest.fn(),
       labOrderableReducer: {

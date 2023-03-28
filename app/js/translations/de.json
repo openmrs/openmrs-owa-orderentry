@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Auftrag erfolgreich eingestellt",
   "app.orders.create.success":"Auftrag erfolgreich erstellt",
   "app.orders.is.active":"Auftrag ist aktiv",
-  "app.orders.number":"Auftragsnummer"
+  "app.orders.number":"Auftragsnummer",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

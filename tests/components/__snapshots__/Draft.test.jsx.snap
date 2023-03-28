@@ -233,6 +233,8 @@ exports[`Component: Draft should render on initial setup 1`] = `
       type="submit"
       value="Sign and Save"
     />
+    <br />
+    <br />
   </div>
 </Draft>
 `;

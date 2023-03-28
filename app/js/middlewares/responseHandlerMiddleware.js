@@ -70,7 +70,7 @@ export default function responseHandlerMiddleware({ getState }) {
       next({ type: DISCONTINUE_ACTIVE_DRUG_ORDER, orderNumber: action.meta.orderNumber });
     }
 
-    if (action.type === 'SAVE_DRAFT_LAB_ORDER_SUCCESS') {
+    if (action.type === 'SAVE_ORDER_SUCCESS') {
       next({ type: 'DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER' });
       next({ type: 'DELETE_ALL_DRAFT_DRUG_ORDERS_SUCCESS' });
       next({

@@ -51,7 +51,7 @@ props = {
       error: false,
       added: true,
     },
-    labOrderData: {},
+    orderData: {},
   },
   session: {
     locale: 'en',
@@ -201,7 +201,7 @@ describe('Component: LabEntryForm', () => {
           error: false,
           added: true,
         },
-        labOrderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
+        orderData: { uuid: 'kjdhggf', display: 'order Entry', orders: [{ display: 'true' }] },
       },
     });
     expect(global.toastrMessage).toEqual('Order Successfully Created');
@@ -216,7 +216,7 @@ describe('Component: LabEntryForm', () => {
           error: true,
           added: false,
         },
-        labOrderData: {},
+        orderData: {},
         errorMessage: 'an error occured',
       },
     });

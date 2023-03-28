@@ -70,13 +70,13 @@ export class Draft extends PureComponent {
         </li>);
     });
   }
-
   render() {
     const {
-      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading,
+      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading, showAddResultsButton,
     } = this.props;
     const isDisabled = draftOrders.length === 0 || isLoading;
     const signAndSave = intl.formatMessage({ id: "app.orders.signandsave", defaultMessage: "Sign and Save" });
+    const addResults = intl.formatMessage({ id: "app.orders.addResults", defaultMessage: "Add Results" });
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
     const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
     return (
@@ -108,6 +108,15 @@ export class Draft extends PureComponent {
           value={signAndSave}
           disabled={isDisabled}
         />
+        <br />
+        <br />
+        { showAddResultsButton && <input
+          type="submit"
+          onClick={() => handleSubmit({ redirectToAddResults: true })}
+          className="button confirm right modified-btn"
+          value={addResults}
+          disabled={isDisabled}
+          /> }
       </div>
     );
   }
@@ -119,6 +128,7 @@ Draft.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleDraftDiscard: PropTypes.func.isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
+  showAddResultsButton: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

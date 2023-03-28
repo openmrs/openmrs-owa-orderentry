@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Pedido descontinuado com sucesso",
   "app.orders.create.success":"Pedido Criado com Sucesso",
   "app.orders.is.active":"o pedido está ativo",
-  "app.orders.number":"Número do pedido"
+  "app.orders.number":"Número do pedido",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

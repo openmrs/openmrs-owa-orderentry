@@ -26,6 +26,9 @@ export default {
   defaultDrugs: {
     results: [],
   },
+  defaultAddResults: {
+    redirectToAddResults: false,
+  },
   pastOrders: {
     loading: false,
   },

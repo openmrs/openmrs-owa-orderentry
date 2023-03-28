@@ -1,7 +1,7 @@
 import createOrder from '../../app/js/actions/createOrder';
 import {
-  SAVE_DRAFT_LAB_ORDER_LOADING,
-  SAVE_DRAFT_LAB_ORDER_SUCCESS,
+  SAVE_ORDER_LOADING,
+  SAVE_ORDER_SUCCESS,
 } from '../../app/js/actions/actionTypes';
 
 
@@ -19,8 +19,8 @@ describe('createOrder action', () => {
     });
 
     const expectedTypes = [
-      SAVE_DRAFT_LAB_ORDER_LOADING,
-      SAVE_DRAFT_LAB_ORDER_SUCCESS,
+      SAVE_ORDER_LOADING,
+      SAVE_ORDER_SUCCESS,
     ];
     
     const store = mockStore({});

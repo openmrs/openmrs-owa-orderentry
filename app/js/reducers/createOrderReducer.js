@@ -1,5 +1,5 @@
 const initialState = {
-  labOrderData: {},
+  orderData: {},
   errorMessage: '',
   status: {
     error: false,
@@ -9,18 +9,18 @@ const initialState = {
 
 const createOrderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SAVE_DRAFT_LAB_ORDER_SUCCESS': {
-      const labOrderData = action.data;
+    case 'SAVE_ORDER_SUCCESS': {
+      const orderData = action.data;
       return {
         ...state,
-        labOrderData,
+        orderData,
         status: {
           added: true,
           error: false,
         },
       };
     }
-    case 'SAVE_DRAFT_LAB_ORDER_FAILURE': {
+    case 'SAVE_ORDER_FAILURE': {
       return {
         ...state,
         errorMessage: action.payload,
@@ -30,7 +30,7 @@ const createOrderReducer = (state = initialState, action) => {
         },
       };
     }
-    case 'SAVE_DRAFT_LAB_ORDER_LOADING': {
+    case 'SAVE_ORDER_LOADING': {
       return {
         ...state,
         status: {

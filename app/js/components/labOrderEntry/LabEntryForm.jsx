@@ -25,7 +25,7 @@ export class LabEntryForm extends PureComponent {
     createOrderReducer: PropTypes.shape({
       status: PropTypes.objectOf(PropTypes.bool),
       errorMessage: PropTypes.string,
-      labOrderData: PropTypes.object,
+      orderData: PropTypes.object,
     }),
     draftLabOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
     selectedLabPanels: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -81,12 +81,13 @@ export class LabEntryForm extends PureComponent {
     const {
       status: { added, error },
       errorMessage,
-      labOrderData,
+      orderData,
     } = this.props.createOrderReducer;
     const { intl } = this.props;
     const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
 
-    if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
+    // TODO: does this actually do anything, or is this handled by the top-level OrderForm?
+    if (added && orderData !== prevProps.createOrderReducer.orderData) {
       successToast(orderCreatedMsg);
       this.props.dispatch(fetchLabOrders(null, this.props.patient.uuid));
       this.props.dispatch(setSelectedOrder({

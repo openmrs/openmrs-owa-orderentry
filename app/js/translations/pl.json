@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Zlecenie przerwane pomyślnie",
   "app.orders.create.success":"Zlecenie zostało utworzone pomyślnie",
   "app.orders.is.active":"zlecenie jest aktywne",
-  "app.orders.number":"Numer zlecenia"
+  "app.orders.number":"Numer zlecenia",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

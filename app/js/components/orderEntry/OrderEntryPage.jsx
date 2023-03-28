@@ -21,9 +21,9 @@ import getDateFormat from '../../actions/dateFormat';
 import activeOrderAction from '../../actions/activeOrderAction';
 import { fetchPatientRecord, fetchPatientNote } from '../../actions/patient';
 import { setSelectedOrder } from '../../actions/orderAction';
+import setRedirectToAddResults from "../../actions/addResultsAction";
 import { successToast, errorToast } from '../../utils/toast';
 import { loadGlobalProperties, APP_GLOBAL_PROPERTIES } from "../../utils/globalProperty";
-import fetchLabOrders from '../../actions/labOrders/fetchLabOrders';
 import {
   editDraftDrugOrder,
   toggleDraftLabOrderUrgency,
@@ -40,7 +40,7 @@ export class OrderEntryPage extends PureComponent {
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
-    afterAddOrderUrl: new URLSearchParams(this.props.location.search).get('afterAddOrderUrl'),
+    addResultsUrl: new URLSearchParams(this.props.location.search).get('addResultsUrl'),
   };
 
   componentDidMount() {
@@ -62,24 +62,27 @@ export class OrderEntryPage extends PureComponent {
     const {
       status: { added, error },
       errorMessage,
-      labOrderData,
+      orderData,
     } = this.props.createOrderReducer;
 
+    const {
+      redirectToAddResults,
+    } = this.props.addResultsReducer
+
     const { intl } = this.props;
-    const { afterAddOrderUrl } = this.state;
+    const { addResultsUrl } = this.state;
     const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
-    if (added && labOrderData !== prevProps.createOrderReducer.labOrderData) {
+    if (added && orderData !== prevProps.createOrderReducer.orderData) {
       successToast(orderCreatedMsg);
-      // if an afterAddOrderUrl has been specified, redirect to that page
-      if (afterAddOrderUrl && labOrderData &&
-          labOrderData.orders && labOrderData.orders.length > 0) {
+      // if the redirect to add results state has been set (by clicking the "Add Results" button),
+      // redirect to appropriate page
+      if (redirectToAddResults && addResultsUrl && orderData &&
+          orderData.orders && orderData.orders.length > 0) {
         // we pass in the uuid of the new orders (comment-delimited, if multiple)
-        const url = Handlebars.compile(afterAddOrderUrl)({
-          orders: labOrderData.orders.map(o => o.uuid).join(","),
+        const url = Handlebars.compile(addResultsUrl)({
+          orders: orderData.orders.map(o => o.uuid).join(","),
         });
         window.location.assign(url);
-      } else {
-        this.props.fetchLabOrders(null, this.props.patient.uuid);
       }
     }
     if (error) {
@@ -175,7 +178,7 @@ export class OrderEntryPage extends PureComponent {
     autoExpireDate: moment().add(this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] ? this.props.globalProperties[APP_GLOBAL_PROPERTIES.autoExpireTime] : 30, 'days'),
   });
 
-  handleSubmit = () => {
+  handleSubmit = (options) => {
     const { draftLabOrders, draftDrugOrders } = this.props;
     const allDraftOrders = [...draftDrugOrders, ...draftLabOrders.orders];
     const orders = allDraftOrders.map(order =>
@@ -195,6 +198,8 @@ export class OrderEntryPage extends PureComponent {
       orders,
       patient: this.props.patient.uuid,
     };
+
+    this.props.setRedirectToAddResults(options ? options.redirectToAddResults : false);
     this.props.createOrder(encounterPayload);
   };
 
@@ -371,12 +376,13 @@ export class OrderEntryPage extends PureComponent {
                           ...this.props.draftDrugOrders,
                           ...this.props.draftLabOrders.orders,
                         ]}
-                        handleSubmit={() => this.handleSubmit()}
+                        handleSubmit={this.handleSubmit}
                         toggleDraftLabOrderUrgency={
                           this.props.toggleDraftLabOrderUrgency
                         }
                         editDraftDrugOrder={this.props.editDraftDrugOrder}
                         locale={this.props.sessionReducer.locale}
+                        showAddResultsButton={this.state.addResultsUrl}
                       />
                     </div>
                   </div>
@@ -390,7 +396,11 @@ export class OrderEntryPage extends PureComponent {
                       }
                       onClick={() => window.location.assign(returnUrl)}
                     >
-                      Return
+                      <FormattedMessage
+                          id="app.orders.return"
+                          defaultMessage="Return"
+                          description="Return"
+                      />
                     </button>
                   </div>
                 </div>
@@ -482,12 +492,15 @@ OrderEntryPage.propTypes = {
   discardTestsInDraft: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
+  setRedirectToAddResults: PropTypes.func.isRequired,
+  addResultsReducer: PropTypes.shape({
+    redirectToAddResults: PropTypes.bool,
+  }).isRequired,
   createOrderReducer: PropTypes.shape({
     status: PropTypes.objectOf(PropTypes.bool),
     errorMessage: PropTypes.string,
-    labOrderData: PropTypes.object,
+    orderData: PropTypes.object,
   }).isRequired,
-  fetchLabOrders: PropTypes.func.isRequired,
   patient: PropTypes.shape({}),
 };
 
@@ -523,6 +536,7 @@ const mapStateToProps = ({
   openmrs: { metadata },
   createOrderReducer,
   contextReducer: { orderType },
+  addResultsReducer,
 }) => ({
   outpatientCareSetting,
   dateFormatReducer,
@@ -541,6 +555,7 @@ const mapStateToProps = ({
   configurations,
   createOrderReducer,
   orderType,
+  addResultsReducer,
 });
 
 const actionCreators = {
@@ -557,8 +572,8 @@ const actionCreators = {
   editDraftDrugOrder,
   discardTestsInDraft,
   createOrder,
-  fetchLabOrders,
   setContext,
+  setRedirectToAddResults,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
