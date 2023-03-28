@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Prontuário Eletrônico do Paciente",
   "app.labOrdersList.title": "Ordens",
   "app.orders.all": "Todos",
-  "app.orders.signandsave": "Assinar e Salvar",
+  "app.orders.save": "Save",
   "app.orders.discard": "Descartar Todos",
   "app.orders.discardall": "Descartar",
   "app.orders.new": "Nova Ordem Lab",

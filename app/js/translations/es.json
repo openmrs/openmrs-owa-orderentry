@@ -2,7 +2,7 @@
   "app.title": "Registro electrónico médico OpenMRS",
   "app.labOrdersList.title": "Pedidos",
   "app.orders.all": "Todo",
-  "app.orders.signandsave": "Firmar y guardar",
+  "app.orders.save": "Guardar",
   "app.orders.discard": "Descartar todo",
   "app.orders.discardall": "Descartar",
   "app.orders.new": "Nuevo pedido de laboratorio",

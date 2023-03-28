@@ -2,7 +2,7 @@
   "app.title": "Elektroniczna dokumentacja medyczna OpenMRS",
   "app.labOrdersList.title": "Zlecenia",
   "app.orders.all": "Wszystko",
-  "app.orders.signandsave": "Podpisz i zapisz",
+  "app.orders.save": "Save",
   "app.orders.discard": "Odrzuć wszystko",
   "app.orders.discardall": "Odrzuć",
   "app.orders.new": "Nowe zlecenie laboratoryjne",

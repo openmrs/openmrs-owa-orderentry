@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Elektronik Tıbbi Kayıt",
   "app.labOrdersList.title": "Emirler",
   "app.orders.all": "Tümü",
-  "app.orders.signandsave": "İmzala ve Kaydet",
+  "app.orders.save": "Save",
   "app.orders.discard": "Hepsini at",
   "app.orders.discardall": "At",
   "app.orders.new": "Yeni Laboratuvar Tahlilleri",

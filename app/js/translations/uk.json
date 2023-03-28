@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Електронні Медичні Записи",
   "app.labOrdersList.title": "Призначення",
   "app.orders.all": "Усі",
-  "app.orders.signandsave": "Підписати та зберегти",
+  "app.orders.save": "Save",
   "app.orders.discard": "Скасувати усі",
   "app.orders.discardall": "Скасувати",
   "app.orders.new": "New Lab Order",

@@ -2,7 +2,7 @@
   "app.title": "OpenMRS elektronische Patientenakte",
   "app.labOrdersList.title": "Aufträge",
   "app.orders.all": "Alle",
-  "app.orders.signandsave": "Übernehmen und speichern",
+  "app.orders.save": "Save",
   "app.orders.discard": "Alles verwerfen",
   "app.orders.discardall": "Verwerfen",
   "app.orders.new": "Neuer Laborauftrag",
