@@ -39,6 +39,6 @@
   "app.orders.create.success":"Commande créée avec succès",
   "app.orders.is.active":"l'ordre est actif",
   "app.orders.number":"Numéro de commande",
-  "app.orders.return": "Return",
+  "app.orders.return": "Retour",
   "app.orders.addResults": "Add Results"
 }
