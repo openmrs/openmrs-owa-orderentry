@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Elektronik Tıbbi Kayıt",
   "app.labOrdersList.title": "Emirler",
   "app.orders.all": "Tümü",
-  "app.orders.signandsave": "İmzala ve Kaydet",
+  "app.orders.save": "Save",
   "app.orders.discard": "Hepsini at",
   "app.orders.discardall": "At",
   "app.orders.new": "Yeni Laboratuvar Tahlilleri",
@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Order discontinued successfully",
   "app.orders.create.success":"Order Successfully Created",
   "app.orders.is.active":"order is active",
-  "app.orders.number":"Order number"
+  "app.orders.number":"Order number",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

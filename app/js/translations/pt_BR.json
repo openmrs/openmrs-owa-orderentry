@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Prontuário Eletrônico do Paciente",
   "app.labOrdersList.title": "Ordens",
   "app.orders.all": "Todos",
-  "app.orders.signandsave": "Assinar e Salvar",
+  "app.orders.save": "Save",
   "app.orders.discard": "Descartar Todos",
   "app.orders.discardall": "Descartar",
   "app.orders.new": "Nova Ordem Lab",
@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Pedido descontinuado com sucesso",
   "app.orders.create.success":"Pedido Criado com Sucesso",
   "app.orders.is.active":"o pedido está ativo",
-  "app.orders.number":"Número do pedido"
+  "app.orders.number":"Número do pedido",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

@@ -2,7 +2,7 @@
   "app.title": "OpenMRS Electronic Medical Record",
   "app.labOrdersList.title": "Ordres",
   "app.orders.all": "Tout",
-  "app.orders.signandsave": "Signer et enregistrer",
+  "app.orders.save": "Enregistrer",
   "app.orders.discard": "Tout jeter",
   "app.orders.discardall": "Jeter",
   "app.orders.new": "Nouvelle commande de laboratoire",
@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Commande abandonnée avec succès",
   "app.orders.create.success":"Commande créée avec succès",
   "app.orders.is.active":"l'ordre est actif",
-  "app.orders.number":"Numéro de commande"
+  "app.orders.number":"Numéro de commande",
+  "app.orders.return": "Retour",
+  "app.orders.addResults": "Add Results"
 }

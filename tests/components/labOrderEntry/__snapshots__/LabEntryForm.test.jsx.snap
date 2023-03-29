@@ -7,7 +7,7 @@ exports[`Component: LabEntryForm should render on initial setup 1`] = `
   createOrder={[MockFunction]}
   createOrderReducer={
     Object {
-      "labOrderData": Object {},
+      "orderData": Object {},
       "status": Object {
         "added": true,
         "error": false,

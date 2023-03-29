@@ -2,7 +2,7 @@
   "app.title": "Registro electrónico médico OpenMRS",
   "app.labOrdersList.title": "Pedidos",
   "app.orders.all": "Todo",
-  "app.orders.signandsave": "Firmar y guardar",
+  "app.orders.save": "Guardar",
   "app.orders.discard": "Descartar todo",
   "app.orders.discardall": "Descartar",
   "app.orders.new": "Nuevo pedido de laboratorio",
@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "La orden se discontinuó de manera exitosa",
   "app.orders.create.success":"Pedido creado de manera exitosa",
   "app.orders.is.active":"pedido está vigente",
-  "app.orders.number":"Número de pedido"
+  "app.orders.number":"Número de pedido",
+  "app.orders.return": "Volver",
+  "app.orders.addResults": "Add Results"
 }

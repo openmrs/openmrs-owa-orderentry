@@ -110,6 +110,7 @@ exports[`Test for Order entry page when orderentryowa.encounterType is set shoul
               }
               editDraftDrugOrder={[MockFunction]}
               handleSubmit={[Function]}
+              showAddResultsButton={null}
               toggleDraftLabOrderUrgency={[MockFunction]}
             />
           </div>
@@ -126,7 +127,12 @@ exports[`Test for Order entry page when orderentryowa.encounterType is set shoul
             disabled={true}
             onClick={[Function]}
           >
-            Return
+            <FormattedMessage
+              defaultMessage="Return"
+              description="Return"
+              id="app.orders.return"
+              values={Object {}}
+            />
           </button>
         </div>
       </div>

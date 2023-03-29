@@ -2,7 +2,7 @@
   "app.title": "OpenMRS elektronische Patientenakte",
   "app.labOrdersList.title": "Aufträge",
   "app.orders.all": "Alle",
-  "app.orders.signandsave": "Übernehmen und speichern",
+  "app.orders.save": "Save",
   "app.orders.discard": "Alles verwerfen",
   "app.orders.discardall": "Verwerfen",
   "app.orders.new": "Neuer Laborauftrag",
@@ -38,5 +38,7 @@
   "app.orders.discontinue.success": "Auftrag erfolgreich eingestellt",
   "app.orders.create.success":"Auftrag erfolgreich erstellt",
   "app.orders.is.active":"Auftrag ist aktiv",
-  "app.orders.number":"Auftragsnummer"
+  "app.orders.number":"Auftragsnummer",
+  "app.orders.return": "Return",
+  "app.orders.addResults": "Add Results"
 }

@@ -182,9 +182,9 @@ describe('responseHandlerMiddleware', () => {
     }
     ]);
   });
-  it('should dispatch SAVE_DRAFT_LAB_ORDER_SUCCESS',() => {
+  it('should dispatch SAVE_ORDER_SUCCESS',() => {
       const action = {
-        type: 'SAVE_DRAFT_LAB_ORDER_SUCCESS',
+        type: 'SAVE_ORDER_SUCCESS',
         meta: {
             returnUrl: 'mockUrl'
         }
