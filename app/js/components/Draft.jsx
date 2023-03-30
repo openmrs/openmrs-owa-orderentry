@@ -103,20 +103,20 @@ export class Draft extends PureComponent {
         />
         <input
           type="submit"
-          onClick={() => handleSubmit()}
+          onClick={() => handleSubmit({ redirectToAddResults: true })}
           className="button confirm right modified-btn"
           value={save}
           disabled={isDisabled}
         />
         <br />
         <br />
-        { showAddResultsButton && <input
+      {/*  { showAddResultsButton && <input
           type="submit"
           onClick={() => handleSubmit({ redirectToAddResults: true })}
           className="button confirm right modified-btn"
           value={addResults}
           disabled={isDisabled}
-          /> }
+          /> }*/}
       </div>
     );
   }
