@@ -158,8 +158,12 @@ Draft.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleDraftDiscard: PropTypes.func.isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
-  showAddResultsButton: PropTypes.bool
+  showAddResultsButton: PropTypes.bool,
 };
+
+Draft.defaultProps = {
+  showAddResultsButton: false,
+}
 
 const mapStateToProps = state => ({
   isLoading: state.createOrderReducer.status.loading,

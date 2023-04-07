@@ -63,6 +63,7 @@ exports[`Component: Draft should render on initial setup 1`] = `
     }
   }
   locale="en"
+  showAddResultsButton={false}
   toggleDraftLabOrderUrgency={[MockFunction]}
 >
   <div>
