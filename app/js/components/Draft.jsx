@@ -158,7 +158,7 @@ Draft.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleDraftDiscard: PropTypes.func.isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
-  showAddResultsButton: PropTypes.bool.isRequired,
+  showAddResultsButton: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
