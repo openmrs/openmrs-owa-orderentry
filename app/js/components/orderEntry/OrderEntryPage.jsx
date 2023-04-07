@@ -84,9 +84,7 @@ export class OrderEntryPage extends PureComponent {
           orders: orderData.orders.map(o => o.uuid).join(","),
         });
         window.location.assign(url);
-      }
-      // otherwise, if there's an after save url, redirect there
-      else if (afterSaveUrl) {
+      } else if (afterSaveUrl) { // otherwise, if there's an after save url, redirect there
         window.location.assign(afterSaveUrl)
       }
     }
@@ -387,7 +385,7 @@ export class OrderEntryPage extends PureComponent {
                         }
                         editDraftDrugOrder={this.props.editDraftDrugOrder}
                         locale={this.props.sessionReducer.locale}
-                        showAddResultsButton={this.state.addResultsUrl ? true : false}
+                        showAddResultsButton={this.state.addResultsUrl}
                       />
                     </div>
                   </div>

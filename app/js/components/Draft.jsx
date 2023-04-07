@@ -73,11 +73,11 @@ export class Draft extends PureComponent {
 
   renderAddResultsButton = () => {
     const {
-      draftOrders, handleSubmit, intl, isLoading
+      draftOrders, handleSubmit, intl, isLoading,
     } = this.props;
     const isDisabled = draftOrders.length === 0 || isLoading;
     const addResults = intl.formatMessage({ id: "app.orders.addResults", defaultMessage: "Add Results" });
-    return(
+    return (
       <input
         type="submit"
         onClick={() => handleSubmit({ redirectToAddResults: true })}
@@ -90,7 +90,7 @@ export class Draft extends PureComponent {
 
   renderCancelButton = () => {
     const {
-      draftOrders, handleDraftDiscard, intl, isLoading, showAddResultsButton
+      draftOrders, handleDraftDiscard, intl, isLoading, showAddResultsButton,
     } = this.props;
     const isDisabled = draftOrders.length === 0 || isLoading;
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
@@ -100,14 +100,14 @@ export class Draft extends PureComponent {
         type="button"
         id="draft-discard-all"
         onClick={() => handleDraftDiscard()}
-        className={`button ${showAddResultsButton? 'right' : ''} cancel modified-btn`}
+        className={`button ${showAddResultsButton ? 'right' : ''} cancel modified-btn`}
         value={draftOrders.length > 1 ? discardAll : discard}
         disabled={isDisabled}
       />)
   }
   renderSubmitButton = () => {
     const {
-      draftOrders, handleSubmit, intl, showAddResultsButton, isLoading
+      draftOrders, handleSubmit, intl, showAddResultsButton, isLoading,
     } = this.props;
     const isDisabled = draftOrders.length === 0 || isLoading;
     const save = intl.formatMessage({ id: "app.orders.save", defaultMessage: "Save" });
@@ -116,13 +116,11 @@ export class Draft extends PureComponent {
       <input
         type="submit"
         onClick={() => handleSubmit()}
-        className={`button confirm ${!showAddResultsButton? 'right' : ''} modified-btn`}
+        className={`button confirm ${!showAddResultsButton ? 'right' : ''} modified-btn`}
         value={save}
         disabled={isDisabled}
       />)
   }
-
-
 
   render() {
     const {
