@@ -221,7 +221,7 @@ exports[`Component: Draft should render on initial setup 1`] = `
     </div>
     <br />
     <input
-      className="button cancel modified-btn"
+      className="button  cancel modified-btn"
       id="draft-discard-all"
       onClick={[Function]}
       type="button"
@@ -231,7 +231,7 @@ exports[`Component: Draft should render on initial setup 1`] = `
       className="button confirm right modified-btn"
       onClick={[Function]}
       type="submit"
-      value="Sign and Save"
+      value="Save"
     />
     <br />
     <br />
