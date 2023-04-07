@@ -70,15 +70,65 @@ export class Draft extends PureComponent {
         </li>);
     });
   }
-  render() {
+
+  renderAddResultsButton = () => {
     const {
-      draftOrders, handleDraftDiscard, handleSubmit, intl, isLoading, showAddResultsButton,
+      draftOrders, handleSubmit, intl, isLoading
     } = this.props;
     const isDisabled = draftOrders.length === 0 || isLoading;
-    const save = intl.formatMessage({ id: "app.orders.save", defaultMessage: "Sign and Save" });
     const addResults = intl.formatMessage({ id: "app.orders.addResults", defaultMessage: "Add Results" });
+    return(
+      <input
+        type="submit"
+        onClick={() => handleSubmit({ redirectToAddResults: true })}
+        className="button confirm right modified-btn"
+        value={addResults}
+        disabled={isDisabled}
+      />)
+  }
+
+
+  renderCancelButton = () => {
+    const {
+      draftOrders, handleDraftDiscard, intl, isLoading, showAddResultsButton
+    } = this.props;
+    const isDisabled = draftOrders.length === 0 || isLoading;
     const discard = intl.formatMessage({ id: "app.orders.discard", defaultMessage: "Discard" });
     const discardAll = intl.formatMessage({ id: "app.orders.discardall", defaultMessage: "Discard All" });
+    return (
+      <input
+        type="button"
+        id="draft-discard-all"
+        onClick={() => handleDraftDiscard()}
+        className={`button ${showAddResultsButton? 'right' : ''} cancel modified-btn`}
+        value={draftOrders.length > 1 ? discardAll : discard}
+        disabled={isDisabled}
+      />)
+  }
+  renderSubmitButton = () => {
+    const {
+      draftOrders, handleSubmit, intl, showAddResultsButton, isLoading
+    } = this.props;
+    const isDisabled = draftOrders.length === 0 || isLoading;
+    const save = intl.formatMessage({ id: "app.orders.save", defaultMessage: "Save" });
+
+    return (
+      <input
+        type="submit"
+        onClick={() => handleSubmit()}
+        className={`button confirm ${!showAddResultsButton? 'right' : ''} modified-btn`}
+        value={save}
+        disabled={isDisabled}
+      />)
+  }
+
+
+
+  render() {
+    const {
+      draftOrders, showAddResultsButton,
+    } = this.props;
+
     return (
       <div>
         <h5 className="h5-draft-header">
@@ -93,30 +143,12 @@ export class Draft extends PureComponent {
           </ul>
         </div>
         <br />
-        <input
-          type="button"
-          id="draft-discard-all"
-          onClick={() => handleDraftDiscard()}
-          className="button cancel modified-btn"
-          value={draftOrders.length > 1 ? discardAll : discard}
-          disabled={isDisabled}
-        />
-        <input
-          type="submit"
-          onClick={() => handleSubmit()}
-          className="button confirm right modified-btn"
-          value={save}
-          disabled={isDisabled}
-        />
+        { !showAddResultsButton && this.renderCancelButton() }
+        { this.renderSubmitButton() }
+        { showAddResultsButton && this.renderAddResultsButton()}
         <br />
         <br />
-        { showAddResultsButton && <input
-          type="submit"
-          onClick={() => handleSubmit({ redirectToAddResults: true })}
-          className="button confirm right modified-btn"
-          value={addResults}
-          disabled={isDisabled}
-          /> }
+        { showAddResultsButton && this.renderCancelButton()}
       </div>
     );
   }

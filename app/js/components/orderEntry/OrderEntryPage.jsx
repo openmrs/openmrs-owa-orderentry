@@ -40,6 +40,7 @@ export class OrderEntryPage extends PureComponent {
   state = {
     page: new URLSearchParams(this.props.location.search).get('page'),
     returnUrl: new URLSearchParams(this.props.location.search).get('returnUrl'),
+    afterSaveUrl: new URLSearchParams(this.props.location.search).get('afterSaveUrl'),
     addResultsUrl: new URLSearchParams(this.props.location.search).get('addResultsUrl'),
   };
 
@@ -70,7 +71,7 @@ export class OrderEntryPage extends PureComponent {
     } = this.props.addResultsReducer
 
     const { intl } = this.props;
-    const { addResultsUrl } = this.state;
+    const { addResultsUrl, afterSaveUrl } = this.state;
     const orderCreatedMsg = intl.formatMessage({ id: "app.orders.create.success", defaultMessage: "Order Successfully Created" });
     if (added && orderData !== prevProps.createOrderReducer.orderData) {
       successToast(orderCreatedMsg);
@@ -83,6 +84,10 @@ export class OrderEntryPage extends PureComponent {
           orders: orderData.orders.map(o => o.uuid).join(","),
         });
         window.location.assign(url);
+      }
+      // otherwise, if there's an after save url, redirect there
+      else if (afterSaveUrl) {
+        window.location.assign(afterSaveUrl)
       }
     }
     if (error) {
@@ -382,7 +387,7 @@ export class OrderEntryPage extends PureComponent {
                         }
                         editDraftDrugOrder={this.props.editDraftDrugOrder}
                         locale={this.props.sessionReducer.locale}
-                        showAddResultsButton={this.state.addResultsUrl}
+                        showAddResultsButton={this.state.addResultsUrl ? true : false}
                       />
                     </div>
                   </div>
