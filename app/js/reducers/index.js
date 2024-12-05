@@ -32,6 +32,7 @@ import orderSelectionReducer from './orderSelectionReducer';
 import draftReducer from './draftReducer';
 import contextReducer from "./contextReducer";
 import addResultsReducer from "./addResultsReducer";
+import orderReasonsReducer from "./orderReasonsReducer";
 
 export default combineReducers({
   openmrs: reducers,
@@ -59,4 +60,5 @@ export default combineReducers({
   orderSelectionReducer,
   contextReducer,
   addResultsReducer,
+  orderReasonsReducer,
 });

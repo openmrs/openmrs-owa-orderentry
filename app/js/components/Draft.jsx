@@ -6,11 +6,21 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
 import IconButton from './button/IconButton';
 import { getConceptShortName } from '../utils/helpers';
+import fetchOrderReasonsGlobalProperty from "../actions/orderReasonsAction";
 
 export class Draft extends PureComponent {
+
+  state = {
+    orderReasons: null
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchOrderReasonsGlobalProperty());
+  }
+
   renderDraftList = () => {
     let draftType;
-    const { draftOrders, handleDraftDiscard, locale } = this.props;
+    const { draftOrders, handleDraftDiscard, locale, orderReasonsMap } = this.props;
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
       const isOtherOrderType = !!order.type;
@@ -34,20 +44,23 @@ export class Draft extends PureComponent {
       );
 
       return (
+          <span>
         <li className="draft-list small-font" key={`draft-order-${order.id}`}>
           <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
           <span className="draft-name">{ orderName }</span>
           <div className="action-btn-wrapper">
             <span className="action-btn">
               { order.type !== 'drugorder' ?
-                <IconButton
+                <div>
+                  <IconButton
                   iconClass={iconClass}
                   iconTitle="Urgency"
                   dataContext={order}
                   onClick={this.props.toggleDraftLabOrderUrgency}
                   icon="&#x25B2;"
                   id="draft-toggle-btn icon-btn-anchor"
-                /> :
+                />
+                </div>:
                 <IconButton
                   iconClass="icon-pencil"
                   iconTitle="EDIT"
@@ -67,7 +80,22 @@ export class Draft extends PureComponent {
               />
             </span>
           </div>
-        </li>);
+        </li>
+            <li>
+               <FormattedMessage
+                   id="app.orders.reason"
+                   defaultMessage="Order Reason"
+                   description="Reason for order" />
+              <select id="orderReason" name="orderReason">
+                <option value="0"></option>
+                <option value="1">Test at Enrollment</option>
+                <option value="2">Targeted test</option>
+                <option value="3">Failure Confirmation Test</option>
+                <option value="3">Routine test</option>
+              </select>
+            </li>
+          </span>
+      );
     });
   }
 
@@ -167,6 +195,7 @@ Draft.defaultProps = {
 
 const mapStateToProps = state => ({
   isLoading: state.createOrderReducer.status.loading,
+  orderReasonsMap: state.orderReasons.orderReasonsMap,
 });
 
 export default connect(mapStateToProps)(injectIntl(Draft));
