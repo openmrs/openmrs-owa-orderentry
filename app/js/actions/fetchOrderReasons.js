@@ -6,4 +6,4 @@ const fetchOrderReasons = conceptUUID => ({
 
 });
 
-export default fetchOrderReasons();
+export default fetchOrderReasons;

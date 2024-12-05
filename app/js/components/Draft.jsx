@@ -6,7 +6,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import constants from '../utils/constants';
 import IconButton from './button/IconButton';
 import { getConceptShortName } from '../utils/helpers';
-import fetchOrderReasonsGlobalProperty from "../actions/orderReasonsAction";
+import fetchOrderReasonsGlobalProperty from "../actions/fetchOrderReasonsGlobalProperty";
 
 export class Draft extends PureComponent {
 
@@ -45,42 +45,42 @@ export class Draft extends PureComponent {
 
       return (
           <span>
-        <li className="draft-list small-font" key={`draft-order-${order.id}`}>
-          <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
-          <span className="draft-name">{ orderName }</span>
-          <div className="action-btn-wrapper">
-            <span className="action-btn">
-              { order.type !== 'drugorder' ?
-                <div>
+            <li className="draft-list small-font" key={`draft-order-${order.id}`}>
+              <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
+              <span className="draft-name">{ orderName }</span>
+              <div className="action-btn-wrapper">
+                <span className="action-btn">
+                  { order.type !== 'drugorder' ?
+                    <div>
+                      <IconButton
+                      iconClass={iconClass}
+                      iconTitle="Urgency"
+                      dataContext={order}
+                      onClick={this.props.toggleDraftLabOrderUrgency}
+                      icon="&#x25B2;"
+                      id="draft-toggle-btn icon-btn-anchor"
+                    />
+                    </div>:
+                    <IconButton
+                      iconClass="icon-pencil"
+                      iconTitle="EDIT"
+                      dataContext={order}
+                      onClick={this.props.editDraftDrugOrder}
+                      id="draft-toggle-btn icon-btn-anchor"
+                    />
+                  }
+                </span>
+                <span className="action-btn right">
                   <IconButton
-                  iconClass={iconClass}
-                  iconTitle="Urgency"
-                  dataContext={order}
-                  onClick={this.props.toggleDraftLabOrderUrgency}
-                  icon="&#x25B2;"
-                  id="draft-toggle-btn icon-btn-anchor"
-                />
-                </div>:
-                <IconButton
-                  iconClass="icon-pencil"
-                  iconTitle="EDIT"
-                  dataContext={order}
-                  onClick={this.props.editDraftDrugOrder}
-                  id="draft-toggle-btn icon-btn-anchor"
-                />
-              }
-            </span>
-            <span className="action-btn right">
-              <IconButton
-                iconClass="icon-remove"
-                iconTitle="Discard"
-                id="draft-discard-btn"
-                dataContext={{ order, draftType }}
-                onClick={handleDraftDiscard}
-              />
-            </span>
-          </div>
-        </li>
+                    iconClass="icon-remove"
+                    iconTitle="Discard"
+                    id="draft-discard-btn"
+                    dataContext={{ order, draftType }}
+                    onClick={handleDraftDiscard}
+                  />
+                </span>
+              </div>
+            </li>
             <li>
                <FormattedMessage
                    id="app.orders.reason"
@@ -195,7 +195,7 @@ Draft.defaultProps = {
 
 const mapStateToProps = state => ({
   isLoading: state.createOrderReducer.status.loading,
-  orderReasonsMap: state.orderReasons.orderReasonsMap,
+  orderReasonsMap: state.orderReasonsReducer.orderReasonsMap,
 });
 
 export default connect(mapStateToProps)(injectIntl(Draft));
