@@ -27,8 +27,6 @@ export class Draft extends PureComponent {
         this.props.setLabOrderReason({orderReason: orderReasons.members[0].uuid, order: order})
       }
 
-      console.log("reason = ", order.orderReason)
-
       if (isPanel) {
         draftType = 'panel';
       } else {
