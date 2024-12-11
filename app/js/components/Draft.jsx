@@ -10,10 +10,6 @@ import fetchOrderReasonsGlobalProperty from "../actions/fetchOrderReasonsGlobalP
 
 export class Draft extends PureComponent {
 
-  state = {
-    orderReasons: null
-  }
-
   componentDidMount() {
     this.props.dispatch(fetchOrderReasonsGlobalProperty());
   }
@@ -24,6 +20,14 @@ export class Draft extends PureComponent {
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
       const isOtherOrderType = !!order.type;
+      const orderReasons = orderReasonsMap && orderReasonsMap[order.uuid] || null;
+
+      // set default order reason if not set
+      if (orderReasons && orderReasons.members && orderReasons.members.length > 0 && order.orderReason === undefined) {
+        this.props.setLabOrderReason({orderReason: orderReasons.members[0].uuid, order: order})
+      }
+
+      console.log("reason = ", order.orderReason)
 
       if (isPanel) {
         draftType = 'panel';
@@ -81,19 +85,22 @@ export class Draft extends PureComponent {
                 </span>
               </div>
             </li>
-            <li>
-               <FormattedMessage
-                   id="app.orders.reason"
-                   defaultMessage="Order Reason"
-                   description="Reason for order" />
-              <select id="orderReason" name="orderReason">
-                <option value="0"></option>
-                <option value="1">Test at Enrollment</option>
-                <option value="2">Targeted test</option>
-                <option value="3">Failure Confirmation Test</option>
-                <option value="3">Routine test</option>
-              </select>
-            </li>
+
+            { order.type !== 'drugorder' && orderReasons && orderReasons.members && orderReasons.members.length > 0 &&
+              <li key={`draft-order-reason-${order.id}`}>
+                 <FormattedMessage
+                     id="app.orders.reason"
+                     defaultMessage="Order Reason"
+                     description="Reason for order" />
+                <select id="orderReason" name="orderReason" value={order.orderReason}
+                        onChange={(event) => this.props.setLabOrderReason({orderReason: event.target.value, order: order})}>
+                  {orderReasons.members.map((reason) => (
+                    <option value={reason.uuid}>{reason.display}</option>
+                  ))}
+                </select>
+              </li>
+            }
+
           </span>
       );
     });
@@ -185,6 +192,7 @@ Draft.propTypes = {
   editDraftDrugOrder: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleDraftDiscard: PropTypes.func.isRequired,
+  setLabOrderReason: PropTypes.func.isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
   showAddResultsButton: PropTypes.bool,
 };

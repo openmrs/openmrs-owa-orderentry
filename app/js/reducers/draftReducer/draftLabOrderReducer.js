@@ -5,6 +5,7 @@ import {
   DELETE_TEST_FROM_DRAFT_LAB_ORDER,
   DELETE_PANEL_FROM_DRAFT_LAB_ORDER,
   DELETE_ALL_ITEMS_IN_DRAFT_LAB_ORDER,
+  SET_LAB_ORDER_REASON,
 } from '../../actions/actionTypes';
 import initialState from '../initialState';
 
@@ -120,6 +121,24 @@ export default (state = initialState.draftReducer, action) => {
         },
       };
     }
+
+    case SET_LAB_ORDER_REASON: {
+      const { order, orderReason } = action;
+      return {
+        ...state,
+        draftLabOrders: {
+          ...state.draftLabOrders,
+          orders: state.draftLabOrders.orders.map((draftOrder) => {
+            if (draftOrder.uuid === order.uuid) {
+              return { ...draftOrder, orderReason: orderReason };
+            } else {
+              return draftOrder;
+            }
+          })
+        },
+      };
+    }
+
 
     case DELETE_PANEL_FROM_DRAFT_LAB_ORDER: {
       const panel = action.orders;
