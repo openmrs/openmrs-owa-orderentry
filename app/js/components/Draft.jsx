@@ -9,22 +9,28 @@ import { getConceptShortName } from '../utils/helpers';
 import fetchOrderReasonsGlobalProperty from "../actions/fetchOrderReasonsGlobalProperty";
 
 export class Draft extends PureComponent {
-
   componentDidMount() {
     this.props.dispatch(fetchOrderReasonsGlobalProperty());
   }
 
   renderDraftList = () => {
     let draftType;
-    const { draftOrders, handleDraftDiscard, locale, orderReasonsMap } = this.props;
+    const {
+      draftOrders,
+      handleDraftDiscard,
+      locale,
+      orderReasonsMap,
+    } = this.props;
     return draftOrders.map((order) => {
       const isPanel = !!order.set;
       const isOtherOrderType = !!order.type;
-      const orderReasons = orderReasonsMap && orderReasonsMap[order.uuid] || null;
+      const orderReasons =
+        orderReasonsMap && orderReasonsMap[order.uuid] ? orderReasonsMap[order.uuid] : null;
 
       // set default order reason if not set
-      if (orderReasons && orderReasons.members && orderReasons.members.length > 0 && order.orderReason === undefined) {
-        this.props.setLabOrderReason({orderReason: orderReasons.members[0].uuid, order: order})
+      if (orderReasons && orderReasons.members && orderReasons.members.length > 0
+        && order.orderReason === undefined) {
+        this.props.setLabOrderReason({ orderReason: orderReasons.members[0].uuid, order });
       }
 
       if (isPanel) {
@@ -46,60 +52,63 @@ export class Draft extends PureComponent {
       );
 
       return (
-          <span>
-            <li className="draft-list small-font" key={`draft-order-${order.id}`}>
-              <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
-              <span className="draft-name">{ orderName }</span>
-              <div className="action-btn-wrapper">
-                <span className="action-btn">
-                  { order.type !== 'drugorder' ?
-                    <div>
-                      <IconButton
-                      iconClass={iconClass}
-                      iconTitle="Urgency"
-                      dataContext={order}
-                      onClick={this.props.toggleDraftLabOrderUrgency}
-                      icon="&#x25B2;"
-                      id="draft-toggle-btn icon-btn-anchor"
-                    />
-                    </div>:
+        <span>
+          <li className="draft-list small-font" key={`draft-order-${order.id}`}>
+            <span className="order-status">{!order.action ? 'NEW' : order.action}</span>
+            <span className="draft-name">{ orderName }</span>
+            <div className="action-btn-wrapper">
+              <span className="action-btn">
+                { order.type !== 'drugorder' ?
+                  <div>
                     <IconButton
-                      iconClass="icon-pencil"
-                      iconTitle="EDIT"
-                      dataContext={order}
-                      onClick={this.props.editDraftDrugOrder}
-                      id="draft-toggle-btn icon-btn-anchor"
-                    />
-                  }
-                </span>
-                <span className="action-btn right">
-                  <IconButton
-                    iconClass="icon-remove"
-                    iconTitle="Discard"
-                    id="draft-discard-btn"
-                    dataContext={{ order, draftType }}
-                    onClick={handleDraftDiscard}
+                    iconClass={iconClass}
+                    iconTitle="Urgency"
+                    dataContext={order}
+                    onClick={this.props.toggleDraftLabOrderUrgency}
+                    icon="&#x25B2;"
+                    id="draft-toggle-btn icon-btn-anchor"
                   />
-                </span>
-              </div>
+                  </div> :
+                  <IconButton
+                    iconClass="icon-pencil"
+                    iconTitle="EDIT"
+                    dataContext={order}
+                    onClick={this.props.editDraftDrugOrder}
+                    id="draft-toggle-btn icon-btn-anchor"
+                  />
+                }
+              </span>
+              <span className="action-btn right">
+                <IconButton
+                  iconClass="icon-remove"
+                  iconTitle="Discard"
+                  id="draft-discard-btn"
+                  dataContext={{ order, draftType }}
+                  onClick={handleDraftDiscard}
+                />
+              </span>
+            </div>
+          </li>
+
+          { order.type !== 'drugorder' && orderReasons && orderReasons.members && orderReasons.members.length > 0 &&
+            <li key={`draft-order-reason-${order.id}`}>
+              <FormattedMessage
+               id="app.orders.reason"
+               defaultMessage="Order Reason"
+               description="Reason for order" />
+              <select
+                id="orderReason"
+                name="orderReason"
+                value={order.orderReason}
+                onChange={event =>
+                  this.props.setLabOrderReason({ orderReason: event.target.value, order })}>
+                {orderReasons.members.map(reason => (
+                  <option value={reason.uuid}>{reason.display}</option>
+                ))}
+              </select>
             </li>
-
-            { order.type !== 'drugorder' && orderReasons && orderReasons.members && orderReasons.members.length > 0 &&
-              <li key={`draft-order-reason-${order.id}`}>
-                 <FormattedMessage
-                     id="app.orders.reason"
-                     defaultMessage="Order Reason"
-                     description="Reason for order" />
-                <select id="orderReason" name="orderReason" value={order.orderReason}
-                        onChange={(event) => this.props.setLabOrderReason({orderReason: event.target.value, order: order})}>
-                  {orderReasons.members.map((reason) => (
-                    <option value={reason.uuid}>{reason.display}</option>
-                  ))}
-                </select>
-              </li>
-            }
-
-          </span>
+          }
+        </span>
       );
     });
   }
@@ -117,7 +126,7 @@ export class Draft extends PureComponent {
         className="button confirm right modified-btn"
         value={addResults}
         disabled={isDisabled}
-      />)
+      />);
   }
 
 
@@ -136,7 +145,7 @@ export class Draft extends PureComponent {
         className={`button ${showAddResultsButton ? 'right' : ''} cancel modified-btn`}
         value={draftOrders.length > 1 ? discardAll : discard}
         disabled={isDisabled}
-      />)
+      />);
   }
   renderSubmitButton = () => {
     const {
@@ -152,7 +161,7 @@ export class Draft extends PureComponent {
         className={`button confirm ${!showAddResultsButton ? 'right' : ''} modified-btn`}
         value={save}
         disabled={isDisabled}
-      />)
+      />);
   }
 
   render() {
@@ -186,6 +195,11 @@ export class Draft extends PureComponent {
 }
 
 Draft.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  intl: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired,
+  orderReasonsMap: PropTypes.object.isRequired,
   draftOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   editDraftDrugOrder: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -197,7 +211,7 @@ Draft.propTypes = {
 
 Draft.defaultProps = {
   showAddResultsButton: false,
-}
+};
 
 const mapStateToProps = state => ({
   isLoading: state.createOrderReducer.status.loading,

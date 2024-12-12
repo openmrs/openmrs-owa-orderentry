@@ -196,6 +196,15 @@ Then administrator should make the following one time configurations using the a
 6. Add global property `orderentryowa.labOrderAutoExpireTimeInDays` with a value of `30` days or any other number
 7. Add global propery Lab Orderables Concept Set `orderentryowa.labOrderablesConceptSet`, whose value is the UUID of a concept set of Class LabSet and whose Set Members are other LabSet concept sets or concept of Class Test.
 
+### Additional features
+
+As of version 1.30, the module supports a collecting an "order reason" for Lab Orders.  Order reasons are specified at
+individual test or panel level via global property `orderentryowa.orderReasonsMap` that supports a pipe-delimited 
+lists of panel or panel uuids mapping tests to concept sets that provides the reason for ordering.  A single set of
+tests/panels can also be mapped to the same concept set. For example:
+
+uuid-of-test-a=uuid-of-concept-set-that-contains-potential-reasons-for-test-a|uuid-of-test-b,uuid-of-panel-a=uuid-of-concept-set-that contains potential-reasons-for-test-b-and-panel-a
+
 
 **NB:** Not having any of the above configurations will result into an error notice. Please check more information [here](https://wiki.openmrs.org/display/projects/Order+Entry+UI+Administrator+Guide)
 

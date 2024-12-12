@@ -32,17 +32,16 @@ export default (state = initialState.orderReasons, action) => {
         }
 
         case FETCH_ORDER_REASONS_SUCCESS: {
-
-            Object.keys(state.orderReasonsMap).forEach(
-                (orderReason) => {
-                    if (state.orderReasonsMap[orderReason].setUuid === action.payload.data.uuid) {
-                        state.orderReasonsMap[orderReason].members = action.payload.data.setMembers;
+            const newOrderReasonsMap = state.orderReasonsMap;
+            Object.keys(newOrderReasonsMap).forEach((orderReason) => {
+                    if (newOrderReasonsMap[orderReason].setUuid === action.payload.data.uuid) {
+                        newOrderReasonsMap.members = action.payload.data.setMembers;
                     }
-                }
-            )
+                });
 
             return {
-                ...state
+                ...state,
+                orderReasonsMap: newOrderReasonsMap,
             };
         }
 
@@ -53,7 +52,7 @@ export default (state = initialState.orderReasons, action) => {
             };
         }
 
-        case FETCH_ORDER_REASONS_FAILURE : {
+        case FETCH_ORDER_REASONS_FAILURE: {
             return {
                 ...state,
                 errorMessage: action.payload,
@@ -61,8 +60,6 @@ export default (state = initialState.orderReasons, action) => {
                 loading: false,
             };
         }
-
-
         default:
             return state;
     }

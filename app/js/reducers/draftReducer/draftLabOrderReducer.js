@@ -130,11 +130,10 @@ export default (state = initialState.draftReducer, action) => {
           ...state.draftLabOrders,
           orders: state.draftLabOrders.orders.map((draftOrder) => {
             if (draftOrder.uuid === order.uuid) {
-              return { ...draftOrder, orderReason: orderReason };
-            } else {
-              return draftOrder;
+              return { ...draftOrder, orderReason };
             }
-          })
+            return draftOrder;
+          }),
         },
       };
     }

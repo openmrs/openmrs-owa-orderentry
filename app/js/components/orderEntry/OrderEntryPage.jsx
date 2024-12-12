@@ -581,7 +581,7 @@ const actionCreators = {
   createOrder,
   setContext,
   setRedirectToAddResults,
-  setLabOrderReason
+  setLabOrderReason,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);

@@ -34,6 +34,7 @@ props = {
   handleDraftDiscard: jest.fn(),
   toggleDraftLabOrderUrgency: jest.fn(),
   editDraftDrugOrder: jest.fn(),
+  dispatch: jest.fn(),
   locale: 'en',
 };
 
