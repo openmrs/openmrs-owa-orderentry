@@ -198,7 +198,7 @@ Then administrator should make the following one time configurations using the a
 
 ### Additional features
 
-As of version 1.30, the module supports a collecting an "order reason" for Lab Orders.  Order reasons are specified at
+As of version 1.3.0, the module supports a collecting an "order reason" for Lab Orders.  Order reasons are specified at
 individual test or panel level via global property `orderentryowa.orderReasonsMap` that supports a pipe-delimited 
 lists of panel or panel uuids mapping tests to concept sets that provides the reason for ordering.  A single set of
 tests/panels can also be mapped to the same concept set. For example:
