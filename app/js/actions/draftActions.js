@@ -1,4 +1,4 @@
-import { DELETE_DRAFT_DRUG_ORDER_SUCCESS, TOGGLE_DRAFT_LAB_ORDER_URGENCY } from './actionTypes';
+import { DELETE_DRAFT_DRUG_ORDER_SUCCESS, SET_LAB_ORDER_REASON, TOGGLE_DRAFT_LAB_ORDER_URGENCY } from './actionTypes';
 import { DRUG_ORDER } from '../components/orderEntry/orderTypes';
 import { selectDrugSuccess } from './drug';
 import { setSelectedOrder } from './orderAction';
@@ -6,7 +6,7 @@ import {
   removeTestFromDraft,
   removeTestPanelFromDraft,
   deleteDraftLabOrder,
-} from '../actions/draftLabOrderAction';
+} from './draftLabOrderAction';
 import { deleteAllDrugDraftOrders } from './draftTableAction';
 import constants from '../utils/constants';
 
@@ -54,3 +54,9 @@ export const discardTestsInDraft = (test = {}) => (dispatch) => {
   dispatch(deleteDraftLabOrder());
   return dispatch(deleteAllDrugDraftOrders());
 };
+
+export const setLabOrderReason = ({ order, orderReason }) => ({
+  type: SET_LAB_ORDER_REASON,
+  order,
+  orderReason,
+});

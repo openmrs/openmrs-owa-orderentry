@@ -129,4 +129,9 @@ export default {
     selectedOrder: {},
     activity: '',
   },
+  orderReasons: {
+      orderReasonsMap: {},
+      loading: false,
+      error: null,
+  },
 };

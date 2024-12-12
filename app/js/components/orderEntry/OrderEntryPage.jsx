@@ -27,6 +27,7 @@ import { loadGlobalProperties, APP_GLOBAL_PROPERTIES } from "../../utils/globalP
 import {
   editDraftDrugOrder,
   toggleDraftLabOrderUrgency,
+  setLabOrderReason,
   discardTestsInDraft,
 } from '../../actions/draftActions';
 import imageLoader from '../../../img/loading.gif';
@@ -175,6 +176,7 @@ export class OrderEntryPage extends PureComponent {
     careSetting: this.props.inpatientCareSetting.uuid,
     encounter: this.props.encounterType.uuid,
     orderer: this.props.sessionReducer.currentProvider.uuid,
+    orderReason: order.orderReason,
     patient: this.props.patient.uuid,
     type: 'testorder',
     urgency: order.urgency || 'ROUTINE',
@@ -385,6 +387,7 @@ export class OrderEntryPage extends PureComponent {
                         }
                         editDraftDrugOrder={this.props.editDraftDrugOrder}
                         locale={this.props.sessionReducer.locale}
+                        setLabOrderReason={this.props.setLabOrderReason}
                         showAddResultsButton={this.state.addResultsUrl}
                       />
                     </div>
@@ -492,6 +495,7 @@ OrderEntryPage.propTypes = {
   draftLabOrders: PropTypes.object.isRequired,
   draftDrugOrders: PropTypes.arrayOf(PropTypes.any).isRequired,
   toggleDraftLabOrderUrgency: PropTypes.func.isRequired,
+  setLabOrderReason: PropTypes.func.isRequired,
   discardTestsInDraft: PropTypes.func.isRequired,
   createOrder: PropTypes.func.isRequired,
   setContext: PropTypes.func.isRequired,
@@ -577,6 +581,7 @@ const actionCreators = {
   createOrder,
   setContext,
   setRedirectToAddResults,
+  setLabOrderReason,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch);
