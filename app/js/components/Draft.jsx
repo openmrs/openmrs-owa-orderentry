@@ -95,7 +95,7 @@ export class Draft extends PureComponent {
               <FormattedMessage
                id="app.orders.reason"
                defaultMessage="Order Reason"
-               description="Reason for order" />
+               description="Reason for order" />:
               <select
                 id="orderReason"
                 name="orderReason"

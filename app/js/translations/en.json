@@ -35,6 +35,7 @@
   "app.orders.discontinue":"DISCONTINUE",
   "app.orders.discontinue.question":"Are you sure you want to discontinue this order ?",
   "app.orders.discontinue.reason":"Reason for discontinuing",
+  "app.orders.reason":"Order Reason",
   "app.orders.discontinue.success": "Order discontinued successfully",
   "app.orders.create.success":"Order Successfully Created",
   "app.orders.is.active":"order is active",
