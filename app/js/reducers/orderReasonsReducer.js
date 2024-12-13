@@ -35,7 +35,7 @@ export default (state = initialState.orderReasons, action) => {
             const newOrderReasonsMap = state.orderReasonsMap;
             Object.keys(newOrderReasonsMap).forEach((orderReason) => {
                     if (newOrderReasonsMap[orderReason].setUuid === action.payload.data.uuid) {
-                        newOrderReasonsMap[orderReason].members = action.payload.data.setMembers;
+                        newOrderReasonsMap[orderReason].answers = action.payload.data.answers;
                     }
                 });
 

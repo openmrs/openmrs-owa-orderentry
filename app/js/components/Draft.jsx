@@ -28,9 +28,9 @@ export class Draft extends PureComponent {
         orderReasonsMap && orderReasonsMap[order.uuid] ? orderReasonsMap[order.uuid] : null;
 
       // set default order reason if not set
-      if (orderReasons && orderReasons.members && orderReasons.members.length > 0
+      if (orderReasons && orderReasons.answers && orderReasons.answers.length > 0
         && order.orderReason === undefined) {
-        this.props.setLabOrderReason({ orderReason: orderReasons.members[0].uuid, order });
+        this.props.setLabOrderReason({ orderReason: orderReasons.answers[0].uuid, order });
       }
 
       if (isPanel) {
@@ -90,7 +90,7 @@ export class Draft extends PureComponent {
             </div>
           </li>
 
-          { order.type !== 'drugorder' && orderReasons && orderReasons.members && orderReasons.members.length > 0 &&
+          { order.type !== 'drugorder' && orderReasons && orderReasons.answers && orderReasons.answers.length > 0 &&
             <li key={`draft-order-reason-${order.id}`}>
               <FormattedMessage
                id="app.orders.reason"
@@ -102,7 +102,7 @@ export class Draft extends PureComponent {
                 value={order.orderReason}
                 onChange={event =>
                   this.props.setLabOrderReason({ orderReason: event.target.value, order })}>
-                {orderReasons.members.map(reason => (
+                {orderReasons.answers.map(reason => (
                   <option value={reason.uuid}>{reason.display}</option>
                 ))}
               </select>
