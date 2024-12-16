@@ -40,5 +40,6 @@
   "app.orders.is.active":"l'ordre est actif",
   "app.orders.number":"Numéro de commande",
   "app.orders.return": "Retour",
-  "app.orders.addResults": "Add Results"
+  "app.orders.addResults": "Add Results",
+  "app.orders.reason":"Motif de la commande"
 }
